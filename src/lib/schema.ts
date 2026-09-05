@@ -46,7 +46,7 @@ export const organizationSchema = () => ({
   legalName: site.legalName,
   url: site.url,
   logo: `${site.url}/logo.png`,
-  image: `${site.url}/logo.png`,
+  image: `${site.url}/og-image.jpg`,
   description: site.description,
   email: site.contact.email,
   telephone: site.contact.phone,

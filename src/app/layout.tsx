@@ -40,20 +40,19 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.url,
     locale: 'en_US',
-    images: [{ url: '/logo.png', width: 1024, height: 1024, alt: site.name }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: site.name }],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${site.name} — Outdoor Living & Refrigerants`,
     description: site.description,
-    images: ['/logo.png'],
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
-  icons: { icon: '/logo.png', apple: '/logo.png' },
 };
 
 export const viewport: Viewport = {

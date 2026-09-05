@@ -2,17 +2,16 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { ProductGrid } from '@/components/Section';
-import CollectionToolbar from '@/components/CollectionToolbar';
+import CollectionSorter from '@/components/CollectionSorter';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import { itemListSchema } from '@/lib/schema';
-import { collections, getCollection, productsIn, discountPct, type Product } from '@/lib/catalog';
+import { collections, getCollection, productsIn, discountPct } from '@/lib/catalog';
 import { getVirtualCollection, virtualCollections } from '@/lib/virtual-collections';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
 
 type Params = { slug: string };
-type Search = { sort?: string; stock?: string };
 
 /** Resolves either a real category or a merchandising collection. */
 function resolve(slug: string) {
@@ -68,43 +67,12 @@ export async function generateMetadata({
   };
 }
 
-const sortItems = (items: Product[], sort?: string) => {
-  const list = [...items];
-  switch (sort) {
-    case 'price-asc':
-      return list.sort((a, b) => a.price - b.price);
-    case 'price-desc':
-      return list.sort((a, b) => b.price - a.price);
-    case 'discount':
-      return list.sort((a, b) => discountPct(b) - discountPct(a));
-    case 'name':
-      return list.sort((a, b) => a.title.localeCompare(b.title));
-    default:
-      // "Featured": in stock first, then discounted, then alphabetical.
-      return list.sort(
-        (a, b) =>
-          Number(b.available) - Number(a.available) ||
-          discountPct(b) - discountPct(a) ||
-          a.title.localeCompare(b.title)
-      );
-  }
-};
-
-export default async function CollectionPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<Params>;
-  searchParams: Promise<Search>;
-}) {
+export default async function CollectionPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  const { sort, stock } = await searchParams;
 
   const data = resolve(slug);
   if (!data) notFound();
 
-  const filtered = stock === 'in' ? data.items.filter((p) => p.available) : data.items;
-  const items = sortItems(filtered, sort);
   const prices = data.items.map((p) => p.price);
 
   return (
@@ -115,7 +83,7 @@ export default async function CollectionPage({
           { name: data.title, url: `/collections/${slug}` },
         ]}
       />
-      <JsonLd data={itemListSchema(items, data.title, `/collections/${slug}`)} />
+      <JsonLd data={itemListSchema(data.items, data.title, `/collections/${slug}`)} />
 
       <header className="max-w-3xl pb-8">
         <h1 className="font-display text-[34px] leading-[1.1] tracking-tight sm:text-[44px]">
@@ -130,19 +98,26 @@ export default async function CollectionPage({
         )}
       </header>
 
-      <CollectionToolbar total={data.items.length} showing={items.length} />
-
-      {items.length === 0 ? (
-        <p className="py-16 text-center text-ink-muted">
-          Nothing matches that filter right now. Try clearing “In stock only”.
-        </p>
-      ) : (
+      {/* No Suspense: CollectionSorter reads the query string from
+          window.location after mount rather than through useSearchParams, so
+          the cards below are emitted as real server HTML instead of being
+          replaced by a Suspense fallback. */}
+      <CollectionSorter total={data.items.length}>
         <ProductGrid>
-          {items.map((p, i) => (
-            <ProductCard key={p.id} product={p} priority={i < 4} />
+          {data.items.map((p, i) => (
+            <div
+              key={p.id}
+              data-product
+              data-price={p.price}
+              data-available={p.available ? 1 : 0}
+              data-discount={discountPct(p)}
+              data-name={p.title}
+            >
+              <ProductCard product={p} priority={i < 4} />
+            </div>
           ))}
         </ProductGrid>
-      )}
+      </CollectionSorter>
 
       <div className="mt-16 rounded-2xl bg-sand p-8">
         <h2 className="font-display text-[22px] tracking-tight">

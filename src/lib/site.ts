@@ -9,7 +9,17 @@ export const site = {
   name: 'Home24Care',
   legalName: 'home24care GROUP LLC',
   domain: 'home24care.com',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com',
+  /**
+   * Normalized once here so a stray trailing slash or missing scheme in the
+   * host's env cannot produce double-slash canonicals, a broken sitemap and a
+   * whole Merchant feed of bad links. metadataBase also throws at build time
+   * on a schemeless value, which fails the deploy with an opaque stack trace.
+   */
+  url: (() => {
+    const raw = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com').trim();
+    const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+    return withScheme.replace(/\/+$/, '');
+  })(),
   tagline: 'Outdoor living, built to last',
   description:
     'Home24Care sells backyard structures and HVAC refrigerants direct to homeowners and trade customers across the United States — swing sets, gazebos, pergolas, outdoor kitchens, saunas and certified refrigerant cylinders, with free standard shipping.',

@@ -79,10 +79,17 @@ export async function POST(request: Request) {
     metaSkus.push(`${product.sku}x${quantity}`);
   }
 
-  const origin =
-    request.headers.get('origin') ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    site.url;
+  // Never build the post-payment redirect from a raw Origin header — an
+  // attacker who can set it could point success_url at a site of their
+  // choosing. Accept the header only when it matches somewhere we own.
+  const configured = (process.env.NEXT_PUBLIC_SITE_URL || site.url).replace(/\/+$/, '');
+  const allowed = new Set(
+    [configured, site.url, process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`]
+      .filter(Boolean)
+      .map((u) => (u as string).replace(/\/+$/, ''))
+  );
+  const requested = request.headers.get('origin')?.replace(/\/+$/, '');
+  const origin = requested && allowed.has(requested) ? requested : configured;
 
   try {
     const session = await stripe().checkout.sessions.create({

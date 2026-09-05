@@ -14,7 +14,9 @@ import { absoluteImage } from '@/lib/image';
  * — the most common cause of item disapproval.
  */
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+// The feed is derived entirely from data/catalog.json, which only changes on
+// deploy — there is nothing for a timed revalidate to pick up.
+export const revalidate = false;
 
 /** Control characters make the XML invalid, so drop them before escaping. */
 const clean = (value: string) =>

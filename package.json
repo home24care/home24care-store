@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "localize:images": "node scripts/localize-images.mjs",
-    "build:heroes": "node scripts/build-hero-images.mjs"
+    "build:heroes": "node scripts/build-hero-images.mjs",
+    "build:icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
     "next": "15.5.25",
@@ -29,5 +30,8 @@
   },
   "overrides": {
     "sharp": "^0.35.4"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }

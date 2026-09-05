@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
-import { stripe, stripeConfigured } from '@/lib/stripe';
+import { stripe, stripeConfigured, webhookSecretConfigured } from '@/lib/stripe';
 import { recordOrder, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
 
 export const runtime = 'nodejs';
@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
 
-  if (!stripeConfigured() || !secret) {
+  if (!stripeConfigured() || !webhookSecretConfigured() || !secret) {
     console.error('[stripe-webhook] STRIPE_SECRET_KEY / STRIPE_WEBHOOK_SECRET missing');
     return NextResponse.json({ error: 'Webhook not configured.' }, { status: 503 });
   }

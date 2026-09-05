@@ -10,11 +10,33 @@
  */
 import type Stripe from 'stripe';
 
-/** Event ids already applied, so retries are no-ops within a process. */
+/**
+ * Warm-instance duplicate suppression — NOT real idempotency.
+ *
+ * Read this before you wire up a database.
+ *
+ * Stripe delivers webhooks at least once, so the same `event.id` can arrive
+ * more than twice. On a long-lived server this Set would cover that. On
+ * Vercel it mostly does not: each function invocation may be a fresh process,
+ * so a retry usually lands somewhere the Set is empty and the handler runs
+ * again. It also does not survive a deploy, and it grows without bound on an
+ * instance that stays warm.
+ *
+ * It is kept only because it costs nothing and does help when a retry happens
+ * to hit a warm instance. Treat every handler below as "may run more than
+ * once per event" and make the real work idempotent at the data layer:
+ * insert `event.id` as a PRIMARY KEY in the same transaction as the order
+ * write, and let the unique-violation tell you it is a duplicate.
+ */
 const processedEvents = new Set<string>();
+const MAX_TRACKED_EVENTS = 5_000;
 
 const seen = (eventId: string) => {
   if (processedEvents.has(eventId)) return true;
+  // Bound the set so a warm instance cannot leak memory indefinitely.
+  if (processedEvents.size >= MAX_TRACKED_EVENTS) {
+    processedEvents.delete(processedEvents.values().next().value as string);
+  }
   processedEvents.add(eventId);
   return false;
 };
