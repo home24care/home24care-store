@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-ink antialiased;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-moss-200 text-moss-900;
+  }
+
+  /* Visible focus for keyboard users without boxing every mouse click. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-moss-500 ring-offset-2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold
+           transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .btn-primary {
+    @apply btn bg-moss-600 px-6 py-3 text-white hover:bg-moss-700 active:bg-moss-800;
+  }
+
+  .btn-accent {
+    @apply btn bg-clay-600 px-6 py-3 text-white hover:bg-clay-700 active:bg-clay-800;
+  }
+
+  .btn-outline {
+    @apply btn border border-moss-700/25 bg-white px-6 py-3 text-moss-800 hover:border-moss-700/60 hover:bg-moss-50;
+  }
+
+  .btn-ghost {
+    @apply btn px-4 py-2 text-ink-soft hover:bg-moss-50 hover:text-moss-800;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-ink/15 bg-white px-3.5 py-2.5 text-sm text-ink
+           placeholder:text-ink-muted focus:border-moss-500 focus:outline-none focus:ring-1 focus:ring-moss-500;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-moss-600;
+  }
+
+  /* Long-form legal + editorial copy. */
+  .prose-policy {
+    @apply text-[15px] leading-[1.75] text-ink-soft;
+  }
+  .prose-policy h2 {
+    @apply mb-3 mt-10 font-display text-[26px] leading-tight text-ink first:mt-0;
+  }
+  .prose-policy h3 {
+    @apply mb-2 mt-7 text-base font-semibold text-ink;
+  }
+  .prose-policy p {
+    @apply mb-4;
+  }
+  .prose-policy ul {
+    @apply mb-4 list-disc space-y-1.5 pl-5 marker:text-moss-400;
+  }
+  .prose-policy ol {
+    @apply mb-4 list-decimal space-y-1.5 pl-5 marker:text-moss-400;
+  }
+  .prose-policy a {
+    @apply font-medium text-moss-700 underline underline-offset-2 hover:text-moss-800;
+  }
+  .prose-policy strong {
+    @apply font-semibold text-ink;
+  }
+  .prose-policy table {
+    @apply mb-5 w-full border-collapse text-sm;
+  }
+  .prose-policy th,
+  .prose-policy td {
+    @apply border border-ink/10 px-3 py-2 text-left align-top;
+  }
+  .prose-policy th {
+    @apply bg-moss-50 font-semibold text-ink;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}

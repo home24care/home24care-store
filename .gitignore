@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# next.js build output
+.next
+out
+
+# secrets — never commit these
+.env
+.env.local
+.env.*.local
+
+# typescript / tooling
+*.tsbuildinfo
+next-env.d.ts
+
+# os
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode
+.idea
