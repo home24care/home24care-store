@@ -13,6 +13,7 @@
     "build:icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
+    "@upstash/redis": "^1.38.4",
     "next": "15.5.25",
     "react": "19.1.1",
     "react-dom": "19.1.1",
@@ -32,6 +33,6 @@
     "sharp": "^0.35.4"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "22.x"
   }
 }

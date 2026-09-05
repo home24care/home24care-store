@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCart } from '@/lib/cart';
 import { site } from '@/lib/site';
@@ -20,6 +21,9 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
   const router = useRouter();
   const searchRef = useRef<HTMLInputElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   // Any navigation should dismiss every transient surface.
   useEffect(() => {
@@ -236,67 +240,77 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
         </div>
       )}
 
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 animate-fade-in bg-ink/45"
-            onClick={() => setMenuOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-sm animate-slide-in-left flex-col bg-white">
-            <div className="flex h-16 items-center justify-between border-b border-ink/10 px-4">
-              <span className="font-display text-lg font-semibold">Browse</span>
-              <button type="button" onClick={() => setMenuOpen(false)} className="btn-ghost" aria-label="Close menu">
-                <CloseIcon />
-              </button>
-            </div>
-            <nav className="flex-1 overflow-y-auto px-2 py-3">
-              {groups.map((g) => (
-                <div key={g.group} className="mb-4">
-                  <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
-                    {g.group}
-                  </p>
-                  {g.collections.map((c) => (
-                    <Link
-                      key={c.slug}
-                      href={`/collections/${c.slug}`}
-                      className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-moss-50"
-                    >
-                      {c.title}
-                      <span className="text-xs text-ink-muted">{c.count}</span>
-                    </Link>
-                  ))}
+      {/*
+        Portalled to <body> on purpose. The header sets `backdrop-blur`, and a
+        backdrop-filter creates a containing block for `position: fixed`
+        descendants — so rendering the drawer inside the header clipped it to
+        the header's own ~104px height instead of the viewport. Everything
+        below the fold was unreachable on mobile.
+      */}
+      {mounted &&
+        menuOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-[70] lg:hidden">
+              <div
+                className="absolute inset-0 animate-fade-in bg-ink/45"
+                onClick={() => setMenuOpen(false)}
+                aria-hidden="true"
+              />
+              <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-sm animate-slide-in-left flex-col bg-white">
+                <div className="flex h-16 items-center justify-between border-b border-ink/10 px-4">
+                  <span className="font-display text-lg font-semibold">Browse</span>
+                  <button type="button" onClick={() => setMenuOpen(false)} className="btn-ghost" aria-label="Close menu">
+                    <CloseIcon />
+                  </button>
                 </div>
-              ))}
-              <div className="border-t border-ink/10 pt-3">
-                {[
-                  ['/collections/sale', 'Sale'],
-                  ['/about', 'About us'],
-                  ['/contact', 'Contact'],
-                  ['/order-status', 'Track order'],
-                  ['/faq', 'FAQs'],
-                ].map(([href, label]) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-moss-50"
-                  >
-                    {label}
-                  </Link>
-                ))}
+                <nav className="flex-1 overflow-y-auto px-2 py-3">
+                  {groups.map((g) => (
+                    <div key={g.group} className="mb-4">
+                      <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
+                        {g.group}
+                      </p>
+                      {g.collections.map((c) => (
+                        <Link
+                          key={c.slug}
+                          href={`/collections/${c.slug}`}
+                          className="flex items-center justify-between rounded-lg px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-moss-50"
+                        >
+                          {c.title}
+                          <span className="text-xs text-ink-muted">{c.count}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                  <div className="border-t border-ink/10 pt-3">
+                    {[
+                      ['/collections/sale', 'Sale'],
+                      ['/about', 'About us'],
+                      ['/contact', 'Contact'],
+                      ['/order-status', 'Track order'],
+                      ['/faq', 'FAQs'],
+                    ].map(([href, label]) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-moss-50"
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+                <div className="border-t border-ink/10 p-4 text-sm text-ink-soft">
+                  <a href={`tel:${site.contact.phoneHref}`} className="flex items-center gap-2 font-semibold text-moss-800">
+                    <PhoneIcon className="h-4 w-4" />
+                    {site.contact.phone}
+                  </a>
+                  <p className="mt-1 text-[13px]">{site.contact.hours}</p>
+                </div>
               </div>
-            </nav>
-            <div className="border-t border-ink/10 p-4 text-sm text-ink-soft">
-              <a href={`tel:${site.contact.phoneHref}`} className="flex items-center gap-2 font-semibold text-moss-800">
-                <PhoneIcon className="h-4 w-4" />
-                {site.contact.phone}
-              </a>
-              <p className="mt-1 text-[13px]">{site.contact.hours}</p>
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
+
     </header>
   );
 }
