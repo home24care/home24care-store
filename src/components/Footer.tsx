@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { site, paymentMethods } from '@/lib/site';
+import { site } from '@/lib/site';
 import { collectionGroups } from '@/lib/catalog';
 import { PhoneIcon, MailIcon, PinIcon, TruckIcon, ReturnIcon, ShieldIcon, SupportIcon } from './icons';
 import { TrustpilotFooter } from './TrustpilotSection';
+import PaymentMarks from './PaymentMarks';
 
 const POLICY_LINKS = [
   ['/policies/shipping', 'Shipping Policy'],
@@ -132,16 +133,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-3">
             <span className="text-[13px] text-ink-muted">We accept</span>
-            <ul className="flex items-center gap-1.5">
-              {paymentMethods.map((m) => (
-                <li
-                  key={m}
-                  className="rounded border border-ink/12 bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-ink-soft"
-                >
-                  {m === 'American Express' ? 'Amex' : m}
-                </li>
-              ))}
-            </ul>
+            <PaymentMarks size="small" />
           </div>
         </div>
       </div>

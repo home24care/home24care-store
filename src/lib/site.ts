@@ -64,10 +64,26 @@ export const site = {
 
 export const currency = 'USD';
 
-/** Payment brands displayed at checkout and in the footer trust bar. */
+/**
+ * Accepted cards, in display order.
+ *
+ * One list drives the footer marks, the cart summary and the payment policy,
+ * so the storefront can never claim to accept a card the others omit —
+ * a mismatch Stripe and Merchant Center both flag.
+ *
+ * `mark` points at a local SVG in /public/payment; `height` is tuned per brand
+ * because their native aspect ratios differ by 3x.
+ */
 export const paymentMethods = [
-  'Visa',
-  'Mastercard',
-  'American Express',
-  'Discover',
+  // `scale` is the mark's height as a fraction of the tile height, not a fixed
+  // pixel value, so both tile sizes stay balanced. The numbers differ because
+  // the marks do: Visa is a 3.1:1 wordmark that reads large at a small height,
+  // while Amex is a square block that would dominate at the same height.
+  { name: 'Visa', mark: '/payment/visa.svg', scale: 0.36 },
+  { name: 'Mastercard', mark: '/payment/mastercard.svg', scale: 0.64 },
+  { name: 'American Express', mark: '/payment/amex.svg', scale: 0.62 },
+  { name: 'Discover', mark: '/payment/discover.svg', scale: 0.6 },
 ] as const;
+
+/** Just the names, for prose that lists them. */
+export const paymentMethodNames = paymentMethods.map((m) => m.name);

@@ -1,5 +1,5 @@
 import type { Policy } from '@/lib/policy-types';
-import { site } from '@/lib/site';
+import { site, paymentMethodNames } from '@/lib/site';
 
 const UPDATED = 'September 5, 2026';
 const A = site.address.formatted;
@@ -611,10 +611,7 @@ export const paymentSecurityPolicy: Policy = {
         {
           type: 'ul',
           items: [
-            'Visa',
-            'Mastercard',
-            'American Express',
-            'Discover',
+            ...paymentMethodNames,
             'Other major credit and debit cards, and any digital wallet shown at checkout',
           ],
         },

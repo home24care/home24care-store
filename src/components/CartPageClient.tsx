@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
-import { site, paymentMethods } from '@/lib/site';
+import { site } from '@/lib/site';
+import PaymentMarks from './PaymentMarks';
 import { MinusIcon, PlusIcon, TrashIcon, LockIcon, TruckIcon, ReturnIcon, ShieldIcon, CartIcon } from './icons';
 import { IMAGES_LOCALIZED } from '@/lib/image';
 
@@ -203,16 +204,7 @@ export default function CartPageClient() {
             Encrypted payment · We never store your card details
           </p>
 
-          <ul className="mt-4 flex flex-wrap justify-center gap-1.5">
-            {paymentMethods.map((m) => (
-              <li
-                key={m}
-                className="rounded border border-ink/12 bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-ink-soft"
-              >
-                {m === 'American Express' ? 'Amex' : m}
-              </li>
-            ))}
-          </ul>
+          <PaymentMarks className="mt-4 justify-center" />
 
           <ul className="mt-6 space-y-3 border-t border-ink/10 pt-5 text-[13.5px] text-ink-soft">
             {[
