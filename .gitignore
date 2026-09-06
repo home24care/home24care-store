@@ -24,3 +24,6 @@ Thumbs.db
 
 # stray shell artefacts
 out.json
+
+# service-account keys for scripts/upload-merchant.mjs
+.secrets/

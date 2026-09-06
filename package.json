@@ -11,7 +11,10 @@
     "localize:images": "node scripts/localize-images.mjs",
     "build:heroes": "node scripts/build-hero-images.mjs",
     "build:icons": "node scripts/build-icons.mjs",
-    "build:feed-images": "node scripts/build-feed-images.mjs"
+    "build:feed-images": "node scripts/build-feed-images.mjs",
+    "merchant:check": "node scripts/upload-merchant.mjs check",
+    "merchant:upload": "node scripts/upload-merchant.mjs upload",
+    "merchant:status": "node scripts/upload-merchant.mjs status"
   },
   "dependencies": {
     "@upstash/redis": "^1.38.4",
