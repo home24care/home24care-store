@@ -16,9 +16,9 @@ export default function ProductGallery({
   const current = images[active] ?? images[0];
 
   return (
-    <div className="flex flex-col-reverse gap-3 lg:flex-row">
+    <div className="flex min-w-0 flex-col-reverse gap-3 lg:flex-row">
       {images.length > 1 && (
-        <ul className="no-scrollbar flex gap-3 overflow-x-auto lg:w-[84px] lg:shrink-0 lg:flex-col lg:overflow-y-auto">
+        <ul className="no-scrollbar flex min-w-0 gap-3 overflow-x-auto lg:w-[84px] lg:shrink-0 lg:flex-col lg:overflow-y-auto">
           {images.map((img, i) => (
             <li key={img.thumb + i}>
               <button

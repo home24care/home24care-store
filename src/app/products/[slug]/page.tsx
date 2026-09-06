@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         ]}
       />
 
-      <div className="grid gap-10 pb-14 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-10 pb-14 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14">
         <ProductGallery images={product.images} title={product.title} />
 
         <div className="lg:sticky lg:top-28 lg:self-start">
