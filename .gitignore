@@ -21,3 +21,6 @@ Thumbs.db
 # editor
 .vscode
 .idea
+
+# stray shell artefacts
+out.json
