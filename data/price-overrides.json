@@ -1,0 +1,14 @@
+{
+  "686114002029": {
+    "priceUsd": 449.00,
+    "reason": "Source published the 40-cylinder pallet price ($14,900) on a single 22 lb cylinder; its own weight field says 22 lb. Verified single-cylinder price across five independent retailers on 2026-09-06: Royal $432.00, Refrigerants Center $449.00, eRefrigerants $449.00, Chiller City $449.00, CoolmateGas $459.95. $449 is the mode. This is HFO-1233zd(E) flushing solvent, not an HFC, so it sits outside the AIM Act phasedown moving the refrigerant prices."
+  },
+  "40 R448a": {
+    "priceUsd": 365.00,
+    "reason": "Source published the 40-cylinder pallet price ($11,960) on a single 25 lb cylinder; weight field says 36 lb (25 lb plus tare). Twelve retailers surveyed 2026-09-06, street cluster $350-$390, full range $299-$480. $365 is the median and matches two independent quotes for Honeywell Solstice N40 specifically ($368 Royal, $368 Refrigerant Depot)."
+  },
+  "440": {
+    "priceUsd": 345.00,
+    "reason": "Source published the 40-cylinder pallet price ($9,996) on a single 25 lb cylinder; weight field says 36 lb. Five retailers verified 2026-09-06 for GENERIC material: $314, $329, $329, $379, $389.95. $345 is the cluster midpoint. CAVEAT: genuine Chemours-branded Freon MO99 is a higher tier ($375-$650). The upstream record is the generic SKU, whose sibling single-cylinder variant is $329, so generic is the right read - but if the supplier confirms OEM Chemours stock, reprice to $440-$475."
+  }
+}

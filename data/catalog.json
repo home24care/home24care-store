@@ -6124,7 +6124,7 @@
    "collection": "legacy-refrigerants",
    "productType": "Legacy Refrigerants",
    "sku": "686114002029",
-   "price": 1490000,
+   "price": 44900,
    "compareAtPrice": null,
    "currency": "USD",
    "available": true,
@@ -6155,7 +6155,8 @@
    "source": "gas",
    "rewritten": true,
    "unitPricingMeasure": "22 lb",
-   "shippingWeightLb": 22
+   "shippingWeightLb": 22,
+   "priceOverridden": true
   },
   {
    "id": "gas-4736",
@@ -6908,7 +6909,7 @@
    "collection": "legacy-refrigerants",
    "productType": "Legacy Refrigerants",
    "sku": "440",
-   "price": 999600,
+   "price": 34500,
    "compareAtPrice": null,
    "currency": "USD",
    "available": true,
@@ -6939,7 +6940,8 @@
    "source": "gas",
    "rewritten": true,
    "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 36
+   "shippingWeightLb": 36,
+   "priceOverridden": true
   },
   {
    "id": "gas-4710",
@@ -6949,7 +6951,7 @@
    "collection": "commercial-refrigerants",
    "productType": "Commercial Refrigerants",
    "sku": "40 R448a",
-   "price": 1196000,
+   "price": 36500,
    "compareAtPrice": null,
    "currency": "USD",
    "available": true,
@@ -6980,7 +6982,8 @@
    "source": "gas",
    "rewritten": true,
    "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 36
+   "shippingWeightLb": 36,
+   "priceOverridden": true
   },
   {
    "id": "gas-4672",

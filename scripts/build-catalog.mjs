@@ -395,13 +395,65 @@ for (const p of products) {
 
 products.sort((a, b) => a.title.localeCompare(b.title));
 
+/* -------------------------------------------------------- price overrides */
+
+/**
+ * Corrections for prices the upstream source publishes wrongly.
+ *
+ * Keyed by SKU in data/price-overrides.json. Applied here rather than edited
+ * into data/catalog.json, because the catalogue is regenerated from source and
+ * a direct edit would be silently reverted on the next build.
+ *
+ * Every entry has to carry a `reason`, so a year from now it is clear why this
+ * store disagrees with its supplier about a price. An override that names a
+ * SKU which no longer exists is an error, not a no-op: it means the catalogue
+ * moved and the correction is now unattached.
+ */
+const overridePath = path.join(root, 'data/price-overrides.json');
+const overrides = fs.existsSync(overridePath)
+  ? JSON.parse(fs.readFileSync(overridePath, 'utf8'))
+  : {};
+
+const bySku = new Map(products.map((p) => [p.sku, p]));
+const overrideApplied = [];
+
+for (const [sku, entry] of Object.entries(overrides)) {
+  const product = bySku.get(sku);
+  if (!product) {
+    throw new Error(
+      `price override for SKU "${sku}" matches no product — the catalogue changed, so re-check the correction`
+    );
+  }
+  if (typeof entry.priceUsd !== 'number' || !(entry.priceUsd > 0)) {
+    throw new Error(`price override for "${sku}" has no positive priceUsd`);
+  }
+  if (!entry.reason) {
+    throw new Error(`price override for "${sku}" has no reason`);
+  }
+
+  overrideApplied.push({
+    sku,
+    title: product.title,
+    from: product.price / 100,
+    to: entry.priceUsd,
+  });
+
+  product.price = Math.round(entry.priceUsd * 100);
+  // The source's compare-at was derived from the wrong price, so it cannot be
+  // carried over — a sale price above the list price is an instant disapproval.
+  product.compareAtPrice = null;
+  product.priceOverridden = true;
+}
+
 /* ------------------------------------------------------------ price audit */
 
 // Single cylinders priced like pallets are almost always a data-entry error
-// upstream. We keep the source price but surface it for review.
+// upstream. We keep the source price but surface it for review — unless an
+// override has already corrected it.
 const priceReview = products
   .filter((p) => p.source === 'gas')
-  .filter((p) => p.price > 300000 && !/pallet|bulk pack|center/i.test(p.title))
+  .filter((p) => !p.priceOverridden)
+  .filter((p) => p.price > 300000 && !/pallet|bulk pack|quarter pallet/i.test(p.title))
   .map((p) => ({ slug: p.slug, title: p.title, price: p.price / 100 }));
 
 /* --------------------------------------------------------------- write it */
@@ -439,4 +491,12 @@ if (priceReview.length) {
 console.log(`products:    ${products.length}`);
 console.log(`collections: ${collections.length}`);
 for (const c of collections) console.log(`  ${String(c.count).padStart(3)}  ${c.slug}`);
+if (overrideApplied.length) {
+  console.log(`price overrides applied: ${overrideApplied.length}`);
+  for (const o of overrideApplied) {
+    console.log(
+      `  ${o.sku.padEnd(14)} $${o.from.toLocaleString('en-US')} -> $${o.to.toLocaleString('en-US')}  ${o.title.slice(0, 46)}`
+    );
+  }
+}
 console.log(`flagged for price review: ${priceReview.length}`);
