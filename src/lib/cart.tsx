@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import type { Product } from './catalog';
+import { track } from './analytics/client';
 
 export type CartLine = {
   slug: string;
@@ -129,6 +130,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.hydrated]);
 
   const add = useCallback((product: Product, quantity = 1) => {
+    track('add_to_cart', {
+      slug: product.slug,
+      quantity,
+      value: product.price * quantity,
+    });
     dispatch({
       type: 'add',
       line: {
@@ -157,7 +163,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       close: () => setIsOpen(false),
       add,
       setQuantity: (slug, quantity) => dispatch({ type: 'setQuantity', slug, quantity }),
-      remove: (slug) => dispatch({ type: 'remove', slug }),
+      remove: (slug) => {
+        track('remove_from_cart', { slug });
+        dispatch({ type: 'remove', slug });
+      },
       clear: () => dispatch({ type: 'clear' }),
     };
   }, [state.lines, state.hydrated, isOpen, add]);

@@ -4,6 +4,8 @@ import { CartProvider } from '@/lib/cart';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
+import StorefrontChrome from '@/components/StorefrontChrome';
 import JsonLd from '@/components/JsonLd';
 import { collectionGroups } from '@/lib/catalog';
 import { site } from '@/lib/site';
@@ -75,12 +77,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <CartProvider>
-          <Header groups={groups} />
-          <main id="main" className="flex-1">
+          <StorefrontChrome
+            header={<Header groups={groups} />}
+            footer={<Footer />}
+            cart={<CartDrawer />}
+            tracker={<AnalyticsTracker />}
+          >
             {children}
-          </main>
-          <Footer />
-          <CartDrawer />
+          </StorefrontChrome>
         </CartProvider>
       </body>
     </html>

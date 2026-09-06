@@ -9,6 +9,7 @@ import JsonLd from '@/components/JsonLd';
 import { SectionHeading, ProductGrid } from '@/components/Section';
 import { TrustpilotProductReviews } from '@/components/TrustpilotSection';
 import ProductRating from '@/components/ProductRating';
+import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductReviews from '@/components/ProductReviews';
 import { productSchema } from '@/lib/schema';
 import {
@@ -75,6 +76,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   return (
     <div className="container-page">
       <JsonLd data={productSchema(product)} />
+      <ProductViewTracker slug={product.slug} />
       <Breadcrumbs
         trail={[
           { name: 'Collections', url: '/collections' },

@@ -65,6 +65,19 @@ export const privacyPolicy: Policy = {
           type: 'p',
           text: 'We automatically collect certain technical information when you visit, including your IP address, browser type, operating system, referring website, pages viewed, and the dates and times of your visits, through cookies and similar technologies.',
         },
+        { type: 'h3', text: 'Store analytics' },
+        {
+          type: 'p',
+          text: 'We run our own analytics rather than using a third-party advertising network. It records which pages and products were viewed, what was added to a cart, and whether an order was completed, so we can see what works and what does not.',
+        },
+        {
+          type: 'p',
+          text: 'This data is deliberately anonymous. Your browser is given a random identifier that is stored on your device and is never linked to your name, email or order history. We record only the two-letter country code supplied by our content delivery network — we do not run an IP lookup and we do not store your IP address alongside this data. Referring websites are reduced to a domain name before storage, so search terms and tracking parameters in a referring link are discarded.',
+        },
+        {
+          type: 'p',
+          text: 'Clearing your browser storage removes the identifier and you are counted as a new visitor. Aggregate totals are retained for up to 400 days; the individual event feed is kept for 7 days.',
+        },
         { type: 'h3', text: 'Communication data' },
         {
           type: 'p',

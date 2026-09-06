@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/lib/cart';
+import { track } from '@/lib/analytics/client';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
 import PaymentMarks from './PaymentMarks';
@@ -25,6 +26,7 @@ export default function CartPageClient() {
   const checkout = async () => {
     setBusy(true);
     setError(null);
+    track('checkout_started', { value: subtotal, quantity: lines.length });
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',

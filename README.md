@@ -259,6 +259,79 @@ presented as product reviews is itself a misrepresentation.
 
 ---
 
+## Admin dashboard & analytics
+
+A Shopify-style analytics dashboard at **`/admin`**, backed by first-party
+analytics rather than a third-party tracker.
+
+```bash
+ADMIN_PASSWORD=              # required — without it the dashboard is closed to everyone
+ADMIN_SESSION_SECRET=        # optional, signs the session cookie; falls back to the password
+UPSTASH_REDIS_REST_URL=      # required in production — see below
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+### What it reports
+
+| Section | Detail |
+| --- | --- |
+| Headline | Revenue, orders, conversion rate, average order, visitors, sessions, page views, add-to-cart rate — each against the previous period |
+| Trend | Sessions and revenue per day |
+| Funnel | Sessions → viewed a product → added to cart → started checkout → purchased |
+| Products | Most viewed and most added to cart, linked to the product page |
+| Audience | Countries, referrers, landing pages, devices |
+| Live activity | The 50 most recent events |
+
+Range filter: **Today**, 7, 30 or 90 days.
+
+### Storage — read this before deploying
+
+Analytics needs somewhere to persist. Set the two `UPSTASH_*` variables (free
+tier at upstash.com, or use Vercel's Upstash integration which sets them for
+you). **Without them the dashboard falls back to in-memory storage, which is
+useless in production** — every serverless invocation is a fresh process, so
+nothing accumulates. The dashboard prints a warning telling you which backend
+it is on, so an empty graph is never a mystery.
+
+Events are aggregated into per-day counters at write time rather than stored as
+rows and summed on read, so a dashboard load costs a fixed handful of reads no
+matter how much traffic has accumulated. Aggregates are kept 400 days, the raw
+event feed 7.
+
+### Privacy
+
+The dashboard is deliberately anonymous, and the Privacy Policy describes
+exactly this:
+
+- A visitor is a **random id in the browser's own storage**, never linked to a
+  name, email or order.
+- **Country only**, from the CDN's edge header. No IP lookup, and the IP is
+  never stored.
+- **Referrers are reduced to a hostname** before storage, so search terms and
+  tracking parameters in a referring URL are discarded.
+- Bot traffic is filtered at ingest, so the stored numbers are the honest ones.
+
+Orders and revenue come from the **Stripe webhook**, not a browser beacon — a
+beacon misses anyone who closes the tab on redirect, and can be replayed by
+anyone who can POST.
+
+### Security
+
+- `src/middleware.ts` gates `/admin` **before** the route renders, so an
+  unauthenticated request never reaches a page that would fetch revenue.
+- Session cookie is `httpOnly`, `SameSite=Lax`, `Secure` in production, and
+  HMAC-signed with the expiry inside the signed payload — so editing the
+  cookie's own Max-Age cannot extend it.
+- Password comparison is constant-time; login is rate-limited.
+- Responses carry `no-store` and `X-Robots-Tag: noindex`.
+- **Fails closed**: with `ADMIN_PASSWORD` unset there is no admin panel at all,
+  rather than an open one.
+
+There is no seeded or demo data anywhere — a fresh deployment starts at zero
+and only shows real traffic.
+
+---
+
 ## Policies
 
 Eight documents, all at `/policies/<slug>` and linked from the footer sitewide:

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/lib/cart';
+import { track } from '@/lib/analytics/client';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
 import { CloseIcon, MinusIcon, PlusIcon, TrashIcon, LockIcon, TruckIcon, CartIcon } from './icons';
@@ -34,6 +35,7 @@ export default function CartDrawer() {
   const checkout = async () => {
     setBusy(true);
     setError(null);
+    track('checkout_started', { value: subtotal, quantity: lines.length });
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
