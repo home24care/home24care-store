@@ -26,7 +26,7 @@ export default function ProductGallery({
                 onClick={() => setActive(i)}
                 aria-label={`Show image ${i + 1} of ${images.length}`}
                 aria-current={i === active}
-                className={`relative block h-[72px] w-[72px] shrink-0 overflow-hidden rounded-lg bg-sand ring-offset-2 transition-all lg:h-[84px] lg:w-[84px] ${
+                className={`relative block h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-sand ring-offset-2 transition-all lg:h-[84px] lg:w-[84px] ${
                   i === active ? 'ring-2 ring-moss-600' : 'ring-1 ring-ink/10 hover:ring-ink/30'
                 }`}
               >
@@ -46,7 +46,7 @@ export default function ProductGallery({
         </ul>
       )}
 
-      <div className="relative aspect-square flex-1 overflow-hidden rounded-2xl bg-sand">
+      <div className="relative aspect-[4/3] flex-1 overflow-hidden rounded-2xl bg-sand lg:aspect-square">
         <Image
           key={current.full}
           src={current.full}
