@@ -9,10 +9,14 @@
  * PNG, GIF)". Google Search is happy with WebP; Merchant is not.
  *
  * So the storefront keeps serving WebP, which is what makes it fast, and the
- * feed points at JPEG copies generated here. Only the images the feed actually
- * cites are converted: the main image plus FEED_EXTRA additional ones. Google
- * shows a handful, and converting all eight per product would add ~300 MB to
- * the repository for images no shopper ever sees.
+ * feed points at JPEG copies generated here: the main image plus FEED_EXTRA
+ * additional ones.
+ *
+ * FEED_EXTRA is 7 because the richest products carry 8 images and Google
+ * accepts 11 (one main plus ten additional), so every image this catalogue
+ * has fits with room spare. It was 4 at first, to hold the repository down,
+ * which silently dropped 675 images across 226 products — Shopping shows
+ * several per listing, so those were worth the ~66 MB.
  *
  * 900px comfortably clears Google's 800x800 recommendation (the hard minimum
  * is 100x100).
@@ -31,7 +35,7 @@ const QUALITY = 80;
 const CONCURRENCY = 8;
 
 /** Must match FEED_EXTRA in src/app/feeds/google/route.ts. */
-export const FEED_EXTRA = 4;
+export const FEED_EXTRA = 7;
 
 /** `/product-images/abc-full.webp` -> `/product-images/abc-feed.jpg` */
 export const feedImagePath = (webpPath) =>

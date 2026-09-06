@@ -45,7 +45,7 @@ const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com')
   .replace(/\/+$/, '');
 
 /** Must match FEED_EXTRA in src/lib/image.ts. */
-const FEED_EXTRA = 4;
+const FEED_EXTRA = 7;
 /** Highlights per product; the catalogue tops out at 4. */
 const HIGHLIGHTS = 4;
 

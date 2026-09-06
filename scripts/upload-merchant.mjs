@@ -45,7 +45,7 @@ const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com')
   .replace(/\/+$/, '');
 
 /** Must match FEED_EXTRA in src/lib/image.ts. */
-const FEED_EXTRA = 4;
+const FEED_EXTRA = 7;
 const CONCURRENCY = 8;
 const MAX_RETRIES = 5;
 

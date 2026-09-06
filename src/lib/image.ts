@@ -91,4 +91,4 @@ export const feedImage = (src: string): string =>
  * scripts/build-feed-images.mjs, or the feed will reference JPEGs that were
  * never generated.
  */
-export const FEED_EXTRA = 4;
+export const FEED_EXTRA = 7;
