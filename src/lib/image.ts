@@ -70,3 +70,25 @@ export const heroVariant = (src: string): string | null => {
 
 export const absoluteImage = (src: string, siteUrl: string): string =>
   /^https?:\/\//i.test(src) ? src : `${siteUrl.replace(/\/$/, '')}${src}`;
+
+/**
+ * The JPEG copy of a product image, for anywhere Google Merchant will read it.
+ *
+ * Merchant Center does not accept WebP. Its documented formats for
+ * `image_link` are GIF, JPEG, PNG, BMP and TIFF, and a feed of .webp URLs is
+ * rejected with "Use an image in the accepted format (JPEG, PNG, GIF)".
+ * Google Search accepts WebP happily; Merchant does not.
+ *
+ * The storefront keeps serving WebP — that is what makes it fast — and only
+ * the feed and the Product structured data point at these copies, which
+ * `npm run build:feed-images` generates.
+ */
+export const feedImage = (src: string): string =>
+  src.replace(/-(?:thumb|card|full)\.webp$/, '-feed.jpg');
+
+/**
+ * How many additional images the feed cites. Must match FEED_EXTRA in
+ * scripts/build-feed-images.mjs, or the feed will reference JPEGs that were
+ * never generated.
+ */
+export const FEED_EXTRA = 4;

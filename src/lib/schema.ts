@@ -2,7 +2,7 @@ import { site } from './site';
 import type { Product } from './catalog';
 import { priceDecimal } from './format';
 import { trustpilot } from './trustpilot';
-import { absoluteImage } from './image';
+import { absoluteImage, feedImage, FEED_EXTRA } from './image';
 import { reviewStats, hasSampleReviews } from '@/content/reviews';
 
 /**
@@ -136,7 +136,10 @@ export const productSchema = (product: Product) => {
         }
       : {}),
     category: product.productType,
-    image: product.images.slice(0, 6).map((i) => absoluteImage(i.full, site.url)),
+    // Same JPEG copies the feed cites, so the two cannot disagree.
+    image: product.images
+      .slice(0, 1 + FEED_EXTRA)
+      .map((i) => absoluteImage(feedImage(i.full), site.url)),
     // Store-wide Trustpilot score, attributed to Trustpilot as the source.
     // Emitted only when configured — see trustpilot.aggregate.
     // NOTE: deliberately no aggregateRating here.

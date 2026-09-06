@@ -180,6 +180,38 @@ What is already handled:
 - Every required policy page, reachable from the footer on every page
 - Contact details identical across the storefront, policies and structured data
 
+### Feed images must be JPEG, not WebP
+
+Merchant Center does not accept WebP. Its documented formats for `image_link`
+are GIF, JPEG, PNG, BMP and TIFF — WebP is absent, and a feed of `.webp` URLs
+fails with *"Use an image in the accepted format (JPEG, PNG, GIF)"*. Google
+Search is perfectly happy with WebP; Merchant is not.
+
+So the two are separated:
+
+| Surface | Format | Why |
+| --- | --- | --- |
+| Storefront | WebP | What makes the pages fast |
+| Merchant feed + Product JSON-LD | JPEG | The only thing Merchant accepts |
+
+```bash
+npm run build:feed-images
+```
+
+Generates a `-feed.jpg` beside each `-full.webp` at 900px, quality 80 — clear
+of Google's 800x800 recommendation, well inside its 16 MB cap. Only the images
+the feed cites are converted: the main image plus `FEED_EXTRA` (4) additional
+ones. Converting all eight per product would add ~300 MB for images no shopper
+ever sees.
+
+`FEED_EXTRA` appears in both `src/lib/image.ts` and
+`scripts/build-feed-images.mjs` and must match, or the feed will cite JPEGs
+that were never generated. `feedImage()` is the single helper both the feed
+and the JSON-LD call, so the two can never point at different files.
+
+Transparency is flattened onto white during conversion — JPEG has no alpha
+channel, so a transparent WebP would otherwise composite to black.
+
 ### Merchant attributes
 
 `node scripts/enrich-merchant.mjs` derives the attributes the source data did
@@ -431,4 +463,5 @@ consistent, but they are not legal advice.
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run localize:images` | Download product images and self-host them |
 | `npm run build:heroes` | Generate the wide 1920x1000 hero variants |
+| `npm run build:feed-images` | Generate the JPEG copies the Merchant feed needs |
 | `node scripts/build-catalog.mjs` | Regenerate `data/catalog.json` |

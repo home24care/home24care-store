@@ -2,7 +2,7 @@ import { products, getCollection } from '@/lib/catalog';
 import { priceDecimal } from '@/lib/format';
 import { site } from '@/lib/site';
 import { createHash } from 'node:crypto';
-import { absoluteImage } from '@/lib/image';
+import { absoluteImage, feedImage, FEED_EXTRA } from '@/lib/image';
 
 /**
  * Google Merchant Center product feed (RSS 2.0 with the g: namespace).
@@ -70,11 +70,11 @@ export async function GET() {
         `${product.title} from ${product.brand}, sold by ${site.name} with free standard shipping.`;
 
       const additionalImages = product.images
-        .slice(1, 11)
+        .slice(1, 1 + FEED_EXTRA)
         .map(
           (img) =>
             `      <g:additional_image_link>${escape(
-            absoluteImage(img.full, site.url)
+            absoluteImage(feedImage(img.full), site.url)
           )}</g:additional_image_link>`
         )
         .join('\n');
@@ -123,7 +123,7 @@ export async function GET() {
       <g:title>${cdata(product.title.slice(0, 150))}</g:title>
       <g:description>${cdata(description)}</g:description>
       <g:link>${escape(url)}</g:link>
-      <g:image_link>${escape(absoluteImage(product.images[0].full, site.url))}</g:image_link>
+      <g:image_link>${escape(absoluteImage(feedImage(product.images[0].full), site.url))}</g:image_link>
 ${additionalImages}
       <g:availability>${availability}</g:availability>
       <g:price>${listPrice} ${product.currency}</g:price>${salePrice}
