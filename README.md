@@ -180,6 +180,50 @@ What is already handled:
 - Every required policy page, reachable from the footer on every page
 - Contact details identical across the storefront, policies and structured data
 
+### Merchant attributes
+
+`node scripts/enrich-merchant.mjs` derives the attributes the source data did
+not carry. Everything is read out of the product **title**, which is the one
+field that is authoritative and never edited — nothing is inferred from
+marketing copy, because a wrong `size` or `multipack` is worse than an absent
+one. Google matches the offer against the wrong thing.
+
+| Attribute | Coverage | Derived from |
+| --- | ---: | --- |
+| `size` | 86 | Dimensions in the title, e.g. `16x12` |
+| `color` | 25 | Finish word in the title |
+| `item_group_id` | 79 across 20 groups | Model name + product type |
+| `multipack` | 16 | `40 × 24lb`, `16 Cans`, `3-Pack` |
+| `is_bundle` | 5 | Packs sold *with* a tap or gauge |
+| `unit_pricing_measure` | 37 | Net content of one unit |
+| `shipping_weight` | 248 | Catalog weight, converted to lb |
+| `product_highlight` | 99 | Existing highlight bullets |
+
+Two rules that are easy to get wrong and are handled deliberately:
+
+- **A multipack is N identical units; a bundle is different products together.**
+  "40 × 30lb R-22" is `multipack: 40`. "3 Cans with HD Brass Can Tap" is
+  `is_bundle: yes`, because the tap is not another can.
+- **Only genuine variants are grouped.** A group survives only when at least
+  two members each state a size or a colour, and only those members join it.
+  Configuration differences are not variants to Google — an Emory island with
+  a griddle versus one with a pizza oven are separate products, not options on
+  one. This rule also caught a "Privacy Wall Add-on Kit" being grouped with the
+  panel it attaches to.
+
+`identifier_exists` is deliberately **not** sent. It means "this product has no
+GTIN and no MPN", which would contradict the `mpn` on every line. Brand + MPN
+is the identifier pair for this catalog; there are no real GTINs, and inventing
+them is not an option.
+
+Feed `id` is the SKU passed through untouched wherever it fits Google's
+50-character cap. An id is the permanent handle for an offer — changing one
+orphans its history in Merchant Center — so only the 3 SKUs that were too long
+are shortened, deterministically, keeping a readable prefix plus a hash.
+
+The Product JSON-LD mirrors `color`, `size`, `inProductGroupWithID` and
+`weight`, because Google reconciles the landing page against the feed.
+
 ### Before you submit
 
 1. **Set `NEXT_PUBLIC_SITE_URL`** to the real origin — otherwise every feed link points

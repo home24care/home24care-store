@@ -33,6 +33,25 @@ export type Product = {
   weightGrams: number;
   regulated?: boolean;
   source: 'outdoor' | 'gas';
+
+  /* --- Google Merchant attributes, derived from the title by
+     scripts/enrich-merchant.mjs. All optional: absent means the title did not
+     state it, and an absent attribute is always safer than a guessed one. --- */
+  /** Variant size, e.g. "16x12". */
+  size?: string;
+  /** Variant colour or finish, e.g. "Black". */
+  color?: string;
+  /** Groups genuine size/colour variants of one model. */
+  itemGroupId?: string;
+  /** Count of identical units in a merchant-defined multipack. */
+  multipack?: number;
+  /** Different products sold together as one offer. */
+  isBundle?: boolean;
+  /** Net content of one unit, e.g. "25 lb". */
+  unitPricingMeasure?: string;
+  shippingWeightLb?: number;
+  /** True once the inherited copy has been replaced. */
+  rewritten?: boolean;
 };
 
 export type Collection = {

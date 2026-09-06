@@ -1,6 +1,7 @@
 import { products, getCollection } from '@/lib/catalog';
 import { priceDecimal } from '@/lib/format';
 import { site } from '@/lib/site';
+import { createHash } from 'node:crypto';
 import { absoluteImage } from '@/lib/image';
 
 /**
@@ -32,6 +33,24 @@ const escape = (value: string) =>
 
 const cdata = (value: string) =>
   `<![CDATA[${clean(value).replace(/]]>/g, ']]&gt;')}]]>`;
+
+
+/**
+ * The feed `id`, which Google caps at 50 characters.
+ *
+ * An id is the permanent handle for an offer — changing one orphans that
+ * product's history and performance data in Merchant Center. So the SKU is
+ * passed through untouched wherever it already fits, and only the handful
+ * that are too long get shortened, deterministically, by keeping a readable
+ * prefix and appending a hash of the full SKU so the result stays unique and
+ * stable across builds.
+ */
+const feedId = (sku: string) => {
+  const trimmed = sku.trim();
+  if (trimmed.length <= 50) return trimmed;
+  const hash = createHash('sha1').update(trimmed).digest('hex').slice(0, 8);
+  return `${trimmed.slice(0, 41)}-${hash}`;
+};
 
 export async function GET() {
   const items = products
@@ -67,12 +86,37 @@ export async function GET() {
         ? `\n      <g:sale_price>${priceDecimal(product.price)} ${product.currency}</g:sale_price>`
         : '';
 
+      // Optional attributes are emitted only when the title actually stated
+      // them. A guessed size or multipack is worse than an absent one, because
+      // Google matches the offer against the wrong thing.
+      //
+      // identifier_exists is deliberately NOT sent: it means "this product has
+      // no GTIN and no MPN", which would contradict the g:mpn on the line
+      // above. Brand + MPN is the identifier pair for this catalog; there are
+      // no real GTINs to send and inventing them is not an option.
+      const optional = [
+        product.itemGroupId && `\n      <g:item_group_id>${escape(product.itemGroupId)}</g:item_group_id>`,
+        product.size && `\n      <g:size>${escape(product.size)}</g:size>`,
+        product.color && `\n      <g:color>${escape(product.color)}</g:color>`,
+        product.multipack && `\n      <g:multipack>${product.multipack}</g:multipack>`,
+        product.isBundle && `\n      <g:is_bundle>yes</g:is_bundle>`,
+        product.unitPricingMeasure &&
+          `\n      <g:unit_pricing_measure>${escape(product.unitPricingMeasure)}</g:unit_pricing_measure>`,
+        product.shippingWeightLb &&
+          `\n      <g:shipping_weight>${product.shippingWeightLb} lb</g:shipping_weight>`,
+        ...product.highlights
+          .slice(0, 5)
+          .map((h) => `\n      <g:product_highlight>${cdata(h.slice(0, 150))}</g:product_highlight>`),
+      ]
+        .filter(Boolean)
+        .join('');
+
       const productType = `${collection?.group ?? 'Home'} > ${
         collection?.title ?? product.productType
       }`;
 
       return `    <item>
-      <g:id>${escape(product.sku)}</g:id>
+      <g:id>${escape(feedId(product.sku))}</g:id>
       <g:title>${cdata(product.title.slice(0, 150))}</g:title>
       <g:description>${cdata(description)}</g:description>
       <g:link>${escape(url)}</g:link>
@@ -82,8 +126,7 @@ ${additionalImages}
       <g:price>${listPrice} ${product.currency}</g:price>${salePrice}
       <g:condition>new</g:condition>
       <g:brand>${cdata(product.brand)}</g:brand>
-      <g:mpn>${escape(product.sku)}</g:mpn>
-      <g:identifier_exists>no</g:identifier_exists>
+      <g:mpn>${escape(product.sku)}</g:mpn>${optional}
       <g:google_product_category>${cdata(
         collection?.googleCategory ?? 'Home & Garden'
       )}</g:google_product_category>

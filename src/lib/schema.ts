@@ -119,6 +119,21 @@ export const productSchema = (product: Product) => {
     sku: product.sku,
     mpn: product.sku,
     brand: { '@type': 'Brand', name: product.brand },
+    // Mirrors the Merchant feed. Google reconciles the landing page's
+    // structured data against the feed, so a variant attribute present in one
+    // and absent from the other is a mismatch worth avoiding.
+    ...(product.color ? { color: product.color } : {}),
+    ...(product.size ? { size: product.size } : {}),
+    ...(product.itemGroupId ? { inProductGroupWithID: product.itemGroupId } : {}),
+    ...(product.shippingWeightLb
+      ? {
+          weight: {
+            '@type': 'QuantitativeValue',
+            value: product.shippingWeightLb,
+            unitCode: 'LBR',
+          },
+        }
+      : {}),
     category: product.productType,
     image: product.images.slice(0, 6).map((i) => absoluteImage(i.full, site.url)),
     // Store-wide Trustpilot score, attributed to Trustpilot as the source.
