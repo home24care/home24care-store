@@ -14,7 +14,8 @@
     "build:feed-images": "node scripts/build-feed-images.mjs",
     "merchant:check": "node scripts/upload-merchant.mjs check",
     "merchant:upload": "node scripts/upload-merchant.mjs upload",
-    "merchant:status": "node scripts/upload-merchant.mjs status"
+    "merchant:status": "node scripts/upload-merchant.mjs status",
+    "merchant:sheet": "node scripts/build-sheet-feed.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.38.4",

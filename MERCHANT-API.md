@@ -1,13 +1,61 @@
-# Uploading products through the Merchant API
+# Getting products into Merchant Center
+
+There are three routes, all carrying identical values — verified by
+cross-checking each against the others attribute by attribute. Pick **one** as
+the primary data source; running two means both claim all 278 products and
+overwrite each other on every refresh.
+
+| Route | Built by | Effort | Stays in sync? |
+| --- | --- | --- | --- |
+| **Scheduled fetch** of `/feeds/google` | `src/app/feeds/google/route.ts` | paste one URL | yes, on each deploy |
+| **Google Sheets** | `scripts/build-sheet-feed.mjs` | import a CSV | no, re-import after changes |
+| **Merchant API** | `scripts/upload-merchant.mjs` | one-time key setup | no, re-run after changes |
+
+## Google Sheets
+
+```bash
+node scripts/build-sheet-feed.mjs
+```
+
+Writes `data/merchant-sheet.csv`. In the sheet Merchant Center generated for
+you: `File > Import > Upload`, choose the file, pick **Replace current sheet**
+and **Comma** as the separator, then click Continue in Merchant Center.
+
+Replacing the sheet also clears the template's instruction rows, so the
+"delete rows 2 to 5" step in Merchant Center's own instructions is already
+handled.
+
+The file reproduces that template's own 40 columns in its own order, then
+appends the eight it leaves out but this catalogue needs:
+`google_product_category`, `product_type`, `shipping`, `shipping_weight` and
+the four handling and transit times. Merchant Center matches columns by header
+name rather than position, so appending is safe.
+
+Two details in this catalogue decide the file's format, and getting either
+wrong corrupts the feed without any error:
+
+**118 of 396 product highlights contain a comma.** Google accepts a repeated
+attribute either as one comma-separated cell or as several columns holding one
+value each. The first would split those 118 at their own commas — "Ships in one
+box, fully assembled" becoming two highlights — so the file uses separate
+columns. Same for the additional images.
+
+**237 descriptions contain a paragraph break.** The file is RFC 4180 quoted
+CSV, which the Sheets importer reads correctly. Tab-separated text pasted
+directly would split each of those products across two rows.
+
+Two template cells are also worth ignoring. It labels `description` "up to 200
+characters", but the product data specification allows 5000; the longest here
+is 977. And it marks `identifier_exists` required, while the specification says
+to omit it when a product has a brand and an MPN, as all 278 do — sending "no"
+there would tell Google to ignore the 185 GTINs. That column is left blank.
+
+## Merchant API
 
 `scripts/upload-merchant.mjs` pushes all 278 products straight into Merchant
 Center — title, description, price, sale price, images, GTIN, MPN, brand,
 category, variants, shipping and highlights — instead of waiting for Google to
 fetch the RSS feed.
-
-Both paths stay available. The feed at `/feeds/google` still works; the uploader
-sends byte-identical values, verified across 22 attributes per product. Use one
-or the other as the **primary** source, never both (see *Do not run both* below).
 
 ## One-time setup
 
@@ -83,10 +131,15 @@ source needs deleting.
 
 ## Do not run both at once
 
-A product is identified by `offerId` + `feedLabel` + `contentLanguage`. If the
-scheduled fetch of `/feeds/google` and the API upload are both configured as
+A product is identified by `offerId` + `feedLabel` + `contentLanguage`. All
+three routes send the same offer ids, so if any two of them — the scheduled
+fetch of `/feeds/google`, the Google Sheet, the API upload — are configured as
 **primary** sources, they will both claim all 278 products and overwrite each
 other on every refresh.
+
+That shared offer id is deliberate. It is a product's permanent handle in
+Merchant Center, so using the same rule everywhere means switching between the
+three routes never orphans a product's history.
 
 Pick one:
 
