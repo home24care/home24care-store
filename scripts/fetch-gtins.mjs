@@ -31,8 +31,8 @@ const UA =
 // The store rate-limits hard. Two workers with a pause between requests gets
 // through the whole catalog; six got 429 on three quarters of it.
 const CONCURRENCY = 2;
-const DELAY_MS = 400;
-const MAX_RETRIES = 4;
+const DELAY_MS = 900;
+const MAX_RETRIES = 6;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -75,8 +75,21 @@ function extractPairs(html) {
   return pairs;
 }
 
-const handles = [...new Set(shopify.map((p) => p.handle))];
-console.log(`fetching ${handles.length} product pages`);
+// Skip pages whose SKU already resolved — a resumed run should spend its
+// requests on what is still missing rather than re-fetching what worked.
+const alreadyPath = path.join(root, 'data/gtins.json');
+const already = fs.existsSync(alreadyPath)
+  ? new Set(Object.keys(JSON.parse(fs.readFileSync(alreadyPath, 'utf8'))))
+  : new Set();
+
+const handles = [
+  ...new Set(
+    shopify
+      .filter((p) => !p.variants.some((v) => already.has(v.sku)))
+      .map((p) => p.handle)
+  ),
+];
+console.log(`fetching ${handles.length} product pages still missing a GTIN`);
 
 // Resume: keep anything an earlier run already matched.
 const existingPath = path.join(root, 'data/gtins.json');

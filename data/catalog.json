@@ -254,7 +254,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "Acacia",
-   "shippingWeightLb": 77.16
+   "shippingWeightLb": 77.16,
+   "gtin": "752113294011"
   },
   {
    "id": "gas-4706",
@@ -387,7 +388,8 @@
    "rewritten": true,
    "size": "10x10",
    "shippingWeightLb": 676.11,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113496132"
   },
   {
    "id": "bd-468255715",
@@ -479,7 +481,8 @@
    "rewritten": true,
    "size": "10x10",
    "shippingWeightLb": 379,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113595514"
   },
   {
    "id": "bd-8011787272327",
@@ -573,7 +576,8 @@
    "rewritten": true,
    "size": "10x10",
    "shippingWeightLb": 433.21,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497160"
   },
   {
    "id": "bd-6824764539015",
@@ -665,7 +669,8 @@
    "rewritten": true,
    "size": "10x10",
    "shippingWeightLb": 640,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113296060"
   },
   {
    "id": "bd-8215151673479",
@@ -757,7 +762,8 @@
    "rewritten": true,
    "size": "10x10",
    "shippingWeightLb": 526.7,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113497191"
   },
   {
    "id": "bd-7495465500807",
@@ -854,7 +860,8 @@
    "rewritten": true,
    "size": "11x7",
    "shippingWeightLb": 1076,
-   "itemGroupId": "bellerose-greenhouses"
+   "itemGroupId": "bellerose-greenhouses",
+   "gtin": "752113394100"
   },
   {
    "id": "bd-7920301015175",
@@ -951,7 +958,8 @@
    "rewritten": true,
    "size": "11x7",
    "shippingWeightLb": 1032,
-   "itemGroupId": "poppy-greenhouses"
+   "itemGroupId": "poppy-greenhouses",
+   "gtin": "752113494107"
   },
   {
    "id": "gas-4666",
@@ -1176,7 +1184,8 @@
    "rewritten": true,
    "size": "12x10",
    "shippingWeightLb": 682,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113296077"
   },
   {
    "id": "bd-417034203",
@@ -1268,7 +1277,8 @@
    "rewritten": true,
    "size": "12x10",
    "shippingWeightLb": 415,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113962149"
   },
   {
    "id": "bd-7895565238407",
@@ -1359,7 +1369,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "12x10",
-   "shippingWeightLb": 94.8
+   "shippingWeightLb": 94.8,
+   "gtin": "752113395077"
   },
   {
    "id": "bd-8006750339207",
@@ -1453,7 +1464,8 @@
    "rewritten": true,
    "size": "12x10",
    "shippingWeightLb": 492.52,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497122"
   },
   {
    "id": "bd-6711629840519",
@@ -1638,7 +1650,8 @@
    "rewritten": true,
    "size": "12x10",
    "shippingWeightLb": 776.82,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113396050"
   },
   {
    "id": "bd-7845866799239",
@@ -1730,7 +1743,8 @@
    "rewritten": true,
    "size": "12x10",
    "shippingWeightLb": 574.78,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113407053"
   },
   {
    "id": "bd-6708920090759",
@@ -1823,7 +1837,8 @@
    "size": "12x12",
    "color": "Brown",
    "shippingWeightLb": 808.5,
-   "itemGroupId": "arlington-gazebos"
+   "itemGroupId": "arlington-gazebos",
+   "gtin": "752113296114"
   },
   {
    "id": "bd-7932419899527",
@@ -1915,7 +1930,8 @@
    "rewritten": true,
    "size": "12x12",
    "shippingWeightLb": 868.67,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113396227"
   },
   {
    "id": "bd-8014913929351",
@@ -2009,7 +2025,8 @@
    "rewritten": true,
    "size": "12x12",
    "shippingWeightLb": 483.55,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113495029"
   },
   {
    "id": "bd-7440688578695",
@@ -2105,7 +2122,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "12x7",
-   "shippingWeightLb": 954
+   "shippingWeightLb": 954,
+   "gtin": "752113394124"
   },
   {
    "id": "bd-6829198344327",
@@ -2197,7 +2215,8 @@
    "rewritten": true,
    "size": "12x9.5",
    "shippingWeightLb": 586,
-   "itemGroupId": "arcadia-gazebos"
+   "itemGroupId": "arcadia-gazebos",
+   "gtin": "752113396074"
   },
   {
    "id": "bd-7372608307335",
@@ -2289,7 +2308,8 @@
    "rewritten": true,
    "size": "12x9.5",
    "shippingWeightLb": 743,
-   "itemGroupId": "stonebridge-gazebos"
+   "itemGroupId": "stonebridge-gazebos",
+   "gtin": "752113396081"
   },
   {
    "id": "bd-7857223630983",
@@ -2388,7 +2408,8 @@
    "rewritten": true,
    "size": "13x11",
    "shippingWeightLb": 1515,
-   "itemGroupId": "bellerose-greenhouses"
+   "itemGroupId": "bellerose-greenhouses",
+   "gtin": "752113494114"
   },
   {
    "id": "bd-8232446820487",
@@ -2484,7 +2505,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "14.5x12",
-   "shippingWeightLb": 1964.8
+   "shippingWeightLb": 1964.8,
+   "gtin": "752113494220"
   },
   {
    "id": "bd-4730464895111",
@@ -2670,7 +2692,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 784,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113396043"
   },
   {
    "id": "bd-1298998788167",
@@ -2764,7 +2787,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 447,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113892514"
   },
   {
    "id": "bd-7518369022087",
@@ -3046,7 +3070,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "14x10",
-   "shippingWeightLb": 396.83
+   "shippingWeightLb": 396.83,
+   "gtin": "752113395015"
   },
   {
    "id": "bd-8011781243015",
@@ -3140,7 +3165,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 553.36,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497092"
   },
   {
    "id": "bd-7860825751687",
@@ -3234,7 +3260,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 817.21,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113496019"
   },
   {
    "id": "bd-7512859050119",
@@ -3326,7 +3353,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 652,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113395053"
   },
   {
    "id": "bd-4275971424391",
@@ -3605,7 +3633,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 669,
-   "itemGroupId": "windham-pergolas"
+   "itemGroupId": "windham-pergolas",
+   "gtin": "752113195158"
   },
   {
    "id": "bd-7923984728199",
@@ -3697,7 +3726,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 857.63,
-   "itemGroupId": "arcadia-gazebos"
+   "itemGroupId": "arcadia-gazebos",
+   "gtin": "752113496064"
   },
   {
    "id": "bd-6708957806727",
@@ -3791,7 +3821,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 853,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113296046"
   },
   {
    "id": "bd-6667246370951",
@@ -3885,7 +3916,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 540,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113191556"
   },
   {
    "id": "bd-8664675221639",
@@ -4074,7 +4106,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 929,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113296022"
   },
   {
    "id": "bd-8509218488455",
@@ -4351,7 +4384,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 704,
-   "itemGroupId": "windham-pergolas"
+   "itemGroupId": "windham-pergolas",
+   "gtin": "752113195523"
   },
   {
    "id": "bd-8731547664519",
@@ -4538,7 +4572,8 @@
    "rewritten": true,
    "size": "16x10",
    "shippingWeightLb": 611.55,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497108"
   },
   {
    "id": "bd-7527427768455",
@@ -4630,7 +4665,8 @@
    "rewritten": true,
    "size": "16x10",
    "shippingWeightLb": 728,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113395114"
   },
   {
    "id": "bd-6700150489223",
@@ -4724,7 +4760,8 @@
    "rewritten": true,
    "size": "16x12",
    "shippingWeightLb": 974,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113296053"
   },
   {
    "id": "bd-6667210391687",
@@ -4818,7 +4855,8 @@
    "rewritten": true,
    "size": "16x12",
    "shippingWeightLb": 621.75,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113191563"
   },
   {
    "id": "bd-6708961968263",
@@ -4912,7 +4950,8 @@
    "rewritten": true,
    "size": "16x12",
    "shippingWeightLb": 1228,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113296039"
   },
   {
    "id": "bd-8731547730055",
@@ -5099,7 +5138,8 @@
    "rewritten": true,
    "size": "18x10",
    "shippingWeightLb": 659.84,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497139"
   },
   {
    "id": "bd-8008568569991",
@@ -5191,7 +5231,8 @@
    "rewritten": true,
    "size": "18x10",
    "shippingWeightLb": 744.23,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113497146"
   },
   {
    "id": "gas-4644",
@@ -5326,7 +5367,8 @@
    "rewritten": true,
    "size": "20x10",
    "shippingWeightLb": 787.06,
-   "itemGroupId": "evanston-pergolas"
+   "itemGroupId": "evanston-pergolas",
+   "gtin": "752113497115"
   },
   {
    "id": "bd-7527430127751",
@@ -5418,7 +5460,8 @@
    "rewritten": true,
    "size": "20x10",
    "shippingWeightLb": 901.8,
-   "itemGroupId": "sarasota-pergolas"
+   "itemGroupId": "sarasota-pergolas",
+   "gtin": "752113395121"
   },
   {
    "id": "bd-7370063380615",
@@ -5510,7 +5553,8 @@
    "rewritten": true,
    "size": "20x12",
    "shippingWeightLb": 1240,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113396173"
   },
   {
    "id": "bd-6665276555399",
@@ -5602,7 +5646,8 @@
    "rewritten": true,
    "size": "20x12",
    "shippingWeightLb": 732,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113191570"
   },
   {
    "id": "bd-7388944531591",
@@ -5694,7 +5739,8 @@
    "rewritten": true,
    "size": "20x12",
    "shippingWeightLb": 1075,
-   "itemGroupId": "kingsport-car-ports"
+   "itemGroupId": "kingsport-car-ports",
+   "gtin": "752113396180"
   },
   {
    "id": "bd-6700200525959",
@@ -5788,7 +5834,8 @@
    "rewritten": true,
    "size": "20x12",
    "shippingWeightLb": 1245,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113297012"
   },
   {
    "id": "bd-7429652643975",
@@ -5880,7 +5927,8 @@
    "rewritten": true,
    "size": "20x20",
    "shippingWeightLb": 1764,
-   "itemGroupId": "kingsport-car-ports"
+   "itemGroupId": "kingsport-car-ports",
+   "gtin": "752113396197"
   },
   {
    "id": "bd-7370696097927",
@@ -5972,7 +6020,8 @@
    "rewritten": true,
    "size": "20x9.5",
    "shippingWeightLb": 934,
-   "itemGroupId": "arcadia-gazebos"
+   "itemGroupId": "arcadia-gazebos",
+   "gtin": "752113396067"
   },
   {
    "id": "bd-7388780626055",
@@ -6064,7 +6113,8 @@
    "rewritten": true,
    "size": "20x9.5",
    "shippingWeightLb": 1040,
-   "itemGroupId": "stonebridge-gazebos"
+   "itemGroupId": "stonebridge-gazebos",
+   "gtin": "752113397118"
   },
   {
    "id": "gas-4668",
@@ -6320,7 +6370,8 @@
    "rewritten": true,
    "size": "24x12",
    "shippingWeightLb": 1324,
-   "itemGroupId": "arcadia-gazebos"
+   "itemGroupId": "arcadia-gazebos",
+   "gtin": "752113496026"
   },
   {
    "id": "bd-7904769572999",
@@ -6412,7 +6463,8 @@
    "rewritten": true,
    "size": "24x12",
    "shippingWeightLb": 1582,
-   "itemGroupId": "barrington-gazebos"
+   "itemGroupId": "barrington-gazebos",
+   "gtin": "752113496033"
   },
   {
    "id": "bd-8016408248455",
@@ -6504,7 +6556,8 @@
    "rewritten": true,
    "size": "24x12",
    "shippingWeightLb": 874.18,
-   "itemGroupId": "beaumont-pergolas"
+   "itemGroupId": "beaumont-pergolas",
+   "gtin": "752113495036"
   },
   {
    "id": "bd-7851806294151",
@@ -6598,7 +6651,8 @@
    "rewritten": true,
    "size": "24x12",
    "shippingWeightLb": 1538,
-   "itemGroupId": "norwood-gazebos"
+   "itemGroupId": "norwood-gazebos",
+   "gtin": "752113496040"
   },
   {
    "id": "gas-4712",
@@ -7351,7 +7405,8 @@
    "rewritten": true,
    "size": "9x6",
    "shippingWeightLb": 870,
-   "itemGroupId": "bellerose-greenhouses"
+   "itemGroupId": "bellerose-greenhouses",
+   "gtin": "752113494022"
   },
   {
    "id": "bd-7865102631047",
@@ -7449,7 +7504,8 @@
    "size": "9x6",
    "color": "White",
    "shippingWeightLb": 873.08,
-   "itemGroupId": "bellerose-greenhouses"
+   "itemGroupId": "bellerose-greenhouses",
+   "gtin": "752113394186"
   },
   {
    "id": "bd-8017542676615",
@@ -7548,7 +7604,8 @@
    "rewritten": true,
    "size": "9x6",
    "shippingWeightLb": 802,
-   "itemGroupId": "poppy-greenhouses"
+   "itemGroupId": "poppy-greenhouses",
+   "gtin": "752113494282"
   },
   {
    "id": "bd-7495492305031",
@@ -7645,7 +7702,8 @@
    "rewritten": true,
    "size": "9x6",
    "shippingWeightLb": 648,
-   "itemGroupId": "willow-greenhouses"
+   "itemGroupId": "willow-greenhouses",
+   "gtin": "752113494015"
   },
   {
    "id": "bd-7700558839943",
@@ -7745,7 +7803,8 @@
    "size": "9x6",
    "color": "White",
    "shippingWeightLb": 648,
-   "itemGroupId": "willow-greenhouses"
+   "itemGroupId": "willow-greenhouses",
+   "gtin": "752113394179"
   },
   {
    "id": "bd-8631189143687",
@@ -7932,7 +7991,8 @@
    "weightGrams": 13998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 30.86
+   "shippingWeightLb": 30.86,
+   "gtin": "752113394131"
   },
   {
    "id": "bd-8258711879815",
@@ -8022,7 +8082,8 @@
    "weightGrams": 224982,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 496
+   "shippingWeightLb": 496,
+   "gtin": "752113598034"
   },
   {
    "id": "bd-8620130500743",
@@ -8204,7 +8265,8 @@
    "weightGrams": 270999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 597.45
+   "shippingWeightLb": 597.45,
+   "gtin": "752113494046"
   },
   {
    "id": "bd-507276739",
@@ -8294,7 +8356,8 @@
    "weightGrams": 26000,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 57.32
+   "shippingWeightLb": 57.32,
+   "gtin": "752113965157"
   },
   {
    "id": "bd-310629947",
@@ -8389,7 +8452,8 @@
    "weightGrams": 165561,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 365
+   "shippingWeightLb": 365,
+   "gtin": "752113698017"
   },
   {
    "id": "bd-8705200881799",
@@ -8844,7 +8908,8 @@
    "weightGrams": 66002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 145.51
+   "shippingWeightLb": 145.51,
+   "gtin": "752113091061"
   },
   {
    "id": "bd-6623707660423",
@@ -8939,7 +9004,8 @@
    "weightGrams": 54000,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 119.05
+   "shippingWeightLb": 119.05,
+   "gtin": "752113290129"
   },
   {
    "id": "bd-6021597318",
@@ -9034,7 +9100,8 @@
    "weightGrams": 25002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 55.12
+   "shippingWeightLb": 55.12,
+   "gtin": "752113695023"
   },
   {
    "id": "bd-6568226488455",
@@ -9124,7 +9191,8 @@
    "weightGrams": 43091,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 95
+   "shippingWeightLb": 95,
+   "gtin": "752113192324"
   },
   {
    "id": "bd-4275993673863",
@@ -9219,7 +9287,8 @@
    "weightGrams": 58999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 130.07
+   "shippingWeightLb": 130.07,
+   "gtin": "752113091030"
   },
   {
    "id": "bd-8588229804167",
@@ -9412,7 +9481,8 @@
    "weightGrams": 84001,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 185.19
+   "shippingWeightLb": 185.19,
+   "gtin": "752113992252"
   },
   {
    "id": "bd-8195129016455",
@@ -9598,7 +9668,8 @@
    "weightGrams": 266259,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 587
+   "shippingWeightLb": 587,
+   "gtin": "752113996014"
   },
   {
    "id": "bd-4352806977671",
@@ -9690,7 +9761,8 @@
    "weightGrams": 66002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 145.51
+   "shippingWeightLb": 145.51,
+   "gtin": "752113091047"
   },
   {
    "id": "gas-4716",
@@ -9856,7 +9928,8 @@
    "weightGrams": 45999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 101.41
+   "shippingWeightLb": 101.41,
+   "gtin": "752113395107"
   },
   {
    "id": "bd-144116678677",
@@ -10042,7 +10115,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "White",
-   "shippingWeightLb": 492.87
+   "shippingWeightLb": 492.87,
+   "gtin": "752113390348"
   },
   {
    "id": "bd-7873204945031",
@@ -10134,7 +10208,8 @@
    "rewritten": true,
    "color": "Light Brown",
    "shippingWeightLb": 94.8,
-   "itemGroupId": "caraway-playhouses"
+   "itemGroupId": "caraway-playhouses",
+   "gtin": "752113393059"
   },
   {
    "id": "bd-7874268332167",
@@ -10226,7 +10301,8 @@
    "rewritten": true,
    "color": "White",
    "shippingWeightLb": 94.8,
-   "itemGroupId": "caraway-playhouses"
+   "itemGroupId": "caraway-playhouses",
+   "gtin": "752113393042"
   },
   {
    "id": "bd-4505755910",
@@ -10318,7 +10394,8 @@
    "weightGrams": 306628,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 676
+   "shippingWeightLb": 676,
+   "gtin": "752113696020"
   },
   {
    "id": "bd-4353158545543",
@@ -10410,7 +10487,8 @@
    "weightGrams": 256280,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 565
+   "shippingWeightLb": 565,
+   "gtin": "752113091054"
   },
   {
    "id": "bd-4800668532871",
@@ -10477,7 +10555,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "Light Brown",
-   "shippingWeightLb": 46
+   "shippingWeightLb": 46,
+   "gtin": "752113096615"
   },
   {
    "id": "bd-7389466132615",
@@ -10567,7 +10646,8 @@
    "weightGrams": 187447,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 413.25
+   "shippingWeightLb": 413.25,
+   "gtin": "752113394087"
   },
   {
    "id": "bd-6676109688967",
@@ -10658,7 +10738,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "Acacia",
-   "shippingWeightLb": 66.14
+   "shippingWeightLb": 66.14,
+   "gtin": "752113294035"
   },
   {
    "id": "bd-8296914190471",
@@ -10928,7 +11009,8 @@
    "weightGrams": 43091,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 95
+   "shippingWeightLb": 95,
+   "gtin": "752113192317"
   },
   {
    "id": "bd-8624490840199",
@@ -11196,7 +11278,8 @@
    "weightGrams": 1167547,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 2574
+   "shippingWeightLb": 2574,
+   "gtin": "752113394155"
   },
   {
    "id": "bd-8594287558791",
@@ -11823,7 +11906,8 @@
    "weightGrams": 400998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 884.05
+   "shippingWeightLb": 884.05,
+   "gtin": "752113494442"
   },
   {
    "id": "bd-8625921097863",
@@ -12091,7 +12175,8 @@
    "weightGrams": 482999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1064.83
+   "shippingWeightLb": 1064.83,
+   "gtin": "752113594197"
   },
   {
    "id": "bd-8187407302791",
@@ -12181,7 +12266,8 @@
    "weightGrams": 642999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1417.57
+   "shippingWeightLb": 1417.57,
+   "gtin": "752113594180"
   },
   {
    "id": "bd-8625921065095",
@@ -12540,7 +12626,8 @@
    "weightGrams": 262176,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 578
+   "shippingWeightLb": 578,
+   "gtin": "752113390065"
   },
   {
    "id": "bd-6687818088583",
@@ -12815,7 +12902,8 @@
    "weightGrams": 60001,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 132.28
+   "shippingWeightLb": 132.28,
+   "gtin": "752113490345"
   },
   {
    "id": "bd-4800687833223",
@@ -12867,7 +12955,8 @@
    "weightGrams": 13499,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 29.76
+   "shippingWeightLb": 29.76,
+   "gtin": "752113096639"
   },
   {
    "id": "gas-4726",
@@ -13125,7 +13214,8 @@
    "weightGrams": 605523,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1334.95
+   "shippingWeightLb": 1334.95,
+   "gtin": "752113597037"
   },
   {
    "id": "bd-7431162691719",
@@ -13215,7 +13305,8 @@
    "weightGrams": 489880,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1080
+   "shippingWeightLb": 1080,
+   "gtin": "752113394070"
   },
   {
    "id": "bd-6695839268999",
@@ -13305,7 +13396,8 @@
    "weightGrams": 277145,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 611
+   "shippingWeightLb": 611,
+   "gtin": "752113296091"
   },
   {
    "id": "bd-6746073694343",
@@ -13357,7 +13449,8 @@
    "rewritten": true,
    "color": "Gray",
    "shippingWeightLb": 35,
-   "itemGroupId": "wave-slides"
+   "itemGroupId": "wave-slides",
+   "gtin": "752113592605"
   },
   {
    "id": "bd-5119738445959",
@@ -13452,7 +13545,8 @@
    "weightGrams": 157152,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 346.46
+   "shippingWeightLb": 346.46,
+   "gtin": "752113196025"
   },
   {
    "id": "gas-4722",
@@ -13589,7 +13683,8 @@
    "weightGrams": 38002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 83.78
+   "shippingWeightLb": 83.78,
+   "gtin": "752113191044"
   },
   {
    "id": "bd-8264413872263",
@@ -13684,7 +13779,8 @@
    "weightGrams": 341002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 751.78
+   "shippingWeightLb": 751.78,
+   "gtin": "752113594760"
   },
   {
    "id": "bd-8264413937799",
@@ -13779,7 +13875,8 @@
    "weightGrams": 407004,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 897.29
+   "shippingWeightLb": 897.29,
+   "gtin": "752113594777"
   },
   {
    "id": "bd-342850327",
@@ -14208,7 +14305,8 @@
    "weightGrams": 49002,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 108.03
+   "shippingWeightLb": 108.03,
+   "gtin": "752113304116"
   },
   {
    "id": "bd-7568575266951",
@@ -14301,7 +14399,8 @@
    "source": "outdoor",
    "rewritten": true,
    "multipack": 4,
-   "shippingWeightLb": 20
+   "shippingWeightLb": 20,
+   "gtin": "752113448919"
   },
   {
    "id": "bd-8588229968007",
@@ -14494,7 +14593,8 @@
    "weightGrams": 56998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 125.66
+   "shippingWeightLb": 125.66,
+   "gtin": "752113091023"
   },
   {
    "id": "bd-8152709496967",
@@ -14952,7 +15052,8 @@
    "weightGrams": 771706,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1701.32
+   "shippingWeightLb": 1701.32,
+   "gtin": "752113494152"
   },
   {
    "id": "bd-8625819877511",
@@ -15947,7 +16048,8 @@
    "weightGrams": 292000,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 643.75
+   "shippingWeightLb": 643.75,
+   "gtin": "752113594654"
   },
   {
    "id": "bd-8264397291655",
@@ -16042,7 +16144,8 @@
    "weightGrams": 352001,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 776.03
+   "shippingWeightLb": 776.03,
+   "gtin": "752113594678"
   },
   {
    "id": "bd-8264397324423",
@@ -16137,7 +16240,8 @@
    "weightGrams": 359998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 793.66
+   "shippingWeightLb": 793.66,
+   "gtin": "752113594661"
   },
   {
    "id": "bd-8264397193351",
@@ -16232,7 +16336,8 @@
    "weightGrams": 424005,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 934.77
+   "shippingWeightLb": 934.77,
+   "gtin": "752113594685"
   },
   {
    "id": "bd-6700104515719",
@@ -16327,7 +16432,8 @@
    "weightGrams": 199581,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 440
+   "shippingWeightLb": 440,
+   "gtin": "752113290150"
   },
   {
    "id": "bd-8290335064199",
@@ -16785,7 +16891,8 @@
    "weightGrams": 253105,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 558
+   "shippingWeightLb": 558,
+   "gtin": "752113390362"
   },
   {
    "id": "bd-4494605830",
@@ -16882,7 +16989,8 @@
    "weightGrams": 329308,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 726
+   "shippingWeightLb": 726,
+   "gtin": "752113696037"
   },
   {
    "id": "bd-367233171",
@@ -16972,7 +17080,8 @@
    "weightGrams": 164200,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 362
+   "shippingWeightLb": 362,
+   "gtin": "752113302112"
   },
   {
    "id": "bd-8035058155655",
@@ -17062,7 +17171,8 @@
    "weightGrams": 11399,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 25.13
+   "shippingWeightLb": 25.13,
+   "gtin": "752113239289"
   },
   {
    "id": "bd-8035055239303",
@@ -17152,7 +17262,8 @@
    "weightGrams": 12701,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 28
+   "shippingWeightLb": 28,
+   "gtin": "752113239265"
   },
   {
    "id": "bd-7730744131719",
@@ -17242,7 +17353,8 @@
    "weightGrams": 12501,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 27.56
+   "shippingWeightLb": 27.56,
+   "gtin": "752113249196"
   },
   {
    "id": "bd-8033960919175",
@@ -17332,7 +17444,8 @@
    "weightGrams": 11499,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 25.35
+   "shippingWeightLb": 25.35,
+   "gtin": "752113239241"
   },
   {
    "id": "bd-8733332614",
@@ -17429,7 +17542,8 @@
    "weightGrams": 148778,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 328
+   "shippingWeightLb": 328,
+   "gtin": "752113705012"
   },
   {
    "id": "bd-8186038583431",
@@ -17519,7 +17633,8 @@
    "weightGrams": 49999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 110.23
+   "shippingWeightLb": 110.23,
+   "gtin": "752113593015"
   },
   {
    "id": "bd-7389475766407",
@@ -17616,7 +17731,8 @@
    "weightGrams": 196405,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 433
+   "shippingWeightLb": 433,
+   "gtin": "752113390256"
   },
   {
    "id": "bd-367244739",
@@ -17713,7 +17829,8 @@
    "weightGrams": 62800,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 138.45
+   "shippingWeightLb": 138.45,
+   "gtin": "752113651142"
   },
   {
    "id": "bd-8216461803655",
@@ -17803,7 +17920,8 @@
    "weightGrams": 273294,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 602.51
+   "shippingWeightLb": 602.51,
+   "gtin": "752113490413"
   },
   {
    "id": "bd-7992774000775",
@@ -17893,7 +18011,8 @@
    "weightGrams": 285142,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 628.63
+   "shippingWeightLb": 628.63,
+   "gtin": "752113394162"
   },
   {
    "id": "bd-8226500837511",
@@ -18370,7 +18489,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "Acacia",
-   "shippingWeightLb": 40
+   "shippingWeightLb": 40,
+   "gtin": "752113197039"
   },
   {
    "id": "bd-7519973769351",
@@ -18460,7 +18580,8 @@
    "weightGrams": 163293,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 360
+   "shippingWeightLb": 360,
+   "gtin": "752113394094"
   },
   {
    "id": "bd-7833855819911",
@@ -18550,7 +18671,8 @@
    "weightGrams": 136999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 302.03
+   "shippingWeightLb": 302.03,
+   "gtin": "752113494053"
   },
   {
    "id": "bd-6700143902855",
@@ -18641,7 +18763,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "8x6",
-   "shippingWeightLb": 126.76
+   "shippingWeightLb": 126.76,
+   "gtin": "752113394018"
   },
   {
    "id": "bd-7885666517127",
@@ -18733,7 +18856,8 @@
    "weightGrams": 16502,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 36.38
+   "shippingWeightLb": 36.38,
+   "gtin": "752113494039"
   },
   {
    "id": "gas-4692",
@@ -19153,7 +19277,8 @@
    "weightGrams": 177355,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 391
+   "shippingWeightLb": 391,
+   "gtin": "752113396012"
   },
   {
    "id": "bd-6807261511815",
@@ -19243,7 +19368,8 @@
    "weightGrams": 213188,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 470
+   "shippingWeightLb": 470,
+   "gtin": "752113396029"
   },
   {
    "id": "bd-8304685842567",
@@ -19518,7 +19644,8 @@
    "weightGrams": 276147,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 608.8
+   "shippingWeightLb": 608.8,
+   "gtin": "752113594753"
   },
   {
    "id": "bd-8264397226119",
@@ -19613,7 +19740,8 @@
    "weightGrams": 147998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 326.28
+   "shippingWeightLb": 326.28,
+   "gtin": "752113594746"
   },
   {
    "id": "bd-8180373946503",
@@ -19708,7 +19836,8 @@
    "weightGrams": 175413,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 386.72
+   "shippingWeightLb": 386.72,
+   "gtin": "752113594456"
   },
   {
    "id": "bd-8264397258887",
@@ -19803,7 +19932,8 @@
    "weightGrams": 253150,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 558.1
+   "shippingWeightLb": 558.1,
+   "gtin": "752113594647"
   },
   {
    "id": "bd-5273000607879",
@@ -19893,7 +20023,8 @@
    "weightGrams": 129274,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 285
+   "shippingWeightLb": 285,
+   "gtin": "752113194618"
   },
   {
    "id": "bd-6680576065671",
@@ -19985,7 +20116,8 @@
    "weightGrams": 219992,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 485
+   "shippingWeightLb": 485,
+   "gtin": "752113296084"
   },
   {
    "id": "bd-6805733638",
@@ -20075,7 +20207,8 @@
    "weightGrams": 116120,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 256
+   "shippingWeightLb": 256,
+   "gtin": "752113605336"
   },
   {
    "id": "bd-333149847",
@@ -20170,7 +20303,8 @@
    "weightGrams": 238136,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 525
+   "shippingWeightLb": 525,
+   "gtin": "752113654938"
   },
   {
    "id": "bd-362456719",
@@ -20265,7 +20399,8 @@
    "weightGrams": 356524,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 786
+   "shippingWeightLb": 786,
+   "gtin": "752113060135"
   },
   {
    "id": "bd-4352821690503",
@@ -20355,7 +20490,8 @@
    "weightGrams": 384193,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 847
+   "shippingWeightLb": 847,
+   "gtin": "752113091016"
   },
   {
    "id": "bd-5249985380487",
@@ -20542,7 +20678,8 @@
    "weightGrams": 307082,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 677
+   "shippingWeightLb": 677,
+   "gtin": "752113290044"
   },
   {
    "id": "bd-4607613075591",
@@ -20592,7 +20729,8 @@
    "weightGrams": 36287,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 80
+   "shippingWeightLb": 80,
+   "gtin": "752113198913"
   },
   {
    "id": "bd-4665048367239",
@@ -20642,7 +20780,8 @@
    "weightGrams": 36287,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 80
+   "shippingWeightLb": 80,
+   "gtin": "752113198968"
   },
   {
    "id": "bd-8296914288775",
@@ -21847,7 +21986,8 @@
    "weightGrams": 105687,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 233
+   "shippingWeightLb": 233,
+   "gtin": "752113393028"
   },
   {
    "id": "bd-4168152678535",
@@ -21939,7 +22079,8 @@
    "weightGrams": 39998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 88.18
+   "shippingWeightLb": 88.18,
+   "gtin": "752113091313"
   },
   {
    "id": "bd-6804162740359",
@@ -22032,7 +22173,8 @@
    "source": "outdoor",
    "rewritten": true,
    "color": "White",
-   "shippingWeightLb": 88.18
+   "shippingWeightLb": 88.18,
+   "gtin": "752113393011"
   },
   {
    "id": "bd-1789472178247",
@@ -22127,7 +22269,8 @@
    "weightGrams": 287029,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 632.79
+   "shippingWeightLb": 632.79,
+   "gtin": "752113992023"
   },
   {
    "id": "bd-367365875",
@@ -22214,7 +22357,8 @@
    "weightGrams": 189602,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 418
+   "shippingWeightLb": 418,
+   "gtin": "752113559103"
   },
   {
    "id": "bd-7507045974151",
@@ -22306,7 +22450,8 @@
    "weightGrams": 286761,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 632.2
+   "shippingWeightLb": 632.2,
+   "gtin": "752113390355"
   },
   {
    "id": "bd-8317377904775",
@@ -22478,7 +22623,8 @@
    "weightGrams": 36741,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 81
+   "shippingWeightLb": 81,
+   "gtin": "752113653146"
   },
   {
    "id": "bd-367388647",
@@ -22573,7 +22719,8 @@
    "weightGrams": 60999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 134.48
+   "shippingWeightLb": 134.48,
+   "gtin": "752113654815"
   },
   {
    "id": "bd-8698351878279",
@@ -22908,7 +23055,8 @@
    "weightGrams": 15876,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 35
+   "shippingWeightLb": 35,
+   "gtin": "752113592261"
   },
   {
    "id": "bd-7389476323463",
@@ -23005,7 +23153,8 @@
    "weightGrams": 258548,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 570
+   "shippingWeightLb": 570,
+   "gtin": "752113390263"
   },
   {
    "id": "bd-367546395",
@@ -23245,7 +23394,8 @@
    "rewritten": true,
    "color": "Yellow",
    "shippingWeightLb": 35,
-   "itemGroupId": "wave-slides"
+   "itemGroupId": "wave-slides",
+   "gtin": "752113592506"
   }
  ],
  "localized": true
