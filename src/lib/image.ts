@@ -39,6 +39,8 @@ export const SIZES = {
   // Category tiles: 3 across on desktop, 2 on mobile.
   tile: '(min-width: 1024px) 33vw, 50vw',
   hero: '100vw',
+  // Lightbox: shown as large as the screen allows, so ask for the full width.
+  lightbox: '100vw',
 } as const;
 
 /**
