@@ -24,6 +24,16 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const catalogPath = path.join(root, 'data/catalog.json');
 const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
 
+/**
+ * Real GTINs collected by scripts/fetch-gtins.mjs, keyed by SKU. Only products
+ * that actually have one get the attribute — Google would rather see no GTIN
+ * than a wrong one, which it would use to match the offer to another product.
+ */
+const gtinPath = path.join(root, 'data/gtins.json');
+const gtins = fs.existsSync(gtinPath)
+  ? JSON.parse(fs.readFileSync(gtinPath, 'utf8'))
+  : {};
+
 /* ------------------------------------------------------------------ size */
 
 /** "16x12 Barrington Gazebo" and "Stratford | 12x10 Steel Pergola" both. */
@@ -123,6 +133,7 @@ for (const product of catalog.products) {
   groups.get(key).push(product);
 }
 
+let gtinned = 0;
 let sized = 0;
 let colored = 0;
 let grouped = 0;
@@ -135,6 +146,12 @@ for (const product of catalog.products) {
   const color = colorOf(product.title);
   const { multipack, isBundle } = packOf(product.title);
   const unit = unitOf(product.title);
+
+  const gtin = gtins[product.sku];
+  if (gtin) {
+    product.gtin = gtin;
+    gtinned++;
+  }
 
   if (size) {
     product.size = size;
@@ -195,6 +212,7 @@ const families = [...groups.values()].filter((f) => {
   return sizes.size > 1 || colors.size > 1;
 });
 
+console.log(`gtin            ${gtinned}`);
 console.log(`size            ${sized}`);
 console.log(`color           ${colored}`);
 console.log(`item_group_id   ${grouped} across ${families.length} families`);

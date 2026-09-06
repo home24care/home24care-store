@@ -2577,7 +2577,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "14x10",
-   "shippingWeightLb": 533.24
+   "shippingWeightLb": 533.24,
+   "gtin": "752113096516"
   },
   {
    "id": "bd-6840754045063",
@@ -2855,7 +2856,8 @@
    "rewritten": true,
    "size": "14x10",
    "color": "Dark Brown",
-   "shippingWeightLb": 733.43
+   "shippingWeightLb": 733.43,
+   "gtin": "752113196537"
   },
   {
    "id": "bd-8572178661511",
@@ -3416,7 +3418,8 @@
    "rewritten": true,
    "size": "14x10",
    "shippingWeightLb": 479.41,
-   "itemGroupId": "somerville-pergolas"
+   "itemGroupId": "somerville-pergolas",
+   "gtin": "752113096547"
   },
   {
    "id": "bd-5221741559943",
@@ -3509,7 +3512,8 @@
    "size": "14x10",
    "color": "Walnut",
    "shippingWeightLb": 479.41,
-   "itemGroupId": "somerville-pergolas"
+   "itemGroupId": "somerville-pergolas",
+   "gtin": "752113196520"
   },
   {
    "id": "bd-6585043320967",
@@ -3977,7 +3981,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "14x12",
-   "shippingWeightLb": 2608
+   "shippingWeightLb": 2608,
+   "gtin": "752113494213"
   },
   {
    "id": "bd-6700186730631",
@@ -4160,7 +4165,8 @@
    "source": "outdoor",
    "rewritten": true,
    "size": "14x12",
-   "shippingWeightLb": 929
+   "shippingWeightLb": 929,
+   "gtin": "752113596337"
   },
   {
    "id": "bd-8731547697287",
@@ -4252,7 +4258,8 @@
    "rewritten": true,
    "size": "14x12",
    "shippingWeightLb": 1196,
-   "itemGroupId": "ridgeline-pergolas"
+   "itemGroupId": "ridgeline-pergolas",
+   "gtin": "752113690004"
   },
   {
    "id": "bd-6653289824391",
@@ -4436,7 +4443,8 @@
    "rewritten": true,
    "size": "14x14",
    "shippingWeightLb": 1297.32,
-   "itemGroupId": "ridgeline-pergolas"
+   "itemGroupId": "ridgeline-pergolas",
+   "gtin": "752113690028"
   },
   {
    "id": "bd-8011792220295",
@@ -4996,7 +5004,8 @@
    "rewritten": true,
    "size": "16x14",
    "shippingWeightLb": 1365.22,
-   "itemGroupId": "ridgeline-pergolas"
+   "itemGroupId": "ridgeline-pergolas",
+   "gtin": "752113690035"
   },
   {
    "id": "bd-8011797594247",
@@ -8469,7 +8478,8 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "source": "outdoor",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "752113597013"
   },
   {
    "id": "bd-8705200947335",
@@ -8563,7 +8573,8 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "source": "outdoor",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "752113690400"
   },
   {
    "id": "bd-8714204872839",
@@ -8652,7 +8663,8 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "source": "outdoor",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "752113690585"
   },
   {
    "id": "bd-8714204643463",
@@ -8741,7 +8753,8 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "source": "outdoor",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "752113690417"
   },
   {
    "id": "bd-4352831848583",
@@ -9301,7 +9314,8 @@
    "weightGrams": 356143,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 785.16
+   "shippingWeightLb": 785.16,
+   "gtin": "752113690097"
   },
   {
    "id": "bd-1722090553415",
@@ -9488,7 +9502,8 @@
    "weightGrams": 199581,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 440
+   "shippingWeightLb": 440,
+   "gtin": "752113596191"
   },
   {
    "id": "bd-1612860424263",
@@ -11628,7 +11643,8 @@
    "weightGrams": 561497,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1237.89
+   "shippingWeightLb": 1237.89,
+   "gtin": "752113494459"
   },
   {
    "id": "bd-8625921196167",
@@ -12433,7 +12449,8 @@
    "weightGrams": 654996,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 1444.02
+   "shippingWeightLb": 1444.02,
+   "gtin": "752113584204"
   },
   {
    "id": "bd-6713905512583",
@@ -14379,7 +14396,8 @@
    "weightGrams": 175413,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 386.72
+   "shippingWeightLb": 386.72,
+   "gtin": "752113690080"
   },
   {
    "id": "bd-4352154927239",
@@ -15202,7 +15220,8 @@
    "weightGrams": 1181799,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 2605.42
+   "shippingWeightLb": 2605.42,
+   "gtin": "752113494138"
   },
   {
    "id": "bd-8625819811975",
@@ -15472,7 +15491,8 @@
    "weightGrams": 955701,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 2106.96
+   "shippingWeightLb": 2106.96,
+   "gtin": "752113494145"
   },
   {
    "id": "bd-8236052709511",
@@ -15562,7 +15582,8 @@
    "weightGrams": 965998,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 2129.66
+   "shippingWeightLb": 2129.66,
+   "gtin": "752113494169"
   },
   {
    "id": "bd-8631165452423",
@@ -15830,7 +15851,8 @@
    "weightGrams": 1252999,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 2762.39
+   "shippingWeightLb": 2762.39,
+   "gtin": "752113595149"
   },
   {
    "id": "bd-8264397389959",
@@ -17966,7 +17988,8 @@
    "weightGrams": 365682,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 806.19
+   "shippingWeightLb": 806.19,
+   "gtin": "752113594395"
   },
   {
    "id": "bd-8264397357191",
@@ -18061,7 +18084,8 @@
    "weightGrams": 389001,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 857.6
+   "shippingWeightLb": 857.6,
+   "gtin": "752113594425"
   },
   {
    "id": "bd-8264397160583",
@@ -18156,7 +18180,8 @@
    "weightGrams": 389001,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 857.6
+   "shippingWeightLb": 857.6,
+   "gtin": "752113594401"
   },
   {
    "id": "bd-8264397422727",
@@ -18251,7 +18276,8 @@
    "weightGrams": 396004,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 873.04
+   "shippingWeightLb": 873.04,
+   "gtin": "752113594449"
   },
   {
    "id": "bd-6668198609031",
@@ -20891,7 +20917,8 @@
    "size": "12x10",
    "color": "Black",
    "shippingWeightLb": 620,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195080"
   },
   {
    "id": "bd-6560987250823",
@@ -20984,7 +21011,8 @@
    "size": "12x10",
    "color": "White",
    "shippingWeightLb": 620,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195103"
   },
   {
    "id": "bd-6560952778887",
@@ -21077,7 +21105,8 @@
    "size": "14x10",
    "color": "Black",
    "shippingWeightLb": 676,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195059"
   },
   {
    "id": "bd-6556099149959",
@@ -21170,7 +21199,8 @@
    "size": "14x10",
    "color": "White",
    "shippingWeightLb": 676,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195073"
   },
   {
    "id": "bd-6696795799687",
@@ -21263,7 +21293,8 @@
    "size": "14x12",
    "color": "Black",
    "shippingWeightLb": 750,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195530"
   },
   {
    "id": "bd-6691552329863",
@@ -21448,7 +21479,8 @@
    "size": "16x12",
    "color": "Black",
    "shippingWeightLb": 802.19,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195028"
   },
   {
    "id": "bd-6560554549383",
@@ -21543,7 +21575,8 @@
    "size": "16x12",
    "color": "White",
    "shippingWeightLb": 803,
-   "itemGroupId": "stratford-pergolas"
+   "itemGroupId": "stratford-pergolas",
+   "gtin": "752113195042"
   },
   {
    "id": "bd-8261422841991",
@@ -22630,7 +22663,8 @@
    "weightGrams": 296196,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 653
+   "shippingWeightLb": 653,
+   "gtin": "752113690240"
   },
   {
    "id": "bd-8695814750343",
@@ -22720,7 +22754,8 @@
    "weightGrams": 194138,
    "source": "outdoor",
    "rewritten": true,
-   "shippingWeightLb": 428
+   "shippingWeightLb": 428,
+   "gtin": "752113690226"
   },
   {
    "id": "bd-8631203528839",

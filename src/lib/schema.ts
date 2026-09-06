@@ -118,6 +118,7 @@ export const productSchema = (product: Product) => {
     description: product.excerpt || product.description.slice(0, 500),
     sku: product.sku,
     mpn: product.sku,
+    ...(product.gtin ? { gtin12: product.gtin, gtin: product.gtin } : {}),
     brand: { '@type': 'Brand', name: product.brand },
     // Mirrors the Merchant feed. Google reconciles the landing page's
     // structured data against the feed, so a variant attribute present in one

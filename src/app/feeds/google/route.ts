@@ -95,6 +95,9 @@ export async function GET() {
       // above. Brand + MPN is the identifier pair for this catalog; there are
       // no real GTINs to send and inventing them is not an option.
       const optional = [
+        // A real GS1 code where one exists. Google prefers gtin over mpn for
+        // matching, and sending both is correct when both are known.
+        product.gtin && `\n      <g:gtin>${escape(product.gtin)}</g:gtin>`,
         product.itemGroupId && `\n      <g:item_group_id>${escape(product.itemGroupId)}</g:item_group_id>`,
         product.size && `\n      <g:size>${escape(product.size)}</g:size>`,
         product.color && `\n      <g:color>${escape(product.color)}</g:color>`,
