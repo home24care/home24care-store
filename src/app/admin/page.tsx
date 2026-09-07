@@ -98,9 +98,20 @@ export default async function AdminDashboard({
         <p className="mb-6 rounded-xl border border-clay-300 bg-clay-50 px-4 py-3 text-[13px] leading-relaxed text-clay-900">
           <strong className="font-semibold">In-memory storage — data will not persist.</strong>{' '}
           Every serverless invocation gets a fresh process, so on a deployed site these numbers
-          reset constantly and will look near-empty. Set{' '}
-          <code>UPSTASH_REDIS_REST_URL</code> and <code>UPSTASH_REDIS_REST_TOKEN</code> to store
-          events properly.
+          reset constantly and will look near-empty.
+          <br />
+          Set <code>UPSTASH_REDIS_REST_URL</code> and <code>UPSTASH_REDIS_REST_TOKEN</code>, or the{' '}
+          <code>KV_REST_API_URL</code> / <code>KV_REST_API_TOKEN</code> pair that Vercel&apos;s
+          Upstash integration writes — either is read. Then <strong>redeploy</strong>: environment
+          variables only reach a new build.
+          <br />
+          Seen in this deployment:{' '}
+          <code>
+            UPSTASH_REDIS_REST_URL={process.env.UPSTASH_REDIS_REST_URL ? 'set' : 'missing'},{' '}
+            UPSTASH_REDIS_REST_TOKEN={process.env.UPSTASH_REDIS_REST_TOKEN ? 'set' : 'missing'},{' '}
+            KV_REST_API_URL={process.env.KV_REST_API_URL ? 'set' : 'missing'},{' '}
+            KV_REST_API_TOKEN={process.env.KV_REST_API_TOKEN ? 'set' : 'missing'}
+          </code>
         </p>
       )}
 

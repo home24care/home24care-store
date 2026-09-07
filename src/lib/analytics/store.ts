@@ -37,15 +37,41 @@ export type Store = {
 
 let redisClient: Redis | null = null;
 
-export const redisConfigured = () =>
-  Boolean(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+/**
+ * The REST credentials, under either name Vercel might have written.
+ *
+ * Upstash's own dashboard calls these UPSTASH_REDIS_REST_URL/TOKEN, but the
+ * Vercel marketplace integration provisions the same database as
+ * KV_REST_API_URL/TOKEN, left over from Vercel KV. Reading both means the
+ * dashboard works whichever route was used to create the database, instead of
+ * silently falling back to memory because the names did not match.
+ *
+ * Deliberately not accepting REDIS_URL: that is the TCP connection string
+ * (redis://...), which @upstash/redis cannot use — it speaks HTTP so that a
+ * serverless invocation does not need a persistent socket.
+ */
+export const redisCredentials = () => {
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  return url && token ? { url, token } : null;
+};
+
+export const redisConfigured = () => redisCredentials() !== null;
+
+/** Which variable names were actually found, for the dashboard to report. */
+export const redisSource = (): string | null => {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    return 'UPSTASH_REDIS_REST_*';
+  }
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) return 'KV_REST_API_*';
+  return null;
+};
 
 function redis(): Redis {
   if (!redisClient) {
-    redisClient = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL!,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-    });
+    const creds = redisCredentials();
+    if (!creds) throw new Error('Redis credentials are not configured');
+    redisClient = new Redis(creds);
   }
   return redisClient;
 }
