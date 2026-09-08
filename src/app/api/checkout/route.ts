@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { stripe, stripeConfigured } from '@/lib/stripe';
 import { getProduct } from '@/lib/catalog';
 import { site } from '@/lib/site';
-import { absoluteImage } from '@/lib/image';
+import { absoluteImage, feedImage } from '@/lib/image';
 
 export const runtime = 'nodejs';
 
@@ -68,10 +68,15 @@ export async function POST(request: Request) {
           name: product.title,
           description: product.excerpt.slice(0, 300) || product.productType,
           // Localized catalog paths are root-relative; Stripe needs
-          // absolute URLs or it silently drops the images.
+          // absolute URLs or it silently drops the images. JPEG rather than
+          // the WebP the storefront renders, for the same reason the feed
+          // uses it: the consumer here is someone else's image pipeline, not
+          // a browser we control.
           images: product.images
             .slice(0, 4)
-            .map((i) => absoluteImage(i.full, process.env.NEXT_PUBLIC_SITE_URL || site.url)),
+            .map((i) =>
+              absoluteImage(feedImage(i.full), process.env.NEXT_PUBLIC_SITE_URL || site.url)
+            ),
           metadata: { sku: product.sku, slug: product.slug },
         },
       },

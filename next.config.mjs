@@ -60,6 +60,22 @@ const nextConfig = {
       },
     ];
   },
+
+  async redirects() {
+    return [
+      // The previous WordPress storefront served products at /product/<slug>
+      // (singular). Those URLs are still in Google's index, still linked from
+      // elsewhere, and were answering 404 — which Merchant Center reports as
+      // "Product page unavailable" on any item that still points at one.
+      //
+      // The slugs carried over unchanged, so a straight 1:1 permanent redirect
+      // recovers them. A slug that genuinely no longer exists still reaches
+      // the 404 it would have reached anyway, so nothing is masked.
+      { source: '/product/:slug', destination: '/products/:slug', permanent: true },
+      // Same for the old category path.
+      { source: '/product-category/:slug', destination: '/collections/:slug', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

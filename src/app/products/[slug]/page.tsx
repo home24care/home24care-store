@@ -12,6 +12,7 @@ import ProductRating from '@/components/ProductRating';
 import ProductViewTracker from '@/components/ProductViewTracker';
 import ProductReviews from '@/components/ProductReviews';
 import { productSchema } from '@/lib/schema';
+import { feedImage } from '@/lib/image';
 import {
   products,
   getProduct,
@@ -58,7 +59,13 @@ export async function generateMetadata({
       title: `${product.title} | ${site.name}`,
       description: description.slice(0, 300),
       url: `/products/${slug}`,
-      images: product.images.slice(0, 3).map((i) => ({ url: i.full, alt: i.alt })),
+      // JPEG, not the WebP the page itself renders. Open Graph consumers are
+      // not browsers: Merchant Center reads og:image when it builds an item
+      // from a crawl and rejects WebP as an unsupported type, and Facebook and
+      // LinkedIn will not render a WebP preview either.
+      images: product.images
+        .slice(0, 3)
+        .map((i) => ({ url: feedImage(i.full), alt: i.alt })),
     },
   };
 }
