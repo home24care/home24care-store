@@ -4,6 +4,7 @@ import { stripe, stripeConfigured } from '@/lib/stripe';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
 import { CheckIcon, TruckIcon, MailIcon, PhoneIcon } from '@/components/icons';
+import PurchaseConversion from '@/components/PurchaseConversion';
 
 export const metadata: Metadata = {
   title: 'Order Confirmed',
@@ -18,6 +19,10 @@ type Summary = {
   email: string | null;
   total: number | null;
   reference: string;
+  // The full session id, for the conversion's transaction_id. Distinct from
+  // `reference`, which is the short form shown to the customer.
+  sessionId: string;
+  currency: string;
   items: { name: string; quantity: number; amount: number }[];
 };
 
@@ -32,6 +37,8 @@ async function loadSummary(sessionId?: string): Promise<Summary | null> {
       total: session.amount_total,
       // Show a short human reference rather than the full session id.
       reference: session.id.slice(-12).toUpperCase(),
+      sessionId: session.id,
+      currency: (session.currency ?? 'usd').toUpperCase(),
       items: (session.line_items?.data ?? []).map((li) => ({
         name: li.description ?? 'Item',
         quantity: li.quantity ?? 1,
@@ -54,6 +61,20 @@ export default async function CheckoutSuccessPage({
 
   return (
     <div className="container-page py-16">
+      {/*
+        Reported from the Stripe session rather than from the cart, so the
+        figure is the one actually charged — after any tax or shipping Stripe
+        applied, and immune to a browser that tampered with the cart. No
+        session means no confirmed order, so nothing is reported.
+      */}
+      {summary && summary.total !== null && (
+        <PurchaseConversion
+          transactionId={summary.sessionId}
+          value={summary.total / 100}
+          currency={summary.currency}
+          items={summary.items}
+        />
+      )}
       <div className="mx-auto max-w-2xl text-center">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-moss-100 text-moss-700">
           <CheckIcon className="h-8 w-8" />

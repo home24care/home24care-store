@@ -22,6 +22,7 @@ export const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID ?? 'AW-18441075454';
 /** Conversion actions, as `AW-<account>/<label>` from the Ads event snippet. */
 export const ADS_CONVERSIONS = {
   addToCart: `${ADS_ID}/NIvQCLGj0fQcEP71sdlE`,
+  purchase: `${ADS_ID}/dJ6iCL630vQcEP71sdlE`,
 } as const;
 
 /**
@@ -34,13 +35,22 @@ export const ADS_CONVERSIONS = {
  * visitors — an ad blocker or tracking protection stops gtag.js loading — and
  * a missing conversion must never take an add-to-cart down with it.
  */
-export function adsConversion(sendTo: string, value: number, currency = 'USD'): void {
+export function adsConversion(
+  sendTo: string,
+  value: number,
+  currency = 'USD',
+  transactionId?: string
+): void {
   if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
   try {
     window.gtag('event', 'conversion', {
       send_to: sendTo,
       value,
       currency,
+      // Only sent when there is a real one. Ads deduplicates on this, so an
+      // empty string is worse than omitting it: it reads as a legitimate id
+      // that every order shares, and the dedupe then works against you.
+      ...(transactionId ? { transaction_id: transactionId } : {}),
     });
   } catch {
     /* Never let reporting break the cart. */
