@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { CartProvider } from '@/lib/cart';
 import Header from '@/components/Header';
@@ -57,6 +58,9 @@ export const metadata: Metadata = {
   },
 };
 
+/** GA4 measurement id. Public by design; an env var overrides it per deploy. */
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-1RGPPFFLKK';
+
 export const viewport: Viewport = {
   themeColor: '#274a37',
   width: 'device-width',
@@ -69,6 +73,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
+        {/*
+          Google Analytics 4.
+          Google's own snippet says to paste it immediately after <head>. In the
+          App Router that tag cannot be hand-placed, and next/script is the
+          supported equivalent: it emits the same gtag.js and config call, but
+          `afterInteractive` runs it once the page is interactive instead of
+          blocking first paint. GA records the pageview either way.
+          The measurement id is a public identifier, so it is committed rather
+          than kept in an env var — though the env var still overrides it, which
+          is what a staging deploy wants so its traffic does not land in the
+          production property.
+        */}
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-config" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+            </Script>
+          </>
+        )}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <a
           href="#main"

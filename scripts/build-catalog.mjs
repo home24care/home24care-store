@@ -450,7 +450,7 @@ for (const [sku, entry] of Object.entries(overrides)) {
 /**
  * Store-wide markdown.
  *
- * PRICE_MULTIPLIER is what every price is multiplied by, so 0.30 is "70% off".
+ * PRICE_MULTIPLIER is what every price is multiplied by, so 0.40 is "60% off".
  * Set it to 1 to sell at the imported prices again — that is the whole revert.
  *
  * DISCOUNT_EXEMPT_GROUPS are collection groups the markdown does not touch.
@@ -465,7 +465,7 @@ for (const [sku, entry] of Object.entries(overrides)) {
  * compareAtPrice here — but the "was" price then has to be one that was really
  * charged for long enough to count.
  */
-const PRICE_MULTIPLIER = 0.30;
+const PRICE_MULTIPLIER = 0.40;
 const DISCOUNT_EXEMPT_GROUPS = new Set(['Refrigerants & Gases']);
 
 const groupOfCollection = new Map(COLLECTIONS.map((c) => [c.slug, c.group]));
