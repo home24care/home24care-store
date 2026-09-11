@@ -11,6 +11,7 @@ import JsonLd from '@/components/JsonLd';
 import { collectionGroups } from '@/lib/catalog';
 import { site } from '@/lib/site';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
+import { GA_ID, ADS_ID } from '@/lib/gtag';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -58,9 +59,6 @@ export const metadata: Metadata = {
   },
 };
 
-/** GA4 measurement id. Public by design; an env var overrides it per deploy. */
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-1RGPPFFLKK';
-
 export const viewport: Viewport = {
   themeColor: '#274a37',
   width: 'device-width',
@@ -95,7 +93,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${GA_ID}');`}
+gtag('config', '${GA_ID}');
+gtag('config', '${ADS_ID}');`}
             </Script>
           </>
         )}

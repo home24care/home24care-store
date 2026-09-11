@@ -11,6 +11,7 @@ import {
 } from 'react';
 import type { Product } from './catalog';
 import { track } from './analytics/client';
+import { ADS_CONVERSIONS, adsConversion, ga4Event } from './gtag';
 
 export type CartLine = {
   slug: string;
@@ -130,10 +131,41 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.hydrated]);
 
   const add = useCallback((product: Product, quantity = 1) => {
+    const valueCents = product.price * quantity;
+
     track('add_to_cart', {
       slug: product.slug,
       quantity,
-      value: product.price * quantity,
+      value: valueCents,
+    });
+
+    /*
+      Google Ads add-to-cart conversion, and the matching GA4 ecommerce event.
+
+      Reported here rather than on the cart page, because this is the one place
+      every add passes through — the product page, a collection card, the
+      related-products strip. Firing it where the cart renders would count a
+      conversion again on every re-render, every drawer open and every reload.
+
+      The value is the real line total in dollars, and the currency is the
+      product's own. Google's generated snippet carries `1.0` and `EUR` as
+      placeholders; sent literally, a $17 cooler and a $919 gazebo would both
+      report as one euro, which leaves Ads nothing to bid on and misstates the
+      currency of a shop that sells in USD.
+    */
+    adsConversion(ADS_CONVERSIONS.addToCart, valueCents / 100, product.currency);
+    ga4Event('add_to_cart', {
+      currency: product.currency,
+      value: valueCents / 100,
+      items: [
+        {
+          item_id: product.sku,
+          item_name: product.title,
+          item_brand: product.brand,
+          price: product.price / 100,
+          quantity,
+        },
+      ],
     });
     dispatch({
       type: 'add',
