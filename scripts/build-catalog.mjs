@@ -445,6 +445,51 @@ for (const [sku, entry] of Object.entries(overrides)) {
   product.priceOverridden = true;
 }
 
+/* ----------------------------------------------------------- price policy */
+
+/**
+ * Store-wide markdown.
+ *
+ * PRICE_MULTIPLIER is what every price is multiplied by, so 0.30 is "70% off".
+ * Set it to 1 to sell at the imported prices again — that is the whole revert.
+ *
+ * DISCOUNT_EXEMPT_GROUPS are collection groups the markdown does not touch.
+ * Refrigerant is a regulated commodity bought against a supplier invoice, and
+ * its margin does not survive a cut like this, so it stays at list.
+ *
+ * compareAtPrice is scaled by the same factor rather than left at the imported
+ * figure. Leaving it would advertise a saving against a price this shop has
+ * never charged, which is exactly what Google means by an inflated reference
+ * price; scaling both keeps each product's stated discount the one it already
+ * had. If the intent is instead to advertise the markdown itself, stop scaling
+ * compareAtPrice here — but the "was" price then has to be one that was really
+ * charged for long enough to count.
+ */
+const PRICE_MULTIPLIER = 0.30;
+const DISCOUNT_EXEMPT_GROUPS = new Set(['Refrigerants & Gases']);
+
+const groupOfCollection = new Map(COLLECTIONS.map((c) => [c.slug, c.group]));
+const marked = [];
+
+if (PRICE_MULTIPLIER !== 1) {
+  for (const product of products) {
+    const group = groupOfCollection.get(product.collection);
+    if (DISCOUNT_EXEMPT_GROUPS.has(group)) continue;
+
+    const before = product.price;
+    product.price = Math.round(product.price * PRICE_MULTIPLIER);
+    if (product.compareAtPrice) {
+      product.compareAtPrice = Math.round(product.compareAtPrice * PRICE_MULTIPLIER);
+      // A rounded sale price must still sit below its rounded list price, or
+      // the item is disapproved for a sale price above the list price.
+      if (product.compareAtPrice <= product.price) product.compareAtPrice = null;
+    }
+    // A price of zero reads as "free" to Shopping and breaks checkout.
+    if (product.price < 1) product.price = 1;
+    marked.push({ sku: product.sku, from: before / 100, to: product.price / 100 });
+  }
+}
+
 /* ------------------------------------------------------------ price audit */
 
 // Single cylinders priced like pallets are almost always a data-entry error
@@ -498,5 +543,11 @@ if (overrideApplied.length) {
       `  ${o.sku.padEnd(14)} $${o.from.toLocaleString('en-US')} -> $${o.to.toLocaleString('en-US')}  ${o.title.slice(0, 46)}`
     );
   }
+}
+if (marked.length) {
+  console.log(
+    `price multiplier ${PRICE_MULTIPLIER} applied to ${marked.length} products ` +
+      `(${products.length - marked.length} exempt)`
+  );
 }
 console.log(`flagged for price review: ${priceReview.length}`);
