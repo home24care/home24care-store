@@ -74,11 +74,37 @@ export default function SalesNotifications() {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  /** Admin preview mode, from ?sales_preview=1 — see the mount effect. */
+  const [preview, setPreview] = useState(false);
+  /** True once the loaded feed reports itself as sample data. */
+  const [previewData, setPreviewData] = useState(false);
   const timers = useRef<number[]>([]);
 
   useEffect(() => {
     setMounted(true);
+
+    /*
+      ?sales_preview=1 points the widget at the admin-only sample endpoint.
+      The parameter carries no authority of its own: without a valid admin
+      session that endpoint returns 401 and nothing renders, so a shopper who
+      finds the URL sees exactly what they would have seen without it.
+    */
+    let isPreview = false;
     try {
+      isPreview = new URLSearchParams(window.location.search).has('sales_preview');
+    } catch {
+      /* no URL access */
+    }
+    setPreview(isPreview);
+
+    try {
+      if (isPreview) {
+        // Hand back a full allowance each preview load, so the whole
+        // sequence can be watched again just by reloading.
+        sessionStorage.removeItem(SHOWN_COUNT_KEY);
+        sessionStorage.removeItem(DISMISSED_KEY);
+        return;
+      }
       if (sessionStorage.getItem(DISMISSED_KEY)) setDismissed(true);
       // Already had their allowance earlier in the visit.
       if (readShownCount() >= MAX_PER_SESSION) setDismissed(true);
@@ -92,10 +118,15 @@ export default function SalesNotifications() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch('/api/sales/recent');
+        const res = await fetch(preview ? '/api/admin/sales-preview' : '/api/sales/recent');
+        // 401 in preview mode means no admin session: stay silent.
         if (!res.ok) return;
-        const data = (await res.json()) as { sales?: RecentSale[] };
-        if (!cancelled && data.sales?.length) setSales(data.sales);
+        const data = (await res.json()) as { sales?: RecentSale[]; preview?: boolean };
+        if (cancelled) return;
+        if (data.sales?.length) {
+          setSales(data.sales);
+          setPreviewData(Boolean(data.preview));
+        }
       } catch {
         /* Social proof is not worth a retry loop. */
       }
@@ -103,7 +134,7 @@ export default function SalesNotifications() {
     return () => {
       cancelled = true;
     };
-  }, [mounted, dismissed]);
+  }, [mounted, dismissed, preview]);
 
   // Cycle: wait, show, hide, wait, show the next one.
   useEffect(() => {
@@ -208,6 +239,16 @@ export default function SalesNotifications() {
         <div className="min-w-0 flex-1">
           <p className="text-[14px] leading-snug text-ink-soft">
             <strong className="font-semibold text-ink">{who}</strong> bought
+            {/*
+              Sample data is labelled on the face of the toast. A fabricated
+              purchase is never rendered as though it were a real one, so even
+              if this were somehow served to a shopper it would not mislead.
+            */}
+            {previewData ? (
+              <span className="ml-1.5 inline-block rounded bg-amber-100 px-1.5 py-px align-middle text-[10px] font-bold uppercase tracking-wide text-amber-800">
+                Preview
+              </span>
+            ) : null}
           </p>
           <p className="truncate text-[14px] font-semibold leading-snug text-ink">
             {sale.product}
