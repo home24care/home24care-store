@@ -72,6 +72,13 @@ const bySlug = new Map(products.map((p) => [p.slug, p]));
 const collectionBySlug = new Map(collections.map((c) => [c.slug, c]));
 
 export const getProduct = (slug: string) => bySlug.get(slug);
+
+/**
+ * Lookup by SKU, for the places that only carry a SKU — Stripe session
+ * metadata and the Merchant feed's offer ids both do.
+ */
+const bySku = new Map(products.map((p) => [p.sku, p]));
+export const getProductBySku = (sku: string) => bySku.get(sku);
 export const getCollection = (slug: string) => collectionBySlug.get(slug);
 
 export const productsIn = (slug: string) =>

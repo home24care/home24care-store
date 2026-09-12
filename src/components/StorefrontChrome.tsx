@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import ChatWidget from './ChatWidget';
+import SalesNotifications from './SalesNotifications';
 
 /**
  * Renders the storefront header, footer and cart everywhere except /admin.
@@ -49,6 +50,7 @@ export default function StorefrontChrome({
         their own dashboard would only get in the way.
       */}
       <ChatWidget />
+      <SalesNotifications />
     </>
   );
 }

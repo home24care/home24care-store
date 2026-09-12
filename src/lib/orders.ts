@@ -9,6 +9,8 @@
  * wire up fulfilment; the webhook route needs no changes.
  */
 import type Stripe from 'stripe';
+import { firstNameOf, recordSale } from '@/lib/sales-proof/store';
+import { getProductBySku } from '@/lib/catalog';
 
 /**
  * Warm-instance duplicate suppression — NOT real idempotency.
@@ -73,6 +75,29 @@ export async function recordOrder(session: Stripe.Checkout.Session) {
   };
 
   console.info('[orders] recorded %s (%s)', record.sessionId, record.status);
+
+  /*
+    Feed the storefront's sales notifications, but only from a genuinely paid
+    order. A notification for a pending or failed payment would be claiming a
+    sale that has not happened.
+
+    Only the first name, the region and the product title are passed on. The
+    record above also holds an email, a phone number and a full shipping
+    address, and none of that belongs behind a public endpoint.
+  */
+  if (record.status === 'paid') {
+    const firstSku = record.skus.split(',')[0]?.split('x')[0]?.trim();
+    const product = firstSku ? getProductBySku(firstSku) : undefined;
+    if (product) {
+      await recordSale({
+        firstName: firstNameOf(record.name),
+        region: record.shipping?.address?.state ?? null,
+        product: product.title,
+        ts: Date.now(),
+      }).catch(() => {});
+    }
+  }
+
   // TODO: persist `record`, then send the order confirmation email.
   return record;
 }
