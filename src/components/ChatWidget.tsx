@@ -24,7 +24,19 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const [unread, setUnread] = useState(0);
 
-  const conversationId = useRef<string | null>(null);
+  /*
+    State, not a ref.
+
+    This was a ref, and it meant a first-time visitor never received a reply
+    without reloading. The polling effect bails out while there is no
+    conversation; a new visitor has none until their first message is sent, and
+    assigning a ref does not re-render, so the effect never re-ran to start
+    polling. messages.length could not rescue it either, because the optimistic
+    message is REPLACED by the server's copy rather than appended — the length
+    goes from one to one. State makes obtaining an id a render, which is what
+    starts the poll loop.
+  */
+  const [conversationId, setConversationId] = useState<string | null>(null);
   const cursor = useRef(0);
   const seenVersion = useRef(-1);
   const scroller = useRef<HTMLDivElement>(null);
@@ -33,7 +45,7 @@ export default function ChatWidget() {
   useEffect(() => {
     setMounted(true);
     try {
-      conversationId.current = localStorage.getItem(STORAGE_KEY);
+      setConversationId(localStorage.getItem(STORAGE_KEY));
       const saved = sessionStorage.getItem(DRAFT_KEY);
       if (saved) setDraft(saved);
     } catch {
@@ -43,9 +55,10 @@ export default function ChatWidget() {
 
   /* ------------------------------------------------------------- polling */
 
-  const poll = useCallback(async () => {
-    const id = conversationId.current;
-    if (!id) return;
+  const poll = useCallback(
+    async (idOverride?: string) => {
+      const id = idOverride ?? conversationId;
+      if (!id) return;
     try {
       const res = await fetch(
         `/api/chat/poll?c=${encodeURIComponent(id)}&after=${cursor.current}&v=${seenVersion.current}`,
@@ -75,16 +88,18 @@ export default function ChatWidget() {
         }
         return [...prev, ...fresh].sort((a, b) => a.ts - b.ts);
       });
-    } catch {
-      /* A failed poll is not worth surfacing; the next one may succeed. */
-    }
-  }, [open]);
+      } catch {
+        /* A failed poll is not worth surfacing; the next one may succeed. */
+      }
+    },
+    [conversationId, open]
+  );
 
   // Poll only once a conversation exists, and slow right down when the tab is
   // hidden — a widget left open in a background tab should not keep spending
   // Redis commands at full rate.
   useEffect(() => {
-    if (!mounted || !conversationId.current) return;
+    if (!mounted || !conversationId) return;
     let timer: number;
     const schedule = () => {
       const hidden = typeof document !== 'undefined' && document.hidden;
@@ -105,7 +120,7 @@ export default function ChatWidget() {
       window.clearTimeout(timer);
       document.removeEventListener('visibilitychange', onVisible);
     };
-  }, [mounted, poll, messages.length]);
+  }, [mounted, conversationId, poll]);
 
   /* ---------------------------------------------------------- open/close */
 
@@ -116,7 +131,7 @@ export default function ChatWidget() {
     // without one, and by the time a reply lands the visitor may not have
     // clicked anything else.
     primeAudio();
-    if (conversationId.current && !messages.length) void poll();
+    if (conversationId && !messages.length) void poll();
     requestAnimationFrame(() => inputRef.current?.focus());
   };
 
@@ -166,7 +181,7 @@ export default function ChatWidget() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          conversationId: conversationId.current,
+          conversationId,
           text,
           path: window.location.pathname,
         }),
@@ -185,8 +200,8 @@ export default function ChatWidget() {
         return;
       }
 
-      if (data.conversationId && data.conversationId !== conversationId.current) {
-        conversationId.current = data.conversationId;
+      if (data.conversationId && data.conversationId !== conversationId) {
+        setConversationId(data.conversationId);
         try {
           localStorage.setItem(STORAGE_KEY, data.conversationId);
         } catch {
@@ -200,7 +215,7 @@ export default function ChatWidget() {
           prev.map((m) => (m.id === optimistic.id ? (data.message as ChatMessage) : m))
         );
       }
-      void poll();
+      void poll(data.conversationId ?? conversationId ?? undefined);
     } catch {
       setError('You appear to be offline.');
       setMessages((prev) => prev.filter((m) => m.id !== optimistic.id));
