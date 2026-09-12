@@ -4,8 +4,6 @@ import './globals.css';
 import { CartProvider } from '@/lib/cart';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import CartDrawer from '@/components/CartDrawer';
-import AnalyticsTracker from '@/components/AnalyticsTracker';
 import StorefrontChrome from '@/components/StorefrontChrome';
 import JsonLd from '@/components/JsonLd';
 import { collectionGroups } from '@/lib/catalog';
@@ -136,8 +134,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           <StorefrontChrome
             header={<Header groups={groups} />}
             footer={<Footer />}
-            cart={<CartDrawer />}
-            tracker={<AnalyticsTracker />}
           >
             {children}
           </StorefrontChrome>
