@@ -180,8 +180,29 @@ export default async function AdminDashboard({
         />
       </div>
 
+      {/* ------------------------------------------------- traffic source */}
       <div className="mt-6 grid gap-5 lg:grid-cols-3">
-        <RankedList title="Referrers" rows={data.referrers} unit="sessions" emptyHint="All traffic is direct so far." />
+        <RankedList
+          title="Traffic channels"
+          rows={data.channels}
+          unit="sessions"
+          emptyHint="No sessions recorded yet."
+        />
+        <RankedList
+          title="Referrers"
+          rows={data.referrers}
+          unit="sessions"
+          emptyHint="All traffic is direct so far."
+        />
+        <RankedList
+          title="Campaigns"
+          rows={data.campaigns}
+          unit="sessions"
+          emptyHint="No tagged campaigns yet. Add utm_source, utm_medium and utm_campaign to an ad or newsletter link and it will appear here as source / medium / campaign."
+        />
+      </div>
+
+      <div className="mt-6 grid gap-5 lg:grid-cols-2">
         <RankedList title="Landing pages" rows={data.landingPages} unit="views" />
         <RankedList title="Devices" rows={data.devices} unit="events" />
       </div>

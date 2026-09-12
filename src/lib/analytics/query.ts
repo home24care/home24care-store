@@ -18,10 +18,23 @@ const k = {
   productAdds: (d: string) => `a:atc:${d}`,
   countries: (d: string) => `a:geo:${d}`,
   referrers: (d: string) => `a:ref:${d}`,
+  channels: (d: string) => `a:chan:${d}`,
+  campaigns: (d: string) => `a:camp:${d}`,
   devices: (d: string) => `a:dev:${d}`,
   landing: (d: string) => `a:land:${d}`,
   recent: () => 'a:recent',
   stage: (stage: string, d: string) => `a:stage:${stage}:${d}`,
+};
+
+/** Human labels for the stored channel keys. */
+const CHANNEL_LABEL: Record<string, string> = {
+  direct: 'Direct',
+  organic_search: 'Organic search',
+  paid_search: 'Paid search',
+  social: 'Social',
+  paid_social: 'Paid social',
+  email: 'Email',
+  referral: 'Referral',
 };
 
 const EMPTY: Omit<DailyTotals, 'date'> = {
@@ -169,18 +182,31 @@ export async function getDashboardData(days: number): Promise<DashboardData> {
   const current = dayRange(days);
   const previous = dayRange(days, days);
 
-  const [currentTotals, previousTotals, viewed, added, geo, refs, devices, landing, recentRaw] =
-    await Promise.all([
-      totalsFor(current),
-      totalsFor(previous),
-      mergedTop(k.productViews, current, 10),
-      mergedTop(k.productAdds, current, 10),
-      mergedTop(k.countries, current, 12),
-      mergedTop(k.referrers, current, 10),
-      mergedTop(k.devices, current, 5),
-      mergedTop(k.landing, current, 10),
-      s.listRange(k.recent(), 0, 49),
-    ]);
+  const [
+    currentTotals,
+    previousTotals,
+    viewed,
+    added,
+    geo,
+    refs,
+    channels,
+    campaigns,
+    devices,
+    landing,
+    recentRaw,
+  ] = await Promise.all([
+    totalsFor(current),
+    totalsFor(previous),
+    mergedTop(k.productViews, current, 10),
+    mergedTop(k.productAdds, current, 10),
+    mergedTop(k.countries, current, 12),
+    mergedTop(k.referrers, current, 10),
+    mergedTop(k.channels, current, 8),
+    mergedTop(k.campaigns, current, 10),
+    mergedTop(k.devices, current, 5),
+    mergedTop(k.landing, current, 10),
+    s.listRange(k.recent(), 0, 49),
+  ]);
 
   const toProductRow = (r: { key: string; count: number }): RankedRow => {
     const product = getProduct(r.key);
@@ -218,6 +244,8 @@ export async function getDashboardData(days: number): Promise<DashboardData> {
     topProductsAdded: added.map(toProductRow),
     countries: geo.map((r) => ({ key: r.key, label: countryLabel(r.key), count: r.count })),
     referrers: refs.map((r) => ({ key: r.key, label: r.key, count: r.count })),
+    channels: channels.map((r) => ({ key: r.key, label: CHANNEL_LABEL[r.key] ?? r.key, count: r.count })),
+    campaigns: campaigns.map((r) => ({ key: r.key, label: r.key, count: r.count })),
     devices: devices.map((r) => ({
       key: r.key,
       label: r.key.charAt(0).toUpperCase() + r.key.slice(1),

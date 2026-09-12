@@ -1,5 +1,5 @@
 import { store } from './store';
-import type { AnalyticsEvent, EventName, IncomingEvent } from './types';
+import type { AnalyticsEvent, Channel, EventName, IncomingEvent } from './types';
 
 /**
  * Write path: turn one event into the per-day counters the dashboard reads.
@@ -25,6 +25,8 @@ const k = {
   productAdds: (d: string) => `a:atc:${d}`,
   countries: (d: string) => `a:geo:${d}`,
   referrers: (d: string) => `a:ref:${d}`,
+  channels: (d: string) => `a:chan:${d}`,
+  campaigns: (d: string) => `a:camp:${d}`,
   devices: (d: string) => `a:dev:${d}`,
   landing: (d: string) => `a:land:${d}`,
   recent: () => 'a:recent',
@@ -89,6 +91,83 @@ export const referrerHost = (referrer: string | null | undefined, selfHost: stri
   }
 };
 
+/**
+ * Hosts that mean the visit came from a search results page or a social feed.
+ *
+ * Matched on the registrable prefix, so google.co.uk and google.com.au both
+ * count as Google without enumerating every country domain.
+ */
+const SEARCH_HOSTS = [
+  'google.',
+  'bing.',
+  'duckduckgo.',
+  'yahoo.',
+  'ecosia.',
+  'brave.',
+  'startpage.',
+  'yandex.',
+  'baidu.',
+];
+
+const SOCIAL_HOSTS = [
+  'facebook.',
+  'instagram.',
+  'l.instagram.',
+  'pinterest.',
+  'reddit.',
+  'youtube.',
+  'tiktok.',
+  't.co',
+  'twitter.',
+  'x.com',
+  'linkedin.',
+  'lnkd.in',
+  'threads.',
+  'snapchat.',
+];
+
+const matchesHost = (host: string, list: string[]) =>
+  list.some((h) => host === h.replace(/\.$/, '') || host.startsWith(h));
+
+/**
+ * Buckets a visit by how it arrived.
+ *
+ * Derived here, server-side, rather than taken from the client, so a forged
+ * payload cannot report itself as paid traffic and distort the channel report.
+ *
+ * The distinction that matters most is paid versus organic search. Both arrive
+ * with a search engine as the referrer and are otherwise identical; only the
+ * click id or an explicit cpc medium separates them, which is exactly why an
+ * untagged ad campaign shows up as organic and flatters the wrong channel.
+ */
+export function classifyChannel(input: {
+  referrerHost: string | null;
+  medium: string | null;
+  source: string | null;
+  paidClick: boolean;
+}): Channel {
+  const medium = (input.medium ?? '').toLowerCase();
+  const source = (input.source ?? '').toLowerCase();
+  const host = (input.referrerHost ?? '').toLowerCase();
+
+  const paid =
+    input.paidClick || ['cpc', 'ppc', 'paid', 'paidsearch', 'paid_search', 'cpm'].includes(medium);
+
+  if (medium === 'email' || source === 'email' || source === 'newsletter') return 'email';
+
+  if (paid) {
+    const socialSource = SOCIAL_HOSTS.some((h) => source.startsWith(h.replace(/\.$/, '')));
+    return socialSource || medium === 'paid_social' ? 'paid_social' : 'paid_search';
+  }
+
+  if (medium === 'social' || (host && matchesHost(host, SOCIAL_HOSTS))) return 'social';
+  if (medium === 'organic' || (host && matchesHost(host, SEARCH_HOSTS))) return 'organic_search';
+  if (host) return 'referral';
+  // A utm-tagged visit with no referrer is still a campaign, not a bare visit.
+  if (source || medium) return 'referral';
+  return 'direct';
+}
+
 /** Sanity bounds so a malformed or hostile payload cannot poison the numbers. */
 const clampValue = (n: unknown) => {
   const v = Number(n);
@@ -125,6 +204,15 @@ export async function recordEvent(event: AnalyticsEvent): Promise<void> {
   if (event.name === 'page_view') {
     if (event.referrer) writes.push(s.zincr(k.referrers(day), event.referrer));
     writes.push(s.zincr(k.landing(day), event.path));
+    writes.push(s.zincr(k.channels(day), event.channel));
+    // Only tagged traffic earns a campaign row; an untagged visit would
+    // otherwise pile up under a meaningless "(none) / (none)".
+    if (event.source || event.medium || event.campaign) {
+      const label = [event.source ?? '(none)', event.medium ?? '(none)', event.campaign ?? '(none)']
+        .join(' / ')
+        .slice(0, 180);
+      writes.push(s.zincr(k.campaigns(day), label));
+    }
   }
 
   if (event.slug) {
@@ -152,6 +240,8 @@ export async function recordEvent(event: AnalyticsEvent): Promise<void> {
     s.expire(k.productAdds(day), AGGREGATE_TTL),
     s.expire(k.countries(day), AGGREGATE_TTL),
     s.expire(k.referrers(day), AGGREGATE_TTL),
+    s.expire(k.channels(day), AGGREGATE_TTL),
+    s.expire(k.campaigns(day), AGGREGATE_TTL),
     s.expire(k.devices(day), AGGREGATE_TTL),
     s.expire(k.landing(day), AGGREGATE_TTL),
     ...(stage ? [s.expire(k.stage(stage, day), AGGREGATE_TTL)] : []),
@@ -188,13 +278,30 @@ export function normalizeEvent(
   const id = (v: string) => /^[a-z0-9-]{8,64}$/i.test(v);
   if (!id(body.visitorId) || !id(body.sessionId)) return null;
 
+  const text = (v: unknown) =>
+    typeof v === 'string' && v.trim() ? v.trim().slice(0, 60).toLowerCase() : null;
+
+  const host = referrerHost(body.referrer, ctx.selfHost);
+  const source = text(body.utmSource);
+  const medium = text(body.utmMedium);
+  const campaign = text(body.utmCampaign);
+
   return {
     name: body.name,
     visitorId: body.visitorId,
     sessionId: body.sessionId,
     path: body.path.slice(0, 200),
     country: ctx.country,
-    referrer: referrerHost(body.referrer, ctx.selfHost),
+    referrer: host,
+    channel: classifyChannel({
+      referrerHost: host,
+      medium,
+      source,
+      paidClick: body.paidClick === true,
+    }),
+    source,
+    medium,
+    campaign,
     device: deviceFrom(ctx.userAgent),
     slug: typeof body.slug === 'string' ? body.slug.slice(0, 120) : undefined,
     value: body.value === undefined ? undefined : clampValue(body.value),
@@ -224,6 +331,13 @@ export async function recordPurchase(input: {
     path: '/checkout/success',
     country: input.country,
     referrer: null,
+    // The webhook has no browser context, so this order carries no channel of
+    // its own. It is not attributed to `direct` — that would credit direct
+    // traffic with every paid sale. Channel counts come from page_view only.
+    channel: 'direct',
+    source: null,
+    medium: null,
+    campaign: null,
     device: 'desktop',
     value: clampValue(input.value),
     ts: Date.now(),

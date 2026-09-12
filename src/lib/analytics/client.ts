@@ -72,6 +72,35 @@ function sessionId(): string {
 /** Only the first page of a session carries a referrer worth attributing. */
 let referrerSent = false;
 
+/**
+ * Campaign tags off the LANDING url, read once at module load.
+ *
+ * Read here rather than inside track(), because by the time an add-to-cart
+ * fires the visitor may be three client-side navigations deep and the query
+ * string is long gone. This module loads on the first page of the visit, so
+ * this is the one moment the campaign context is still present.
+ *
+ * Only the presence of a click id is kept, never its value: gclid and msclkid
+ * identify a single click, and this event stream is deliberately anonymous.
+ */
+const landingCampaign = (() => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const q = new URLSearchParams(window.location.search);
+    const clean = (v: string | null) => (v ? v.trim().slice(0, 60) || undefined : undefined);
+    return {
+      utmSource: clean(q.get('utm_source')),
+      utmMedium: clean(q.get('utm_medium')),
+      utmCampaign: clean(q.get('utm_campaign')),
+      // gbraid/wbraid are Google's privacy-preserving replacements for gclid.
+      paidClick:
+        q.has('gclid') || q.has('gbraid') || q.has('wbraid') || q.has('msclkid') || undefined,
+    };
+  } catch {
+    return null;
+  }
+})();
+
 export function track(
   name: EventName,
   extra: Partial<Pick<IncomingEvent, 'slug' | 'value' | 'quantity'>> = {}
@@ -86,8 +115,16 @@ export function track(
     ...extra,
   };
 
-  if (!referrerSent && document.referrer) {
-    payload.referrer = document.referrer;
+  // Attribution travels with the first event of the session only. Repeating it
+  // on every event would count one visit many times over in the channel report.
+  if (!referrerSent) {
+    if (document.referrer) payload.referrer = document.referrer;
+    if (landingCampaign) {
+      if (landingCampaign.utmSource) payload.utmSource = landingCampaign.utmSource;
+      if (landingCampaign.utmMedium) payload.utmMedium = landingCampaign.utmMedium;
+      if (landingCampaign.utmCampaign) payload.utmCampaign = landingCampaign.utmCampaign;
+      if (landingCampaign.paidClick) payload.paidClick = true;
+    }
     referrerSent = true;
   }
 
