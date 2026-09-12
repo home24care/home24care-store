@@ -188,7 +188,13 @@ export default function ProductGallery({
                 fill
                 sizes={SIZES.lightbox}
                 unoptimized={IMAGES_LOCALIZED}
-                quality={90}
+                // 80, not 90: next.config's images.qualities allowlist is
+                // [70, 75, 80], and a quality outside it makes the optimizer
+                // answer 400. Localized images bypass the optimizer so 90
+                // happened to work here, but it would break the moment this
+                // ran against un-localized art — a fresh clone, or a new
+                // store before localize:images has been run.
+                quality={80}
                 // contain, not cover: the point of opening this is to see the
                 // whole photograph rather than a crop of it.
                 className="animate-fade-in object-contain p-2"
