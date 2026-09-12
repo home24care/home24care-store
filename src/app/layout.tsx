@@ -13,6 +13,12 @@ import { site } from '@/lib/site';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
 import { GA_ID, ADS_ID } from '@/lib/gtag';
 
+/**
+ * Microsoft Clarity project id. Public, like the Google ids, and overridable
+ * per deploy so a staging site does not pollute the production recordings.
+ */
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID ?? 'ygx35r58b9';
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -97,6 +103,27 @@ gtag('config', '${GA_ID}');
 gtag('config', '${ADS_ID}');`}
             </Script>
           </>
+        )}
+        {/*
+          Microsoft Clarity — heatmaps and session replay.
+
+          Clarity's own snippet is an IIFE that inserts its script tag into the
+          head. next/script with afterInteractive does the same job without
+          blocking first paint, which matters more here than for a counting
+          pixel: this file loads on every page of the store.
+
+          Note that unlike the first-party analytics in src/lib/analytics,
+          which is deliberately anonymous, Clarity records sessions. Its text
+          masking is on by default, but the privacy policy has to disclose it.
+        */}
+        {CLARITY_ID && (
+          <Script id="ms-clarity" strategy="afterInteractive">
+            {`(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "${CLARITY_ID}");`}
+          </Script>
         )}
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <a
