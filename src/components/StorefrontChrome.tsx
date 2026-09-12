@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import ChatWidget from './ChatWidget';
 
 /**
  * Renders the storefront header, footer and cart everywhere except /admin.
@@ -42,6 +43,12 @@ export default function StorefrontChrome({
       {footer}
       {cart}
       {tracker}
+      {/*
+        Rendered here rather than in the root layout so it never appears on
+        /admin — the agent answering chat has the console, and a launcher over
+        their own dashboard would only get in the way.
+      */}
+      <ChatWidget />
     </>
   );
 }
