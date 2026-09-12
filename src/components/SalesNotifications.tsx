@@ -11,13 +11,51 @@ type RecentSale = {
   ts: number;
 };
 
-/** Wait before the first toast, so it does not land on top of page load. */
-const FIRST_DELAY_MS = 9000;
+/**
+ * When the first toast appears, measured from the visitor ARRIVING — not from
+ * the moment this component finishes fetching.
+ *
+ * performance.now() is already relative to page load, so the wait is the time
+ * still left on that 3 seconds. Hydration and the /api/sales/recent round trip
+ * happen inside the window instead of being added after it; without this the
+ * toast landed at 8s on a cold dev load, and on a slow phone connection it
+ * would drift further.
+ */
+const FIRST_DELAY_MS = 3000;
+const firstDelayRemaining = () => Math.max(0, FIRST_DELAY_MS - performance.now());
 /** How long each toast stays. */
 const VISIBLE_MS = 6500;
 /** Gap between toasts. Deliberately long — this is a nudge, not a slot machine. */
 const GAP_MS = 22000;
+/**
+ * How many toasts one visitor sees, in total, for the whole visit.
+ *
+ * Counted in sessionStorage rather than in a ref, because a ref resets on
+ * every page load — a shopper browsing eight products would then get four
+ * toasts per page instead of four per visit, which is the difference between
+ * a nudge and a nuisance.
+ */
+const MAX_PER_SESSION = 4;
 const DISMISSED_KEY = 'h24c_sales_toast_dismissed';
+const SHOWN_COUNT_KEY = 'h24c_sales_toast_shown';
+
+const readShownCount = (): number => {
+  try {
+    return Number(sessionStorage.getItem(SHOWN_COUNT_KEY) ?? 0) || 0;
+  } catch {
+    return 0;
+  }
+};
+
+const bumpShownCount = (): number => {
+  const next = readShownCount() + 1;
+  try {
+    sessionStorage.setItem(SHOWN_COUNT_KEY, String(next));
+  } catch {
+    /* private mode: the cap then applies per page, which is the safe direction */
+  }
+  return next;
+};
 
 /**
  * Recent-sale notifications.
@@ -42,6 +80,8 @@ export default function SalesNotifications() {
     setMounted(true);
     try {
       if (sessionStorage.getItem(DISMISSED_KEY)) setDismissed(true);
+      // Already had their allowance earlier in the visit.
+      if (readShownCount() >= MAX_PER_SESSION) setDismissed(true);
     } catch {
       /* private mode */
     }
@@ -77,10 +117,19 @@ export default function SalesNotifications() {
     const run = (delay: number) => {
       timers.current.push(
         window.setTimeout(() => {
+          if (readShownCount() >= MAX_PER_SESSION) return;
           setVisible(true);
+          const shown = bumpShownCount();
           timers.current.push(
             window.setTimeout(() => {
               setVisible(false);
+              // Allowance spent: stop scheduling, and unmount rather than
+              // leaving a spent aria-live region parked in the DOM. The count
+              // is already in sessionStorage, so the next page stays quiet too.
+              if (shown >= MAX_PER_SESSION) {
+                timers.current.push(window.setTimeout(() => setDismissed(true), 600));
+                return;
+              }
               setIndex((i) => (i + 1) % sales.length);
               run(GAP_MS);
             }, VISIBLE_MS)
@@ -89,7 +138,7 @@ export default function SalesNotifications() {
       );
     };
 
-    run(FIRST_DELAY_MS);
+    run(firstDelayRemaining());
     return clear;
   }, [sales, dismissed]);
 
@@ -120,6 +169,7 @@ export default function SalesNotifications() {
     setVisible(false);
     try {
       sessionStorage.setItem(DISMISSED_KEY, '1');
+      sessionStorage.setItem(SHOWN_COUNT_KEY, String(MAX_PER_SESSION));
     } catch {
       /* ignore */
     }
