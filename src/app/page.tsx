@@ -15,6 +15,7 @@ import {
   newArrivals,
   onSale,
   products,
+  collectionGroup,
 } from '@/lib/catalog';
 import { formatPrice } from '@/lib/format';
 import { BLUR_DATA_URL, SIZES, IMAGES_LOCALIZED, heroVariant } from '@/lib/image';
@@ -23,9 +24,9 @@ import { TrustpilotReviews } from '@/components/TrustpilotSection';
 import ReviewsSection from '@/components/ReviewsSection';
 
 export const metadata: Metadata = {
-  title: 'Outdoor Living, Built to Last — Swing Sets, Gazebos, Pergolas & Refrigerants',
+  title: 'Outdoor Living, Grills, Power & Workshop Equipment — Home24Care',
   description:
-    'Shop backyard structures and certified refrigerants at Home24Care. Swing sets, gazebos, pergolas, outdoor kitchens, saunas and greenhouses, plus R-410A, R-134a and R-1234yf cylinders. Free standard shipping on every order.',
+    'Shop swing sets, saunas and greenhouses, gas and pellet grills, mowers and generators, car lifts and shop machinery, plus certified R-410A, R-134a and R-1234yf refrigerants. Free standard shipping on every order.',
   alternates: { canonical: '/' },
 };
 
@@ -34,17 +35,22 @@ export const metadata: Metadata = {
  * URLs, so `npm run localize:images` swaps them to local WebP along with
  * everything else.
  */
-const HERO_PRODUCT = 'adventurer-swing-set';
+const HERO_PRODUCT = 'bristol-point-wooden-swing-set';
 const HERO_ALT =
   'A cedar swing set with slide and climbing wall set up on a green backyard lawn';
 
+/*
+  Tiles must name collections that still exist. `gazebos`, `pergolas` and
+  `outdoor-kitchens` were dropped with the outdoor trim, and a tile pointing at
+  a removed collection renders a dead link to a 404.
+*/
 const TILE_SLUGS = [
   'swing-sets',
-  'gazebos',
-  'pergolas',
-  'outdoor-kitchens',
   'saunas',
   'greenhouses',
+  'gas-grills',
+  'riding-mowers',
+  'car-lifts',
 ];
 
 /**
@@ -60,9 +66,9 @@ const EQUIPMENT_TILE_SLUGS = [
   'tankless-water-heaters',
 ];
 
-const EDITORIAL_PRODUCT = '10x10-barrington-gazebo';
+const EDITORIAL_PRODUCT = 'lennon-2-4-person-outdoor-cube-sauna';
 const EDITORIAL_ALT =
-  'A hardtop gazebo with a peaked roof installed over a paved patio';
+  'A cedar outdoor cube sauna with a glass door, installed on a stone patio';
 
 const HOME_FAQS = [
   {
@@ -114,11 +120,21 @@ export default function HomePage() {
     ...productsIn('commercial-refrigerants'),
   ].slice(0, 4);
 
-  // Hero and editorial art are keyed on hardcoded slugs. If a slug ever stops
-  // resolving we fall back to the first available product rather than passing
-  // `undefined` to <Image>, which renders a blank hero with no error.
-  const heroSource = heroProduct ?? products[0];
-  const editorialProduct = getProduct(EDITORIAL_PRODUCT) ?? products[1] ?? products[0];
+  /*
+    Hero and editorial art are keyed on hardcoded slugs, and both sections are
+    written about outdoor structures. The fallback therefore has to stay inside
+    Outdoor Living: `products[0]` is simply the alphabetically first product in
+    the whole catalogue, which after the equipment range was added is a tire
+    changer -- so a removed hero slug silently put workshop machinery under
+    copy about kiln-dried cedar. Falling back within the group keeps the
+    picture and the words talking about the same thing.
+  */
+  const outdoorPool = products.filter(
+    (p) => collectionGroup(p.collection) === 'Outdoor Living' && p.images.length
+  );
+  const heroSource = heroProduct ?? outdoorPool[0] ?? products[0];
+  const editorialProduct =
+    getProduct(EDITORIAL_PRODUCT) ?? outdoorPool[1] ?? outdoorPool[0] ?? products[0];
 
   const heroBase = heroSource.images[0].full;
   const editorialBase = editorialProduct.images[0].full;
@@ -187,9 +203,9 @@ export default function HomePage() {
               Outdoor living, built to last
             </h1>
             <p className="mt-5 max-w-lg text-[16.5px] leading-relaxed text-moss-100">
-              Swing sets, gazebos, pergolas, outdoor kitchens and saunas that turn a plain
-              yard into the part of the house everyone actually uses. Delivered free,
-              anywhere in the {site.address.countryName}.
+              Swing sets, saunas and greenhouses for the yard — plus the grills, mowers,
+              generators and workshop gear that keep it running. Delivered free, anywhere
+              in the {site.address.countryName}.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/collections/swing-sets" className="btn-accent px-7 py-3.5 text-[15px]">
@@ -339,9 +355,9 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 text-[15.5px] leading-relaxed text-moss-100">
               Every structure ships as a complete, pre-cut kit with labelled hardware and
-              step-by-step instructions. Powder-coated steel, kiln-dried cedar and
-              UV-stable composite panels mean no staining, no sealing and no splinters —
-              just a yard that looks the same in year five as it did on day one.
+              step-by-step instructions. Kiln-dried cedar, powder-coated steel and
+              UV-stable glazing mean no staining, no sealing and no splinters — just a
+              yard that looks the same in year five as it did on day one.
             </p>
             <ul className="mt-7 space-y-3">
               {[
@@ -356,8 +372,8 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/collections/gazebos" className="btn-accent mt-8 px-7 py-3.5 text-[15px]">
-              Shop gazebos &amp; pergolas
+            <Link href="/collections/saunas" className="btn-accent mt-8 px-7 py-3.5 text-[15px]">
+              Shop saunas &amp; greenhouses
             </Link>
           </div>
 
@@ -472,7 +488,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Just landed"
             title="New arrivals"
-            href="/collections/new-arrivals"
+            href="/collections"
           />
           <ProductGrid>
             {fresh.map((p) => (

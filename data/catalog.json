@@ -1727,7 +1727,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "unitPricingMeasure": "3800 lb"
+   "unitPricingMeasure": "3800 lb",
+   "gtin": "5061030740996"
   },
   {
    "id": "eq-14845",
@@ -3184,7 +3185,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "unitPricingMeasure": "4000 lb"
+   "unitPricingMeasure": "4000 lb",
+   "gtin": "5061030741009"
   },
   {
    "id": "eq-14241",
@@ -4909,7 +4911,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "F3800"
+   "mpn": "F3800",
+   "gtin": "194644177744"
   },
   {
    "id": "eq-14244",
@@ -5003,7 +5006,8 @@
    "source": "equipment",
    "rewritten": true,
    "mpn": "HW-10KOH-A",
-   "unitPricingMeasure": "10000 lb"
+   "unitPricingMeasure": "10000 lb",
+   "gtin": "793150320585"
   },
   {
    "id": "eq-14361",
@@ -5505,7 +5509,8 @@
    "source": "equipment",
    "rewritten": true,
    "mpn": "BP10000X",
-   "unitPricingMeasure": "000 lb"
+   "unitPricingMeasure": "000 lb",
+   "gtin": "810524028820"
   },
   {
    "id": "eq-14235",
@@ -5599,7 +5604,8 @@
    "source": "equipment",
    "rewritten": true,
    "mpn": "PRO8000EXT",
-   "unitPricingMeasure": "000 lb"
+   "unitPricingMeasure": "000 lb",
+   "gtin": "810524020152"
   },
   {
    "id": "eq-14275",
@@ -5692,7 +5698,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "PV12PX"
+   "mpn": "PV12PX",
+   "gtin": "810524029476"
   },
   {
    "id": "eq-14396",
@@ -6438,7 +6445,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "LR-60"
+   "mpn": "LR-60",
+   "gtin": "849672001287"
   },
   {
    "id": "eq-14239",
@@ -6515,7 +6523,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "MD-6XP"
+   "mpn": "MD-6XP",
+   "gtin": "849672001294"
   },
   {
    "id": "eq-14240",
@@ -6584,7 +6593,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "MDS-6LP"
+   "mpn": "MDS-6LP",
+   "gtin": "849672004868"
   },
   {
    "id": "eq-14234",
@@ -6653,7 +6663,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "P-9000LTF"
+   "mpn": "P-9000LTF",
+   "gtin": "849672015871"
   },
   {
    "id": "eq-14402",
@@ -6714,7 +6725,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "XPR-10AS-LP"
+   "mpn": "XPR-10AS-LP",
+   "gtin": "849672004059"
   },
   {
    "id": "bd-1722090553415",
@@ -7059,7 +7071,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740026"
   },
   {
    "id": "eq-14855",
@@ -7243,7 +7256,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741177"
   },
   {
    "id": "eq-14857",
@@ -7336,7 +7350,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "STOMP 508"
+   "mpn": "STOMP 508",
+   "gtin": "5061030741054"
   },
   {
    "id": "eq-14858",
@@ -11738,7 +11753,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "850878006730"
   },
   {
    "id": "eq-14909",
@@ -12351,7 +12367,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "ZTS1 46"
+   "mpn": "ZTS1 46",
+   "gtin": "043033598236"
   },
   {
    "id": "eq-14035",
@@ -12534,7 +12551,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "ZT1 54"
+   "mpn": "ZT1 54",
+   "gtin": "043033593576"
   },
   {
    "id": "eq-14176",
@@ -12627,7 +12645,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "ZT2 60"
+   "mpn": "ZT2 60",
+   "gtin": "043033597437"
   },
   {
    "id": "eq-14177",
@@ -13448,7 +13467,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "XP5500EH"
+   "mpn": "XP5500EH",
+   "gtin": "811640014667"
   },
   {
    "id": "eq-14098",
@@ -13785,7 +13805,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "ZT4205S"
+   "mpn": "ZT4205S",
+   "gtin": "195532100677"
   },
   {
    "id": "eq-10918",
@@ -15002,7 +15023,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "696471104011"
   },
   {
    "id": "eq-14048",
@@ -15230,7 +15252,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "696471103946"
   },
   {
    "id": "eq-14940",
@@ -15282,7 +15305,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924896316"
   },
   {
    "id": "eq-14941",
@@ -15334,7 +15358,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924897641"
   },
   {
    "id": "eq-14942",
@@ -15386,7 +15411,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924897771"
   },
   {
    "id": "eq-14943",
@@ -15438,7 +15464,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924897863"
   },
   {
    "id": "eq-14944",
@@ -15491,7 +15518,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924896132"
   },
   {
    "id": "eq-14945",
@@ -15664,7 +15692,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924896644"
   },
   {
    "id": "eq-14948",
@@ -15716,7 +15745,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924896255"
   },
   {
    "id": "eq-14103",
@@ -16637,7 +16667,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "HL2-10K"
+   "mpn": "HL2-10K",
+   "gtin": "733968965851"
   },
   {
    "id": "eq-14410",
@@ -16674,7 +16705,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "HL2C-10K"
+   "mpn": "HL2C-10K",
+   "gtin": "733968965820"
   },
   {
    "id": "eq-14411",
@@ -16759,7 +16791,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "HL2C-12K"
+   "mpn": "HL2C-12K",
+   "gtin": "733968965837"
   },
   {
    "id": "eq-14412",
@@ -16844,7 +16877,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "HL2C-14K"
+   "mpn": "HL2C-14K",
+   "gtin": "733968965844"
   },
   {
    "id": "eq-14413",
@@ -17182,7 +17216,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "HL9K-XL"
+   "mpn": "HL9K-XL",
+   "gtin": "733968965790"
   },
   {
    "id": "eq-14417",
@@ -17916,7 +17951,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "Z248F"
+   "mpn": "Z248F",
+   "gtin": "193028712922"
   },
   {
    "id": "eq-10912",
@@ -17977,7 +18013,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "Z248F"
+   "mpn": "Z248F",
+   "gtin": "193028231959"
   },
   {
    "id": "eq-10917",
@@ -18038,7 +18075,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "Z254F"
+   "mpn": "Z254F",
+   "gtin": "193028231966"
   },
   {
    "id": "eq-14419",
@@ -18160,7 +18198,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "size": "2x200"
+   "size": "2x200",
+   "gtin": "810105524970"
   },
   {
    "id": "eq-14183",
@@ -18237,7 +18276,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "S120"
+   "mpn": "S120",
+   "gtin": "889818026682"
   },
   {
    "id": "eq-14694",
@@ -18573,7 +18613,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "20RCAL-200SELS"
+   "mpn": "20RCAL-200SELS",
+   "gtin": "650531447500"
   },
   {
    "id": "eq-10967",
@@ -18642,7 +18683,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "20RCAL-200SELS"
+   "mpn": "20RCAL-200SELS",
+   "gtin": "650531447500"
   },
   {
    "id": "bd-4352154927239",
@@ -19799,7 +19841,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NCB-190/060H"
+   "mpn": "NCB-190/060H",
+   "gtin": "884954966830"
   },
   {
    "id": "eq-19954",
@@ -19868,7 +19911,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NCB-190/080H"
+   "mpn": "NCB-190/080H",
+   "gtin": "884954966823"
   },
   {
    "id": "eq-19955",
@@ -19937,7 +19981,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NCB-240/110H"
+   "mpn": "NCB-240/110H",
+   "gtin": "884954966854"
   },
   {
    "id": "eq-19956",
@@ -20006,7 +20051,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NCB-240/130H"
+   "mpn": "NCB-240/130H",
+   "gtin": "884954966847"
   },
   {
    "id": "eq-19957",
@@ -20075,7 +20121,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NFB-175H"
+   "mpn": "NFB-175H",
+   "gtin": "884954919171"
   },
   {
    "id": "eq-19958",
@@ -20144,7 +20191,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NFB-200H"
+   "mpn": "NFB-200H",
+   "gtin": "884954919188"
   },
   {
    "id": "eq-19959",
@@ -20213,7 +20261,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NFB-301C"
+   "mpn": "NFB-301C",
+   "gtin": "884954907482"
   },
   {
    "id": "eq-19960",
@@ -20282,7 +20331,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NFB-399C"
+   "mpn": "NFB-399C",
+   "gtin": "884954907567"
   },
   {
    "id": "eq-19961",
@@ -20367,7 +20417,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-150S2"
+   "mpn": "NPE-150S2",
+   "gtin": "884954920757"
   },
   {
    "id": "eq-19962",
@@ -20452,7 +20503,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-180A2"
+   "mpn": "NPE-180A2",
+   "gtin": "884954920771"
   },
   {
    "id": "eq-19963",
@@ -20537,7 +20589,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-180S2"
+   "mpn": "NPE-180S2",
+   "gtin": "884954920801"
   },
   {
    "id": "eq-19964",
@@ -20622,7 +20675,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-210A2"
+   "mpn": "NPE-210A2",
+   "gtin": "884954920825"
   },
   {
    "id": "eq-19965",
@@ -20707,7 +20761,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-210S2"
+   "mpn": "NPE-210S2",
+   "gtin": "884954920849"
   },
   {
    "id": "eq-19966",
@@ -20792,7 +20847,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-240A2"
+   "mpn": "NPE-240A2",
+   "gtin": "884954920870"
   },
   {
    "id": "eq-19967",
@@ -20877,7 +20933,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "NPE-240S2"
+   "mpn": "NPE-240S2",
+   "gtin": "884954920894"
   },
   {
    "id": "eq-14238",
@@ -21290,7 +21347,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740927"
   },
   {
    "id": "eq-14962",
@@ -21474,7 +21532,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741610"
   },
   {
    "id": "eq-14964",
@@ -22876,7 +22935,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924895821"
   },
   {
    "id": "gas-4692",
@@ -24779,7 +24839,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "RZ 560 K"
+   "mpn": "RZ 560 K",
+   "gtin": "886661495702"
   },
   {
    "id": "eq-10928",
@@ -24824,7 +24885,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "RZ 560 K"
+   "mpn": "RZ 560 K",
+   "gtin": "886661495702"
   },
   {
    "id": "eq-14975",
@@ -25484,7 +25546,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "021038766010"
   },
   {
    "id": "eq-10927",
@@ -25560,7 +25623,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "021038766010"
   },
   {
    "id": "eq-14979",
@@ -25651,7 +25715,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TFB61RLGI"
+   "mpn": "TFB61RLGI",
+   "gtin": "634868935145"
   },
   {
    "id": "eq-14980",
@@ -25720,7 +25785,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TFB65BLFC"
+   "mpn": "TFB65BLFC",
+   "gtin": "634868933202"
   },
   {
    "id": "eq-14981",
@@ -25781,7 +25847,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TFB89BLFC"
+   "mpn": "TFB89BLFC",
+   "gtin": "634868933226"
   },
   {
    "id": "eq-14982",
@@ -25872,7 +25939,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TFB93RLGI"
+   "mpn": "TFB93RLGI",
+   "gtin": "634868935152"
   },
   {
    "id": "eq-14983",
@@ -26223,7 +26291,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TBB86RLGI"
+   "mpn": "TBB86RLGI",
+   "gtin": "634868935398"
   },
   {
    "id": "eq-14988",
@@ -26314,7 +26383,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "TBB01RLGI"
+   "mpn": "TBB01RLGI",
+   "gtin": "634868935374"
   },
   {
    "id": "eq-14463",
@@ -27167,7 +27237,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741702"
   },
   {
    "id": "eq-14991",
@@ -27443,7 +27514,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741580"
   },
   {
    "id": "eq-14994",
@@ -27903,7 +27975,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740385"
   },
   {
    "id": "eq-15000",
@@ -27995,7 +28068,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740293"
   },
   {
    "id": "eq-14999",
@@ -28179,7 +28253,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740347"
   },
   {
    "id": "eq-15002",
@@ -28271,7 +28346,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740354"
   },
   {
    "id": "eq-15003",
@@ -28455,7 +28531,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740156"
   },
   {
    "id": "eq-15005",
@@ -28639,7 +28716,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741061"
   },
   {
    "id": "eq-15007",
@@ -28731,7 +28809,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741689"
   },
   {
    "id": "eq-15008",
@@ -29469,7 +29548,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030740286"
   },
   {
    "id": "eq-15017",
@@ -29838,7 +29918,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "unitPricingMeasure": "4000 lb"
+   "unitPricingMeasure": "4000 lb",
+   "gtin": "5061030741047"
   },
   {
    "id": "eq-15020",
@@ -30022,7 +30103,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030741658"
   },
   {
    "id": "eq-15022",
@@ -30114,7 +30196,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "5061030742105"
   },
   {
    "id": "eq-14465",
@@ -30251,7 +30334,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924996542"
   },
   {
    "id": "eq-15024",
@@ -30303,7 +30387,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924897535"
   },
   {
    "id": "eq-15025",
@@ -30541,7 +30626,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924896422"
   },
   {
    "id": "eq-15028",
@@ -30947,7 +31033,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924085802"
   },
   {
    "id": "eq-15033",
@@ -31310,7 +31397,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924890079"
   },
   {
    "id": "eq-15038",
@@ -31790,7 +31878,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924177774"
   },
   {
    "id": "eq-15045",
@@ -31843,7 +31932,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924177873"
   },
   {
    "id": "eq-15046",
@@ -31880,7 +31970,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924076749"
   },
   {
    "id": "eq-15047",
@@ -31917,7 +32008,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924079764"
   },
   {
    "id": "eq-15048",
@@ -31954,7 +32046,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924076756"
   },
   {
    "id": "eq-15049",
@@ -31991,7 +32084,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924079771"
   },
   {
    "id": "eq-15050",
@@ -32060,7 +32154,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "color": "Black"
+   "color": "Black",
+   "gtin": "077924162091"
   },
   {
    "id": "eq-15051",
@@ -32204,7 +32299,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924178016"
   },
   {
    "id": "eq-15053",
@@ -32376,7 +32472,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "077924890611"
   },
   {
    "id": "eq-15056",
@@ -33017,7 +33114,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "WGen20000c"
+   "mpn": "WGen20000c",
+   "gtin": "850032657259"
   },
   {
    "id": "eq-14107",
@@ -33110,7 +33208,8 @@
    "regulated": false,
    "source": "equipment",
    "rewritten": true,
-   "mpn": "iGen1000S"
+   "mpn": "iGen1000S",
+   "gtin": "850011336625"
   },
   {
    "id": "eq-14108",
@@ -33194,7 +33293,8 @@
    "weightGrams": 0,
    "regulated": false,
    "source": "equipment",
-   "rewritten": true
+   "rewritten": true,
+   "gtin": "846325025232"
   },
   {
    "id": "eq-14043",

@@ -83,6 +83,10 @@ const bySku = new Map(products.map((p) => [p.sku, p]));
 export const getProductBySku = (sku: string) => bySku.get(sku);
 export const getCollection = (slug: string) => collectionBySlug.get(slug);
 
+/** The group a collection belongs to ("Outdoor Living", "Garage & Workshop"...). */
+export const collectionGroup = (slug: string): string | undefined =>
+  collectionBySlug.get(slug)?.group;
+
 export const productsIn = (slug: string) =>
   products.filter((p) => p.collection === slug);
 

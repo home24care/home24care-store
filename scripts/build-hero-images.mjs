@@ -20,7 +20,11 @@ const root = path.join(__dirname, '..');
 const outDir = path.join(root, 'public/product-images');
 
 /** Slugs used as full-bleed art. Keep in sync with the pages that use them. */
-const HERO_SLUGS = ['adventurer-swing-set', '10x10-barrington-gazebo', '10-x-10-pergola'];
+const HERO_SLUGS = [
+  'bristol-point-wooden-swing-set',
+  'lennon-2-4-person-outdoor-cube-sauna',
+  'bellerose-greenhouse',
+];
 
 const WIDTH = 1920;
 // The hero renders as a wide band and `object-cover` throws the rest away, so
