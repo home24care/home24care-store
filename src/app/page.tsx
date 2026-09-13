@@ -488,7 +488,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Just landed"
             title="New arrivals"
-            href="/collections"
+            href="/collections/new-arrivals"
           />
           <ProductGrid>
             {fresh.map((p) => (
