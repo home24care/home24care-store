@@ -16,6 +16,16 @@ const gas = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'source/gas-products.json'), 'utf8')
 );
 
+/**
+ * Equipment: grills, outdoor power, garage lifts, shop machinery and home
+ * systems. Same WooCommerce Store API shape as the gas export, so it reuses
+ * that reader's conventions. Each record carries a `_collection` assigned at
+ * extraction time.
+ */
+const equipment = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'source/equipment-products.json'), 'utf8')
+);
+
 /* ------------------------------------------------------------------ utils */
 
 const NAMED_ENTITIES = {
@@ -231,6 +241,84 @@ export const COLLECTIONS = [
     tagline: 'Full, half and quarter pallets with freight included.',
     googleCategory: 'Hardware > Heating, Ventilation & Air Conditioning',
   },
+
+  /* --- Grills & Outdoor Cooking ----------------------------------------
+     googleCategory values below are verbatim rows from Google's official
+     product taxonomy (taxonomy-with-ids.en-US), not approximations: an
+     unrecognised category string is ignored by Merchant, which silently
+     loses the categorisation it was added for. */
+  {
+    slug: 'gas-grills',
+    title: 'Gas Grills',
+    group: 'Grills & Outdoor Cooking',
+    tagline: 'Built-in and freestanding gas barbecues for real outdoor cooking.',
+    googleCategory: 'Home & Garden > Kitchen & Dining > Kitchen Appliances > Outdoor Grills',
+  },
+  {
+    slug: 'pellet-grills',
+    title: 'Pellet Grills',
+    group: 'Grills & Outdoor Cooking',
+    tagline: 'Wood-fired pellet cookers for low, slow and hands-off smoking.',
+    googleCategory: 'Home & Garden > Kitchen & Dining > Kitchen Appliances > Outdoor Grills',
+  },
+
+  /* --- Outdoor Power Equipment ----------------------------------------- */
+  {
+    slug: 'portable-generators',
+    title: 'Portable Generators',
+    group: 'Outdoor Power Equipment',
+    tagline: 'Backup power for outages, job sites and off-grid weekends.',
+    googleCategory: 'Hardware > Power & Electrical Supplies > Generators',
+  },
+  {
+    slug: 'riding-mowers',
+    title: 'Riding Mowers',
+    group: 'Outdoor Power Equipment',
+    tagline: 'Zero-turn and lawn tractors for properties measured in acres.',
+    googleCategory:
+      'Home & Garden > Lawn & Garden > Outdoor Power Equipment > Lawn Mowers > Riding Mowers',
+  },
+  {
+    slug: 'walk-behind-mowers',
+    title: 'Walk-Behind Mowers',
+    group: 'Outdoor Power Equipment',
+    tagline: 'Self-propelled and push mowers for everyday lawns.',
+    googleCategory:
+      'Home & Garden > Lawn & Garden > Outdoor Power Equipment > Lawn Mowers > Walk-Behind Mowers',
+  },
+
+  /* --- Garage & Workshop ------------------------------------------------ */
+  {
+    slug: 'car-lifts',
+    title: 'Car Lifts',
+    group: 'Garage & Workshop',
+    tagline: 'Two-post, four-post and scissor lifts for home and pro garages.',
+    googleCategory:
+      'Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Repair & Specialty Tools',
+  },
+  {
+    slug: 'shop-machinery',
+    title: 'Shop Machinery',
+    group: 'Garage & Workshop',
+    tagline: 'Forklifts, hoists and heavy equipment for warehouse and yard.',
+    googleCategory: 'Business & Industrial > Heavy Machinery',
+  },
+
+  /* --- Home Systems ----------------------------------------------------- */
+  {
+    slug: 'tankless-water-heaters',
+    title: 'Tankless Water Heaters',
+    group: 'Home Systems',
+    tagline: 'On-demand hot water without a storage tank.',
+    googleCategory: 'Home & Garden > Household Appliances > Water Heaters',
+  },
+  {
+    slug: 'ranges-cooktops',
+    title: 'Ranges & Cooktops',
+    group: 'Home Systems',
+    tagline: 'Professional dual-fuel and gas ranges for the kitchen.',
+    googleCategory: 'Home & Garden > Kitchen & Dining > Kitchen Appliances > Ranges',
+  },
 ];
 
 const COLLECTION_BY_SLUG = new Map(COLLECTIONS.map((c) => [c.slug, c]));
@@ -381,6 +469,165 @@ for (const p of gas) {
   });
 }
 
+// ---- Equipment (WooCommerce Store API export) ----------------------------
+
+/**
+ * Brands, longest-first so "Weber Genesis" is not shadowed by "Weber" and
+ * "Champion Power Equipment" is not truncated to "Champion".
+ *
+ * The source sets a brand on only 44 of 381 records, and Merchant treats a
+ * missing brand on a branded manufactured good as a data-quality problem, so
+ * the rest are recovered from the title. Anything unmatched stays with the
+ * house brand rather than being guessed at.
+ */
+const EQUIPMENT_BRANDS = [
+  'Champion Power Equipment', 'Mesa Safe Company', 'Atlas Automotive',
+  'Global Industrial', 'Yard Force', 'Greenworks', 'Cub Cadet', 'Broil King',
+  'Detail K2', 'John Deere', 'DR Power', 'Troy-Bilt', 'Grandhall',
+  'Westinghouse', 'HALO LIFTS', 'EGO Power+', 'GE Profile', 'Sunstone',
+  'BendPak', 'EcoFlow', 'GENMAX', 'Bad Boy', 'APlusLift', 'Katool', 'VEVOR',
+  'Mophorn', 'Generac', 'DuroMax', 'Predator', 'Craftsman', 'Husqvarna',
+  'Jackery', 'Polywood', 'Yoshino', 'Bluetti', 'Traeger', 'Navien', 'Typhon',
+  'Enosign', 'RYOBI', 'Kohler', 'Stihl', 'ZLINE', 'Weber', 'Toro', 'Ooni',
+  'Anker',
+].sort((a, b) => b.length - a.length);
+
+/** Spelling variants seen in the source, mapped to the canonical brand. */
+const BRAND_ALIASES = [
+  [/\bTroy[\s-]?bilt\b/i, 'Troy-Bilt'],
+  [/\bY?PHON\s+(TERROR|STOMP|VIGOR)\b/i, 'Typhon'],   // "YPHON" is a source typo
+  [/\bANKER\s+SOLIX\b/i, 'Anker'],
+  [/\bECOFLOW\b/i, 'EcoFlow'],
+];
+
+const brandPattern = (b) => new RegExp(`\\b${b.replace(/[+]/g, '\\+')}`, 'i');
+
+/**
+ * Brand, in descending order of how much the source actually tells us:
+ * the declared brand, then the title, then the product tags.
+ *
+ * Anything still unmatched keeps the house brand rather than being inferred
+ * from a model name. Many of these really are unbranded goods -- "10,000 LB
+ * Heavy Duty 2-Post Lift" names no manufacturer anywhere in the record -- and
+ * guessing one would put a claim in the Merchant feed that nothing supports.
+ */
+const equipmentBrand = (p) => {
+  const declared = p.brands?.[0]?.name;
+  if (declared) return decode(declared);
+
+  const title = decode(p.name);
+  for (const [re, canonical] of BRAND_ALIASES) if (re.test(title)) return canonical;
+  const byTitle = EQUIPMENT_BRANDS.find((b) => brandPattern(b).test(title));
+  if (byTitle) return byTitle;
+
+  // Tags are weaker evidence than the title but stronger than a guess.
+  const tags = (p.tags || []).map((t) => decode(t.name)).join(' ');
+  const byTag = EQUIPMENT_BRANDS.find((b) => brandPattern(b).test(tags));
+  return byTag || 'Home24Care';
+};
+
+for (const p of equipment) {
+  const collectionSlug = p._collection;
+  if (!COLLECTION_BY_SLUG.has(collectionSlug)) continue;
+
+  const price = parseInt(p.prices?.price ?? '0', 10);
+  if (!Number.isFinite(price) || price <= 0) continue;
+  const regular = parseInt(p.prices?.regular_price ?? '0', 10);
+
+  const images = (p.images || []).slice(0, 8).map((img) => {
+    const src = typeof img === 'string' ? img : img.src;
+    return {
+      thumb: src,
+      card: src,
+      full: src,
+      alt: decode((typeof img === 'object' && img.alt) || p.name),
+      width: null,
+      height: null,
+    };
+  });
+  if (!images.length) continue;
+
+  const collection = COLLECTION_BY_SLUG.get(collectionSlug);
+  const brand = equipmentBrand(p);
+
+  /*
+    Three source titles open with a non-breaking space. Stripping leading and
+    trailing whitespace is not a retitle -- the wording is untouched -- but it
+    keeps a stray \u00a0 out of the Merchant feed, where the title is what the
+    offer is matched on.
+  */
+  const title = decode(p.name).replace(/^[\s\u00a0]+|[\s\u00a0]+$/g, '');
+
+  /*
+    Copy is NOT carried over from the source export. The inherited text is
+    someone else's writing, so it is kept only in
+    data/rewrites/original-copy-equipment.json as the baseline for the
+    "is this actually new?" check in apply-rewrites, and never written here.
+
+    What lands in the catalog until the rewrite pass runs is assembled from
+    facts we hold anyway -- title, brand, collection -- and is deliberately
+    plain. `rewritten: false` marks it as provisional so an un-rewritten
+    product is easy to find before it can reach the feed.
+  */
+  const provisional =
+    `${title}.\n` +
+    `${brand === 'Home24Care' ? 'Stocked' : `Made by ${brand} and stocked`} by Home24Care in the ` +
+    `${collection.title.toLowerCase()} range, shipped free anywhere in the United States.`;
+
+  products.push({
+    id: `eq-${p.id}`,
+    slug: uniqueSlug(p.slug || slugify(p.name)),
+    title,
+    brand,
+    collection: collectionSlug,
+    productType: collection.title,
+    sku: p.sku || `H24-EQ-${p.id}`,
+    price,
+    compareAtPrice: regular > price ? regular : null,
+    currency: 'USD',
+    available: p.is_in_stock !== false,
+    preorder: false,
+    description: provisional,
+    excerpt: provisional.split('\n')[0].slice(0, 220),
+    images,
+    highlights: [],
+    badges: [],
+    shippingIncluded: true,
+    requiresShipping: true,
+    // The source export carries no weight or dimensions for any of these.
+    weightGrams: 0,
+    regulated: false,
+    source: 'equipment',
+    rewritten: false,
+  });
+}
+
+/* ------------------------------------------------- outdoor range trim */
+
+/**
+ * The Outdoor Living range is trimmed to the slugs in data/outdoor-keep.json.
+ *
+ * This lives in the build rather than as a one-off edit to data/catalog.json,
+ * because catalog.json is generated: any later `node scripts/build-catalog.mjs`
+ * would rebuild all 233 products straight back in, and the removal would look
+ * like it had silently undone itself.
+ *
+ * Collections left with no products are dropped automatically further down
+ * (COLLECTIONS is filtered by `used`), so this cannot strand an empty category
+ * page or a nav link pointing at one.
+ */
+const keepPath = path.join(root, 'data/outdoor-keep.json');
+if (fs.existsSync(keepPath)) {
+  const keep = new Set(JSON.parse(fs.readFileSync(keepPath, 'utf8')));
+  const isOutdoor = (p) => COLLECTION_BY_SLUG.get(p.collection)?.group === 'Outdoor Living';
+  const before = products.filter(isOutdoor).length;
+  for (let i = products.length - 1; i >= 0; i--) {
+    if (isOutdoor(products[i]) && !keep.has(products[i].slug)) products.splice(i, 1);
+  }
+  const after = products.filter(isOutdoor).length;
+  console.log(`outdoor trim: ${before} -> ${after} (removed ${before - after})`);
+}
+
 /* ------------------------------------------------------------- enrichment */
 
 // Pull a few scannable spec bullets out of the long description.
@@ -466,7 +713,14 @@ for (const [sku, entry] of Object.entries(overrides)) {
  * charged for long enough to count.
  */
 const PRICE_MULTIPLIER = 0.40;
-const DISCOUNT_EXEMPT_GROUPS = new Set(['Refrigerants & Gases']);
+const DISCOUNT_EXEMPT_GROUPS = new Set([
+  'Refrigerants & Gases',
+  // Equipment is listed at its source price, not marked down.
+  'Grills & Outdoor Cooking',
+  'Outdoor Power Equipment',
+  'Garage & Workshop',
+  'Home Systems',
+]);
 
 const groupOfCollection = new Map(COLLECTIONS.map((c) => [c.slug, c.group]));
 const marked = [];

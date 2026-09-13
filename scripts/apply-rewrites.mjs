@@ -45,6 +45,7 @@ const original = fs.existsSync(originalPath)
 /** Claims the storefront must not make in product copy. */
 const BANNED = [
   { re: /igvagas/i, why: 'names a different company' },
+  { re: /aklart/i, why: 'names a different company' },
   { re: /backyarddiscovery\.com/i, why: 'links a different storefront' },
   { re: /same[- ]day shipping/i, why: 'contradicts the 1-business-day shipping policy' },
   { re: /bulk order discount/i, why: 'promises a discount that is not offered' },

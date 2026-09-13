@@ -11,6 +11,23 @@ import { CartIcon, SearchIcon, MenuIcon, CloseIcon, ChevronIcon, PhoneIcon } fro
 
 type NavGroup = { group: string; collections: { slug: string; title: string; tagline: string; count: number }[] };
 
+/**
+ * Shorter labels for the top bar.
+ *
+ * The group names are written for collection pages and breadcrumbs, where
+ * there is room for "Grills & Outdoor Cooking". Six of them side by side in
+ * the header is wider than the bar, which pushed the search field and cart
+ * button off the right edge of the viewport. Only the label is shortened --
+ * the group keeps its real name everywhere else, including the mobile drawer,
+ * which is a vertical list with room to spare.
+ */
+const NAV_LABELS: Record<string, string> = {
+  'Refrigerants & Gases': 'Refrigerants',
+  'Grills & Outdoor Cooking': 'Grills',
+  'Outdoor Power Equipment': 'Outdoor Power',
+  'Garage & Workshop': 'Garage',
+};
+
 export default function Header({ groups }: { groups: NavGroup[] }) {
   const { count, open, hydrated } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -100,7 +117,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="-ml-2 rounded-lg p-2 text-ink lg:hidden"
+          className="-ml-2 rounded-lg p-2 text-ink xl:hidden"
           aria-label="Open menu"
         >
           <MenuIcon className="h-6 w-6" />
@@ -120,37 +137,37 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
           </span>
         </Link>
 
-        <nav className="ml-4 hidden items-center gap-1 lg:flex" aria-label="Main">
+        <nav className="ml-4 hidden items-center gap-0.5 xl:flex" aria-label="Main">
           {groups.map((g) => (
             <div key={g.group} onMouseEnter={() => hoverOpen(g.group)} onMouseLeave={hoverClose}>
               <button
                 type="button"
                 onClick={() => setOpenGroup(openGroup === g.group ? null : g.group)}
                 aria-expanded={openGroup === g.group}
-                className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold transition-colors ${
+                className={`flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-semibold transition-colors ${
                   openGroup === g.group ? 'bg-moss-50 text-moss-800' : 'text-ink hover:bg-moss-50'
                 }`}
               >
-                {g.group}
+                {NAV_LABELS[g.group] ?? g.group}
                 <ChevronIcon
                   className={`h-3.5 w-3.5 transition-transform ${openGroup === g.group ? 'rotate-90' : ''}`}
                 />
               </button>
             </div>
           ))}
-          <Link href="/collections/sale" className="rounded-full px-3.5 py-2 text-sm font-semibold text-clay-700 hover:bg-clay-50">
+          <Link href="/collections/sale" className="whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-semibold text-clay-700 hover:bg-clay-50">
             Sale
           </Link>
-          <Link href="/about" className="rounded-full px-3.5 py-2 text-sm font-semibold text-ink hover:bg-moss-50">
+          <Link href="/about" className="whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-semibold text-ink hover:bg-moss-50">
             About
           </Link>
-          <Link href="/contact" className="rounded-full px-3.5 py-2 text-sm font-semibold text-ink hover:bg-moss-50">
+          <Link href="/contact" className="whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-semibold text-ink hover:bg-moss-50">
             Contact
           </Link>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1">
-          <form onSubmit={submitSearch} className="hidden md:block">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
+          <form onSubmit={submitSearch} className="hidden 2xl:block">
             <div className="relative">
               <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
               <input
@@ -168,7 +185,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="rounded-lg p-2.5 text-ink hover:bg-moss-50 md:hidden"
+            className="rounded-lg p-2.5 text-ink hover:bg-moss-50 2xl:hidden"
             aria-label="Search"
           >
             <SearchIcon />
@@ -193,7 +210,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
       {/* Desktop mega menu */}
       {openGroup && (
         <div
-          className="absolute inset-x-0 top-full hidden border-t border-ink/10 bg-white shadow-lift lg:block"
+          className="absolute inset-x-0 top-full hidden border-t border-ink/10 bg-white shadow-lift xl:block"
           onMouseEnter={() => hoverOpen(openGroup)}
           onMouseLeave={hoverClose}
         >
@@ -250,7 +267,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
       {mounted &&
         menuOpen &&
         createPortal(
-          <div className="fixed inset-0 z-[70] lg:hidden">
+          <div className="fixed inset-0 z-[70] xl:hidden">
               <div
                 className="absolute inset-0 animate-fade-in bg-ink/45"
                 onClick={() => setMenuOpen(false)}

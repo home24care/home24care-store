@@ -34,6 +34,19 @@ const gtins = fs.existsSync(gtinPath)
   ? JSON.parse(fs.readFileSync(gtinPath, 'utf8'))
   : {};
 
+/**
+ * Manufacturer part numbers for the equipment range, keyed by slug.
+ *
+ * The equipment source publishes no usable GTIN — see GTIN-AUDIT.md — and its
+ * SKUs are the retailer's own internal ids ("67279", "P0038S"), not codes the
+ * manufacturer would recognise. Submitting those as MPN would assert an
+ * identifier that does not exist, so the real model codes are read from the
+ * product titles and kept here. A product absent from this file has no MPN and
+ * is declared as such in the feed.
+ */
+const mpnPath = path.join(root, 'data/mpns.json');
+const mpns = fs.existsSync(mpnPath) ? JSON.parse(fs.readFileSync(mpnPath, 'utf8')) : {};
+
 /* ------------------------------------------------------------------ size */
 
 /** "16x12 Barrington Gazebo" and "Stratford | 12x10 Steel Pergola" both. */
@@ -134,6 +147,7 @@ for (const product of catalog.products) {
 }
 
 let gtinned = 0;
+let mpnned = 0;
 let sized = 0;
 let colored = 0;
 let grouped = 0;
@@ -151,6 +165,21 @@ for (const product of catalog.products) {
   if (gtin) {
     product.gtin = gtin;
     gtinned++;
+  }
+
+  /*
+    MPN. Products from the original sources keep using their SKU: those are
+    supplier part numbers, which is what an MPN is. Equipment only gets one if
+    a real model code was established for it.
+  */
+  if (product.source === 'equipment') {
+    const mpn = mpns[product.slug];
+    if (mpn) {
+      product.mpn = mpn;
+      mpnned++;
+    }
+  } else {
+    product.mpn = product.sku;
   }
 
   if (size) {
@@ -213,6 +242,7 @@ const families = [...groups.values()].filter((f) => {
 });
 
 console.log(`gtin            ${gtinned}`);
+console.log(`mpn (equipment) ${mpnned}`);
 console.log(`size            ${sized}`);
 console.log(`color           ${colored}`);
 console.log(`item_group_id   ${grouped} across ${families.length} families`);

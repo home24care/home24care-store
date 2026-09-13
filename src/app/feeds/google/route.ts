@@ -90,10 +90,25 @@ export async function GET() {
       // them. A guessed size or multipack is worse than an absent one, because
       // Google matches the offer against the wrong thing.
       //
-      // identifier_exists is deliberately NOT sent: it means "this product has
-      // no GTIN and no MPN", which would contradict the g:mpn on the line
-      // above. Brand + MPN is the identifier pair for this catalog; there are
-      // no real GTINs to send and inventing them is not an option.
+      // identifier_exists is sent ONLY when a product genuinely has neither a
+      // GTIN nor an MPN, which is exactly what the attribute means. For most
+      // of this catalog the SKU is the supplier's part number, so brand + MPN
+      // is the identifier pair and the attribute stays off.
+      //
+      // The equipment range is the exception. Its source publishes no usable
+      // GTIN (see GTIN-AUDIT.md) and its SKUs are the retailer's internal ids,
+      // not manufacturer codes, so an MPN is sent only where a real model code
+      // was established. Where none was, the honest signal is identifier_exists
+      // = no, rather than a part number the manufacturer would not recognise.
+      const mpn = product.mpn ?? (product.source === 'equipment' ? null : product.sku);
+
+      const identifiers = [
+        mpn && `\n      <g:mpn>${escape(mpn)}</g:mpn>`,
+        !product.gtin && !mpn && `\n      <g:identifier_exists>no</g:identifier_exists>`,
+      ]
+        .filter(Boolean)
+        .join('');
+
       const optional = [
         // A real GS1 code where one exists. Google prefers gtin over mpn for
         // matching, and sending both is correct when both are known.
@@ -128,8 +143,7 @@ ${additionalImages}
       <g:availability>${availability}</g:availability>
       <g:price>${listPrice} ${product.currency}</g:price>${salePrice}
       <g:condition>new</g:condition>
-      <g:brand>${cdata(product.brand)}</g:brand>
-      <g:mpn>${escape(product.sku)}</g:mpn>${optional}
+      <g:brand>${cdata(product.brand)}</g:brand>${identifiers}${optional}
       <g:google_product_category>${cdata(
         collection?.googleCategory ?? 'Home & Garden'
       )}</g:google_product_category>

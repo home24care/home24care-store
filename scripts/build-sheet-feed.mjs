@@ -97,11 +97,19 @@ const nth = (fn, i) => (p) => fn(p)[i] ?? '';
  * Columns, in the template's own order, with the repeats expanded and the
  * missing attributes appended.
  *
- * A blank value means the attribute is not submitted. That is deliberate for
- * identifier_exists: the specification says to omit it when the product has a
- * brand and an MPN, which every product here does. Sending "no" would tell
- * Google to ignore the 185 GTINs.
+ * A blank value means the attribute is not submitted. identifier_exists is
+ * blank for everything that has a GTIN or an MPN, which is what the spec asks
+ * for -- sending "no" there would tell Google to ignore the 185 GTINs. It is
+ * filled in only for equipment products that have neither, where "no" is the
+ * accurate statement. See GTIN-AUDIT.md.
  */
+/**
+ * The MPN to submit. Outdoor and gas SKUs are supplier part numbers, so they
+ * stand as the MPN. Equipment SKUs are the retailer's internal ids, so those
+ * products carry an MPN only where a real model code was established.
+ */
+const mpnOf = (p) => p.mpn ?? (p.source === 'equipment' ? null : p.sku);
+
 const COLUMNS = [
   ['id', (p) => offerId(p.sku)],
   ['title', (p) => p.title.slice(0, 150)],
@@ -115,9 +123,9 @@ const COLUMNS = [
   ['price', (p) => money(p.compareAtPrice ?? p.price, p.currency)],
   ['sale_price', (p) => (p.compareAtPrice ? money(p.price, p.currency) : '')],
   ['sale_price_effective_date', () => ''],
-  ['identifier_exists', () => ''],
+  ['identifier_exists', (p) => (!p.gtin && !mpnOf(p) ? 'no' : '')],
   ['gtin', (p) => p.gtin ?? ''],
-  ['mpn', (p) => p.sku],
+  ['mpn', (p) => mpnOf(p) ?? ''],
   ['brand', (p) => p.brand],
   ...Array.from({ length: HIGHLIGHTS }, (_, i) => ['product_highlight', nth(highlightsOf, i)]),
   ['product_detail', () => ''],

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import ProductCard from '@/components/ProductCard';
+import ProductSpotlight from '@/components/ProductSpotlight';
 import { SectionHeading, ProductGrid } from '@/components/Section';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
@@ -44,6 +45,19 @@ const TILE_SLUGS = [
   'outdoor-kitchens',
   'saunas',
   'greenhouses',
+];
+
+/**
+ * Tiles for the equipment ranges. Ordered biggest-catalogue first so the row
+ * leads with the deepest selection rather than the narrowest.
+ */
+const EQUIPMENT_TILE_SLUGS = [
+  'gas-grills',
+  'car-lifts',
+  'shop-machinery',
+  'riding-mowers',
+  'portable-generators',
+  'tankless-water-heaters',
 ];
 
 const EDITORIAL_PRODUCT = '10x10-barrington-gazebo';
@@ -115,16 +129,22 @@ export default function HomePage() {
   // the editorial image — otherwise swing-sets and gazebos show the same two
   // photographs twice on one page.
   const usedIds = new Set([heroSource.id, editorialProduct.id]);
-  const tiles = TILE_SLUGS.map((slug) => {
-    const pool = productsIn(slug);
-    const pick = pool.find((x) => !usedIds.has(x.id) && x.images.length) ?? pool[0];
-    if (pick) usedIds.add(pick.id);
-    return {
-      slug,
-      collection: collections.find((c) => c.slug === slug),
-      image: pick?.images[0]?.card,
-    };
-  }).filter((t) => t.collection && t.image);
+  const buildTiles = (slugs: string[]) =>
+    slugs
+      .map((slug) => {
+        const pool = productsIn(slug);
+        const pick = pool.find((x) => !usedIds.has(x.id) && x.images.length) ?? pool[0];
+        if (pick) usedIds.add(pick.id);
+        return {
+          slug,
+          collection: collections.find((c) => c.slug === slug),
+          image: pick?.images[0]?.card,
+        };
+      })
+      .filter((t) => t.collection && t.image);
+
+  const tiles = buildTiles(TILE_SLUGS);
+  const equipmentTiles = buildTiles(EQUIPMENT_TILE_SLUGS);
 
   return (
     <>
@@ -295,19 +315,16 @@ export default function HomePage() {
 
       {/* --------------------------------------------------------- Best sellers */}
       {sellers.length > 0 && (
-        <section className="container-page pb-16">
-          <SectionHeading
-            eyebrow="Most popular"
-            title="Best sellers this season"
-            subtitle="The pieces our customers keep coming back for."
-            href="/collections/best-sellers"
-          />
-          <ProductGrid>
-            {sellers.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </ProductGrid>
-        </section>
+        <ProductSpotlight
+          eyebrow="Most popular"
+          titleTop="Built to Last."
+          titleBottom="Priced to Move."
+          subtitle={`The pieces our customers keep coming back for — starting with the ${sellers[0].title}.`}
+          href="/collections/best-sellers"
+          ctaLabel="Go shopping"
+          feature={sellers[0]}
+          rail={sellers.slice(1)}
+        />
       )}
 
       {/* ------------------------------------------------------- Editorial split */}
@@ -363,20 +380,16 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------------ On sale */}
       {sale.length > 0 && (
-        <section className="container-page py-16">
-          <SectionHeading
-            eyebrow="Limited time"
-            title="On sale now"
-            subtitle="Current markdowns across the catalog. Prices shown are what you pay at checkout."
-            href="/collections/sale"
-            linkLabel="All sale items"
-          />
-          <ProductGrid>
-            {sale.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </ProductGrid>
-        </section>
+        <ProductSpotlight
+          eyebrow="Limited time"
+          titleTop="Real Markdowns."
+          titleBottom="No Fine Print."
+          subtitle="Current reductions across the catalog. The price you see is the price you pay at checkout."
+          href="/collections/sale"
+          ctaLabel="Shop the sale"
+          feature={sale[0]}
+          rail={sale.slice(1)}
+        />
       )}
 
       {/* ----------------------------------------------------- Refrigerants */}
@@ -401,6 +414,54 @@ export default function HomePage() {
               certification your purchase requires and will handle and recover the product
               in line with EPA regulations.
             </p>
+          </div>
+        </section>
+      )}
+
+      {/* ------------------------------------------- Equipment & workshop */}
+      {equipmentTiles.length > 0 && (
+        <section className="container-page py-16">
+          <SectionHeading
+            eyebrow="Also in stock"
+            title="Grills, power & workshop"
+            subtitle="Barbecues and pellet cookers, mowers and standby power, garage lifts, shop machinery and tankless hot water."
+            href="/collections"
+            linkLabel="All collections"
+          />
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+            {equipmentTiles.map(({ slug, image, collection }) => (
+              <Link
+                key={slug}
+                href={`/collections/${slug}`}
+                className="group relative isolate flex aspect-[4/3] items-end overflow-hidden rounded-2xl bg-moss-900"
+              >
+                <Image
+                  src={image!}
+                  alt=""
+                  fill
+                  sizes={SIZES.tile}
+                  unoptimized={IMAGES_LOCALIZED}
+                  quality={75}
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"
+                  aria-hidden="true"
+                />
+                <div className="relative p-5">
+                  <h3 className="font-display text-[22px] leading-tight text-white sm:text-[26px]">
+                    {collection!.title}
+                  </h3>
+                  <p className="mt-1 text-[13px] text-white/80">
+                    {collection!.count} products · from{' '}
+                    {formatPrice(Math.min(...productsIn(slug).map((p) => p.price)))}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       )}

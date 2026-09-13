@@ -32,13 +32,15 @@ export type Product = {
   requiresShipping: boolean;
   weightGrams: number;
   regulated?: boolean;
-  source: 'outdoor' | 'gas';
+  source: 'outdoor' | 'gas' | 'equipment';
 
   /* --- Google Merchant attributes, derived from the title by
      scripts/enrich-merchant.mjs. All optional: absent means the title did not
      state it, and an absent attribute is always safer than a guessed one. --- */
   /** Real GS1 GTIN (UPC-A), verified by check digit. Absent when none exists. */
   gtin?: string;
+  /** Manufacturer part number, where a real one is known. */
+  mpn?: string;
   /** Variant size, e.g. "16x12". */
   size?: string;
   /** Variant colour or finish, e.g. "Black". */
