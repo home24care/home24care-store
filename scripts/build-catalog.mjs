@@ -95,6 +95,41 @@ const slugify = (s) =>
     .replace(/^-+|-+$/g, '')
     .slice(0, 90);
 
+/**
+ * A slug taken from a source export, made safe to put in a URL.
+ *
+ * WordPress stores non-ASCII slugs percent-encoded, and that encoding arrives
+ * as literal text: one product's slug was the 61 characters
+ * `craftsman-30%e2%80%b3-10-5-hp-...`, where `%e2%80%b3` is a double-prime.
+ * A browser decodes those escapes before the route is matched, so the request
+ * never equals the stored slug and the page 404s -- which it did for 11
+ * products, live.
+ *
+ * Decoding first and then slugifying collapses the escape to nothing, leaving
+ * plain ASCII. Slugs that are already clean pass through unchanged.
+ */
+const sourceSlug = (raw, fallbackName) => {
+  const text = raw || '';
+
+  /*
+    A slug that is already URL-safe is returned byte for byte, never re-run
+    through slugify(). slugify() truncates at 90 characters, and 35 of these
+    slugs are longer than that, so normalising every slug "for consistency"
+    would silently rewrite 35 URLs that work today -- breaking live pages and
+    the links already sitting in the Merchant feed. Only the broken ones move.
+  */
+  if (/^[a-z0-9-]+$/.test(text)) return text;
+
+  let decoded = text;
+  try {
+    decoded = decodeURIComponent(text);
+  } catch {
+    // Malformed escapes (a stray % that is not a valid sequence): slugify the
+    // raw text instead, which strips the % either way.
+  }
+  return slugify(decoded) || slugify(fallbackName);
+};
+
 /** Ask the Shopify CDN for a given render width (keeps payloads small). */
 const shopifyImage = (src, width) => {
   if (!src) return src;
@@ -441,7 +476,7 @@ for (const p of gas) {
 
   products.push({
     id: `gas-${p.id}`,
-    slug: uniqueSlug(p.slug || slugify(p.name)),
+    slug: uniqueSlug(sourceSlug(p.slug, p.name)),
     title: decode(p.name),
     brand: gasBrand(p),
     collection: collectionSlug,
@@ -576,7 +611,7 @@ for (const p of equipment) {
 
   products.push({
     id: `eq-${p.id}`,
-    slug: uniqueSlug(p.slug || slugify(p.name)),
+    slug: uniqueSlug(sourceSlug(p.slug, p.name)),
     title,
     brand,
     collection: collectionSlug,
