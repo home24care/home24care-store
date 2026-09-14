@@ -69,6 +69,24 @@ const offerId = (sku) => {
 const feedImage = (src) => src.replace(/-(?:thumb|card|full)\.webp$/, '-feed.jpg');
 const absolute = (src) => (/^https?:\/\//i.test(src) ? src : `${SITE}${src}`);
 
+/**
+ * Cache-buster on every feed image URL. Bump it whenever an image URL that
+ * Merchant has already crawled needs to be re-fetched.
+ *
+ * Google caches crawled images by URL and re-crawls on its own slow schedule.
+ * When the equipment range went live its -feed.jpg files did not exist yet, so
+ * Merchant crawled 343 of them, got the HTML 404 page, and recorded
+ * "Unsupported image type". Generating the files fixed the server, but the
+ * recorded verdict is attached to a URL Google believes it has already seen,
+ * so re-fetching the sheet alone does not clear it. A changed URL is a new
+ * image as far as the crawler is concerned, and it fetches it again.
+ *
+ * A query string is enough: the files are static, so Vercel serves them
+ * identically with or without one (verified).
+ */
+const IMAGE_REV = 'r2';
+const feedImageUrl = (src) => `${absolute(feedImage(src))}?v=${IMAGE_REV}`;
+
 /** Catalogue money is integer cents; a text feed wants "349.99 USD". */
 const money = (cents, currency) => `${(cents / 100).toFixed(2)} ${currency}`;
 
@@ -84,7 +102,7 @@ const descriptionOf = (p) =>
   `${p.title} from ${p.brand}, sold by Home24Care with free standard shipping.`;
 
 const extraImages = (p) =>
-  p.images.slice(1, 1 + FEED_EXTRA).map((img) => absolute(feedImage(img.full)));
+  p.images.slice(1, 1 + FEED_EXTRA).map((img) => feedImageUrl(img.full));
 
 const highlightsOf = (p) => p.highlights.slice(0, HIGHLIGHTS).map((h) => h.slice(0, 150));
 
@@ -119,7 +137,7 @@ const COLUMNS = [
   ['expiration_date', () => ''],
   ['link', (p) => `${SITE}/products/${p.slug}`],
   ['mobile_link', () => ''],
-  ['image_link', (p) => absolute(feedImage(p.images[0].full))],
+  ['image_link', (p) => feedImageUrl(p.images[0].full)],
   ['price', (p) => money(p.compareAtPrice ?? p.price, p.currency)],
   ['sale_price', (p) => (p.compareAtPrice ? money(p.price, p.currency) : '')],
   ['sale_price_effective_date', () => ''],
