@@ -36,7 +36,7 @@ export default function Footer() {
           {[
             [TruckIcon, 'Free standard shipping', `Ships in ${site.shipping.handlingTime}, arrives in ${site.shipping.transitTime}.`],
             [ReturnIcon, `${site.returns.windowDays}-day returns`, 'No restocking fees. Refunds to your original payment method.'],
-            [ShieldIcon, site.warranty.label, 'Covers manufacturing defects under normal use.'],
+            [ShieldIcon, site.warranty.label, 'Our minimum on everything we sell — longer where the maker offers it.'],
             [SupportIcon, 'Talk to a human', `${site.contact.hours}. ${site.contact.responseTime}`],
           ].map(([Icon, title, body]) => {
             const I = Icon as typeof TruckIcon;

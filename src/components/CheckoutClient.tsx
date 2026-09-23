@@ -252,8 +252,8 @@ export default function CheckoutClient() {
               <li className="flex gap-3">
                 <ShieldIcon className="mt-0.5 h-[18px] w-[18px] shrink-0 text-moss-700" />
                 <span>
-                  <strong className="font-semibold text-ink">{site.warranty.label}</strong> on
-                  everything we sell.
+                  <strong className="font-semibold text-ink">{site.warranty.label}</strong> minimum,
+                  longer where the manufacturer offers it.
                 </span>
               </li>
               <li className="flex gap-3">
