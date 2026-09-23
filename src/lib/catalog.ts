@@ -56,6 +56,15 @@ export type Product = {
   shippingWeightLb?: number;
   /** True once the inherited copy has been replaced. */
   rewritten?: boolean;
+  /**
+   * Manufacturer warranty, where it is longer than the store's own term.
+   * Absent on most products, which fall back to site.warranty.label. Kept
+   * per-product because the site-wide term cannot be raised without applying
+   * it to every grill, lift and generator that does not carry it.
+   */
+  warrantyLabel?: string;
+  /** Manufacturer parts-shipping commitment, where one is offered. */
+  partsShipping?: string;
 };
 
 export type Collection = {

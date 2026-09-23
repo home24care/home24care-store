@@ -161,6 +161,17 @@ for (const product of catalog.products) {
   const { multipack, isBundle } = packOf(product.title);
   const unit = unitOf(product.title);
 
+  /*
+    Backyard Discovery back these products with a 5-year warranty and 48-hour
+    parts shipping, both longer than the store's own baseline. Applied per
+    product rather than by raising site.warranty, which would put a five-year
+    claim on every grill, car lift and generator that does not carry one.
+  */
+  if (product.brand === 'Backyard Discovery') {
+    product.warrantyLabel = 'Five-Year Limited Warranty';
+    product.partsShipping = 'Replacement parts ship within 48 hours';
+  }
+
   const gtin = gtins[product.sku];
   if (gtin) {
     product.gtin = gtin;

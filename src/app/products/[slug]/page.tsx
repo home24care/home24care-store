@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               [
                 ShieldIcon,
                 'Warranty',
-                `${site.warranty.label} against manufacturing defects under normal use conditions — or the manufacturer's term where that is longer.`,
+                `${product.warrantyLabel ?? site.warranty.label} against manufacturing defects under normal use conditions.`,
               ],
             ].map(([Icon, term, desc]) => {
               const I = Icon as typeof TruckIcon;
@@ -242,7 +242,9 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               ['SKU', product.sku],
               ['Condition', 'New'],
               ['Shipping', 'Free standard shipping (US)'],
-              ['Warranty', site.warranty.label],
+              ['Warranty', product.warrantyLabel ?? site.warranty.label],
+              // Only shown where the manufacturer actually commits to it.
+              ...(product.partsShipping ? [['Spare parts', product.partsShipping]] : []),
             ].map(([term, desc]) => (
               <div key={term} className="flex justify-between gap-4 py-2.5">
                 <dt className="text-ink-muted">{term}</dt>
