@@ -28,8 +28,8 @@ export const site = {
     email: 'contact@home24care.com',
     phone: '+1 575 271 0768',
     phoneHref: '+15752710768',
-    hours: 'Monday–Friday, 9:00 AM – 6:00 PM CST',
-    responseTime: 'We reply to every email within one business day.',
+    hours: 'Seven days a week, 9:00 AM – 6:00 PM MT',
+    responseTime: 'We reply to every email within one day.',
   },
 
   address: {
@@ -48,7 +48,7 @@ export const site = {
     freeThreshold: 0, // free on every order
     handlingTime: '1 business day (Mon–Fri)',
     transitTime: '1–3 business days (Mon–Fri)',
-    cutOff: '11:00 PM CST (UTC −6)',
+    cutOff: '11:00 PM MT',
     countries: ['United States'],
   },
 
