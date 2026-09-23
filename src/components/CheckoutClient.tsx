@@ -4,10 +4,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { loadStripe } from '@stripe/stripe-js';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout,
-} from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import type { StripeElementsOptions } from '@stripe/stripe-js';
+import CheckoutForm from './CheckoutForm';
 import { useCart } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
 import { SIZES, IMAGES_LOCALIZED } from '@/lib/image';
@@ -29,11 +28,38 @@ import { LockIcon, TruckIcon, ReturnIcon, ShieldIcon, ChevronIcon } from './icon
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
+/**
+ * Stripe renders its Elements in an iframe, so site CSS cannot reach them.
+ * The appearance API is the only way to make the card fields look like the
+ * rest of the page; these values mirror the storefront's inputs.
+ */
+const elementsOptions = (amount: number): StripeElementsOptions => ({
+  mode: 'payment',
+  amount,
+  currency: 'usd',
+  appearance: {
+    theme: 'stripe',
+    variables: {
+      colorPrimary: '#274a37',
+      colorText: '#12211c',
+      colorTextSecondary: '#3d4f47',
+      colorDanger: '#a1421f',
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+      borderRadius: '12px',
+      spacingUnit: '4px',
+    },
+    rules: {
+      '.Input': { borderColor: 'rgba(18,33,28,0.16)', boxShadow: 'none', padding: '12px' },
+      '.Input:focus': { borderColor: '#417456', boxShadow: '0 0 0 3px rgba(65,116,86,0.15)' },
+      '.Label': { fontWeight: '500' },
+    },
+  },
+});
+
 export default function CheckoutClient() {
   const { lines, subtotal, hydrated } = useCart();
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [processing, setProcessing] = useState(false);
 
   /*
     The cart is read from localStorage on mount, so `lines` is empty on the
@@ -45,35 +71,7 @@ export default function CheckoutClient() {
     [lines]
   );
 
-  const createSession = useCallback(async () => {
-    if (!hydrated || lines.length === 0) return;
-    setError(null);
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lines: lines.map((l) => ({ slug: l.slug, quantity: l.quantity })),
-        }),
-      });
-      const data = (await res.json()) as { clientSecret?: string; error?: string };
-      if (!res.ok || !data.clientSecret) {
-        setError(data.error || 'We could not start checkout. Please try again.');
-        return;
-      }
-      setClientSecret(data.clientSecret);
-      track('checkout_started', { value: subtotal, quantity: lines.length });
-    } catch {
-      setError('We could not reach the payment service. Please try again.');
-    }
-  }, [hydrated, lines, subtotal]);
 
-  useEffect(() => {
-    // Only ever create one session per cart state.
-    if (clientSecret) return;
-    void createSession();
-    // cartKey, not `lines`: a new array identity each render would loop.
-  }, [cartKey, clientSecret, createSession]);
 
   const itemCount = lines.reduce((n, l) => n + l.quantity, 0);
 
@@ -179,26 +177,19 @@ export default function CheckoutClient() {
       </div>
 
       <div className="container-page grid gap-10 py-8 lg:grid-cols-[1fr_400px] lg:gap-14 lg:py-12">
-        <main className="min-w-0 order-2 lg:order-1">
+        <main className="min-w-0">
           {!publishableKey ? (
             <p className="rounded-2xl border border-clay-300 bg-clay-50 p-5 text-[14.5px] text-ink">
               Card payments are not configured. Set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.
             </p>
-          ) : error ? (
-            <div className="rounded-2xl border border-clay-300 bg-clay-50 p-5">
-              <p className="text-[14.5px] text-ink">{error}</p>
-              <button
-                type="button"
-                onClick={() => void createSession()}
-                className="mt-4 rounded-full bg-moss-800 px-5 py-2.5 text-[14px] font-semibold text-white hover:bg-moss-900"
-              >
-                Try again
-              </button>
-            </div>
-          ) : clientSecret ? (
-            <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
-              <EmbeddedCheckout className="min-h-[520px]" />
-            </EmbeddedCheckoutProvider>
+          ) : hydrated && lines.length > 0 ? (
+            <Elements stripe={stripePromise} options={elementsOptions(subtotal)}>
+              <CheckoutForm
+                amount={subtotal}
+                lines={lines.map((l) => ({ slug: l.slug, quantity: l.quantity }))}
+                onProcessing={setProcessing}
+              />
+            </Elements>
           ) : (
             /* A skeleton rather than a spinner: it holds the height the form
                will take, so the page does not jump when Stripe mounts. */
@@ -226,7 +217,7 @@ export default function CheckoutClient() {
           </div>
         </main>
 
-        <aside className="order-1 min-w-0 lg:order-2">
+        <aside className="min-w-0">
           <div className="lg:sticky lg:top-8">
             <div className="hidden rounded-2xl border border-ink/10 bg-white p-6 lg:block">
               <h2 className="text-[15px] font-semibold text-ink">

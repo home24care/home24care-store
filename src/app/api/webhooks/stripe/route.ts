@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { stripe, stripeConfigured, webhookSecretConfigured } from '@/lib/stripe';
-import { recordOrder, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
+import { recordOrder, recordOrderFromIntent, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
 import { recordPurchase } from '@/lib/analytics/ingest';
 
 export const runtime = 'nodejs';
@@ -36,6 +36,24 @@ export async function POST(request: Request) {
 
   try {
     switch (event.type) {
+      /*
+        The integrated checkout confirms a PaymentIntent directly, so this --
+        not checkout.session.completed -- is the event that means a sale now.
+        The session cases below are kept: they still fire for any Checkout
+        Session created before the switch, and dropping them would strand
+        those orders.
+      */
+      case 'payment_intent.succeeded': {
+        const intent = event.data.object as Stripe.PaymentIntent;
+        await recordOrderFromIntent(intent);
+        await markOrderPaid(intent.id, event.id);
+        await recordPurchase({
+          value: intent.amount_received || intent.amount,
+          country: intent.shipping?.address?.country ?? null,
+        }).catch(() => {});
+        break;
+      }
+
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
         // Card payments can complete asynchronously; only treat the order as

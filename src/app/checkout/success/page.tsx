@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { stripe, stripeConfigured } from '@/lib/stripe';
 import { formatPrice } from '@/lib/format';
+import { getProductBySku } from '@/lib/catalog';
 import { site } from '@/lib/site';
 import { CheckIcon, TruckIcon, MailIcon, PhoneIcon } from '@/components/icons';
 import PurchaseConversion from '@/components/PurchaseConversion';
@@ -25,6 +26,44 @@ type Summary = {
   currency: string;
   items: { name: string; quantity: number; amount: number }[];
 };
+
+/**
+ * The integrated checkout returns with `payment_intent`; the older redirect
+ * flow returned with `session_id`. Both are handled so an order placed either
+ * way still gets a confirmation.
+ */
+async function loadFromIntent(intentId: string): Promise<Summary | null> {
+  try {
+    const intent = await stripe().paymentIntents.retrieve(intentId);
+    if (intent.status !== 'succeeded') return null;
+    return {
+      email: intent.receipt_email ?? null,
+      total: intent.amount_received || intent.amount,
+      reference: intent.id.slice(-12).toUpperCase(),
+      sessionId: intent.id,
+      currency: (intent.currency ?? 'usd').toUpperCase(),
+      /*
+        A PaymentIntent has no line items -- the cart lived in our catalogue,
+        not in Stripe's. The SKUs travel in metadata, so the confirmation is
+        rebuilt from there rather than left blank.
+      */
+      items: (intent.metadata?.skus ?? '')
+        .split(',')
+        .filter(Boolean)
+        .map((entry) => {
+          const [sku, qty] = entry.split('x');
+          const product = getProductBySku(sku.trim());
+          return {
+            name: product?.title ?? sku.trim(),
+            quantity: Number(qty) || 1,
+            amount: (product?.price ?? 0) * (Number(qty) || 1),
+          };
+        }),
+    };
+  } catch {
+    return null;
+  }
+}
 
 async function loadSummary(sessionId?: string): Promise<Summary | null> {
   if (!sessionId || !stripeConfigured()) return null;
@@ -54,10 +93,14 @@ async function loadSummary(sessionId?: string): Promise<Summary | null> {
 export default async function CheckoutSuccessPage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string; payment_intent?: string }>;
 }) {
-  const { session_id } = await searchParams;
-  const summary = await loadSummary(session_id);
+  const { session_id, payment_intent } = await searchParams;
+  const summary = payment_intent
+    ? stripeConfigured()
+      ? await loadFromIntent(payment_intent)
+      : null
+    : await loadSummary(session_id);
 
   return (
     <div className="container-page py-16">

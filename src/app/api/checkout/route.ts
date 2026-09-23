@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { stripe, stripeConfigured } from '@/lib/stripe';
 import { getProduct } from '@/lib/catalog';
 import { site } from '@/lib/site';
-import { absoluteImage, feedImage } from '@/lib/image';
 
 export const runtime = 'nodejs';
 
@@ -31,9 +30,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Your cart is empty.' }, { status: 400 });
   }
 
-  // Never trust prices from the client. Re-resolve every line against the
-  // server-side catalog and build the Stripe line items from that.
-  const lineItems = [];
+  /*
+    Never trust prices from the client. Every line is re-resolved against the
+    server-side catalogue and the total is computed here, so a tampered cart
+    cannot change what is charged.
+  */
+  let amount = 0;
   const metaSkus: string[] = [];
 
   for (const raw of incoming) {
@@ -48,112 +50,57 @@ export async function POST(request: Request) {
       );
     }
     if (!product.available) {
-      return NextResponse.json(
-        { error: `${product.title} is out of stock.` },
-        { status: 409 }
-      );
+      return NextResponse.json({ error: `${product.title} is out of stock.` }, { status: 409 });
     }
 
-    const quantity = Math.min(
-      Math.max(Math.floor(Number(raw.quantity) || 1), 1),
-      MAX_QUANTITY
-    );
-
-    lineItems.push({
-      quantity,
-      price_data: {
-        currency: product.currency.toLowerCase(),
-        unit_amount: product.price,
-        product_data: {
-          name: product.title,
-          description: product.excerpt.slice(0, 300) || product.productType,
-          // Localized catalog paths are root-relative; Stripe needs
-          // absolute URLs or it silently drops the images. JPEG rather than
-          // the WebP the storefront renders, for the same reason the feed
-          // uses it: the consumer here is someone else's image pipeline, not
-          // a browser we control.
-          images: product.images
-            .slice(0, 4)
-            .map((i) =>
-              absoluteImage(feedImage(i.full), process.env.NEXT_PUBLIC_SITE_URL || site.url)
-            ),
-          metadata: { sku: product.sku, slug: product.slug },
-        },
-      },
-    });
+    const quantity = Math.min(Math.max(Math.floor(Number(raw.quantity) || 1), 1), MAX_QUANTITY);
+    amount += product.price * quantity;
     metaSkus.push(`${product.sku}x${quantity}`);
   }
 
-  // Never build the post-payment redirect from a raw Origin header — an
-  // attacker who can set it could point success_url at a site of their
-  // choosing. Accept the header only when it matches somewhere we own.
-  const configured = (process.env.NEXT_PUBLIC_SITE_URL || site.url).replace(/\/+$/, '');
-  const allowed = new Set(
-    [configured, site.url, process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`]
-      .filter(Boolean)
-      .map((u) => (u as string).replace(/\/+$/, ''))
-  );
-  const requested = request.headers.get('origin')?.replace(/\/+$/, '');
-  const origin = requested && allowed.has(requested) ? requested : configured;
+  if (amount < 50) {
+    return NextResponse.json({ error: 'Order total is too small to process.' }, { status: 400 });
+  }
 
   try {
-    const session = await stripe().checkout.sessions.create({
-      mode: 'payment',
-      line_items: lineItems,
-      // Merchant Center requires the shipping cost shown on-site to match
-      // checkout. Free standard shipping is stated in the shipping policy.
-      shipping_address_collection: { allowed_countries: ['US'] },
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: 0, currency: 'usd' },
-            display_name: 'Free standard shipping',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 2 },
-              maximum: { unit: 'business_day', value: 4 },
-            },
-          },
-        },
-      ],
-      phone_number_collection: { enabled: true },
-      billing_address_collection: 'required',
-      automatic_tax: { enabled: false },
-      allow_promotion_codes: true,
-      /*
-        Embedded, not redirect. The payment form is mounted inside our own
-        /checkout page, so the shopper never leaves the domain they decided to
-        trust -- which is most of what "trusted checkout" actually means.
+    /*
+      A PaymentIntent, not a Checkout Session. The integrated checkout renders
+      Stripe's Payment Element inside our own form, alongside our own address
+      fields, shipping selector and submit button -- and the Payment Element is
+      driven by an intent. A Session would put all of that inside an iframe we
+      cannot place our own fields around.
 
-        ui_mode 'embedded' replaces success_url/cancel_url with a single
-        return_url. There is no cancel path to configure because there is no
-        other site to come back from: abandoning is just navigating away.
-      */
-      ui_mode: 'embedded',
-      return_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      automatic_payment_methods lets Stripe offer whatever the account has
+      enabled and the buyer's country supports, instead of hardcoding a list
+      that silently goes stale.
+    */
+    const intent = await stripe().paymentIntents.create({
+      amount,
+      currency: 'usd',
+      automatic_payment_methods: { enabled: true },
+      // Shipping is free on every order, so the charged amount is the cart
+      // total; the selector on the page exists to state that, not to alter it.
       metadata: {
         store: site.name,
         skus: metaSkus.join(',').slice(0, 500),
       },
     });
 
-    if (!session.client_secret) {
+    if (!intent.client_secret) {
       return NextResponse.json(
         { error: 'Stripe did not return a client secret.' },
         { status: 502 }
       );
     }
 
-    /*
-      The client secret is what mounts the embedded form. It is scoped to this
-      one session and carries no ability to read the account, so it is safe in
-      the browser -- unlike the secret key, which stays server-side.
-    */
-    return NextResponse.json({ clientSecret: session.client_secret });
+    return NextResponse.json({
+      clientSecret: intent.client_secret,
+      amount,
+      currency: 'usd',
+    });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Unable to start checkout.';
-    console.error('[checkout] Stripe session creation failed:', message);
+    const message = error instanceof Error ? error.message : 'Unable to start checkout.';
+    console.error('[checkout] Stripe payment intent failed:', message);
     return NextResponse.json(
       { error: 'We could not start checkout. Please try again.' },
       { status: 502 }

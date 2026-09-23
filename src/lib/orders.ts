@@ -52,9 +52,40 @@ export type OrderRecord = {
   amountTotal: number | null;
   currency: string | null;
   skus: string;
-  shipping: Stripe.Checkout.Session.CollectedInformation.ShippingDetails | null;
+  /*
+    Narrowed to what we actually read. A Checkout Session and a PaymentIntent
+    describe shipping with different Stripe types, and orders now arrive as
+    both, so the record keeps the shape it uses rather than either SDK type.
+  */
+  shipping: { address?: { state?: string | null } | null; name?: string | null } | null;
   status: 'pending' | 'paid' | 'failed' | 'refunded';
 };
+
+/**
+ * Order from a PaymentIntent.
+ *
+ * The integrated checkout confirms a PaymentIntent directly -- there is no
+ * Checkout Session -- so `payment_intent.succeeded` is the event that means a
+ * sale. The SKUs ride in metadata, set when the intent was created from the
+ * server-side catalogue, because a PaymentIntent has no line items of its own.
+ */
+export async function recordOrderFromIntent(intent: Stripe.PaymentIntent) {
+  const record: OrderRecord = {
+    sessionId: intent.id,
+    paymentIntentId: intent.id,
+    email: intent.receipt_email ?? intent.metadata?.email ?? null,
+    name: intent.shipping?.name ?? null,
+    phone: intent.shipping?.phone ?? null,
+    amountTotal: intent.amount_received || intent.amount,
+    currency: intent.currency,
+    skus: intent.metadata?.skus ?? '',
+    shipping: intent.shipping
+      ? { address: { state: intent.shipping.address?.state ?? null }, name: intent.shipping.name }
+      : null,
+    status: intent.status === 'succeeded' ? 'paid' : 'pending',
+  };
+  return persistOrder(record);
+}
 
 export async function recordOrder(session: Stripe.Checkout.Session) {
   const record: OrderRecord = {
@@ -74,6 +105,10 @@ export async function recordOrder(session: Stripe.Checkout.Session) {
     status: session.payment_status === 'paid' ? 'paid' : 'pending',
   };
 
+  return persistOrder(record);
+}
+
+async function persistOrder(record: OrderRecord) {
   console.info('[orders] recorded %s (%s)', record.sessionId, record.status);
 
   /*
