@@ -255,7 +255,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             <>
               <h3 className="mt-8 text-[15px] font-semibold">Highlights</h3>
               <ul className="mt-3 space-y-2.5">
-                {product.highlights.slice(0, 4).map((h, i) => (
+                {product.highlights.slice(0, 8).map((h, i) => (
                   <li key={i} className="flex gap-2.5 text-[14px] leading-relaxed text-ink-soft">
                     <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-moss-600" />
                     {h}

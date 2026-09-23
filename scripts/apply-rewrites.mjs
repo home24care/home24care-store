@@ -3,7 +3,8 @@
  *
  *   node scripts/apply-rewrites.mjs data/rewrites/<file>.json
  *
- * The rewrite files hold only `slug`, `excerpt` and `description`. Titles,
+ * The rewrite files hold `slug`, `excerpt`, `description` and optionally
+ * `highlights` -- the scannable spec bullets. Titles,
  * prices, images and SKUs are never touched — titles in particular are what
  * Merchant Center matches on, and changing them would break product identity.
  *
@@ -96,6 +97,19 @@ for (const input of inputs) {
 
     product.description = description;
     product.excerpt = excerpt;
+
+    /*
+      Highlights are optional and replace the generated ones when present.
+      They carry the specs a buyer decides on -- glazing, snow load, capacity
+      -- which the prose states once and a scanning reader misses.
+    */
+    if (Array.isArray(entry.highlights) && entry.highlights.length) {
+      const cleaned = entry.highlights
+        .map((h) => String(h).trim())
+        .filter((h) => h.length > 4 && h.length <= 150);
+      if (cleaned.length) product.highlights = cleaned.slice(0, 10);
+    }
+
     product.rewritten = true;
     applied++;
   }
