@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   AddressElement,
+  ExpressCheckoutElement,
   LinkAuthenticationElement,
   PaymentElement,
   useElements,
@@ -37,39 +38,31 @@ export default function CheckoutForm({
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [accepted, setAccepted] = useState(false);
+  const [hasExpress, setHasExpress] = useState(false);
+  const termsRef = useRef<HTMLInputElement>(null);
 
-  const submit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!stripe || !elements || busy) return;
+  /*
+    The wallet buttons sit above the terms checkbox, so a shopper who taps
+    Apple Pay first would otherwise get an error about a control they cannot
+    see. Bring it into view and focus it instead of only complaining.
+  */
+  const demandTerms = () => {
+    setError('Please accept the terms before placing your order.');
+    termsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    termsRef.current?.focus();
+  };
 
-    if (!accepted) {
-      setError('Please accept the terms before placing your order.');
-      return;
-    }
+  /**
+   * Create the intent and confirm. Shared by the card form and the wallet
+   * buttons, so a change to how orders are priced or confirmed cannot apply
+   * to one path and not the other.
+   */
+  const confirm = async (): Promise<string | null> => {
+    if (!stripe || !elements) return 'Payment is still loading. Please try again.';
 
-    setBusy(true);
-    onProcessing(true);
-    setError(null);
-
-    /*
-      Validate before confirming. Without this, a missing address field is
-      reported only after the confirm round-trip, which reads as a payment
-      failure rather than a form error.
-    */
     const { error: submitError } = await elements.submit();
-    if (submitError) {
-      setError(submitError.message ?? 'Please check the highlighted fields.');
-      setBusy(false);
-      onProcessing(false);
-      return;
-    }
+    if (submitError) return submitError.message ?? 'Please check the highlighted fields.';
 
-    /*
-      The intent is created here, after the form validates, rather than when
-      the page loaded. Creating it up front made a PaymentIntent for every
-      visitor who merely opened checkout, and delayed the form behind a server
-      round-trip. The amount is still computed server-side from the catalogue.
-    */
     let clientSecret: string;
     try {
       const res = await fetch('/api/checkout', {
@@ -79,41 +72,89 @@ export default function CheckoutForm({
       });
       const data = (await res.json()) as { clientSecret?: string; error?: string };
       if (!res.ok || !data.clientSecret) {
-        setError(data.error || 'We could not start the payment. Please try again.');
-        setBusy(false);
-        onProcessing(false);
-        return;
+        return data.error || 'We could not start the payment. Please try again.';
       }
       clientSecret = data.clientSecret;
     } catch {
-      setError('We could not reach the payment service. Please try again.');
-      setBusy(false);
-      onProcessing(false);
-      return;
+      return 'We could not reach the payment service. Please try again.';
     }
 
     const { error: confirmError } = await stripe.confirmPayment({
       elements,
       clientSecret,
-      confirmParams: {
-        return_url: `${window.location.origin}/checkout/success`,
-      },
+      confirmParams: { return_url: `${window.location.origin}/checkout/success` },
     });
 
-    /*
-      confirmPayment only returns when it could NOT redirect. A success takes
-      the browser to return_url, so there is no success branch here.
-    */
-    setError(
+    // confirmPayment only returns when it could NOT redirect, so reaching
+    // here always means a failure.
+    return (
       confirmError?.message ??
-        'We could not complete the payment. Your card has not been charged.'
+      'We could not complete the payment. Your card has not been charged.'
     );
+  };
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!stripe || !elements || busy) return;
+
+    if (!accepted) {
+      demandTerms();
+      return;
+    }
+
+    setBusy(true);
+    onProcessing(true);
+    setError(null);
+
+    setError(await confirm());
     setBusy(false);
     onProcessing(false);
   };
 
   return (
     <form onSubmit={submit} noValidate>
+      {/*
+        Wallet buttons first. Apple Pay and Google Pay already hold the card,
+        name and shipping address, so a shopper who has one never types any of
+        it -- which is most of the abandonment on a phone.
+
+        `hasExpress` is set from onReady: the element reports which wallets the
+        device can actually offer, and on a browser with none it renders
+        nothing. Without that flag the "or pay by card" divider would sit above
+        an empty space on most desktops.
+      */}
+      <div className={hasExpress ? 'mb-7' : ''}>
+        <ExpressCheckoutElement
+          options={{
+            buttonHeight: 48,
+            layout: { maxColumns: 2, maxRows: 2 },
+          }}
+          onReady={({ availablePaymentMethods }) =>
+            setHasExpress(Boolean(availablePaymentMethods))
+          }
+          onConfirm={async () => {
+            if (!accepted) {
+              demandTerms();
+              return;
+            }
+            setBusy(true);
+            onProcessing(true);
+            setError(await confirm());
+            setBusy(false);
+            onProcessing(false);
+          }}
+        />
+        {hasExpress ? (
+          <div className="mt-6 flex items-center gap-4">
+            <span className="h-px flex-1 bg-ink/10" />
+            <span className="text-[12.5px] font-medium uppercase tracking-wide text-ink-muted">
+              or pay by card
+            </span>
+            <span className="h-px flex-1 bg-ink/10" />
+          </div>
+        ) : null}
+      </div>
+
       <section>
         <h2 className="text-[17px] font-semibold text-ink">Contact</h2>
         <div className="mt-3">
@@ -172,6 +213,7 @@ export default function CheckoutForm({
 
       <label className="mt-7 flex cursor-pointer items-start gap-3 text-[13.5px] leading-relaxed text-ink-soft">
         <input
+          ref={termsRef}
           type="checkbox"
           checked={accepted}
           onChange={(e) => setAccepted(e.target.checked)}

@@ -140,12 +140,12 @@ export default function CheckoutClient() {
   );
 
   return (
-    <div className="min-h-screen bg-sand">
+    <div className="min-h-screen overflow-x-clip bg-sand">
       {/* A deliberately stripped header: no nav, no search, no cart icon.
           Every exit from a checkout is a lost order, so the only links out are
           back to the cart and the logo. */}
       <header className="border-b border-ink/10 bg-white">
-        <div className="container-page flex items-center justify-between py-4">
+        <div className="mx-auto w-full max-w-[1000px] px-4 sm:px-6 flex items-center justify-between py-4">
           <Link href="/" className="font-display text-[19px] tracking-tight text-ink">
             {site.name}
           </Link>
@@ -163,7 +163,7 @@ export default function CheckoutClient() {
           type="button"
           onClick={() => setSummaryOpen((v) => !v)}
           aria-expanded={summaryOpen}
-          className="container-page flex w-full items-center justify-between py-3.5 text-[14px]"
+          className="mx-auto w-full max-w-[1000px] px-4 sm:px-6 flex w-full items-center justify-between py-3.5 text-[14px]"
         >
           <span className="flex items-center gap-1.5 font-medium text-moss-700">
             {summaryOpen ? 'Hide' : 'Show'} order summary
@@ -173,10 +173,10 @@ export default function CheckoutClient() {
           </span>
           <span className="font-bold tabular-nums text-ink">{formatPrice(subtotal)}</span>
         </button>
-        {summaryOpen ? <div className="container-page pb-5">{summary}</div> : null}
+        {summaryOpen ? <div className="mx-auto w-full max-w-[1000px] px-4 sm:px-6 pb-5">{summary}</div> : null}
       </div>
 
-      <div className="container-page grid gap-10 py-8 lg:grid-cols-[1fr_400px] lg:gap-14 lg:py-12">
+      <div className="mx-auto w-full max-w-[1000px] px-4 sm:px-6 grid gap-10 py-8 lg:grid-cols-[minmax(0,560px)_400px] lg:justify-center lg:gap-10 lg:py-12">
         <main className="min-w-0">
           {!publishableKey ? (
             <p className="rounded-2xl border border-clay-300 bg-clay-50 p-5 text-[14.5px] text-ink">
@@ -217,7 +217,7 @@ export default function CheckoutClient() {
           </div>
         </main>
 
-        <aside className="min-w-0">
+        <aside className="relative min-w-0 lg:before:absolute lg:before:bottom-0 lg:before:left-0 lg:before:top-[-3rem] lg:before:-z-10 lg:before:w-screen lg:before:bg-white lg:before:content-['']">
           <div className="lg:sticky lg:top-8">
             <div className="hidden rounded-2xl border border-ink/10 bg-white p-6 lg:block">
               <h2 className="text-[15px] font-semibold text-ink">
@@ -277,7 +277,7 @@ export default function CheckoutClient() {
       </div>
 
       <footer className="border-t border-ink/10 bg-white">
-        <div className="container-page flex flex-wrap items-center justify-between gap-3 py-5 text-[12.5px] text-ink-muted">
+        <div className="mx-auto w-full max-w-[1000px] px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 py-5 text-[12.5px] text-ink-muted">
           <Link href="/cart" className="font-medium text-moss-700 hover:underline">
             ← Return to cart
           </Link>
