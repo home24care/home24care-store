@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -14,6 +16,7 @@ import { IMAGES_LOCALIZED } from '@/lib/image';
 
 export default function CartPageClient() {
   const { lines, subtotal, setQuantity, remove, hydrated } = useCart();
+  const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const params = useSearchParams();
@@ -23,23 +26,15 @@ export default function CartPageClient() {
     if (canceled) setError('Checkout was canceled. Your cart has been kept intact.');
   }, [canceled]);
 
-  const checkout = async () => {
+  /*
+    Checkout is a page on this site now, not a redirect to Stripe. The session
+    is created there, once, by the component that mounts the payment form --
+    creating one here as well would leave an orphaned session behind on every
+    click.
+  */
+  const checkout = () => {
     setBusy(true);
-    setError(null);
-    track('checkout_started', { value: subtotal, quantity: lines.length });
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lines: lines.map((l) => ({ slug: l.slug, quantity: l.quantity })) }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Checkout is unavailable right now.');
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Something went wrong.');
-      setBusy(false);
-    }
+    router.push('/checkout');
   };
 
   // Avoid rendering an "empty cart" flash before localStorage is read.

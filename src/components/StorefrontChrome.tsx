@@ -30,8 +30,15 @@ export default function StorefrontChrome({
 }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin') ?? false;
+  /*
+    Checkout renders its own stripped header and footer. Every extra link on a
+    checkout page is a way out of it, so the shop nav, search and cart icon are
+    deliberately absent -- and without this the page would carry two <header>
+    elements and two footers.
+  */
+  const isCheckout = pathname === '/checkout';
 
-  if (isAdmin) return <>{children}</>;
+  if (isAdmin || isCheckout) return <>{children}</>;
 
   return (
     <>

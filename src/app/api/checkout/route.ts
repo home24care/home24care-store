@@ -120,22 +120,36 @@ export async function POST(request: Request) {
       billing_address_collection: 'required',
       automatic_tax: { enabled: false },
       allow_promotion_codes: true,
-      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/cart?canceled=1`,
+      /*
+        Embedded, not redirect. The payment form is mounted inside our own
+        /checkout page, so the shopper never leaves the domain they decided to
+        trust -- which is most of what "trusted checkout" actually means.
+
+        ui_mode 'embedded' replaces success_url/cancel_url with a single
+        return_url. There is no cancel path to configure because there is no
+        other site to come back from: abandoning is just navigating away.
+      */
+      ui_mode: 'embedded',
+      return_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         store: site.name,
         skus: metaSkus.join(',').slice(0, 500),
       },
     });
 
-    if (!session.url) {
+    if (!session.client_secret) {
       return NextResponse.json(
-        { error: 'Stripe did not return a checkout URL.' },
+        { error: 'Stripe did not return a client secret.' },
         { status: 502 }
       );
     }
 
-    return NextResponse.json({ url: session.url });
+    /*
+      The client secret is what mounts the embedded form. It is scoped to this
+      one session and carries no ability to read the account, so it is safe in
+      the browser -- unlike the secret key, which stays server-side.
+    */
+    return NextResponse.json({ clientSecret: session.client_secret });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Unable to start checkout.';

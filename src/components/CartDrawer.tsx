@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -12,6 +14,7 @@ import { IMAGES_LOCALIZED } from '@/lib/image';
 
 export default function CartDrawer() {
   const { isOpen, close, lines, subtotal, setQuantity, remove, count } = useCart();
+  const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,25 +35,11 @@ export default function CartDrawer() {
     if (isOpen) setError(null);
   }, [isOpen]);
 
-  const checkout = async () => {
+  /* See CartPageClient: the session is created on /checkout, not here. */
+  const checkout = () => {
     setBusy(true);
-    setError(null);
-    track('checkout_started', { value: subtotal, quantity: lines.length });
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lines: lines.map((l) => ({ slug: l.slug, quantity: l.quantity })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Checkout is unavailable right now.');
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Something went wrong.');
-      setBusy(false);
-    }
+    close();
+    router.push('/checkout');
   };
 
   if (!isOpen) return null;

@@ -18,6 +18,8 @@
     "merchant:sheet": "node scripts/build-sheet-feed.mjs"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^6.11.0",
+    "@stripe/stripe-js": "^9.17.0",
     "@upstash/redis": "^1.38.4",
     "next": "15.5.25",
     "react": "19.1.1",
