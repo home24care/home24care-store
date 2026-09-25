@@ -94,14 +94,13 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             ]}
           />
 
-          <div className="flex items-start justify-between gap-5">
-            <h1 className="font-display text-[28px] leading-[1.18] text-ink sm:text-[34px]">
-              {product.title}
-            </h1>
-            <span className="hidden shrink-0 rounded-md border border-ink/10 px-3 py-4 text-center font-display text-[15px] font-bold uppercase leading-none tracking-[0.06em] text-ink/70 sm:block">
-              {product.brand.replace('Magic: The Gathering', 'MTG')}
-            </span>
-          </div>
+          <p className="eyebrow">
+            {product.brand}
+            {collection ? ` · ${collection.title}` : ''}
+          </p>
+          <h1 className="mt-2 font-display text-[28px] leading-[1.18] text-ink sm:text-[34px]">
+            {product.title}
+          </h1>
 
           <TrustpilotStars className="mt-3" />
 
