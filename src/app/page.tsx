@@ -3,8 +3,8 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import ProductCard from '@/components/ProductCard';
 import ProductSpotlight from '@/components/ProductSpotlight';
-import HeroArtwork from '@/components/HeroArtwork';
-import SealArtwork from '@/components/SealArtwork';
+import HeroCylinders from '@/components/HeroCylinders';
+import SealShowcase from '@/components/SealShowcase';
 import { SectionHeading, ProductGrid } from '@/components/Section';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
@@ -68,6 +68,9 @@ const EQUIPMENT_TILE_SLUGS = [
 
 const EDITORIAL_PRODUCT = 'r-32-refrigerant-can-22oz-1-4lb';
 
+/** The product behind the hero's price chip; its cylinder is the centre photo. */
+const HERO_CHIP_PRODUCT = '20-9lb-r32-r-32-refrigerant-gas';
+
 const HOME_FAQS = [
   {
     q: 'How much does shipping cost at Home24Care?',
@@ -109,6 +112,7 @@ const HOW_IT_WORKS = [
 
 export default function HomePage() {
   const heroProduct = getProduct(HERO_PRODUCT);
+  const chipProduct = getProduct(HERO_CHIP_PRODUCT);
   const sale = onSale(8);
   const sellers = bestSellers(8);
   const fresh = newArrivals(4);
@@ -162,14 +166,12 @@ export default function HomePage() {
 
       {/* ---------------------------------------------------------- Hero */}
       {/*
-        A split hero, not a full-bleed photograph.
+        A split hero: the headline on the left, real cylinders on the right.
 
-        The product shots are catalogue images: 1100px square at best, and
-        several are smaller. Stretching one across a 1920px band upscaled it
-        three to four times and the result was visibly soft — a pixelated
-        cylinder behind the headline. Held in a column it renders near its
-        native size and stays sharp, and the product reads as a product rather
-        than as wallpaper.
+        The cylinders are catalogue photos cut out of their white studio
+        backgrounds (see HeroCylinders). Held in a column they render near
+        their native size and stay sharp, where a full-bleed photo would have
+        to be stretched across a 1920px band.
       */}
       <section className="relative isolate overflow-hidden bg-moss-900">
         <div
@@ -216,7 +218,17 @@ export default function HomePage() {
           </div>
 
           <div className="relative">
-            <HeroArtwork label="R-410A" />
+            <HeroCylinders
+              feature={
+                chipProduct
+                  ? {
+                      href: `/products/${chipProduct.slug}`,
+                      label: '20.9 lb cylinder',
+                      price: chipProduct.price,
+                    }
+                  : undefined
+              }
+            />
           </div>
         </div>
       </section>
@@ -341,7 +353,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative">
-            <SealArtwork />
+            <SealShowcase />
           </div>
         </div>
       </section>

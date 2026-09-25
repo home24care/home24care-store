@@ -471,9 +471,20 @@ for (const p of gasKeep) {
   mismatch under Merchant's image rules. Products with no exact match were
   left out rather than shown with the wrong picture.
 */
+/*
+  Freonwell and Sentai Gas share a supplier SKU scheme, and eight Freonwell
+  cylinders are the very items Sentai already lists (PZ-32 is the 20.9 lb R-32
+  on both) at two to two-and-a-half times the price. Listing both would show one
+  cylinder twice at two prices, and Merchant Center keys offers on that SKU, so
+  one of each pair would silently overwrite the other. The Sentai listing wins;
+  Freonwell only contributes cylinders nobody else here carries.
+*/
+const takenSkus = new Set(products.map((p) => String(p.sku).toLowerCase()));
+
 for (const p of freonwell) {
   const price = Math.round((p.price_usd || 0) * 100);
   if (!price || !p.borrowed_image) continue;
+  if (p.sku && takenSkus.has(String(p.sku).toLowerCase())) continue;
   const body = String(p.body || '').trim();
 
   products.push({

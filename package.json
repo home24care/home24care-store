@@ -9,6 +9,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "localize:images": "node scripts/localize-images.mjs",
+    "images:masters": "node scripts/apply-image-masters.mjs",
     "build:heroes": "node scripts/build-hero-images.mjs",
     "build:icons": "node scripts/build-icons.mjs",
     "build:feed-images": "node scripts/build-feed-images.mjs",
