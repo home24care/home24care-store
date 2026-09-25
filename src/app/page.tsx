@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import ProductCard from '@/components/ProductCard';
 import ProductSpotlight from '@/components/ProductSpotlight';
+import HeroArtwork from '@/components/HeroArtwork';
+import SealArtwork from '@/components/SealArtwork';
 import { SectionHeading, ProductGrid } from '@/components/Section';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
@@ -18,7 +20,7 @@ import {
   collectionGroup,
 } from '@/lib/catalog';
 import { formatPrice } from '@/lib/format';
-import { BLUR_DATA_URL, SIZES, IMAGES_LOCALIZED, heroVariant } from '@/lib/image';
+import { BLUR_DATA_URL, SIZES, IMAGES_LOCALIZED } from '@/lib/image';
 import { TruckIcon, ReturnIcon, ShieldIcon, SupportIcon, CheckIcon } from '@/components/icons';
 import { TrustpilotReviews } from '@/components/TrustpilotSection';
 import ReviewsSection from '@/components/ReviewsSection';
@@ -36,8 +38,6 @@ export const metadata: Metadata = {
  * everything else.
  */
 const HERO_PRODUCT = '30lb-r-134a-refrigerant-automotive-1-2-acme';
-const HERO_ALT =
-  'A factory-sealed refrigerant cylinder ready for an HVAC service call';
 
 /*
   Tiles must name collections that still exist. `gazebos`, `pergolas` and
@@ -67,8 +67,6 @@ const EQUIPMENT_TILE_SLUGS = [
 ];
 
 const EDITORIAL_PRODUCT = 'r-32-refrigerant-can-22oz-1-4lb';
-const EDITORIAL_ALT =
-  'A sealed refrigerant cylinder with its handling and compliance labelling visible';
 
 const HOME_FAQS = [
   {
@@ -136,10 +134,6 @@ export default function HomePage() {
   const editorialProduct =
     getProduct(EDITORIAL_PRODUCT) ?? outdoorPool[1] ?? outdoorPool[0] ?? products[0];
 
-  const heroBase = heroSource.images[0].full;
-  const editorialBase = editorialProduct.images[0].full;
-  const heroImage = heroVariant(heroBase) ?? heroBase;
-  const editorialImage = heroVariant(editorialBase) ?? editorialBase;
 
   // Tiles pick the first product that is not already on screen as the hero or
   // the editorial image — otherwise swing-sets and gazebos show the same two
@@ -221,18 +215,8 @@ export default function HomePage() {
             </ul>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-[28px] bg-white/5 lg:max-w-[460px]">
-            <Image
-              src={heroImage}
-              alt={HERO_ALT}
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(min-width: 1024px) 460px, 92vw"
-              unoptimized={IMAGES_LOCALIZED}
-              quality={80}
-              className="object-contain p-6"
-            />
+          <div className="relative">
+            <HeroArtwork label="R-410A" />
           </div>
         </div>
       </section>
@@ -356,19 +340,8 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[5/4]">
-            <Image
-              src={editorialImage}
-              alt={EDITORIAL_ALT}
-              fill
-              sizes="(min-width: 1024px) 48vw, 100vw"
-              quality={75}
-              unoptimized={IMAGES_LOCALIZED}
-              loading="lazy"
-              placeholder="blur"
-              blurDataURL={BLUR_DATA_URL}
-              className="object-cover"
-            />
+          <div className="relative">
+            <SealArtwork />
           </div>
         </div>
       </section>
