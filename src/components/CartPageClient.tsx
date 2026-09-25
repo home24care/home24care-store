@@ -206,7 +206,7 @@ export default function CartPageClient() {
           <ul className="mt-6 space-y-3 border-t border-ink/10 pt-5 text-[13.5px] text-ink-soft">
             {[
               [TruckIcon, `Ships in ${site.shipping.handlingTime}, arrives in ${site.shipping.transitTime}`],
-              [ReturnIcon, `${site.returns.windowDays}-day returns, no restocking fees`],
+              [ReturnIcon, `${site.returns.windowDays}-day returns on unopened product`],
               [ShieldIcon, site.warranty.label],
             ].map(([Icon, text]) => {
               const I = Icon as typeof TruckIcon;

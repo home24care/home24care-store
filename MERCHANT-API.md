@@ -2,7 +2,7 @@
 
 There are three routes, all carrying identical values — verified by
 cross-checking each against the others attribute by attribute. Pick **one** as
-the primary data source; running two means both claim all 278 products and
+the primary data source; running two means both claim every product and
 overwrite each other on every refresh.
 
 | Route | Built by | Effort | Stays in sync? |
@@ -47,12 +47,12 @@ directly would split each of those products across two rows.
 Two template cells are also worth ignoring. It labels `description` "up to 200
 characters", but the product data specification allows 5000; the longest here
 is 977. And it marks `identifier_exists` required, while the specification says
-to omit it when a product has a brand and an MPN, as all 278 do — sending "no"
-there would tell Google to ignore the 185 GTINs. That column is left blank.
+to send it only when a product genuinely has no GTIN or MPN — here, just the
+Ascended Heroes case.
 
 ## Merchant API
 
-`scripts/upload-merchant.mjs` pushes all 278 products straight into Merchant
+`scripts/upload-merchant.mjs` pushes every product straight into Merchant
 Center — title, description, price, sale price, images, GTIN, MPN, brand,
 category, variants, shipping and highlights — instead of waiting for Google to
 fetch the RSS feed.
@@ -97,7 +97,7 @@ the data source ID from the feed screen.
 
 `check` authenticates, lists your data sources, marks which ones accept API
 uploads, and prints the exact payload for one product so you can eyeball it
-before sending 278. It writes nothing.
+before sending the full catalog. It writes nothing.
 
 If no data source is marked `[API OK]`, create one:
 
@@ -134,7 +134,7 @@ source needs deleting.
 A product is identified by `offerId` + `feedLabel` + `contentLanguage`. All
 three routes send the same offer ids, so if any two of them — the scheduled
 fetch of `/feeds/google`, the Google Sheet, the API upload — are configured as
-**primary** sources, they will both claim all 278 products and overwrite each
+**primary** sources, they will both claim every product and overwrite each
 other on every refresh.
 
 That shared offer id is deliberate. It is a product's permanent handle in
@@ -153,33 +153,19 @@ never orphans a product's history.
 
 ## What is already handled
 
-Verified offline against Google's published `products/v1` schema, all 278
-products:
-
 - every required attribute present — title, description, link, image,
   availability, condition, price, brand
-- 185 GTINs, each already checked against its GS1 check digit
-- MPN and brand on all 278, so the 93 without a GTIN still carry a valid
-  identifier pair
-- 192 sale prices, none above their list price
-- 79 products grouped into variant families by `itemGroupId`
+- a GTIN (manufacturer UPC, GS1 check digit verified) on every product except
+  the Ascended Heroes 10-box case, which has no case-level UPC and is sent with
+  `identifier_exists: no`
 - images as JPEG (Merchant rejects WebP), absolute, live and returning 200
-- shipping, handling and transit times, `unitPricingMeasure`, `shippingWeight`,
-  `multipack`, `isBundle`, size, colour, product highlights
+- shipping, handling and transit times and product highlights
 - no duplicate offer ids, none over the 50-character limit
 
-## What will still be flagged
+## What may still be flagged
 
-Two things the uploader cannot fix, because fixing them means changing your
-data rather than how it is transmitted:
-
-**Five refrigerant prices** look like pallet prices on single cylinders — see
-[PRICE-REVIEW.md](PRICE-REVIEW.md). A 25 lb cylinder listed at $11,960 will be
-disapproved for a price/value mismatch. These were imported exactly as
-published upstream and need a decision, not a code change.
-
-**Twenty-one images are under 800×800.** Google's hard minimum is 100×100, so
-they will not be disapproved, but they may be demoted. The source images are
-that size; nothing is lost by re-encoding, there is simply no more detail.
+**Prices well below market.** Several prices were copied from takybox.com and sit
+below current U.S. secondary-market prices. Google does not police price level,
+but make sure every listed price is one you can actually fulfil.
 
 Anything else Google objects to will show up in `status`, grouped by cause.

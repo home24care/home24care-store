@@ -1,5 +1,5 @@
 {
-  "name": "home24care",
+  "name": "toppsuefa",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,13 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "localize:images": "node scripts/localize-images.mjs",
-    "images:masters": "node scripts/apply-image-masters.mjs",
-    "build:heroes": "node scripts/build-hero-images.mjs",
     "build:icons": "node scripts/build-icons.mjs",
     "build:feed-images": "node scripts/build-feed-images.mjs",
     "merchant:check": "node scripts/upload-merchant.mjs check",
     "merchant:upload": "node scripts/upload-merchant.mjs upload",
     "merchant:status": "node scripts/upload-merchant.mjs status",
-    "merchant:sheet": "node scripts/build-sheet-feed.mjs"
+    "merchant:sheet": "node scripts/build-sheet-feed.mjs",
+    "build:cutouts": "python3 scripts/build-cutouts.py"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.11.0",

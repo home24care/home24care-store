@@ -123,3 +123,36 @@ export const LockIcon = ({ className = base }: IconProps) => (
     <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" strokeLinecap="round" />
   </svg>
 );
+
+export const ClockIcon = ({ className = base }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 7.5V12l3 2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+export const CardIcon = ({ className = base }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <rect x="3" y="5.5" width="18" height="13" rx="2" />
+    <path d="M3 9.5h18M6.5 15h4" strokeLinecap="round" />
+  </svg>
+);
+
+export const BoxIcon = ({ className = base }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+    <path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z" strokeLinejoin="round" />
+    <path d="M3.5 7.5 12 12l8.5-4.5M12 12v9" strokeLinejoin="round" />
+  </svg>
+);
+
+export const SparkIcon = ({ className = base }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2.5l2.2 6.3 6.3 2.2-6.3 2.2L12 19.5l-2.2-6.3L3.5 11l6.3-2.2z" />
+  </svg>
+);
+
+export const ArrowIcon = ({ className = base }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <path d="M4 12h15m-5-5 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);

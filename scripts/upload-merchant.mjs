@@ -40,7 +40,7 @@ const ACCOUNT = (process.env.MERCHANT_ACCOUNT_ID || '').trim();
 const DATA_SOURCE = (process.env.MERCHANT_DATA_SOURCE_ID || '').trim();
 const KEY_FILE = process.env.MERCHANT_KEY_FILE || '.secrets/merchant-service-account.json';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com')
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toppsuefa.com')
   .trim()
   .replace(/\/+$/, '');
 
@@ -171,6 +171,12 @@ const splitMeasure = (text) => {
   return m ? { value: Number(m[1]), unit: m[2] } : null;
 };
 
+const flatten = (d) =>
+  d
+    .split('\n')
+    .map((l) => l.replace(/^#{2,3} (.*)$/, '$1:').replace(/^- /, '• '))
+    .join('\n');
+
 const collections = new Map(catalog.collections.map((c) => [c.slug, c]));
 
 function toProductInput(product) {
@@ -183,8 +189,8 @@ function toProductInput(product) {
       : 'in_stock';
 
   const description =
-    product.description.slice(0, 4900) ||
-    `${product.title} from ${product.brand}, sold by Home24Care with free standard shipping.`;
+    flatten(product.description).slice(0, 4900) ||
+    `${product.title} from ${product.brand}, sold by TOPPSUEFA with free shipping.`;
 
   // Same convention as the feed: price is the list price, salePrice the
   // current one, so a discount renders as a strikethrough in Shopping.
@@ -204,10 +210,11 @@ function toProductInput(product) {
     price: { amountMicros: micros(listCents), currencyCode: product.currency },
 
     brand: product.brand,
-    mpn: product.sku,
+    ...(product.mpn ? { mpn: product.mpn } : {}),
+    ...(!product.gtin && !product.mpn ? { identifierExists: false } : {}),
 
-    googleProductCategory: collection?.googleCategory ?? 'Home & Garden',
-    productTypes: [`${collection?.group ?? 'Home'} > ${collection?.title ?? product.productType}`],
+    googleProductCategory: collection?.googleCategory ?? 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
+    productTypes: [`${collection?.group ?? 'Trading Cards'} > ${collection?.title ?? product.productType}`],
 
     // Handling is top-level; transit time is per shipping service. Both are
     // int64 fields, which the API wants as strings.
@@ -336,7 +343,7 @@ async function createSource() {
     {
       method: 'POST',
       body: {
-        displayName: 'HOME24CARE API',
+        displayName: 'TOPPSUEFA API',
         primaryProductDataSource: {
           contentLanguage: 'en',
           feedLabel: 'US',

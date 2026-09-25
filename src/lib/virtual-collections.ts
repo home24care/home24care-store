@@ -19,8 +19,8 @@ export const virtualCollections: VirtualCollection[] = [
     title: 'Sale',
     tagline: 'Everything currently marked down.',
     description:
-      'Current markdowns across outdoor structures and refrigerants. The price shown on each card is the price you pay at checkout — no coupon required, and standard shipping stays free.',
-    googleCategory: 'Home & Garden',
+      'Current markdowns on sealed hobby boxes and trading card games. The price shown on each card is the price you pay at checkout — no coupon required, and standard shipping stays free.',
+    googleCategory: 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
     select: () =>
       products
         .filter((p) => p.compareAtPrice && p.available)
@@ -32,24 +32,31 @@ export const virtualCollections: VirtualCollection[] = [
   },
   {
     slug: 'best-sellers',
-    title: 'Best Sellers',
-    tagline: 'The products customers order most.',
+    title: 'High Demand',
+    tagline: 'The boxes collectors are chasing right now.',
     description:
-      'Our most-ordered products across every department, refreshed as sales data comes in.',
-    googleCategory: 'Home & Garden',
+      'Releases trading at or above their original price on the U.S. secondary market — the boxes that sell out first. Every one ships factory sealed with free shipping.',
+    googleCategory: 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
     select: () =>
-      products.filter(
-        (p) => p.badges.includes('Best Seller') || p.badges.includes('Top Seller')
-      ),
+      products.filter((p) => p.badges.includes('High Demand')),
   },
   {
     slug: 'new-arrivals',
     title: 'New Arrivals',
-    tagline: 'The latest additions to the catalog.',
+    tagline: 'The latest releases to land in the shop.',
     description:
-      'Newly stocked products across outdoor living and refrigerants. Everything here ships with the same free standard shipping and returns window as the rest of the store.',
-    googleCategory: 'Home & Garden',
-    select: () => products.filter((p) => p.badges.includes('New Arrival')),
+      'The newest sealed releases in the shop. Everything here ships with the same free standard shipping and returns window as the rest of the store.',
+    googleCategory: 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
+    select: () => products.filter((p) => p.badges.includes('New Release')),
+  },
+  {
+    slug: 'limited-releases',
+    title: 'Limited Releases',
+    tagline: 'Sapphire, Delight and Logofractor editions.',
+    description:
+      'Short-print premium formats produced in far smaller quantities than standard hobby boxes. When our allocation is gone it rarely comes back.',
+    googleCategory: 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
+    select: () => products.filter((p) => p.badges.includes('Limited Release')),
   },
 ];
 

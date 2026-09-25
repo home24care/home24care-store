@@ -101,7 +101,7 @@ export default function ProductGallery({
                 onClick={() => setActive(i)}
                 aria-label={`Show image ${i + 1} of ${images.length}`}
                 aria-current={i === active}
-                className={`relative block h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-sand ring-offset-2 transition-all lg:h-[84px] lg:w-[84px] ${
+                className={`relative block h-16 w-16 shrink-0 overflow-hidden rounded-md border border-ink/10 bg-white ring-offset-2 transition-all lg:h-[84px] lg:w-[84px] ${
                   i === active ? 'ring-2 ring-moss-600' : 'ring-1 ring-ink/10 hover:ring-ink/30'
                 }`}
               >
@@ -113,7 +113,7 @@ export default function ProductGallery({
                   unoptimized={IMAGES_LOCALIZED}
                   quality={70}
                   loading={i === 0 ? undefined : 'lazy'}
-                  className="object-cover"
+                  className="object-contain p-1"
                 />
               </button>
             </li>
@@ -126,7 +126,7 @@ export default function ProductGallery({
         ref={openerRef}
         onClick={() => setZoomed(true)}
         aria-label={`Open ${title} at full size`}
-        className="group relative aspect-[4/3] flex-1 cursor-zoom-in overflow-hidden rounded-2xl bg-sand lg:aspect-square"
+        className="group relative aspect-square flex-1 cursor-zoom-in overflow-hidden rounded-md border border-ink/10 bg-white"
       >
         <Image
           key={current.full}
@@ -140,7 +140,7 @@ export default function ProductGallery({
           quality={80}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
-          className="animate-fade-in object-cover"
+          className="animate-fade-in object-contain p-4"
         />
         <span className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-ink/70 px-3 py-1.5 text-[12px] font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 max-lg:opacity-100">
           View full image

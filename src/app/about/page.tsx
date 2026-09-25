@@ -2,129 +2,113 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { AdvantageGrid } from '@/components/StoreBands';
 import { site } from '@/lib/site';
-import { products, collections, getProduct } from '@/lib/catalog';
-import { IMAGES_LOCALIZED, heroVariant } from '@/lib/image';
+import { products, collections } from '@/lib/catalog';
+import { IMAGES_LOCALIZED } from '@/lib/image';
 import { CheckIcon, PhoneIcon, MailIcon, PinIcon } from '@/components/icons';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: `${site.name} is a ${site.address.city}-based retailer of backyard structures and HVAC refrigerants, shipping free across the United States. Learn who we are, what we sell and how to reach us.`,
+  description: `${site.name} is a U.S.-based hobby shop selling factory-sealed sports-card hobby boxes, Pokémon TCG and Magic: The Gathering, shipped free from ${site.address.city}, ${site.address.region}. Learn who we are and how to reach us.`,
   alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
-  // Alt text is derived from whichever product supplies the image, so a
-  // fallback can never describe a pergola while showing something else.
-  const heroProduct = getProduct('30lb-r-134a-refrigerant-automotive-1-2-acme') ?? products[0];
-  const heroBase = heroProduct.images[0].full;
-  const heroImage = heroVariant(heroBase) ?? heroBase;
-  const heroAlt =
-    heroProduct.slug === '30lb-r-134a-refrigerant-automotive-1-2-acme'
-      ? 'A factory-sealed 30 lb R-134a refrigerant cylinder'
-      : heroProduct.images[0].alt || heroProduct.title;
+  const gallery = products.filter((p) => p.images.length > 0).slice(0, 4);
 
   return (
-    <div className="container-page pb-16">
+    <div className="container-page pb-6">
       <Breadcrumbs trail={[{ name: 'About us', url: '/about' }]} />
 
-      <header className="max-w-3xl pb-10">
+      <header className="mx-auto max-w-3xl pb-10 text-center">
         <p className="eyebrow mb-2">About us</p>
-        <h1 className="font-display text-[36px] leading-[1.08] tracking-tight sm:text-[46px]">
+        <h1 className="font-display text-[34px] uppercase leading-[1.08] tracking-[0.02em] sm:text-[44px]">
           Welcome to {site.name}
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
-          We believe every home deserves practical, reliable products that make everyday life
-          easier — and every trade professional deserves a supplier who ships on time and
-          answers the phone. That is the whole business.
+          We are a team of collectors running the hobby shop we always wanted to buy from:
+          factory-sealed boxes, honest descriptions, packing that protects the seal, and people
+          who answer the phone.
         </p>
       </header>
 
-      <div className="relative mb-14 aspect-[21/9] overflow-hidden rounded-2xl bg-sand">
-        <Image
-          src={heroImage}
-          alt={heroAlt}
-          fill
-          sizes="100vw"
-          quality={75}
-          priority
-          fetchPriority="high"
-          unoptimized={IMAGES_LOCALIZED}
-          className="object-cover"
-        />
+      <div className="mb-14 grid grid-cols-2 gap-3 rounded-md bg-sand p-4 sm:grid-cols-4">
+        {gallery.map((p, i) => (
+          <div key={p.id} className="relative aspect-square overflow-hidden rounded-md bg-white">
+            <Image
+              src={p.images[0].card}
+              alt={p.images[0].alt || p.title}
+              fill
+              sizes="(min-width: 640px) 25vw, 50vw"
+              priority={i < 2}
+              unoptimized={IMAGES_LOCALIZED}
+              className="object-contain p-4"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
         <div className="prose-policy max-w-2xl">
           <h2>Our mission</h2>
           <p>
-            Our goal is simple: offer quality products at fair prices, and deliver a shopping
-            experience that does not make you work for it. We understand the importance of
-            value, reliability and customer satisfaction, which is why we continuously work
-            to source products that meet the real needs of modern households and working
-            contractors.
-          </p>
-
-          <h2>Our story</h2>
-          <p>
-            {site.name} was created with a vision to make online shopping easier, more
-            affordable and more dependable. What began as a simple idea has grown into a
-            catalog of {products.length} products across {collections.length} categories —
-            from a single 8oz can to a full pallet of forty cylinders.
-          </p>
-          <p>
-            We ship from {site.address.city}, {site.address.regionName}, to all fifty states.
-            As we continue to grow, we remain committed to expanding what we offer while
-            maintaining the quality, service and trust our customers expect.
+            Buying sealed product online should not feel like a gamble before you have even
+            opened the box. Our mission is simple: sell authentic, factory-sealed trading cards
+            at clear prices, describe every release exactly as the manufacturer made it, and
+            get it to your door in the condition it left the factory.
           </p>
 
           <h2>What we sell</h2>
           <p>
-            We sell refrigerants and the supplies that go with them, and nothing else:
+            We carry {products.length} carefully chosen releases across {collections.length}{' '}
+            categories — the boxes collectors are actually chasing:
           </p>
           <ul>
             <li>
-              <strong>Refrigerants and HVAC gases</strong> — factory-sealed R-410A, R-134a,
-              R-1234yf, R-32, R-454B, R-404A and legacy blends in cans, cylinders and pallet
-              quantities, for licensed technicians.
+              <strong>Sports-card hobby boxes</strong> — Topps Chrome, Cosmic Chrome and
+              Sapphire, Bowman and Bowman Chrome, Topps Chrome UFC and Panini Prizm FIFA World
+              Cup.
+            </li>
+            <li>
+              <strong>Trading card games</strong> — Pokémon TCG Elite Trainer Boxes and cases,
+              and Magic: The Gathering Collector Booster boxes.
             </li>
           </ul>
 
-          <h2>Why shop with {site.name}?</h2>
+          <h2>Why collectors shop with {site.name}</h2>
           <ul>
             <li>
-              <strong>Quality products.</strong> We select products that meet our standards
-              for durability, function and value, and we drop the ones that do not.
+              <strong>100% authentic, never resealed.</strong> Every box is brand new in its
+              original manufacturer seal. We never sell searched, weighed or re-wrapped product.
             </li>
             <li>
-              <strong>Competitive pricing.</strong> The price on the product page is the
-              price at checkout. Shipping is free, and we do not add surcharges at the last
-              step.
+              <strong>Packed like a collectible.</strong> Bubble wrap, a rigid carton and void
+              fill on every order — never a padded mailer.
             </li>
             <li>
-              <strong>Secure and reliable service.</strong> An encrypted checkout, PCI DSS
-              certified payment processing, and order handling that starts the same day.
+              <strong>Straight answers.</strong> Box break averages are the manufacturer&apos;s
+              published figures, and we tell you plainly that pack contents are random.
             </li>
             <li>
-              <strong>Dedicated support.</strong> A real team, reachable by phone and email,
-              that replies within one business day.
+              <strong>Secure checkout.</strong> Card payments are processed by a PCI DSS Level 1
+              certified provider; we never see or store your card number.
             </li>
           </ul>
 
           <h2>Our commitment</h2>
           <p>
-            Customer satisfaction sits at the heart of everything we do. We are building
-            long-term relationships through transparency, reliability and service that
-            continues after the box arrives — which is why every product carries a{' '}
-            {site.warranty.label} and a {site.returns.windowDays}-day return window with no
-            restocking fee.
+            Every order is backed by our {site.warranty.label} and a{' '}
+            {site.returns.windowDays}-day return window on unopened product, with no restocking
+            fee. If something is not right, contact us before you open the box and we will make
+            it right.
           </p>
-          <p>Thank you for choosing {site.name}. We appreciate your trust.</p>
+          <p>Thank you for choosing {site.name}. Good luck with the rip.</p>
         </div>
 
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <div className="rounded-2xl border border-ink/10 bg-sand p-6">
-            <h2 className="font-display text-[20px] tracking-tight">Business details</h2>
+        <aside className="lg:sticky lg:top-40 lg:self-start">
+          <div className="rounded-md border border-ink/10 bg-sand p-6">
+            <h2 className="font-display text-[18px] uppercase tracking-[0.04em]">Business details</h2>
             <dl className="mt-4 space-y-3 text-[14px]">
               <div>
                 <dt className="text-ink-muted">Legal entity</dt>
@@ -145,22 +129,16 @@ export default function AboutPage() {
             </dl>
 
             <address className="mt-5 space-y-2.5 border-t border-ink/10 pt-5 text-[14px] not-italic">
-              <a
-                href={`tel:${site.contact.phoneHref}`}
-                className="flex items-center gap-2.5 font-medium hover:text-moss-700"
-              >
-                <PhoneIcon className="h-4 w-4 text-moss-600" />
+              <a href={`tel:${site.contact.phoneHref}`} className="flex items-center gap-2.5 font-medium hover:text-moss-500">
+                <PhoneIcon className="h-4 w-4 text-moss-400" />
                 {site.contact.phone}
               </a>
-              <a
-                href={`mailto:${site.contact.email}`}
-                className="flex items-center gap-2.5 font-medium hover:text-moss-700"
-              >
-                <MailIcon className="h-4 w-4 text-moss-600" />
+              <a href={`mailto:${site.contact.email}`} className="flex items-center gap-2.5 font-medium hover:text-moss-500">
+                <MailIcon className="h-4 w-4 text-moss-400" />
                 {site.contact.email}
               </a>
               <span className="flex items-start gap-2.5 text-ink-soft">
-                <PinIcon className="mt-0.5 h-4 w-4 shrink-0 text-moss-600" />
+                <PinIcon className="mt-0.5 h-4 w-4 shrink-0 text-moss-400" />
                 {site.address.formatted}
               </span>
             </address>
@@ -172,19 +150,21 @@ export default function AboutPage() {
 
           <ul className="mt-6 space-y-3">
             {[
-              'Free standard shipping on every order',
-              `${site.returns.windowDays}-day returns, no restocking fee`,
+              'Free U.S. shipping on every order',
+              `${site.returns.windowDays}-day returns on unopened product`,
               site.warranty.label,
-              'US-based customer support',
+              'U.S.-based collector support',
             ].map((item) => (
               <li key={item} className="flex gap-2.5 text-[14px] text-ink-soft">
-                <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-moss-600" />
+                <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-moss-400" />
                 {item}
               </li>
             ))}
           </ul>
         </aside>
       </div>
+
+      <AdvantageGrid />
     </div>
   );
 }

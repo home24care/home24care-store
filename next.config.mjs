@@ -5,11 +5,7 @@ const nextConfig = {
   images: {
     // Product imagery is still served from the source CDNs. Run
     // `npm run localize:images` to self-host it and cut the network hop.
-    remotePatterns: [
-      { protocol: 'https', hostname: 'cdn.shopify.com' },
-      { protocol: 'https', hostname: 'igvagas.com' },
-      { protocol: 'https', hostname: 'home24care.com' },
-    ],
+    remotePatterns: [],
 
     // WebP only. AVIF encodes 3-10x slower in sharp (measured: 0.7-2.2s per
     // image cold, versus 0.12-0.49s for WebP) and every image on a fresh
@@ -74,6 +70,8 @@ const nextConfig = {
       { source: '/product/:slug', destination: '/products/:slug', permanent: true },
       // Same for the old category path.
       { source: '/product-category/:slug', destination: '/collections/:slug', permanent: true },
+      // The warranty policy became the Authenticity Guarantee.
+      { source: '/policies/warranty', destination: '/policies/authenticity', permanent: true },
     ];
   },
 };

@@ -1,514 +1,408 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import ProductCard from '@/components/ProductCard';
-import ProductSpotlight from '@/components/ProductSpotlight';
-import HeroCylinders from '@/components/HeroCylinders';
-import SealShowcase from '@/components/SealShowcase';
-import { SectionHeading, ProductGrid } from '@/components/Section';
 import JsonLd from '@/components/JsonLd';
+import CollectorHub from '@/components/CollectorHub';
+import { AdvantageGrid, BrandStrip, CenteredHeading } from '@/components/StoreBands';
+import { TrustpilotReviews } from '@/components/TrustpilotSection';
+import ReviewsSection from '@/components/ReviewsSection';
+import { ArrowIcon, CheckIcon } from '@/components/icons';
 import { site } from '@/lib/site';
 import { faqSchema } from '@/lib/schema';
 import {
   collections,
   getProduct,
   productsIn,
+  productsInGroup,
   bestSellers,
-  newArrivals,
-  onSale,
+  limitedReleases,
   products,
-  collectionGroup,
+  type Product,
 } from '@/lib/catalog';
-import { formatPrice } from '@/lib/format';
-import { BLUR_DATA_URL, SIZES, IMAGES_LOCALIZED } from '@/lib/image';
-import { TruckIcon, ReturnIcon, ShieldIcon, SupportIcon, CheckIcon } from '@/components/icons';
-import { TrustpilotReviews } from '@/components/TrustpilotSection';
-import ReviewsSection from '@/components/ReviewsSection';
+import { SIZES, IMAGES_LOCALIZED, cutoutImage } from '@/lib/image';
 
 export const metadata: Metadata = {
-  title: 'Refrigerant Cylinders & HVAC Gases — Home24Care',
+  title: `${site.name} — Sealed Hobby Boxes: Topps Chrome, Bowman, Prizm & Pokémon`,
   description:
-    'Factory-sealed refrigerant cylinders for HVAC, automotive and commercial refrigeration — R-410A, R-134a, R-1234yf, R-32, R-454B and legacy R-22, plus bulk pallets and service supplies. Free standard shipping on every order.',
+    'Factory-sealed hobby boxes and trading card games — Topps Chrome, Bowman, Panini Prizm FIFA World Cup, Pokémon TCG and Magic: The Gathering. 100% authentic, free U.S. shipping and packed to protect the seal.',
   alternates: { canonical: '/' },
 };
 
-/**
- * Hero and tile art are pulled from the catalog rather than hardcoded CDN
- * URLs, so `npm run localize:images` swaps them to local WebP along with
- * everything else.
- */
-const HERO_PRODUCT = '30lb-r-134a-refrigerant-automotive-1-2-acme';
-
-/*
-  Tiles must name collections that still exist. `gazebos`, `pergolas` and
-  `outdoor-kitchens` were dropped with the outdoor trim, and a tile pointing at
-  a removed collection renders a dead link to a 404.
-*/
-const TILE_SLUGS = [
-  'hvac-refrigerants',
-  'commercial-refrigerants',
-  'specialty-refrigerants',
-  'legacy-refrigerants',
-  'bulk-pallets',
-  'maintenance-supplies',
-];
-
-/**
- * Tiles for the equipment ranges. Ordered biggest-catalogue first so the row
- * leads with the deepest selection rather than the narrowest.
- */
-const EQUIPMENT_TILE_SLUGS = [
-  'gas-grills',
-  'car-lifts',
-  'shop-machinery',
-  'riding-mowers',
-  'portable-generators',
-  'tankless-water-heaters',
-];
-
-const EDITORIAL_PRODUCT = 'r-32-refrigerant-can-22oz-1-4lb';
-
-/** The product behind the hero's price chip; its cylinder is the centre photo. */
-const HERO_CHIP_PRODUCT = '20-9lb-r32-r-32-refrigerant-gas';
+/* Every hero, spotlight and tile picks its art from the catalog by slug, so the
+   picture and the link always point at a product that exists. */
+const HERO = {
+  left: ['2025-topps-chrome-football-delight-box', '2026-bowman-chrome-baseball-hobby-box'],
+  wide: '2025-26-topps-chrome-update-basketball-hobby-box',
+  small: ['2025-topps-cosmic-chrome-football-hobby-box', 'pokemon-30th-celebration-elite-trainer-box'],
+};
 
 const HOME_FAQS = [
   {
-    q: 'How much does shipping cost at Home24Care?',
-    a: 'Standard shipping is free on every order shipped within the United States. Orders leave our warehouse within 1 business day and typically arrive in 1–3 business days.',
+    q: `Are the boxes sold by ${site.name} authentic and factory sealed?`,
+    a: `Yes. Every box is brand new and ships in its original manufacturer seal, exactly as released by Topps, Bowman, Panini, The Pokémon Company International or Wizards of the Coast. Our ${site.warranty.label} refunds you in full if a box is ever not as described.`,
   },
   {
-    q: 'Can I return an item if it is not right?',
-    a: `Yes. You have ${site.returns.windowDays} days from the delivery date to request a return, on both defective and non-defective items. We do not charge restocking fees, and approved refunds are issued to your original payment method within ${site.returns.refundBusinessDays} business days.`,
+    q: 'How much does shipping cost?',
+    a: `Standard shipping is free on every U.S. order. Orders leave within ${site.shipping.handlingTime}, arrive in ${site.shipping.transitTime}, and you get a tracking number by email as soon as the box ships.`,
   },
   {
-    q: 'What warranty comes with Home24Care products?',
-    a: `Every product sold through Home24Care carries a ${site.warranty.label}, covering manufacturing defects under normal use conditions.`,
+    q: 'Can I return a box?',
+    a: `Yes — unopened, factory-sealed product can be returned within ${site.returns.windowDays} days of delivery with no restocking fee. Opened boxes and packs cannot be returned, because their contents are random.`,
   },
   {
-    q: 'How do I contact customer support?',
-    a: `Email ${site.contact.email} or call ${site.contact.phone}. Our team is available ${site.contact.hours} and replies to every email within one business day.`,
+    q: 'Are the hits in a box guaranteed?',
+    a: 'The box break averages on each product — for example "1 autograph per box" — are the figures the manufacturer publishes. Which cards you pull is random and their value is not guaranteed.',
   },
 ];
 
-/** Ordering steps, shown alongside the review section. */
-const HOW_IT_WORKS = [
+/** Informational "Hobby 101" cards. */
+const HOBBY_GUIDE = [
   {
-    step: 'Order online or by phone',
-    body: `Checkout takes a minute, or call ${site.contact.phone} and we will place the order for you. The price on the page is the price you pay.`,
+    eyebrow: 'Formats',
+    title: 'Hobby, Jumbo or Delight?',
+    body: 'Hobby boxes are made for hobby shops and carry guaranteed hits plus hobby-only parallels. Delight (Breaker’s Delight) boxes trade pack count for more autographs per box. Jumbo boxes pack more cards and more hits into each box.',
   },
   {
-    step: 'We pack and ship in a day',
-    body: 'Orders placed before the daily cut-off leave the warehouse the next business day. Oversized kits ship on a pallet at no extra cost.',
+    eyebrow: 'Short prints',
+    title: 'Sapphire & Logofractor',
+    body: 'Sapphire editions print every card in a blue Sapphire chromium finish with exclusive parallels; Logofractor editions use a team-logo refractor. Both are produced in far smaller quantities than the standard hobby box and rarely restock.',
   },
   {
-    step: 'Track it door to door',
-    body: 'You get a tracking number by email the moment it ships, and freight deliveries are scheduled by appointment.',
+    eyebrow: 'Prospecting',
+    title: 'Why 1st Bowman matters',
+    body: 'Bowman carries a player’s first officially licensed card — the “1st Bowman” — often years before his MLB debut. That is why Bowman and Bowman Chrome are the boxes prospectors chase every season.',
   },
   {
-    step: 'Changed your mind? Send it back',
-    body: `${site.returns.windowDays} days to return anything, defective or not, with no restocking fee and a refund to your original payment method.`,
+    eyebrow: 'Our promise',
+    title: 'Shipped seal-safe',
+    body: 'Every box is bubble-wrapped and shipped in a rigid carton with void fill — never a padded mailer — so the shrink-wrap and corners arrive exactly as they left the factory.',
   },
 ];
+
+type Spot = { slug: string; eyebrow: string; title: string; body: string; href: string; cta: string };
+
+const SPOTLIGHTS_A: Spot[] = [
+  {
+    slug: '2026-panini-prizm-fifa-world-cup-soccer-hobby-box',
+    eyebrow: 'On the pitch',
+    title: 'Soccer',
+    body: 'Panini Prizm FIFA World Cup 2026 — all 48 nations, one autograph per box.',
+    href: '/collections/soccer',
+    cta: 'Shop soccer',
+  },
+  {
+    slug: '2026-bowman-baseball-sapphire-edition-box',
+    eyebrow: 'On the diamond',
+    title: 'Baseball',
+    body: 'Bowman prospects, Chrome Sapphire and Logofractor — the 2026 class starts here.',
+    href: '/collections/baseball',
+    cta: 'Shop baseball',
+  },
+];
+
+const SPOTLIGHTS_B: Spot[] = [
+  {
+    slug: '2026-topps-chrome-ufc-sapphire-edition-box',
+    eyebrow: 'In the Octagon',
+    title: 'UFC',
+    body: 'Topps Chrome UFC Sapphire — an exclusive Sapphire autograph in every box.',
+    href: '/collections/ufc',
+    cta: 'Shop UFC',
+  },
+  {
+    slug: 'magic-the-gathering-marvel-super-heroes-collector-booster-box',
+    eyebrow: 'At the table',
+    title: 'Trading Card Games',
+    body: 'Pokémon Elite Trainer Boxes and Magic: The Gathering Collector Boosters.',
+    href: '/collections/pokemon',
+    cta: 'Shop TCG',
+  },
+];
+
+/** Tile backgrounds for "Shop by category", one per collection. */
+const TILE_BG: Record<string, string> = {
+  football: 'from-[#1f2a24] to-[#34503f]',
+  basketball: 'from-[#2a1f24] to-[#5a2f3a]',
+  baseball: 'from-[#1d2433] to-[#2f4466]',
+  soccer: 'from-[#1f2733] to-[#314a3f]',
+  ufc: 'from-[#241f1f] to-[#5b2626]',
+  pokemon: 'from-[#2b2a1d] to-[#6a5a1f]',
+  magic: 'from-[#261f2d] to-[#4a3160]',
+};
+
+/** Transparent packshot, so product art sits cleanly on any panel colour. */
+const img = (p: Product | undefined) => (p?.images[0] ? cutoutImage(p.images[0].full) : undefined);
+
+function HeroImage({ product, className, sizes }: { product?: Product; className?: string; sizes: string }) {
+  if (!product) return null;
+  return (
+    <div className={`relative ${className ?? ''}`}>
+      <Image
+        src={img(product)!}
+        alt={product.images[0].alt || product.title}
+        fill
+        priority
+        sizes={sizes}
+        unoptimized={IMAGES_LOCALIZED}
+        className="object-contain drop-shadow-[0_12px_18px_rgba(0,0,0,0.18)] transition-transform duration-500 group-hover:scale-[1.04]"
+      />
+    </div>
+  );
+}
+
+function SpotlightPair({ spots }: { spots: Spot[] }) {
+  return (
+    <section className="container-page grid gap-5 py-6 md:grid-cols-2">
+      {spots.map((s) => {
+        const p = getProduct(s.slug);
+        return (
+          <Link
+            key={s.slug}
+            href={s.href}
+            className="group relative isolate flex min-h-[380px] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-b from-[#3a403c] to-[#151816] p-7 sm:min-h-[440px]"
+          >
+            {p && (
+              <div className="absolute inset-x-6 top-6 bottom-36 -z-10">
+                <Image
+                  src={img(p)!}
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 45vw, 90vw"
+                  unoptimized={IMAGES_LOCALIZED}
+                  loading="lazy"
+                  className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+              </div>
+            )}
+            <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-black/85 to-transparent" aria-hidden="true" />
+            <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-clay-400">
+              <span className="h-px w-5 bg-clay-400" aria-hidden="true" />
+              {s.eyebrow}
+            </p>
+            <h3 className="mt-2 font-display text-[30px] leading-tight text-white">{s.title}</h3>
+            <p className="mt-1.5 max-w-sm text-[14px] leading-relaxed text-white/75">{s.body}</p>
+            <span className="mt-4 inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.12em] text-clay-400">
+              {s.cta} <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        );
+      })}
+    </section>
+  );
+}
 
 export default function HomePage() {
-  const heroProduct = getProduct(HERO_PRODUCT);
-  const chipProduct = getProduct(HERO_CHIP_PRODUCT);
-  const sale = onSale(8);
-  const sellers = bestSellers(8);
-  const fresh = newArrivals(4);
-  const gas = [
-    ...productsIn('hvac-refrigerants'),
-    ...productsIn('specialty-refrigerants'),
-    ...productsIn('commercial-refrigerants'),
-  ].slice(0, 4);
+  const [leftA, leftB] = HERO.left.map(getProduct);
+  const wide = getProduct(HERO.wide);
+  const [smallA, smallB] = HERO.small.map(getProduct);
 
-  /*
-    Hero and editorial art are keyed on hardcoded slugs, and both sections are
-    written about outdoor structures. The fallback therefore has to stay inside
-    Outdoor Living: `products[0]` is simply the alphabetically first product in
-    the whole catalogue, which after the equipment range was added is a tire
-    changer -- so a removed hero slug silently put workshop machinery under
-    copy about kiln-dried cedar. Falling back within the group keeps the
-    picture and the words talking about the same thing.
-  */
-  const outdoorPool = products.filter(
-    (p) => collectionGroup(p.collection) === 'Outdoor Living' && p.images.length
-  );
-  const heroSource = heroProduct ?? outdoorPool[0] ?? products[0];
-  const editorialProduct =
-    getProduct(EDITORIAL_PRODUCT) ?? outdoorPool[1] ?? outdoorPool[0] ?? products[0];
-
-
-  // Tiles pick the first product that is not already on screen as the hero or
-  // the editorial image — otherwise swing-sets and gazebos show the same two
-  // photographs twice on one page.
-  const usedIds = new Set([heroSource.id, editorialProduct.id]);
-  const buildTiles = (slugs: string[]) =>
-    slugs
-      .map((slug) => {
-        const pool = productsIn(slug);
-        const pick = pool.find((x) => !usedIds.has(x.id) && x.images.length) ?? pool[0];
-        if (pick) usedIds.add(pick.id);
-        return {
-          slug,
-          collection: collections.find((c) => c.slug === slug),
-          image: pick?.images[0]?.card,
-        };
-      })
-      .filter((t) => t.collection && t.image);
-
-  const tiles = buildTiles(TILE_SLUGS);
-  const equipmentTiles = buildTiles(EQUIPMENT_TILE_SLUGS);
+  const tabs = [
+    { key: 'demand', label: 'High Demand', products: bestSellers(8) },
+    { key: 'limited', label: 'Limited Releases', products: limitedReleases(8) },
+    { key: 'tcg', label: 'Pokémon & Magic', products: productsInGroup('Trading Card Games') },
+    { key: 'all', label: 'All Boxes', products: products.slice(0, 12) },
+  ].filter((t) => t.products.length > 0);
 
   return (
     <>
       <JsonLd data={faqSchema(HOME_FAQS)} />
 
-      {/* ---------------------------------------------------------- Hero */}
-      {/*
-        A split hero: the headline on the left, real cylinders on the right.
-
-        The cylinders are catalogue photos cut out of their white studio
-        backgrounds (see HeroCylinders). Held in a column they render near
-        their native size and stay sharp, where a full-bleed photo would have
-        to be stretched across a 1920px band.
-      */}
-      <section className="relative isolate overflow-hidden bg-moss-900">
-        <div
-          className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-moss-700/40 blur-3xl"
-          aria-hidden="true"
-        />
-        <div className="container-page relative grid items-center gap-10 py-14 lg:min-h-[clamp(460px,62vh,620px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
-          <div className="max-w-xl animate-rise">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/12 px-3.5 py-1.5 text-[12.5px] font-semibold text-white backdrop-blur">
-              <TruckIcon className="h-4 w-4" />
-              Free shipping · Ships in 1 business day
-            </p>
-            <h1 className="text-balance font-display text-[40px] leading-[1.06] tracking-tight text-white sm:text-[54px] lg:text-[62px]">
-              Sealed cylinders, shipped fast
-            </h1>
-            <p className="mt-5 max-w-lg text-[16.5px] leading-relaxed text-moss-100">
-              Factory-sealed refrigerant cylinders for HVAC, automotive and commercial
-              refrigeration work — single cylinders through to full pallets. Delivered free,
-              anywhere in the {site.address.countryName}.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/collections/hvac-refrigerants" className="btn-accent px-7 py-3.5 text-[15px]">
-                Shop refrigerants
-              </Link>
-              <Link
-                href="/collections"
-                className="rounded-full border border-white/30 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Browse all collections
-              </Link>
-            </div>
-            <ul className="mt-9 flex flex-wrap gap-x-7 gap-y-2 text-[13.5px] text-moss-100">
-              {[
-                `${site.returns.windowDays}-day returns`,
-                site.warranty.label,
-                site.returns.restockingFee ? 'Restocking fee applies' : 'No restocking fees',
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <CheckIcon className="h-4 w-4 text-clay-300" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="relative">
-            <HeroCylinders
-              feature={
-                chipProduct
-                  ? {
-                      href: `/products/${chipProduct.slug}`,
-                      label: '20.9 lb cylinder',
-                      price: chipProduct.price,
-                    }
-                  : undefined
-              }
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------- Trust strip */}
-      <section className="border-b border-ink/10 bg-sand">
-        <div className="container-page grid grid-cols-2 gap-x-6 gap-y-5 py-6 lg:grid-cols-4">
-          {[
-            [TruckIcon, 'Free standard shipping', 'On every order, no minimum'],
-            [ReturnIcon, `${site.returns.windowDays}-day returns`, 'No restocking fees'],
-            [ShieldIcon, site.warranty.label, 'On everything we sell'],
-            [SupportIcon, 'US-based support', site.contact.hours],
-          ].map(([Icon, title, sub]) => {
-            const I = Icon as typeof TruckIcon;
-            return (
-              <div key={title as string} className="flex items-start gap-3">
-                <I className="h-6 w-6 shrink-0 text-moss-600" />
-                <div className="min-w-0">
-                  <p className="text-[13.5px] font-semibold leading-snug">{title as string}</p>
-                  <p className="text-[12.5px] leading-snug text-ink-muted">{sub as string}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------ Shop by category */}
-      <section className="container-page py-16">
-        <SectionHeading
-          eyebrow="Shop by category"
-          title="Every refrigerant, one supplier"
-          subtitle="HVAC, automotive, commercial and legacy gases — single cylinders through to full pallets."
+      {/* ------------------------------------------------------ Hero mosaic */}
+      <section className="container-page grid gap-4 pt-6 lg:grid-cols-2 lg:pt-8">
+        <Link
           href="/collections"
-          linkLabel="All collections"
-        />
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-          {tiles.map(({ slug, image, collection }, i) => (
+          className="group relative grid min-h-[420px] overflow-hidden rounded-md bg-[#f1f1ef] p-7 sm:grid-cols-[1fr_1fr] sm:p-10 lg:min-h-[560px]"
+        >
+          <div className="relative z-10 flex flex-col justify-center">
+            <p className="eyebrow">Exclusive hobby drops</p>
+            <h1 className="mt-3 font-display text-[42px] uppercase leading-[1.02] tracking-tight text-ink sm:text-[52px] xl:text-[60px]">
+              Unbox
+              <br />
+              the
+              <br />
+              legends
+            </h1>
+            <p className="mt-5 max-w-xs text-[15px] font-medium leading-relaxed text-ink-soft">
+              Factory-sealed Topps Chrome, Bowman and Prizm hobby boxes with 100% authenticity
+              guaranteed. Experience the thrill of the rip and chase your next grail.
+            </p>
+            <span className="mt-6 w-max border-b-2 border-ink pb-1 text-[12px] font-bold uppercase tracking-[0.12em] text-ink transition-colors group-hover:border-moss-400 group-hover:text-moss-500">
+              Check all products
+            </span>
+          </div>
+          <div className="relative mt-6 grid grid-cols-2 gap-3 sm:mt-0 sm:grid-cols-1 sm:grid-rows-2">
+            <HeroImage product={leftA} sizes="(min-width: 1024px) 22vw, 50vw" className="min-h-[170px]" />
+            <HeroImage product={leftB} sizes="(min-width: 1024px) 22vw, 50vw" className="min-h-[170px]" />
+          </div>
+        </Link>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/collections/basketball"
+            className="group relative grid min-h-[260px] grid-cols-[1fr_1.15fr] items-center overflow-hidden rounded-md bg-[#f1f1ef] p-6 sm:col-span-2"
+          >
+            <div>
+              <p className="eyebrow">Basketball season</p>
+              <h2 className="mt-2 font-display text-[26px] uppercase leading-tight text-ink sm:text-[30px]">
+                NBA hype drops
+              </h2>
+              <p className="mt-2 max-w-[220px] text-[13.5px] font-medium leading-snug text-ink-soft">
+                Hunt the Cooper Flagg rookie class in Topps Chrome Update.
+              </p>
+              <span className="mt-4 inline-block border-b-2 border-ink pb-0.5 text-[11px] font-bold uppercase tracking-[0.12em] group-hover:border-moss-400 group-hover:text-moss-500">
+                Shop NBA
+              </span>
+            </div>
+            <HeroImage product={wide} sizes="(min-width: 1024px) 25vw, 55vw" className="h-full min-h-[210px]" />
+          </Link>
+
+          {[
+            { p: smallA, href: '/collections/football', eyebrow: 'Gridiron hits', title: 'NFL', cta: 'Shop NFL' },
+            { p: smallB, href: '/collections/pokemon', eyebrow: '30 years of Pokémon', title: 'Pokémon', cta: 'Shop Pokémon' },
+          ].map((t) => (
             <Link
-              key={slug}
-              href={`/collections/${slug}`}
-              className="group relative isolate flex aspect-[4/3] items-end overflow-hidden rounded-2xl bg-moss-900"
+              key={t.href}
+              href={t.href}
+              className="group relative flex min-h-[280px] flex-col overflow-hidden rounded-md bg-[#f1f1ef] p-6"
             >
-              <Image
-                src={image!}
-                alt=""
-                fill
-                sizes={SIZES.tile}
-                unoptimized={IMAGES_LOCALIZED}
-                quality={75}
-                // No priority here: these sit below the fold, and preloading
-                // them competes with the hero for the LCP slot.
-                loading="lazy"
-                placeholder="blur"
-                blurDataURL={BLUR_DATA_URL}
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"
-                aria-hidden="true"
-              />
-              <div className="relative p-5">
-                <h3 className="font-display text-[22px] leading-tight text-white sm:text-[26px]">
-                  {collection!.title}
-                </h3>
-                <p className="mt-1 text-[13px] text-white/80">
-                  {collection!.count} products · from{' '}
-                  {formatPrice(Math.min(...productsIn(slug).map((p) => p.price)))}
-                </p>
-              </div>
+              <p className="eyebrow">{t.eyebrow}</p>
+              <h2 className="mt-1.5 font-display text-[26px] uppercase leading-tight text-ink">{t.title}</h2>
+              <span className="mt-1 w-max border-b-2 border-ink pb-0.5 text-[11px] font-bold uppercase tracking-[0.12em] group-hover:border-moss-400 group-hover:text-moss-500">
+                {t.cta}
+              </span>
+              <HeroImage product={t.p} sizes="(min-width: 1024px) 20vw, 45vw" className="mt-3 min-h-[170px] flex-1" />
             </Link>
           ))}
         </div>
       </section>
 
-      {/* --------------------------------------------------------- Best sellers */}
-      {sellers.length > 0 && (
-        <ProductSpotlight
-          eyebrow="Most popular"
-          titleTop="Built to Last."
-          titleBottom="Priced to Move."
-          subtitle={`The pieces our customers keep coming back for — starting with the ${sellers[0].title}.`}
-          href="/collections/best-sellers"
-          ctaLabel="Go shopping"
-          feature={sellers[0]}
-          rail={sellers.slice(1)}
+      {/* ----------------------------------------------------- Collector hub */}
+      <section className="container-page py-16">
+        <CenteredHeading
+          eyebrow="The collector’s hub"
+          title="Elevate your collection"
+          subtitle="From NBA rookies to Pokémon grails — the sealed boxes collectors are chasing right now. Shop with confidence."
         />
-      )}
-
-      {/* ------------------------------------------------------- Editorial split */}
-      <section className="bg-moss-800 text-white">
-        <div className="container-page grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-20">
-          <div className="max-w-lg">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-clay-300">
-              Factory sealed, never decanted
-            </p>
-            <h2 className="mt-3 font-display text-[32px] leading-[1.12] tracking-tight sm:text-[42px]">
-              Cylinders that arrive exactly as the plant filled them
-            </h2>
-            <p className="mt-4 text-[15.5px] leading-relaxed text-moss-100">
-              Every cylinder ships factory sealed, with its DOT markings, batch number and
-              safety data intact. Nothing is decanted, blended or repacked in transit, so the
-              refrigerant that reaches the job is the refrigerant on the label — which is what
-              a charge weight and a warranty claim both depend on.
-            </p>
-            <ul className="mt-7 space-y-3">
-              {[
-                'Factory-sealed cylinders with intact DOT markings',
-                'Single cylinders through to full 40-cylinder pallets',
-                'Freight included on pallet orders',
-                'Sold for professional use — EPA 608 certification required',
-              ].map((item) => (
-                <li key={item} className="flex gap-3 text-[15px] text-moss-50">
-                  <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-clay-300" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link href="/collections/bulk-pallets" className="btn-accent mt-8 px-7 py-3.5 text-[15px]">
-              Shop bulk pallets
-            </Link>
-          </div>
-
-          <div className="relative">
-            <SealShowcase />
-          </div>
-        </div>
+        <CollectorHub tabs={tabs} />
       </section>
 
-      {/* ------------------------------------------------------------ On sale */}
-      {sale.length > 0 && (
-        <ProductSpotlight
-          eyebrow="Limited time"
-          titleTop="Real Markdowns."
-          titleBottom="No Fine Print."
-          subtitle="Current reductions across the catalog. The price you see is the price you pay at checkout."
-          href="/collections/sale"
-          ctaLabel="Shop the sale"
-          feature={sale[0]}
-          rail={sale.slice(1)}
+      {/* ------------------------------------------------ Spotlight cards A */}
+      <SpotlightPair spots={SPOTLIGHTS_A} />
+
+      {/* -------------------------------------------------- Shop by category */}
+      <section className="container-page py-16">
+        <CenteredHeading
+          eyebrow="Discover the hobby"
+          title="Shop by category"
+          subtitle="Unbox the extraordinary — from NFL rookies and soccer icons to Pokémon and Magic. Secure your piece of the hobby."
         />
-      )}
-
-      {/* ----------------------------------------------------- Refrigerants */}
-      {gas.length > 0 && (
-        <section className="border-y border-ink/10 bg-sand py-16">
-          <div className="container-page">
-            <SectionHeading
-              eyebrow="Trade counter"
-              title="Refrigerants & HVAC gases"
-              subtitle="Factory-sealed cylinders, cans and pallet quantities for licensed technicians — R-410A, R-134a, R-1234yf, R-404A and legacy blends."
-              href="/collections/hvac-refrigerants"
-              linkLabel="Shop refrigerants"
-            />
-            <ProductGrid>
-              {gas.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </ProductGrid>
-            <p className="mt-7 max-w-3xl text-[13.5px] leading-relaxed text-ink-muted">
-              Certain refrigerants may be sold only to buyers who are Section 608 or 609
-              certified under the U.S. Clean Air Act. By ordering you confirm you hold the
-              certification your purchase requires and will handle and recover the product
-              in line with EPA regulations.
-            </p>
-          </div>
-        </section>
-      )}
-
-      {/* ------------------------------------------- Equipment & workshop */}
-      {equipmentTiles.length > 0 && (
-        <section className="container-page py-16">
-          <SectionHeading
-            eyebrow="Also in stock"
-            title="Grills, power & workshop"
-            subtitle="Barbecues and pellet cookers, mowers and standby power, garage lifts, shop machinery and tankless hot water."
-            href="/collections"
-            linkLabel="All collections"
-          />
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-            {equipmentTiles.map(({ slug, image, collection }) => (
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {collections.map((c) => {
+            const p = productsIn(c.slug)[0];
+            return (
               <Link
-                key={slug}
-                href={`/collections/${slug}`}
-                className="group relative isolate flex aspect-[4/3] items-end overflow-hidden rounded-2xl bg-moss-900"
+                key={c.slug}
+                href={`/collections/${c.slug}`}
+                className={`group relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-md bg-gradient-to-br p-5 ${
+                  TILE_BG[c.slug] ?? 'from-[#1f2a24] to-[#34503f]'
+                }`}
               >
-                <Image
-                  src={image!}
-                  alt=""
-                  fill
-                  sizes={SIZES.tile}
-                  unoptimized={IMAGES_LOCALIZED}
-                  quality={75}
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"
-                  aria-hidden="true"
-                />
-                <div className="relative p-5">
-                  <h3 className="font-display text-[22px] leading-tight text-white sm:text-[26px]">
-                    {collection!.title}
+                {p && (
+                  <div className="absolute inset-x-6 bottom-24 top-6 -z-10">
+                    <Image
+                      src={img(p)!}
+                      alt=""
+                      fill
+                      sizes={SIZES.tile}
+                      unoptimized={IMAGES_LOCALIZED}
+                      loading="lazy"
+                      className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.06]"
+                    />
+                  </div>
+                )}
+                <div className="text-center">
+                  <h3 className="font-display text-[18px] uppercase tracking-[0.06em] text-white sm:text-[22px]">
+                    {c.title}
                   </h3>
-                  <p className="mt-1 text-[13px] text-white/80">
-                    {collection!.count} products · from{' '}
-                    {formatPrice(Math.min(...productsIn(slug).map((p) => p.price)))}
+                  <p className="mt-1 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-white/70">
+                    {c.count} {c.count === 1 ? 'product' : 'products'}
                   </p>
                 </div>
               </Link>
-            ))}
-          </div>
-        </section>
-      )}
+            );
+          })}
+          <Link
+            href="/collections/limited-releases"
+            className="group flex aspect-[4/5] flex-col items-center justify-center rounded-md border border-ink/12 bg-sand p-6 text-center"
+          >
+            <p className="eyebrow">Short prints</p>
+            <h3 className="mt-2 font-display text-[22px] uppercase leading-tight text-ink">Limited releases</h3>
+            <p className="mt-2 text-[13px] text-ink-soft">Sapphire, Delight and Logofractor editions.</p>
+            <span className="mt-4 inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.12em] text-moss-500">
+              Shop now <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </div>
+      </section>
 
-      {/* ------------------------------------------------------ New arrivals */}
-      {fresh.length > 0 && (
-        <section className="container-page py-16">
-          <SectionHeading
-            eyebrow="Just landed"
-            title="New arrivals"
-            href="/collections/new-arrivals"
-          />
-          <ProductGrid>
-            {fresh.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </ProductGrid>
-        </section>
-      )}
+      {/* --------------------------------------------------- Advantage grid */}
+      <AdvantageGrid />
 
-      {/* Trustpilot widget when configured, self-hosted reviews otherwise —
-          ReviewsSection returns null as soon as a business unit id exists. */}
+      {/* ------------------------------------------------ Spotlight cards B */}
+      <SpotlightPair spots={SPOTLIGHTS_B} />
+
+      {/* --------------------------------------------------------- Hobby 101 */}
+      <section className="container-page py-16">
+        <CenteredHeading
+          eyebrow="Hobby 101"
+          title="Know your boxes"
+          subtitle="A quick guide to the formats on this site, so you know exactly what you are ripping before you buy."
+        />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {HOBBY_GUIDE.map((g) => (
+            <article key={g.title} className="rounded-md border border-ink/10 bg-white p-6">
+              <p className="eyebrow">{g.eyebrow}</p>
+              <h3 className="mt-2 font-display text-[19px] leading-snug text-ink">{g.title}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink-soft">{g.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Reviews appear only once there are genuine ones to show. */}
       <TrustpilotReviews />
       <ReviewsSection />
 
-      {/* ------------------------------------------------------ How it works */}
-      <section className="container-page pb-16">
-        <SectionHeading
-          eyebrow="How ordering works"
-          title="No surprises between checkout and your driveway"
-        />
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {HOW_IT_WORKS.map((item, i) => (
-            <li
-              key={item.step}
-              className="rounded-2xl border border-ink/10 bg-white p-6 shadow-card"
-            >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-moss-100 text-[14px] font-bold text-moss-800">
-                {i + 1}
-              </span>
-              <h3 className="mt-3 text-[16px] font-semibold leading-snug">{item.step}</h3>
-              <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">{item.body}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
       {/* -------------------------------------------------------------- FAQ */}
-      <section className="border-t border-ink/10 bg-sand py-16">
+      <section className="border-y border-ink/10 bg-sand py-16">
         <div className="container-page grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <p className="eyebrow mb-1.5">Before you order</p>
-            <h2 className="font-display text-[30px] leading-tight tracking-tight sm:text-[36px]">
-              The questions we get most
-            </h2>
+            <p className="eyebrow mb-2">Before you order</p>
+            <h2 className="section-title">Collector questions</h2>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
               Still unsure about something? Call{' '}
-              <a href={`tel:${site.contact.phoneHref}`} className="font-semibold text-moss-700 underline underline-offset-2">
+              <a href={`tel:${site.contact.phoneHref}`} className="font-semibold text-moss-500 underline underline-offset-2">
                 {site.contact.phone}
               </a>{' '}
               or email{' '}
-              <a href={`mailto:${site.contact.email}`} className="font-semibold text-moss-700 underline underline-offset-2">
+              <a href={`mailto:${site.contact.email}`} className="font-semibold text-moss-500 underline underline-offset-2">
                 {site.contact.email}
               </a>
               .
             </p>
-            <Link href="/faq" className="btn-outline mt-6">
+            <ul className="mt-6 space-y-2.5">
+              {[
+                'Brand new and factory sealed — never resealed or searched',
+                'Free U.S. shipping, packed in rigid cartons',
+                `${site.returns.windowDays}-day returns on unopened product`,
+              ].map((t) => (
+                <li key={t} className="flex gap-2.5 text-[14.5px] text-ink-soft">
+                  <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-moss-400" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <Link href="/faq" className="btn-outline mt-7">
               Read all FAQs
             </Link>
           </div>
@@ -516,7 +410,7 @@ export default function HomePage() {
           <dl className="divide-y divide-ink/10 border-y border-ink/10">
             {HOME_FAQS.map((f) => (
               <div key={f.q} className="py-5">
-                <dt className="text-[15.5px] font-semibold text-ink">{f.q}</dt>
+                <dt className="font-display text-[17px] text-ink">{f.q}</dt>
                 <dd className="mt-1.5 text-[14.5px] leading-relaxed text-ink-soft">{f.a}</dd>
               </div>
             ))}
@@ -524,24 +418,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------- Catalog size */}
-      <section className="container-page py-14">
-        <div className="rounded-2xl border border-ink/10 bg-white p-8 text-center shadow-card sm:p-12">
-          <h2 className="font-display text-[28px] leading-tight tracking-tight sm:text-[34px]">
-            {products.length} products, one place
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-ink-soft">
-            From a single 8oz can to a full pallet of 40 cylinders, everything on this site ships free and is backed by the same returns window and warranty.</p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Link href="/collections" className="btn-primary px-7 py-3.5">
-              Start browsing
-            </Link>
-            <Link href="/contact" className="btn-outline px-7 py-3.5">
-              Talk to us first
-            </Link>
-          </div>
-        </div>
-      </section>
+      <div className="pt-14">
+        <BrandStrip />
+      </div>
+
     </>
   );
 }

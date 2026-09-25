@@ -40,7 +40,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/catalog.json'), 'utf8'));
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com')
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toppsuefa.com')
   .trim()
   .replace(/\/+$/, '');
 
@@ -95,11 +95,17 @@ const collections = new Map(catalog.collections.map((c) => [c.slug, c]));
 const availabilityOf = (p) =>
   !p.available ? 'out_of_stock' : p.preorder ? 'preorder' : 'in_stock';
 
+const flatten = (d) =>
+  d
+    .split('\n')
+    .map((l) => l.replace(/^#{2,3} (.*)$/, '$1:').replace(/^- /, '• '))
+    .join('\n');
+
 const descriptionOf = (p) =>
   // The template's cell says "up to 200 characters", but that is advice: the
   // product data specification puts the limit at 5000. The longest here is 977.
-  p.description.slice(0, 4900) ||
-  `${p.title} from ${p.brand}, sold by Home24Care with free standard shipping.`;
+  flatten(p.description).slice(0, 4900) ||
+  `${p.title} from ${p.brand}, sold by TOPPSUEFA with free shipping.`;
 
 const extraImages = (p) =>
   p.images.slice(1, 1 + FEED_EXTRA).map((img) => feedImageUrl(img.full));
@@ -119,14 +125,14 @@ const nth = (fn, i) => (p) => fn(p)[i] ?? '';
  * blank for everything that has a GTIN or an MPN, which is what the spec asks
  * for -- sending "no" there would tell Google to ignore the 185 GTINs. It is
  * filled in only for equipment products that have neither, where "no" is the
- * accurate statement. See GTIN-AUDIT.md.
+ * accurate statement.
  */
 /**
  * The MPN to submit. Outdoor and gas SKUs are supplier part numbers, so they
  * stand as the MPN. Equipment SKUs are the retailer's internal ids, so those
  * products carry an MPN only where a real model code was established.
  */
-const mpnOf = (p) => p.mpn ?? (p.source === 'equipment' ? null : p.sku);
+const mpnOf = (p) => p.mpn ?? null;
 
 const COLUMNS = [
   ['id', (p) => offerId(p.sku)],

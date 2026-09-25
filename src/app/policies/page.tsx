@@ -48,8 +48,8 @@ export default function PoliciesIndexPage() {
         <dl className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             ['Shipping', 'Free standard shipping on every order, no minimum. Ships in 1 business day.'],
-            ['Returns', `${site.returns.windowDays} days from delivery, defective or not. No restocking fees.`],
-            ['Warranty', `${site.warranty.label} on everything we sell.`],
+            ['Returns', `${site.returns.windowDays} days from delivery on unopened, factory-sealed product. No restocking fees.`],
+            ['Authenticity', `${site.warranty.label} — every box genuine and factory sealed.`],
             ['Payments', 'Visa, Mastercard, Amex and Discover, processed on an encrypted PCI DSS checkout.'],
           ].map(([term, desc]) => (
             <div key={term}>

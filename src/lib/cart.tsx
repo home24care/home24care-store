@@ -175,8 +175,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         price: product.price,
         image: product.images[0]?.thumb ?? '',
         sku: product.sku,
-        quantity,
-        maxQuantity: MAX_PER_LINE,
+        quantity: Math.min(quantity, product.purchaseLimit ?? MAX_PER_LINE),
+        maxQuantity: product.purchaseLimit ?? MAX_PER_LINE,
       },
     });
     setIsOpen(true);

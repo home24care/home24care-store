@@ -1,7 +1,7 @@
 import type { Policy } from '@/lib/policy-types';
 import { site, paymentMethodNames } from '@/lib/site';
 
-const UPDATED = 'September 5, 2026';
+const UPDATED = 'September 25, 2026';
 const A = site.address.formatted;
 const E = site.contact.email;
 const P = site.contact.phone;
@@ -48,7 +48,7 @@ export const shippingPolicy: Policy = {
         },
         {
           type: 'p',
-          text: 'We can deliver to residential addresses, commercial addresses and most PO boxes for small parcels. Oversized items that move by freight require a physical street address where the carrier can bring a truck.',
+          text: 'We deliver to residential and commercial addresses and to most PO boxes. Orders above $1,000 ship with signature confirmation, so they need a street address where someone can sign for the package.',
         },
       ],
     },
@@ -58,7 +58,7 @@ export const shippingPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'Standard shipping is free on every order, with no minimum spend. The price you see on the product page is the price you pay — we do not add handling, fuel or oversize surcharges at checkout.',
+          text: 'Standard shipping is free on every order, with no minimum spend. The price you see on the product page is the price you pay — we do not add handling, packaging or insurance surcharges at checkout.',
         },
         {
           type: 'p',
@@ -77,7 +77,6 @@ export const shippingPolicy: Policy = {
             ['Order cut-off time', site.shipping.cutOff],
             ['Handling time', site.shipping.handlingTime],
             ['Transit time (parcel)', site.shipping.transitTime],
-            ['Transit time (freight / oversized)', '3–10 business days'],
             ['Total delivery estimate', '2–4 business days for most orders'],
           ],
         },
@@ -92,20 +91,20 @@ export const shippingPolicy: Policy = {
       ],
     },
     {
-      id: 'freight',
-      heading: 'Freight and oversized deliveries',
+      id: 'packing',
+      heading: 'How we pack sealed product',
       blocks: [
         {
           type: 'p',
-          text: 'Pallet quantities of refrigerant ship by freight carrier at no extra cost to you, delivered by appointment.',
+          text: 'Sealed boxes and cases are collectibles, and a crushed corner or torn shrink-wrap matters to collectors. Every order is packed to protect the factory seal as well as the cards inside:',
         },
         {
           type: 'ul',
           items: [
-            'The carrier will call to schedule a delivery appointment before arriving.',
-            'Delivery is curbside. The driver is not able to carry items into a garage, yard or house.',
-            'Someone aged 18 or over must be present to sign for the delivery.',
-            'Please inspect the pallet before signing. If there is visible damage, note it on the delivery receipt and photograph it.',
+            'Each box is wrapped in bubble wrap and shipped inside a rigid corrugated carton — never in a padded envelope.',
+            'Void fill keeps the box from moving in transit, and corners are protected on high-value boxes and cases.',
+            'Sealed cases ship in the manufacturer case, overboxed where the case itself would take the carrier labels.',
+            'Orders above $1,000 ship fully insured with signature confirmation.',
           ],
         },
       ],
@@ -139,17 +138,12 @@ export const shippingPolicy: Policy = {
       ],
     },
     {
-      id: 'refrigerants',
-      heading: 'Shipping restrictions on refrigerants',
+      id: 'releases',
+      heading: 'New releases and purchase limits',
       blocks: [
         {
-          type: 'callout',
-          title: 'Regulated products',
-          text: 'Refrigerant cylinders and cans are classified as hazardous materials for transport. They ship by ground service only, cannot be sent by air, and cannot be delivered to a PO box. Certain refrigerants may be sold only to buyers certified under Section 608 or 609 of the U.S. Clean Air Act.',
-        },
-        {
           type: 'p',
-          text: 'By placing an order for a regulated refrigerant you confirm that you hold the certification your purchase requires and that the product will be handled, charged and recovered in line with EPA regulations. We may ask you to provide your certification number before an order is released.',
+          text: 'Products are listed only once we can ship them. Where a manufacturer sets a purchase limit on a limited release, or where stock is allocated, the limit is shown on the product page and applies per household and per payment card.',
         },
       ],
     },
@@ -159,7 +153,7 @@ export const shippingPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'If your order arrives damaged, photograph the packaging and contents before unpacking further and contact us the same day. We will arrange a replacement or a full refund without requiring you to return the item in most cases.',
+          text: 'If your order arrives damaged, photograph the shipping carton and the box before opening anything further, and contact us the same day. Do not open the sealed product — a box with its seal intact can be replaced or refunded in full, while an opened box cannot be assessed.',
         },
         {
           type: 'p',
@@ -180,7 +174,7 @@ export const shippingPolicy: Policy = {
 export const returnsPolicy: Policy = {
   slug: 'returns',
   title: 'Refunds and Returns Policy',
-  summary: `Return any item within ${site.returns.windowDays} days of delivery — defective or not. No restocking fees, and approved refunds are issued to your original payment method within ${site.returns.refundBusinessDays} business days.`,
+  summary: `Return unopened, factory-sealed product within ${site.returns.windowDays} days of delivery. No restocking fees, and approved refunds are issued to your original payment method within ${site.returns.refundBusinessDays} business days.`,
   updated: UPDATED,
   sections: [
     {
@@ -205,9 +199,9 @@ export const returnsPolicy: Policy = {
           type: 'ul',
           items: [
             `The item must have been purchased directly from ${site.name}.`,
-            'We accept returns of both defective and non-defective products.',
-            'We accept returns of new, unused and gently used items.',
-            'Returned products should include all original parts, accessories and packaging wherever possible.',
+            'The product must be unopened, with the original manufacturer seal and shrink-wrap intact.',
+            'Boxes and cases must be in the same condition they were delivered in — no tears, re-wrapping or tampering.',
+            'We accept returns of sealed product for any reason within the window, including a change of mind.',
           ],
         },
       ],
@@ -227,7 +221,7 @@ export const returnsPolicy: Policy = {
             'Your order number',
             'The product name',
             'The reason for the return',
-            'Photos of the item if it is damaged, defective or incorrect',
+            'Photos of the box, showing the seal, if it arrived damaged or is the wrong item',
           ],
         },
         { type: 'h3', text: 'Step 2 — Receive return authorization' },
@@ -254,7 +248,7 @@ export const returnsPolicy: Policy = {
           type: 'ul',
           items: [
             'Mail-in return using the instructions we provide',
-            'Carrier pickup, which we arrange for oversized and freight items',
+            'A prepaid label we send you for damaged or incorrect items',
             'An authorized drop-off location, where one is available near you',
           ],
         },
@@ -289,7 +283,7 @@ export const returnsPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'If a return is approved because the merchandise was defective, the wrong item was shipped, or the product was damaged in transit, we cover the return shipping and refund the full amount you paid, including any original shipping charges.',
+          text: 'If a return is approved because the wrong item was shipped, the product was not as described, or it was damaged in transit, we cover the return shipping and refund the full amount you paid.',
         },
         {
           type: 'p',
@@ -313,7 +307,7 @@ export const returnsPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'If you receive an item that is damaged, defective or different from what you ordered, contact us within a reasonable time after delivery with your order number, a short description and clear photos of the issue.',
+          text: 'If you receive a box that is damaged, has a broken seal, or is different from what you ordered, contact us within 7 days of delivery with your order number, a short description and clear photos of the box and its seal. Please leave the product unopened.',
         },
         { type: 'p', text: 'Depending on the situation we will:' },
         {
@@ -321,7 +315,6 @@ export const returnsPolicy: Policy = {
           items: [
             'Send a replacement product at no charge, or',
             'Issue a full refund, or',
-            'Ship replacement parts where that fully resolves the problem.',
           ],
         },
         {
@@ -346,12 +339,20 @@ export const returnsPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'A small number of items cannot be returned for health, hygiene, safety or legal reasons. Where an exclusion applies it is stated clearly on the product page before you buy.',
+          text: 'Trading card products are sold sealed, and their contents are random. For that reason the following cannot be returned:',
+        },
+        {
+          type: 'ul',
+          items: [
+            'Boxes, cases or packs that have been opened, or whose seal or shrink-wrap has been removed or broken',
+            'Individual packs or cards taken from a box',
+            'Product returned because of the cards pulled from it — pack contents are random and are not guaranteed',
+          ],
         },
         {
           type: 'callout',
-          title: 'Refrigerants',
-          text: 'Refrigerant cylinders and cans that have been opened, connected to a system, or had their factory seal broken cannot be returned, because they can no longer be certified as uncontaminated. Unopened, factory-sealed cylinders are fully returnable within the standard window. Defective or incorrectly supplied refrigerant is always covered, opened or not.',
+          title: 'Why opened product cannot come back',
+          text: 'Once a seal is broken there is no way to show that the packs inside are untouched, so an opened box can never be resold as sealed. If a box arrives damaged or with a broken seal, contact us before opening it and we will put it right.',
         },
       ],
     },
@@ -359,90 +360,67 @@ export const returnsPolicy: Policy = {
   ],
 };
 
-/* ------------------------------------------------------------- warranty */
+/* -------------------------------------------------------- authenticity */
 
-export const warrantyPolicy: Policy = {
-  slug: 'warranty',
-  title: 'Warranty and Replacement Policy',
-  summary: `Every product sold by ${site.name} carries a ${site.warranty.label} covering manufacturing defects under normal use conditions.`,
+export const authenticityPolicy: Policy = {
+  slug: 'authenticity',
+  title: 'Authenticity Guarantee',
+  summary: `Every box sold by ${site.name} is genuine, brand new and delivered in its original manufacturer seal. If it is not, we refund you in full.`,
   updated: UPDATED,
   sections: [
     {
-      id: 'coverage',
-      heading: 'What the warranty covers',
+      id: 'guarantee',
+      heading: 'Our guarantee',
       blocks: [
         {
           type: 'p',
-          text: `${site.legalName} provides a ${site.warranty.label} on all products sold through ${site.name}. The warranty runs for ${site.warranty.years} years from the date of delivery and covers manufacturing defects and product failures that occur under normal use conditions.`,
+          text: `${site.legalName} guarantees that every product sold through ${site.name} is authentic, brand new and factory sealed exactly as released by the manufacturer — Topps, Bowman, Panini, The Pokémon Company International or Wizards of the Coast. We do not sell resealed, re-wrapped, searched or weighed product.`,
         },
         {
           type: 'ul',
           items: [
-            'Defects in materials or workmanship',
-            'Structural failure of components under normal, intended use',
-            'Hardware, fixings and fasteners supplied with the product',
-            'Finish defects such as premature powder-coat failure or delamination',
+            'Boxes ship in the manufacturer shrink-wrap or seal they left the factory in',
+            'Cases ship with the manufacturer case seal intact',
+            'Products are described exactly as released: configuration, pack count and stated box hits',
           ],
         },
       ],
     },
     {
-      id: 'exclusions',
-      heading: 'What the warranty does not cover',
+      id: 'if-not',
+      heading: 'If a product is not as described',
       blocks: [
-        { type: 'p', text: 'This warranty does not cover:' },
+        {
+          type: 'p',
+          text: 'If you believe a box you received is not genuine, has been tampered with, or does not match its listing, contact us before opening it. Send your order number and clear photos of the box, the seal and the barcode.',
+        },
+        { type: 'p', text: 'If we confirm the problem we will, at your choice:' },
         {
           type: 'ul',
           items: [
-            'Misuse, abuse or accidental damage',
-            'Improper handling, assembly, installation or storage',
-            'Unauthorized modifications, alterations or repairs',
-            'Damage caused by neglect or by failure to follow the product instructions',
-            'Normal wear and tear, including natural weathering and colour change in timber',
-            'Damage caused by extreme weather events, flooding, fire or impact',
-            'Commercial or rental use of products sold for residential use',
+            'Send an identical sealed replacement at no charge, or',
+            'Refund the full amount you paid, including return shipping.',
           ],
         },
       ],
     },
     {
-      id: 'replacements',
-      heading: 'Replacement products',
+      id: 'random-contents',
+      heading: 'Random pack contents',
       blocks: [
         {
           type: 'p',
-          text: `If you are entitled to a replacement, ${site.name} will supply a product that is identical or of equal value. If the exact product is no longer available, we may instead:`,
-        },
-        {
-          type: 'ul',
-          items: [
-            'Supply a replacement product of similar specification and value,',
-            'Issue a full refund, or',
-            'Repair the product within a reasonable timeframe.',
-          ],
-        },
-        {
-          type: 'p',
-          text: 'Replacement products are covered by the same return, refund and warranty conditions as the original order. The warranty on a replacement runs for the remainder of the original warranty period.',
+          text: 'Trading card packs are randomly inserted by the manufacturer. Box break averages, such as "1 autograph per box", are the manufacturer\'s stated averages or guarantees and are reproduced as published. We have no knowledge of or control over which cards are inside a sealed box, and the value of the cards you pull is not guaranteed.',
         },
       ],
     },
     {
-      id: 'claim',
-      heading: 'How to make a warranty claim',
+      id: 'redemptions',
+      heading: 'Manufacturer redemptions',
       blocks: [
         {
-          type: 'ol',
-          items: [
-            `Email ${E} or call ${P} with your order number and the date of delivery.`,
-            'Describe the fault and attach clear photographs showing the defect and, where relevant, the product as installed.',
-            'Our team will assess the claim and respond, usually within one business day.',
-            'If the claim is approved we will ship replacement parts, a replacement product, or issue a refund — whichever resolves the fault.',
-          ],
-        },
-        {
           type: 'p',
-          text: 'You do not need to return a defective product before we begin resolving a warranty claim in most cases.',
+          text: 'Some products contain redemption cards for autographs or other items. Redemptions are fulfilled by the manufacturer under its own terms and timelines, not by us, but we are happy to help if you have trouble reaching the manufacturer.',
         },
       ],
     },
@@ -452,16 +430,11 @@ export const warrantyPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'This warranty is provided in addition to, and does not limit, the rights available to you under applicable consumer protection law. Nothing in this policy excludes any right that cannot lawfully be excluded.',
-        },
-        {
-          type: 'callout',
-          title: 'Where the manufacturer offers longer cover',
-          text: `Some products carry a manufacturer warranty longer than ${site.warranty.years} years — several outdoor structures are covered for five years or more, and the term is stated in the product description. Where a manufacturer warranty is longer than ours, the longer term applies and we will help you claim under it. Our ${site.warranty.label} is the minimum you get on anything bought here, never a cap.`,
+          text: 'This guarantee is provided in addition to, and does not limit, the rights available to you under applicable consumer protection law. Nothing in this policy excludes any right that cannot lawfully be excluded.',
         },
       ],
     },
-    contactSection('To make a warranty claim or ask about coverage, contact us:'),
+    contactSection('To report a problem with a product or ask about authenticity, contact us:'),
   ],
 };
 
@@ -492,7 +465,7 @@ export const orderAcceptancePolicy: Policy = {
             'Pricing, listing or typographical errors',
             'Suspected fraudulent or unauthorized activity',
             'Orders that cannot pass our payment verification checks',
-            'Orders for regulated products from buyers who cannot evidence the required certification',
+            'Orders that exceed a published purchase limit on a limited release',
             'Violations of our Terms of Service',
           ],
         },
@@ -520,7 +493,7 @@ export const orderAcceptancePolicy: Policy = {
         },
         {
           type: 'p',
-          text: 'These restrictions may be applied to orders that appear to be placed by the same customer or using related account information. They exist to prevent abuse, unauthorized reselling and fraudulent purchases.',
+          text: 'These restrictions may be applied to orders that appear to be placed by the same customer or using related account information. They exist to keep limited releases available to as many collectors as possible and to prevent fraudulent purchases.',
         },
       ],
     },
@@ -558,7 +531,7 @@ export const orderAcceptancePolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'To protect our customers and our business, orders may be subject to additional verification. We may contact you to confirm details before approving an order, and we may request evidence of certification for regulated products. Orders that fail verification are cancelled and refunded in full.',
+          text: 'To protect our customers and our business, orders may be subject to additional verification. We may contact you to confirm details before approving an order, particularly on high-value orders or orders shipping to an address that differs from the billing address. Orders that fail verification are cancelled and refunded in full.',
         },
       ],
     },

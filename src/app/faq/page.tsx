@@ -8,7 +8,7 @@ import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions',
-  description: `Answers on shipping, returns, refunds, payment security, warranty and refrigerant certification at ${site.name}.`,
+  description: `Answers on shipping, returns, refunds, payment security, authenticity and sealed hobby boxes at ${site.name}.`,
   alternates: { canonical: '/faq' },
 };
 
@@ -83,7 +83,7 @@ export default function FaqPage() {
               {[
                 ['/policies/shipping', 'Shipping'],
                 ['/policies/returns', 'Refunds & Returns'],
-                ['/policies/warranty', 'Warranty'],
+                ['/policies/authenticity', 'Authenticity'],
                 ['/policies/payment-security', 'Payment security'],
                 ['/policies/privacy', 'Privacy'],
                 ['/policies/terms', 'Terms'],

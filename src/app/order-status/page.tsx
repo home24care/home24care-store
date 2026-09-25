@@ -25,7 +25,7 @@ const STEPS = [
   },
   {
     title: 'Out for delivery',
-    body: `Parcels arrive in ${site.shipping.transitTime}. Freight items are scheduled by appointment and take 3–10 business days.`,
+    body: `Boxes arrive in ${site.shipping.transitTime}. Orders above $1,000 need a signature on delivery.`,
   },
 ];
 

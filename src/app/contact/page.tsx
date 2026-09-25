@@ -22,7 +22,7 @@ export default function ContactPage() {
           Talk to a real person
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
-          Whether you are checking which refrigerant a system takes, chasing a delivery, or need to
+          Whether you have a question about a release, are chasing a delivery, or need to
           start a return — call, email, or send us a message below. {site.contact.responseTime}
         </p>
       </header>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                 ['/order-status', 'Where is my order?'],
                 ['/policies/returns#start-a-return', 'How do I start a return?'],
                 ['/policies/shipping', 'How long does shipping take?'],
-                ['/policies/warranty#claim', 'How do I make a warranty claim?'],
+                ['/policies/authenticity', 'What does the Authenticity Guarantee cover?'],
                 ['/faq', 'See all FAQs'],
               ].map(([href, label]) => (
                 <li key={href}>

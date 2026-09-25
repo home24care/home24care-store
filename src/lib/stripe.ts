@@ -24,7 +24,7 @@ export function stripe(): Stripe {
     timeout: 8000,
     maxNetworkRetries: 1,
     typescript: true,
-    appInfo: { name: 'Home24Care Storefront', version: '1.0.0' },
+    appInfo: { name: 'TOPPSUEFA Storefront', version: '1.0.0' },
   });
   return client;
 }

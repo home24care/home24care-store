@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Karla, Lora } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/lib/cart';
 import Header from '@/components/Header';
@@ -15,26 +16,33 @@ import { GA_ID, ADS_ID } from '@/lib/gtag';
  * Microsoft Clarity project id. Public, like the Google ids, and overridable
  * per deploy so a staging site does not pollute the production recordings.
  */
+/*
+  The hobby-shop pairing: Lora for headings, Karla for everything else.
+  next/font self-hosts both at build time, so no request leaves for Google
+  at runtime and there is no layout shift while they load.
+*/
+const sans = Karla({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' });
+const display = Lora({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-display', display: 'swap' });
+
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID ?? 'ygx35r58b9';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Outdoor Living & Refrigerants`,
+    default: `${site.name} — Sealed Sports Cards & Hobby Boxes`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
   applicationName: site.name,
   keywords: [
-    'refrigerant cylinders',
-    'R-410A refrigerant',
-    'R-134a refrigerant',
-    'R-1234yf refrigerant',
-    'R-32 refrigerant',
-    'R-454B refrigerant',
-    'R-22 refrigerant',
-    'HVAC refrigerant',
-    'refrigerant pallet',
+    'hobby boxes',
+    'sports cards',
+    'Topps Chrome hobby box',
+    'Bowman baseball hobby box',
+    'Panini Prizm World Cup',
+    'Pokemon elite trainer box',
+    'Magic the Gathering collector booster box',
+    'sealed trading cards',
   ],
   authors: [{ name: site.legalName }],
   creator: site.legalName,
@@ -44,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: site.name,
-    title: `${site.name} — Outdoor Living & Refrigerants`,
+    title: `${site.name} — Sealed Sports Cards & Hobby Boxes`,
     description: site.description,
     url: site.url,
     locale: 'en_US',
@@ -52,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — Outdoor Living & Refrigerants`,
+    title: `${site.name} — Sealed Sports Cards & Hobby Boxes`,
     description: site.description,
     images: ['/og-image.jpg'],
   },
@@ -64,7 +72,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#274a37',
+  themeColor: '#1f2a24',
   width: 'device-width',
   initialScale: 1,
 };
@@ -73,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const groups = collectionGroups();
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <body className="flex min-h-screen flex-col">
         {/*
           Google Analytics 4.

@@ -7,8 +7,8 @@ const TOPICS = [
   'Question before ordering',
   'Existing order or delivery',
   'Return or refund',
-  'Warranty claim',
-  'Trade / bulk enquiry',
+  'Authenticity or damaged box',
+  'Sealed case or bulk enquiry',
   'Something else',
 ];
 

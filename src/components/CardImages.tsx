@@ -56,7 +56,7 @@ export default function CardImages({
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
         unoptimized={IMAGES_LOCALIZED}
-        className={`object-cover transition-[opacity,transform] duration-300 ${
+        className={`object-contain p-3 transition-[opacity,transform] duration-300 ${
           revealed ? 'group-hover:opacity-0' : 'group-hover:scale-[1.03]'
         }`}
       />
@@ -71,7 +71,7 @@ export default function CardImages({
           unoptimized={IMAGES_LOCALIZED}
           onLoad={() => setReady(true)}
           aria-hidden="true"
-          className={`pointer-events-none object-cover opacity-0 transition-opacity duration-300 ${
+          className={`pointer-events-none object-contain p-3 opacity-0 transition-opacity duration-300 ${
             ready ? 'group-hover:opacity-100' : ''
           }`}
         />

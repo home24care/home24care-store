@@ -1,7 +1,7 @@
 import type { Policy } from '@/lib/policy-types';
 import { site } from '@/lib/site';
 
-const UPDATED = 'September 5, 2026';
+const UPDATED = 'September 25, 2026';
 const A = site.address.formatted;
 const E = site.contact.email;
 const P = site.contact.phone;
@@ -58,7 +58,7 @@ export const privacyPolicy: Policy = {
         { type: 'h3', text: 'Business information' },
         {
           type: 'p',
-          text: 'For trade and commercial customers we may collect business names, tax identification numbers, professional licences and EPA certification details where these are necessary for the transaction or required by regulation.',
+          text: 'For wholesale and business customers we may collect business names and tax identification numbers where these are necessary for the transaction or required by regulation.',
         },
         { type: 'h3', text: 'Technical information' },
         {
@@ -100,7 +100,7 @@ export const privacyPolicy: Policy = {
             'Order processing and fulfilment — to process orders, arrange shipping, handle returns and provide support related to your purchases.',
             'Account management — to create and maintain your account, provide order history and save your preferences.',
             'Customer service — to respond to enquiries, resolve issues and improve how we support customers.',
-            'Legal compliance — to meet tax obligations, consumer protection requirements, hazardous-goods and environmental regulations, and fraud prevention duties.',
+            'Legal compliance — to meet tax obligations, consumer protection requirements, and fraud prevention duties.',
             'Business operations — to analyse aggregated, de-identified data for website improvement and inventory planning.',
             'Marketing — to send you offers and product news, only where you have opted in, and only until you opt out.',
           ],
@@ -211,7 +211,7 @@ export const privacyPolicy: Policy = {
           head: ['Record type', 'Retention period'],
           rows: [
             ['Customer account information', 'While your account is active, plus a reasonable period afterwards'],
-            ['Order and payment records', 'Seven years from the transaction date, for tax, warranty and legal compliance'],
+            ['Order and payment records', 'Seven years from the transaction date, for tax and legal compliance'],
             ['Customer service communications', 'Up to three years, for quality assurance and dispute resolution'],
             ['Marketing preferences', 'Until you opt out, plus a record of the opt-out itself'],
           ],
@@ -374,7 +374,7 @@ export const termsPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'Certain products may be available exclusively online and in limited quantities. All purchases made through this website are subject to our Refunds and Returns Policy, Shipping Policy, Warranty and Replacement Policy, and Order Acceptance and Cancellation Policy, each of which forms part of these Terms.',
+          text: 'Certain products may be available exclusively online and in limited quantities. All purchases made through this website are subject to our Refunds and Returns Policy, Shipping Policy, Authenticity Guarantee, and Order Acceptance and Cancellation Policy, each of which forms part of these Terms.',
         },
         {
           type: 'p',
@@ -392,8 +392,8 @@ export const termsPolicy: Policy = {
       blocks: [
         {
           type: 'callout',
-          title: 'Refrigerants and controlled substances',
-          text: 'Certain refrigerants sold on this website may lawfully be sold only to buyers who hold the appropriate certification under Section 608 or Section 609 of the U.S. Clean Air Act. By ordering a regulated product you represent and warrant that you hold the certification your purchase requires, that the information you provide about it is accurate, and that you will handle, charge, store and recover the product in accordance with EPA regulations and all applicable law.',
+          title: 'Trading card products',
+          text: 'Trading card products contain randomly inserted cards. By ordering you acknowledge that pack contents are determined by the manufacturer, that box break averages are the manufacturer\'s published figures, and that the value of any card pulled is not guaranteed.',
         },
         {
           type: 'p',
@@ -514,7 +514,7 @@ export const termsPolicy: Policy = {
         },
         {
           type: 'p',
-          text: 'This does not affect the Three-Year Limited Warranty we provide on the products we sell, or your statutory consumer rights.',
+          text: 'This does not affect our Authenticity Guarantee on the products we sell, or your statutory consumer rights.',
         },
       ],
     },

@@ -94,3 +94,11 @@ export const feedImage = (src: string): string =>
  * never generated.
  */
 export const FEED_EXTRA = 7;
+
+/**
+ * The transparent cut-out of a packshot, for dark or tinted panels where the
+ * white studio background would show as a box. Generated for every catalog
+ * image by `npm run build:cutouts`.
+ */
+export const cutoutImage = (src: string): string =>
+  src.replace(/-(?:thumb|card|full)\.webp$/, '-cut.webp');

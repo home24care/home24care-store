@@ -21,7 +21,9 @@ function resolve(slug: string) {
       slug,
       title: real.title,
       tagline: real.tagline,
-      description: `Shop ${real.count} ${real.title.toLowerCase()} at ${site.name}. ${real.tagline} Free standard shipping on every order, ${site.returns.windowDays}-day returns and a ${site.warranty.label.toLowerCase()}.`,
+      description:
+        real.description ??
+        `Shop factory-sealed ${real.title} products at ${site.name}. ${real.tagline} Free shipping on every order.`,
       items: productsIn(slug),
     };
   }
@@ -85,18 +87,31 @@ export default async function CollectionPage({ params }: { params: Promise<Param
       />
       <JsonLd data={itemListSchema(data.items, data.title, `/collections/${slug}`)} />
 
-      <header className="max-w-3xl pb-8">
-        <h1 className="font-display text-[34px] leading-[1.1] tracking-tight sm:text-[44px]">
+      <header className="mb-10 rounded-md bg-sand px-6 py-10 text-center sm:px-12">
+        <p className="eyebrow">{data.tagline.replace(/\.$/, "")}</p>
+        <h1 className="mt-2 font-display text-[32px] uppercase leading-[1.1] tracking-[0.02em] sm:text-[42px]">
           {data.title}
         </h1>
-        <p className="mt-3 text-[15.5px] leading-relaxed text-ink-soft">{data.description}</p>
+        <p className="mx-auto mt-3 max-w-3xl text-[15px] font-medium leading-relaxed text-ink-soft">{data.description}</p>
         {prices.length > 0 && (
-          <p className="mt-3 text-[13.5px] text-ink-muted">
-            {data.items.length} products from {formatPrice(Math.min(...prices))} to{' '}
-            {formatPrice(Math.max(...prices))} · Free standard shipping
+          <p className="mt-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+            {data.items.length} {data.items.length === 1 ? 'product' : 'products'}
+            {prices.length > 1 && (
+              <>
+                {' '}· {formatPrice(Math.min(...prices))} – {formatPrice(Math.max(...prices))}
+              </>
+            )}{' '}
+            · Free shipping
           </p>
         )}
       </header>
+
+      {data.items.length === 0 && (
+        <p className="py-10 text-center text-[15px] text-ink-soft">
+          Nothing here right now — new drops land often.{' '}
+          <a href="/collections" className="font-semibold text-moss-500 underline">Browse all categories</a>.
+        </p>
+      )}
 
       {/* No Suspense: CollectionSorter reads the query string from
           window.location after mount rather than through useSearchParams, so
@@ -119,25 +134,25 @@ export default async function CollectionPage({ params }: { params: Promise<Param
         </ProductGrid>
       </CollectionSorter>
 
-      <div className="mt-16 rounded-2xl bg-sand p-8">
-        <h2 className="font-display text-[22px] tracking-tight">
-          Shipping &amp; returns on {data.title.toLowerCase()}
+      <div className="mt-16 rounded-md border border-ink/10 p-8">
+        <h2 className="font-display text-[20px] uppercase tracking-[0.02em]">
+          Buying {data.title} from {site.name}
         </h2>
         <div className="mt-3 grid gap-4 text-[14.5px] leading-relaxed text-ink-soft sm:grid-cols-3">
           <p>
-            <strong className="font-semibold text-ink">Free standard shipping.</strong> Orders
-            leave our warehouse within {site.shipping.handlingTime} and arrive in{' '}
-            {site.shipping.transitTime}.
+            <strong className="font-semibold text-ink">Free shipping, packed seal-safe.</strong>{' '}
+            Orders leave within {site.shipping.handlingTime}, bubble-wrapped in a rigid carton,
+            and arrive in {site.shipping.transitTime}.
           </p>
           <p>
             <strong className="font-semibold text-ink">
               {site.returns.windowDays}-day returns.
             </strong>{' '}
-            Both defective and non-defective items, with no restocking fee.
+            Unopened, factory-sealed product, with no restocking fee.
           </p>
           <p>
-            <strong className="font-semibold text-ink">{site.warranty.label}.</strong> Covers
-            manufacturing defects under normal use.
+            <strong className="font-semibold text-ink">{site.warranty.label}.</strong> Every box
+            is genuine and factory sealed, or your money back.
           </p>
         </div>
       </div>

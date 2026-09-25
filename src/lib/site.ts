@@ -6,9 +6,9 @@
  * template pulls from here rather than hardcoding a value.
  */
 export const site = {
-  name: 'Home24Care',
+  name: 'TOPPSUEFA',
   legalName: 'home24care GROUP LLC',
-  domain: 'home24care.com',
+  domain: 'toppsuefa.com',
   /**
    * Normalized once here so a stray trailing slash or missing scheme in the
    * host's env cannot produce double-slash canonicals, a broken sitemap and a
@@ -16,20 +16,26 @@ export const site = {
    * on a schemeless value, which fails the deploy with an opaque stack trace.
    */
   url: (() => {
-    const raw = (process.env.NEXT_PUBLIC_SITE_URL || 'https://home24care.com').trim();
+    const raw = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toppsuefa.com').trim();
     const withScheme = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
     return withScheme.replace(/\/+$/, '');
   })(),
-  tagline: 'Outdoor living, built to last',
+  tagline: 'Sealed hobby boxes for serious collectors',
   description:
-    'Home24Care supplies factory-sealed refrigerant cylinders and HVAC service gases to trade and professional customers across the United States — R-410A, R-134a, R-1234yf, R-32, R-454B and legacy R-22, in single cylinders through to full pallets, with free standard shipping.',
+    'TOPPSUEFA is a U.S. hobby shop for factory-sealed trading cards — Topps Chrome, Bowman, Panini Prizm, Pokémon TCG and Magic: The Gathering hobby boxes and cases, shipped free and packed to protect the seal.',
 
   contact: {
-    email: 'contact@home24care.com',
+    email: 'contact@toppsuefa.com',
     phone: '+1 575 271 0768',
     phoneHref: '+15752710768',
     hours: 'Seven days a week, 9:00 AM – 6:00 PM MT',
     responseTime: 'We reply to every email within one day.',
+    /** Shown in the footer, in the hobby-shop "Business Hours" table. */
+    schedule: [
+      ['Mon – Fri', '9:00 AM – 6:00 PM MT'],
+      ['Saturday', '9:00 AM – 6:00 PM MT'],
+      ['Sunday', '9:00 AM – 6:00 PM MT'],
+    ],
   },
 
   address: {
@@ -59,9 +65,10 @@ export const site = {
     restockingFee: false,
   },
 
+  /** The store's product promise, shown wherever a guarantee is summarised. */
   warranty: {
-    years: 3,
-    label: 'Three-Year Limited Warranty',
+    label: 'Authenticity Guarantee',
+    short: '100% authentic, factory sealed',
   },
 
   social: {

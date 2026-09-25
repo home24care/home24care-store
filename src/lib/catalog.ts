@@ -32,7 +32,9 @@ export type Product = {
   requiresShipping: boolean;
   weightGrams: number;
   regulated?: boolean;
-  source: 'outdoor' | 'gas' | 'equipment';
+  /** Maximum units per order, where a limited release is allocated. */
+  purchaseLimit?: number;
+  source: 'cards';
 
   /* --- Google Merchant attributes, derived from the title by
      scripts/enrich-merchant.mjs. All optional: absent means the title did not
@@ -72,6 +74,8 @@ export type Collection = {
   title: string;
   group: string;
   tagline: string;
+  /** Intro paragraph for the collection page. */
+  description?: string;
   googleCategory: string;
   count: number;
 };
@@ -92,7 +96,7 @@ const bySku = new Map(products.map((p) => [p.sku, p]));
 export const getProductBySku = (sku: string) => bySku.get(sku);
 export const getCollection = (slug: string) => collectionBySlug.get(slug);
 
-/** The group a collection belongs to ("Outdoor Living", "Garage & Workshop"...). */
+/** The group a collection belongs to ("Sports Cards", "Trading Card Games"). */
 export const collectionGroup = (slug: string): string | undefined =>
   collectionBySlug.get(slug)?.group;
 
@@ -129,10 +133,47 @@ export const featured = (n: number, seed = 'home') =>
     .sort((a, b) => hash(seed + a.id) - hash(seed + b.id))
     .slice(0, n);
 
+/** Products flagged as in high demand on the U.S. secondary market. */
 export const bestSellers = (n: number) =>
-  products
-    .filter((p) => p.badges.includes('Best Seller') || p.badges.includes('Top Seller'))
-    .slice(0, n);
+  products.filter((p) => p.badges.includes('High Demand')).slice(0, n);
+
+/** Short-print formats: Sapphire, Delight, Logofractor and similar. */
+export const limitedReleases = (n: number) =>
+  products.filter((p) => p.badges.includes('Limited Release')).slice(0, n);
+
+/** Collections in a storefront group, e.g. "Trading Card Games". */
+export const productsInGroup = (group: string) =>
+  products.filter((p) => collectionBySlug.get(p.collection)?.group === group);
+
+/**
+ * Product descriptions are stored as light markup: `## ` and `### ` start a
+ * heading, `- ` starts a bullet. The product page renders that structure;
+ * anything leaving the site (feed, JSON-LD) needs it flattened to prose.
+ */
+export type DescriptionBlock =
+  | { type: 'h2' | 'h3' | 'p'; text: string }
+  | { type: 'ul'; items: string[] };
+
+export const descriptionBlocks = (description: string): DescriptionBlock[] => {
+  const blocks: DescriptionBlock[] = [];
+  for (const raw of description.split('\n')) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('### ')) blocks.push({ type: 'h3', text: line.slice(4) });
+    else if (line.startsWith('## ')) blocks.push({ type: 'h2', text: line.slice(3) });
+    else if (line.startsWith('- ')) {
+      const last = blocks[blocks.length - 1];
+      if (last?.type === 'ul') last.items.push(line.slice(2));
+      else blocks.push({ type: 'ul', items: [line.slice(2)] });
+    } else blocks.push({ type: 'p', text: line });
+  }
+  return blocks;
+};
+
+export const plainDescription = (description: string): string =>
+  descriptionBlocks(description)
+    .map((b) => (b.type === 'ul' ? b.items.map((i) => `• ${i}`).join('\n') : b.type === 'p' ? b.text : `${b.text}:`))
+    .join('\n');
 
 export const newArrivals = (n: number) =>
   products.filter((p) => p.badges.includes('New Arrival')).slice(0, n);

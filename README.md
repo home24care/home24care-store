@@ -1,7 +1,8 @@
-# Home24Care storefront
+# TOPPSUEFA storefront
 
-A Next.js 15 (App Router) e-commerce storefront for **home24care.com** — 278 products
-across outdoor living and HVAC refrigerants, with Stripe Checkout, a Google Merchant
+A Next.js 15 (App Router) e-commerce storefront for **toppsuefa.com** — a hobby shop for
+factory-sealed trading cards (Topps, Bowman, Panini, Pokémon TCG, Magic: The Gathering),
+with Stripe Checkout, a Google Merchant
 Center product feed, and a complete policy set.
 
 ```bash
@@ -50,7 +51,7 @@ cp .env.example .env.local
 
 ### 2. Stripe webhook
 
-Create an endpoint at `https://home24care.com/api/webhooks/stripe` subscribed to:
+Create an endpoint at `https://toppsuefa.com/api/webhooks/stripe` subscribed to:
 
 ```
 checkout.session.completed
@@ -130,28 +131,30 @@ Alongside that:
   JSON-LD, OG tags and the Stripe Checkout line items. Merchant Center rejects a
   relative `image_link` and Stripe silently drops relative images, so anything
   emitting an off-site image URL must go through it.
-- Full-bleed heroes use a separate 1920x1000 `-hero.webp` (`npm run
-  build:heroes`). The standard `full` variant is 1100px, sized for the 620px
-  gallery slot; pointing a 100vw hero at it upscaled ~1.3x on a 1440px display.
-  `heroVariant()` checks `data/hero-variants.json` and falls back to `full` when
-  no wide variant exists, so a missing file can never 404 the LCP image.
+- Dark and tinted homepage panels use transparent `-cut.webp` cut-outs of the
+  packshots (`npm run build:cutouts`), so the white studio background never
+  shows as a box. `cutoutImage()` in `src/lib/image.ts` maps any variant to it.
 - Only the hero is preloaded. Category tiles are `loading="lazy"` — preloading
   below-the-fold art competed with the hero for the LCP slot.
 - `/product-images/*` is cached for a year with `stale-while-revalidate`, not
   `immutable`: filenames hash the source URL rather than the file contents, so a
   re-encode reuses the name and `immutable` would strand the old bytes.
 
-## Rebuilding the catalog
+## The catalog
 
-`data/catalog.json` is generated from the raw exports in `scripts/source/`:
+`data/catalog.json` holds the 13 sealed releases the store sells. Each product was
+imported from its takybox.com listing (title, price, images, manufacturer box
+configuration and checklist), then cleaned: third-party retailer promo lines were
+removed, a short original intro and five feed highlights were written per product,
+and every UPC was checked against its GS1 check digit before being stored as `gtin`.
 
-```bash
-node scripts/build-catalog.mjs
-```
+Descriptions use light markup — `## ` heading, `### ` sub-heading, `- ` bullet —
+rendered by `descriptionBlocks()` on the product page and flattened by
+`plainDescription()` for the feed. `purchaseLimit` caps quantity in the cart and
+is re-enforced server-side in `/api/checkout`.
 
-The script normalises both sources into one schema, maps them onto 15 storefront
-collections, decodes HTML entities, derives brands, and writes `PRICE-REVIEW.md` for
-anything that looks mispriced.
+To add a product: append it to `data/catalog.json` with remote image URLs, then run
+`npm run localize:images`, `npm run build:feed-images` and `npm run build:cutouts`.
 
 **Money is stored as integer cents throughout.** Never introduce a float — format only
 at the edge with `formatPrice()` from `src/lib/format.ts`.
@@ -161,7 +164,7 @@ at the edge with `formatPrice()` from `src/lib/format.ts`.
 ## Google Merchant Center
 
 The feed lives at **`/feeds/google`** (RSS 2.0 with the `g:` namespace). Point a
-scheduled fetch at `https://home24care.com/feeds/google`.
+scheduled fetch at `https://toppsuefa.com/feeds/google`.
 
 It is generated from the same catalog the product pages render, so the feed and the
 landing page can never disagree on price or availability — the most common cause of
@@ -214,56 +217,19 @@ channel, so a transparent WebP would otherwise composite to black.
 
 ### Merchant attributes
 
-`node scripts/enrich-merchant.mjs` derives the attributes the source data did
-not carry. Everything is read out of the product **title**, which is the one
-field that is authoritative and never edited — nothing is inferred from
-marketing copy, because a wrong `size` or `multipack` is worse than an absent
-one. Google matches the offer against the wrong thing.
-
-| Attribute | Coverage | Derived from |
-| --- | ---: | --- |
-| `size` | 86 | Dimensions in the title, e.g. `16x12` |
-| `color` | 25 | Finish word in the title |
-| `item_group_id` | 79 across 20 groups | Model name + product type |
-| `multipack` | 16 | `40 × 24lb`, `16 Cans`, `3-Pack` |
-| `is_bundle` | 5 | Packs sold *with* a tap or gauge |
-| `unit_pricing_measure` | 37 | Net content of one unit |
-| `shipping_weight` | 248 | Catalog weight, converted to lb |
-| `product_highlight` | 99 | Existing highlight bullets |
-
-Two rules that are easy to get wrong and are handled deliberately:
-
-- **A multipack is N identical units; a bundle is different products together.**
-  "40 × 30lb R-22" is `multipack: 40`. "3 Cans with HD Brass Can Tap" is
-  `is_bundle: yes`, because the tap is not another can.
-- **Only genuine variants are grouped.** A group survives only when at least
-  two members each state a size or a colour, and only those members join it.
-  Configuration differences are not variants to Google — an Emory island with
-  a griddle versus one with a pizza oven are separate products, not options on
-  one. This rule also caught a "Privacy Wall Add-on Kit" being grouped with the
-  panel it attaches to.
-
-`identifier_exists` is deliberately **not** sent. It means "this product has no
-GTIN and no MPN", which would contradict the `mpn` on every line. Brand + MPN
-is the identifier pair for this catalog; there are no real GTINs, and inventing
-them is not an option.
-
-Feed `id` is the SKU passed through untouched wherever it fits Google's
-50-character cap. An id is the permanent handle for an offer — changing one
-orphans its history in Merchant Center — so only the 3 SKUs that were too long
-are shortened, deterministically, keeping a readable prefix plus a hash.
-
-The Product JSON-LD mirrors `color`, `size`, `inProductGroupWithID` and
-`weight`, because Google reconciles the landing page against the feed.
+Every product carries `brand`, `gtin` (the manufacturer UPC, check-digit verified)
+and up to five `product_highlight` lines. The one exception is the Ascended Heroes
+10-box case, which has no case-level UPC of its own — it is sent with
+`identifier_exists: no` rather than a borrowed or invented code. All products map to
+Google category *Collectible Trading Cards* (6997).
 
 ### Before you submit
 
 1. **Set `NEXT_PUBLIC_SITE_URL`** to the real origin — otherwise every feed link points
    at the wrong host.
-2. **Review `PRICE-REVIEW.md`.** Five refrigerant listings were imported at pallet-scale
-   prices despite being single cylinders (e.g. a 25 lb cylinder at $11,960). Prices were
-   imported exactly as published on the source sites and not silently "corrected" —
-   confirm or fix each one, because a price/value mismatch will get items disapproved.
+2. **Review prices.** They were copied from takybox.com as requested, and several sit
+   well below current U.S. secondary-market prices. Confirm you can fulfil at these
+   prices.
 3. **Verify the business address and phone** match your Merchant Center and Stripe
    accounts exactly.
 4. **Re-run `npm run localize:images`** if you have added products since the last
@@ -416,7 +382,7 @@ Eight documents, all at `/policies/<slug>` and linked from the footer sitewide:
 | --- | --- |
 | `shipping` | Shipping Policy |
 | `returns` | Refunds and Returns Policy |
-| `warranty` | Warranty and Replacement Policy |
+| `authenticity` | Authenticity Guarantee (`/policies/warranty` redirects here) |
 | `order-acceptance` | Order Acceptance and Cancellation Policy |
 | `payment-security` | Secure Payment and Security Policy |
 | `privacy` | Privacy Policy |
@@ -428,9 +394,10 @@ so every page renders with consistent typography and a specific clause is easy t
 when a reviewer asks for one. Each ends with identical contact details pulled from
 `site.ts`.
 
-Refrigerants are treated as regulated goods throughout — Clean Air Act §608/§609
-certification language appears on the product page, in the shipping policy, in the
-returns exclusions and in the terms.
+Trading-card specifics are handled throughout: returns cover unopened, factory-sealed
+product only; pack contents are stated to be random and box break averages to be the
+manufacturer's published figures; manufacturer redemptions are the manufacturer's to
+fulfil.
 
 **Have a lawyer review these before you trade.** They are thorough and internally
 consistent, but they are not legal advice.
@@ -442,7 +409,7 @@ consistent, but they are not legal advice.
 - **Server-side price resolution.** `/api/checkout` ignores any price sent by the client
   and re-resolves every line against the catalog, rejecting unknown or out-of-stock
   items. A tampered cart cannot change what you charge.
-- **Static generation.** 320 pages prerender at build time; only checkout, search and the
+- **Static generation.** Every product, collection and policy page prerenders at build time; only checkout, search and the
   API routes are dynamic.
 - **Security headers** (HSTS, `X-Content-Type-Options`, `Referrer-Policy`,
   `Permissions-Policy`) are set in `next.config.mjs`.
@@ -462,6 +429,6 @@ consistent, but they are not legal advice.
 | `npm run start` | Serve the production build |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run localize:images` | Download product images and self-host them |
-| `npm run build:heroes` | Generate the wide 1920x1000 hero variants |
+| `npm run build:cutouts` | Generate transparent packshot cut-outs for dark panels |
 | `npm run build:feed-images` | Generate the JPEG copies the Merchant feed needs |
-| `node scripts/build-catalog.mjs` | Regenerate `data/catalog.json` |
+| `node scripts/build-icons.mjs` | Rebuild logo, favicon and OG image from `scripts/brand/mark.svg` |

@@ -1,4 +1,4 @@
-import { products, getCollection } from '@/lib/catalog';
+import { products, getCollection, plainDescription } from '@/lib/catalog';
 import { priceDecimal } from '@/lib/format';
 import { site } from '@/lib/site';
 import { createHash } from 'node:crypto';
@@ -66,7 +66,7 @@ export async function GET() {
           : 'in_stock';
 
       const description =
-        product.description.slice(0, 4900) ||
+        plainDescription(product.description).slice(0, 4900) ||
         `${product.title} from ${product.brand}, sold by ${site.name} with free standard shipping.`;
 
       const additionalImages = product.images
@@ -96,11 +96,11 @@ export async function GET() {
       // is the identifier pair and the attribute stays off.
       //
       // The equipment range is the exception. Its source publishes no usable
-      // GTIN (see GTIN-AUDIT.md) and its SKUs are the retailer's internal ids,
+      // GTIN and its SKUs are the retailer's internal ids,
       // not manufacturer codes, so an MPN is sent only where a real model code
       // was established. Where none was, the honest signal is identifier_exists
       // = no, rather than a part number the manufacturer would not recognise.
-      const mpn = product.mpn ?? (product.source === 'equipment' ? null : product.sku);
+      const mpn = product.mpn ?? null;
 
       const identifiers = [
         mpn && `\n      <g:mpn>${escape(mpn)}</g:mpn>`,
@@ -129,7 +129,7 @@ export async function GET() {
         .filter(Boolean)
         .join('');
 
-      const productType = `${collection?.group ?? 'Home'} > ${
+      const productType = `${collection?.group ?? 'Trading Cards'} > ${
         collection?.title ?? product.productType
       }`;
 
@@ -145,7 +145,7 @@ ${additionalImages}
       <g:condition>new</g:condition>
       <g:brand>${cdata(product.brand)}</g:brand>${identifiers}${optional}
       <g:google_product_category>${cdata(
-        collection?.googleCategory ?? 'Home & Garden'
+        collection?.googleCategory ?? 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards'
       )}</g:google_product_category>
       <g:product_type>${cdata(productType)}</g:product_type>
       <g:shipping>

@@ -7,7 +7,7 @@ import { search, collections } from '@/lib/catalog';
 
 export const metadata: Metadata = {
   title: 'Search',
-  description: 'Search the Home24Care catalog.',
+  description: 'Search sealed hobby boxes and trading card games.',
   robots: { index: false, follow: true },
 };
 
@@ -42,7 +42,7 @@ export default async function SearchPage({
           type="search"
           name="q"
           defaultValue={query}
-          placeholder="Try “R-410A”, “1234yf” or “pallet”"
+          placeholder="Try “Bowman”, “Sapphire” or “Pokémon”"
           aria-label="Search products"
           className="field"
         />

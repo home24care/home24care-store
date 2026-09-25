@@ -246,14 +246,14 @@ export default function CheckoutClient() {
                   <strong className="font-semibold text-ink">
                     {site.returns.windowDays}-day returns
                   </strong>{' '}
-                  {site.returns.restockingFee ? '' : '— no restocking fee'}.
+                  on unopened product{site.returns.restockingFee ? '' : ' — no restocking fee'}.
                 </span>
               </li>
               <li className="flex gap-3">
                 <ShieldIcon className="mt-0.5 h-[18px] w-[18px] shrink-0 text-moss-700" />
                 <span>
-                  <strong className="font-semibold text-ink">{site.warranty.label}</strong> minimum,
-                  longer where the manufacturer offers it.
+                  <strong className="font-semibold text-ink">{site.warranty.label}</strong> — every
+                  box genuine and factory sealed.
                 </span>
               </li>
               <li className="flex gap-3">

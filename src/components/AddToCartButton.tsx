@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import type { Product } from '@/lib/catalog';
 import { useCart } from '@/lib/cart';
 import { CheckIcon, MinusIcon, PlusIcon } from './icons';
@@ -9,12 +10,17 @@ export default function AddToCartButton({
   product,
   variant = 'card',
   showQuantity = false,
+  buyNow = false,
 }: {
   product: Product;
   variant?: 'card' | 'primary';
   showQuantity?: boolean;
+  /** Adds a "Buy now" button that goes straight to checkout. */
+  buyNow?: boolean;
 }) {
-  const { add } = useCart();
+  const { add, close } = useCart();
+  const router = useRouter();
+  const max = product.purchaseLimit ?? 10;
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -38,9 +44,9 @@ export default function AddToCartButton({
   };
 
   return (
-    <div className={showQuantity ? 'flex flex-col gap-3 sm:flex-row' : ''}>
+    <div className={showQuantity ? 'flex flex-wrap gap-3' : ''}>
       {showQuantity && (
-        <div className="flex items-center justify-between rounded-full border border-ink/20 px-1 sm:w-36">
+        <div className="flex w-32 items-center justify-between rounded border border-ink/20 px-1">
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -54,7 +60,7 @@ export default function AddToCartButton({
           </span>
           <button
             type="button"
-            onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+            onClick={() => setQuantity((q) => Math.min(max, q + 1))}
             className="rounded-full p-2.5 text-ink-soft hover:text-ink"
             aria-label="Increase quantity"
           >
@@ -68,8 +74,8 @@ export default function AddToCartButton({
         onClick={onAdd}
         className={
           variant === 'primary'
-            ? 'btn-accent flex-1 py-3.5 text-[15px]'
-            : 'btn-outline w-full py-2.5 text-[13px] hover:border-moss-600 hover:bg-moss-600 hover:text-white'
+            ? 'btn-primary min-w-[150px] flex-1 py-3.5'
+            : 'btn-outline w-full py-2.5 text-[12px] hover:border-moss-400 hover:bg-moss-400 hover:text-white'
         }
       >
         {added ? (
@@ -80,6 +86,20 @@ export default function AddToCartButton({
           `Add to cart${product.preorder ? ' · Pre-order' : ''}`
         )}
       </button>
+
+      {buyNow && (
+        <button
+          type="button"
+          onClick={() => {
+            add(product, quantity);
+            close();
+            router.push('/checkout');
+          }}
+          className="btn-accent min-w-[150px] flex-1 py-3.5"
+        >
+          Buy now
+        </button>
+      )}
     </div>
   );
 }

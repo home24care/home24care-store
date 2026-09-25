@@ -2,7 +2,7 @@ import type { Policy } from '@/lib/policy-types';
 import {
   shippingPolicy,
   returnsPolicy,
-  warrantyPolicy,
+  authenticityPolicy,
   orderAcceptancePolicy,
   paymentSecurityPolicy,
 } from './policies-commerce';
@@ -12,7 +12,7 @@ import { privacyPolicy, termsPolicy, accessibilityPolicy } from './policies-lega
 export const policies: Policy[] = [
   shippingPolicy,
   returnsPolicy,
-  warrantyPolicy,
+  authenticityPolicy,
   orderAcceptancePolicy,
   paymentSecurityPolicy,
   privacyPolicy,

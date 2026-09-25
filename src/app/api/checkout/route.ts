@@ -53,7 +53,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: `${product.title} is out of stock.` }, { status: 409 });
     }
 
-    const quantity = Math.min(Math.max(Math.floor(Number(raw.quantity) || 1), 1), MAX_QUANTITY);
+    const quantity = Math.min(
+      Math.max(Math.floor(Number(raw.quantity) || 1), 1),
+      product.purchaseLimit ?? MAX_QUANTITY
+    );
     amount += product.price * quantity;
     metaSkus.push(`${product.sku}x${quantity}`);
   }
