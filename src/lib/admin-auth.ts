@@ -19,7 +19,7 @@ import { cookies } from 'next/headers';
  *    how much of a guess was correct.
  */
 
-export const ADMIN_COOKIE = 'h24c_admin';
+export const ADMIN_COOKIE = 'tuf_admin';
 const SESSION_MS = 12 * 60 * 60 * 1000;
 
 const enc = new TextEncoder();

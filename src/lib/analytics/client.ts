@@ -16,9 +16,9 @@ import type { EventName, IncomingEvent } from './types';
  * page — the visitor is simply not counted as returning.
  */
 
-const VISITOR_KEY = 'h24c.vid';
-const SESSION_KEY = 'h24c.sid';
-const SESSION_TS_KEY = 'h24c.sts';
+const VISITOR_KEY = 'tuf.vid';
+const SESSION_KEY = 'tuf.sid';
+const SESSION_TS_KEY = 'tuf.sts';
 const SESSION_IDLE_MS = 30 * 60 * 1000;
 
 const randomId = () => {

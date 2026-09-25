@@ -37,7 +37,7 @@ export default function PurchaseConversion({
   useEffect(() => {
     if (!transactionId || !(value >= 0)) return;
 
-    const key = `h24c_purchase_reported:${transactionId}`;
+    const key = `tuf_purchase_reported:${transactionId}`;
     try {
       if (localStorage.getItem(key)) return;
     } catch {

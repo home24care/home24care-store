@@ -36,8 +36,8 @@ const GAP_MS = 22000;
  * a nudge and a nuisance.
  */
 const MAX_PER_SESSION = 4;
-const DISMISSED_KEY = 'h24c_sales_toast_dismissed';
-const SHOWN_COUNT_KEY = 'h24c_sales_toast_shown';
+const DISMISSED_KEY = 'tuf_sales_toast_dismissed';
+const SHOWN_COUNT_KEY = 'tuf_sales_toast_shown';
 
 const readShownCount = (): number => {
   try {

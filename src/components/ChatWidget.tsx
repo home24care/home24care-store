@@ -7,8 +7,8 @@ import { playChime, primeAudio } from '@/lib/chat/notify';
 import type { ChatMessage } from '@/lib/chat/types';
 import { CloseIcon, ChevronIcon } from './icons';
 
-const STORAGE_KEY = 'h24c_chat_conversation';
-const DRAFT_KEY = 'h24c_chat_draft';
+const STORAGE_KEY = 'tuf_chat_conversation';
+const DRAFT_KEY = 'tuf_chat_draft';
 
 /** Poll fast while the visitor is looking, slowly when the tab is hidden. */
 const POLL_ACTIVE_MS = 2000;

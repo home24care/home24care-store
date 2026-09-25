@@ -49,9 +49,9 @@ export default function CartPageClient() {
           <CartIcon className="h-9 w-9" />
         </span>
         <div>
-          <h1 className="font-display text-[30px] tracking-tight">Your cart is empty</h1>
+          <h1 className="font-display text-[30px] uppercase tracking-[0.02em]">Your cart is empty</h1>
           <p className="mt-2 text-[15px] text-ink-soft">
-            Free standard shipping applies to every order, with no minimum.
+            Your next grail is waiting — every box ships factory sealed with free U.S. shipping.
           </p>
         </div>
         {error && (
@@ -61,10 +61,10 @@ export default function CartPageClient() {
         )}
         <div className="flex flex-wrap justify-center gap-3">
           <Link href="/collections" className="btn-primary">
-            Browse collections
+            Shop hobby boxes
           </Link>
           <Link href="/collections/best-sellers" className="btn-outline">
-            See best sellers
+            High demand
           </Link>
         </div>
       </div>
@@ -74,9 +74,10 @@ export default function CartPageClient() {
   return (
     <div className="grid gap-10 pb-16 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
       <div>
-        <h1 className="font-display text-[32px] tracking-tight sm:text-[40px]">Your cart</h1>
+        <p className="eyebrow">Almost yours</p>
+        <h1 className="mt-1 font-display text-[30px] uppercase tracking-[0.02em] sm:text-[38px]">Shopping cart</h1>
         <p className="mt-2 text-[14.5px] text-ink-soft">
-          {lines.length} {lines.length === 1 ? 'item' : 'items'} · Free standard shipping applied
+          {lines.length} {lines.length === 1 ? 'item' : 'items'} · Free shipping applied · Every box factory sealed
         </p>
 
         {error && (
@@ -90,7 +91,7 @@ export default function CartPageClient() {
             <li key={line.slug} className="flex gap-4 py-5 sm:gap-6">
               <Link
                 href={`/products/${line.slug}`}
-                className="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-sand sm:h-32 sm:w-32"
+                className="relative h-28 w-28 shrink-0 overflow-hidden rounded-md border border-ink/10 bg-white sm:h-32 sm:w-32"
               >
                 {line.image && (
                   <Image
@@ -100,7 +101,7 @@ export default function CartPageClient() {
                     sizes="(min-width: 640px) 128px, 112px"
                     quality={75}
                     unoptimized={IMAGES_LOCALIZED}
-                    className="object-cover"
+                    className="object-contain p-2"
                   />
                 )}
               </Link>
@@ -108,15 +109,15 @@ export default function CartPageClient() {
               <div className="flex min-w-0 flex-1 flex-col">
                 <Link
                   href={`/products/${line.slug}`}
-                  className="text-[15.5px] font-semibold leading-snug hover:text-moss-700"
+                  className="font-display text-[17px] leading-snug hover:text-moss-500"
                 >
                   {line.title}
                 </Link>
                 <p className="mt-1 text-[13px] text-ink-muted">SKU {line.sku}</p>
-                <p className="mt-1 text-[13px] font-medium text-moss-700">Free shipping</p>
+                <p className="mt-1 text-[13px] font-medium text-moss-500">Factory sealed · Free shipping</p>
 
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-3">
-                  <div className="flex items-center rounded-full border border-ink/20">
+                  <div className="flex items-center rounded border border-ink/20">
                     <button
                       type="button"
                       onClick={() => setQuantity(line.slug, line.quantity - 1)}
@@ -140,7 +141,7 @@ export default function CartPageClient() {
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <span className="text-[16px] font-bold tabular-nums">
+                    <span className="text-[16px] font-bold tabular-nums text-moss-500">
                       {formatPrice(line.price * line.quantity)}
                     </span>
                     <button
@@ -158,15 +159,15 @@ export default function CartPageClient() {
           ))}
         </ul>
 
-        <Link href="/collections" className="mt-6 inline-block text-[14px] font-semibold text-moss-700 underline underline-offset-2">
+        <Link href="/collections" className="mt-6 inline-block text-[13px] font-bold uppercase tracking-[0.08em] text-ink underline underline-offset-4 hover:text-moss-500">
           ← Continue shopping
         </Link>
       </div>
 
       {/* -------------------------------------------------------- Summary */}
-      <aside className="lg:sticky lg:top-28 lg:self-start">
-        <div className="rounded-2xl border border-ink/10 bg-sand p-6 shadow-card">
-          <h2 className="font-display text-[22px] tracking-tight">Order summary</h2>
+      <aside className="lg:sticky lg:top-40 lg:self-start">
+        <div className="rounded-md border border-ink/10 bg-sand p-6">
+          <h2 className="font-display text-[20px] uppercase tracking-[0.03em]">Cart totals</h2>
 
           <dl className="mt-4 space-y-2.5 text-[14.5px]">
             <div className="flex justify-between">
@@ -191,9 +192,9 @@ export default function CartPageClient() {
             type="button"
             onClick={checkout}
             disabled={busy}
-            className="btn-accent mt-5 w-full py-4 text-[15.5px]"
+            className="btn-primary mt-5 w-full py-4"
           >
-            {busy ? 'Redirecting to secure checkout…' : 'Proceed to secure checkout'}
+            {busy ? 'Opening secure checkout…' : 'Proceed to checkout'}
           </button>
 
           <p className="mt-3 flex items-center justify-center gap-1.5 text-[12.5px] text-ink-muted">
@@ -207,7 +208,7 @@ export default function CartPageClient() {
             {[
               [TruckIcon, `Ships in ${site.shipping.handlingTime}, arrives in ${site.shipping.transitTime}`],
               [ReturnIcon, `${site.returns.windowDays}-day returns on unopened product`],
-              [ShieldIcon, site.warranty.label],
+              [ShieldIcon, `${site.warranty.label} — 100% authentic, factory sealed`],
             ].map(([Icon, text]) => {
               const I = Icon as typeof TruckIcon;
               return (

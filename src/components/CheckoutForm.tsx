@@ -156,14 +156,14 @@ export default function CheckoutForm({
       </div>
 
       <section>
-        <h2 className="text-[17px] font-semibold text-ink">Contact</h2>
+        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Contact</h2>
         <div className="mt-3">
           <LinkAuthenticationElement />
         </div>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-[17px] font-semibold text-ink">Shipping address</h2>
+        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Shipping address</h2>
         <div className="mt-3">
           <AddressElement
             options={{
@@ -183,26 +183,26 @@ export default function CheckoutForm({
       </section>
 
       <section className="mt-8">
-        <h2 className="text-[17px] font-semibold text-ink">Shipping method</h2>
+        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Shipping method</h2>
         {/* One option, priced at zero. It is shown rather than hidden because a
             checkout that never mentions shipping reads as though a cost is
             about to appear. */}
-        <div className="mt-3 flex items-center justify-between rounded-xl border-2 border-moss-600 bg-moss-50 px-4 py-3.5">
+        <div className="mt-3 flex items-center justify-between rounded-md border-2 border-moss-400 bg-moss-50 px-4 py-3.5">
           <span>
             <span className="block text-[14.5px] font-semibold text-ink">
-              Free standard shipping
+              Free shipping — packed seal-safe
             </span>
             <span className="block text-[13px] text-ink-soft">
               Ships in {site.shipping.handlingTime.replace(' (Mon–Fri)', '')}, delivered in{' '}
               {site.shipping.transitTime}
             </span>
           </span>
-          <span className="text-[14.5px] font-semibold text-moss-700">Free</span>
+          <span className="text-[14.5px] font-semibold text-moss-500">Free</span>
         </div>
       </section>
 
       <section className="mt-8">
-        <h2 className="text-[17px] font-semibold text-ink">Payment</h2>
+        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Payment</h2>
         <p className="mt-1 text-[13px] text-ink-soft">
           All transactions are secure and encrypted.
         </p>
@@ -217,19 +217,19 @@ export default function CheckoutForm({
           type="checkbox"
           checked={accepted}
           onChange={(e) => setAccepted(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/30 text-moss-700 focus:ring-moss-600"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/30 text-moss-500 focus:ring-moss-400"
         />
         <span>
           I have read and accept the{' '}
-          <Link href="/policies/terms" className="font-medium text-moss-700 underline">
+          <Link href="/policies/terms" className="font-medium text-moss-500 underline">
             Terms
           </Link>
           , the{' '}
-          <Link href="/policies/privacy" className="font-medium text-moss-700 underline">
+          <Link href="/policies/privacy" className="font-medium text-moss-500 underline">
             Privacy Policy
           </Link>{' '}
           and the{' '}
-          <Link href="/policies/returns" className="font-medium text-moss-700 underline">
+          <Link href="/policies/returns" className="font-medium text-moss-500 underline">
             Return Policy
           </Link>
           .
@@ -239,7 +239,7 @@ export default function CheckoutForm({
       {error ? (
         <p
           role="alert"
-          className="mt-5 rounded-xl border border-clay-300 bg-clay-50 px-4 py-3 text-[14px] text-ink"
+          className="mt-5 rounded-md border border-clay-300 bg-clay-50 px-4 py-3 text-[14px] text-ink"
         >
           {error}
         </p>
@@ -248,13 +248,14 @@ export default function CheckoutForm({
       <button
         type="submit"
         disabled={!stripe || busy}
-        className="mt-6 w-full rounded-full bg-moss-800 px-6 py-4 text-[16px] font-semibold text-white transition-colors hover:bg-moss-900 disabled:cursor-not-allowed disabled:opacity-60"
+        className="btn-primary mt-6 w-full py-4 text-[14px]"
       >
         {busy ? 'Processing…' : `Place order · ${formatPrice(amount)}`}
       </button>
 
       <p className="mt-3 text-center text-[12.5px] leading-relaxed text-ink-muted">
-        No hidden costs. The amount above is what you pay, and shipping is free.
+        No hidden costs. The amount above is what you pay, shipping is free, and every box
+        ships factory sealed.
       </p>
     </form>
   );

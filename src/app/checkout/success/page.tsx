@@ -119,10 +119,11 @@ export default async function CheckoutSuccessPage({
         />
       )}
       <div className="mx-auto max-w-2xl text-center">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-moss-100 text-moss-700">
+        <p className="eyebrow">Order complete</p>
+        <span className="mx-auto mt-4 flex h-16 w-16 items-center justify-center rounded-full bg-moss-400 text-white">
           <CheckIcon className="h-8 w-8" />
         </span>
-        <h1 className="mt-6 font-display text-[34px] leading-tight tracking-tight sm:text-[42px]">
+        <h1 className="mt-6 font-display text-[30px] uppercase leading-tight tracking-[0.02em] sm:text-[38px]">
           Thank you — your order is confirmed
         </h1>
         <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">
@@ -134,13 +135,13 @@ export default async function CheckoutSuccessPage({
           ) : (
             'A confirmation email is on its way to the address you entered at checkout.'
           )}{' '}
-          You will receive a second email with tracking as soon as your order ships.
+          You will receive a second email with tracking as soon as your box ships — bubble-wrapped, boxed and factory sealed.
         </p>
 
         {summary && (
-          <div className="mt-8 rounded-2xl border border-ink/10 bg-sand p-6 text-left">
+          <div className="mt-8 rounded-md border border-ink/10 bg-sand p-6 text-left">
             <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-ink/10 pb-3">
-              <h2 className="font-display text-[20px] tracking-tight">Order summary</h2>
+              <h2 className="font-display text-[18px] uppercase tracking-[0.03em]">Order summary</h2>
               <p className="text-[13px] text-ink-muted">
                 Reference <span className="font-semibold text-ink">{summary.reference}</span>
               </p>
@@ -171,14 +172,14 @@ export default async function CheckoutSuccessPage({
 
         <div className="mt-8 grid gap-4 text-left sm:grid-cols-3">
           {[
-            [TruckIcon, 'Ships fast', `Leaves our warehouse in ${site.shipping.handlingTime}.`],
+            [TruckIcon, 'Ships seal-safe', `Leaves within ${site.shipping.handlingTime}, packed in a rigid carton.`],
             [MailIcon, 'Tracking email', 'Allow up to 48 hours for the carrier to update.'],
             [PhoneIcon, 'Need to change it?', `Call ${site.contact.phone} right away.`],
           ].map(([Icon, title, body]) => {
             const I = Icon as typeof TruckIcon;
             return (
-              <div key={title as string} className="rounded-xl border border-ink/10 p-4">
-                <I className="h-5 w-5 text-moss-600" />
+              <div key={title as string} className="rounded-md border border-ink/10 p-4">
+                <I className="h-5 w-5 text-moss-400" />
                 <p className="mt-2 text-[14px] font-semibold">{title as string}</p>
                 <p className="mt-0.5 text-[13px] leading-snug text-ink-muted">{body as string}</p>
               </div>
@@ -188,7 +189,7 @@ export default async function CheckoutSuccessPage({
 
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <Link href="/collections" className="btn-primary px-7 py-3.5">
-            Continue shopping
+            Keep collecting
           </Link>
           <Link href="/order-status" className="btn-outline px-7 py-3.5">
             Track your order
@@ -197,11 +198,11 @@ export default async function CheckoutSuccessPage({
 
         <p className="mt-8 text-[13.5px] text-ink-muted">
           Questions about this order? Email{' '}
-          <a href={`mailto:${site.contact.email}`} className="font-semibold text-moss-700 underline underline-offset-2">
+          <a href={`mailto:${site.contact.email}`} className="font-semibold text-moss-500 underline underline-offset-2">
             {site.contact.email}
           </a>{' '}
           or call{' '}
-          <a href={`tel:${site.contact.phoneHref}`} className="font-semibold text-moss-700 underline underline-offset-2">
+          <a href={`tel:${site.contact.phoneHref}`} className="font-semibold text-moss-500 underline underline-offset-2">
             {site.contact.phone}
           </a>
           .

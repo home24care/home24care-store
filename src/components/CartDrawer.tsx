@@ -9,7 +9,8 @@ import { useCart } from '@/lib/cart';
 import { track } from '@/lib/analytics/client';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
-import { CloseIcon, MinusIcon, PlusIcon, TrashIcon, LockIcon, TruckIcon, CartIcon } from './icons';
+import { CloseIcon, MinusIcon, PlusIcon, TrashIcon, LockIcon, TruckIcon, CartIcon, ShieldIcon } from './icons';
+import PaymentMarks from './PaymentMarks';
 import { IMAGES_LOCALIZED } from '@/lib/image';
 
 export default function CartDrawer() {
@@ -50,8 +51,8 @@ export default function CartDrawer() {
 
       <div className="absolute inset-y-0 right-0 flex w-full max-w-md animate-slide-in flex-col bg-white shadow-lift">
         <div className="flex h-16 shrink-0 items-center justify-between border-b border-ink/10 px-5">
-          <h2 className="font-display text-lg font-semibold">
-            Your cart {count > 0 && <span className="text-ink-muted">({count})</span>}
+          <h2 className="font-display text-[18px] uppercase tracking-[0.04em]">
+            Shopping cart {count > 0 && <span className="text-moss-500">({count})</span>}
           </h2>
           <button type="button" onClick={close} className="btn-ghost" aria-label="Close cart">
             <CloseIcon />
@@ -64,20 +65,26 @@ export default function CartDrawer() {
               <CartIcon className="h-7 w-7" />
             </span>
             <div>
-              <p className="font-display text-xl font-semibold">Your cart is empty</p>
+              <p className="font-display text-[20px] uppercase tracking-[0.03em]">Your cart is empty</p>
               <p className="mt-1 text-sm text-ink-muted">
-                Free standard shipping applies to every order.
+                Your next grail is waiting. Free U.S. shipping on every box.
               </p>
             </div>
-            <button type="button" onClick={close} className="btn-primary">
-              Continue shopping
-            </button>
+            <Link href="/collections" onClick={close} className="btn-primary">
+              Shop hobby boxes
+            </Link>
           </div>
         ) : (
           <>
-            <div className="flex items-center gap-2 bg-moss-50 px-5 py-2.5 text-[13px] font-medium text-moss-800">
-              <TruckIcon className="h-4 w-4" />
-              Free standard shipping unlocked on this order
+            <div className="flex items-center justify-between gap-2 bg-moss-400 px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-white">
+              <span className="flex items-center gap-2">
+                <TruckIcon className="h-4 w-4" />
+                Free shipping unlocked
+              </span>
+              <span className="flex items-center gap-1.5">
+                <ShieldIcon className="h-4 w-4" />
+                Factory sealed
+              </span>
             </div>
 
             <ul className="flex-1 divide-y divide-ink/10 overflow-y-auto px-5">
@@ -86,7 +93,7 @@ export default function CartDrawer() {
                   <Link
                     href={`/products/${line.slug}`}
                     onClick={close}
-                    className="relative h-[86px] w-[86px] shrink-0 overflow-hidden rounded-lg bg-sand"
+                    className="relative h-[86px] w-[86px] shrink-0 overflow-hidden rounded-md border border-ink/10 bg-white"
                   >
                     {line.image && (
                       <Image
@@ -96,7 +103,7 @@ export default function CartDrawer() {
                         sizes="86px"
                         quality={75}
                         unoptimized={IMAGES_LOCALIZED}
-                        className="object-cover"
+                        className="object-contain p-1.5"
                       />
                     )}
                   </Link>
@@ -105,14 +112,14 @@ export default function CartDrawer() {
                     <Link
                       href={`/products/${line.slug}`}
                       onClick={close}
-                      className="line-clamp-2 text-[14px] font-semibold leading-snug hover:text-moss-700"
+                      className="line-clamp-2 font-display text-[14.5px] leading-snug hover:text-moss-500"
                     >
                       {line.title}
                     </Link>
                     <p className="mt-0.5 text-xs text-ink-muted">SKU {line.sku}</p>
 
                     <div className="mt-auto flex items-center justify-between pt-2">
-                      <div className="flex items-center rounded-full border border-ink/15">
+                      <div className="flex items-center rounded border border-ink/15">
                         <button
                           type="button"
                           onClick={() => setQuantity(line.slug, line.quantity - 1)}
@@ -136,7 +143,7 @@ export default function CartDrawer() {
                       </div>
 
                       <div className="flex items-center gap-2.5">
-                        <span className="text-sm font-semibold tabular-nums">
+                        <span className="text-sm font-bold tabular-nums text-moss-500">
                           {formatPrice(line.price * line.quantity)}
                         </span>
                         <button
@@ -183,9 +190,9 @@ export default function CartDrawer() {
                 type="button"
                 onClick={checkout}
                 disabled={busy}
-                className="btn-accent mt-3 w-full py-3.5 text-[15px]"
+                className="btn-primary mt-3 w-full py-3.5"
               >
-                {busy ? 'Redirecting to secure checkout…' : 'Checkout'}
+                {busy ? 'Opening secure checkout…' : 'Proceed to checkout'}
               </button>
 
               <Link href="/cart" onClick={close} className="btn-outline mt-2 w-full py-2.5 text-sm">
@@ -194,8 +201,9 @@ export default function CartDrawer() {
 
               <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] text-ink-muted">
                 <LockIcon className="h-3.5 w-3.5" />
-                Secure checkout · {site.returns.windowDays}-day returns
+                Secure checkout · 100% authentic · {site.returns.windowDays}-day returns
               </p>
+              <PaymentMarks size="small" className="mt-3 justify-center" />
             </div>
           </>
         )}

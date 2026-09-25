@@ -32,7 +32,7 @@ type Action =
   | { type: 'remove'; slug: string }
   | { type: 'clear' };
 
-const STORAGE_KEY = 'h24c.cart.v1';
+const STORAGE_KEY = 'tuf.cart.v1';
 const MAX_PER_LINE = 10;
 
 function reducer(state: State, action: Action): State {
