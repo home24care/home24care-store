@@ -22,7 +22,7 @@ export default function ContactPage() {
           Talk to a real person
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-ink-soft">
-          Whether you are sizing up a gazebo for a patio, chasing a delivery, or need to
+          Whether you are checking which refrigerant a system takes, chasing a delivery, or need to
           start a return — call, email, or send us a message below. {site.contact.responseTime}
         </p>
       </header>

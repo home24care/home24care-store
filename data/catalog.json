@@ -67,9 +67,9 @@
    "excerpt": "A 1.5 lb cylinder of virgin R-410A — a small charge for top-ups, mini-splits and commissioning work.",
    "images": [
     {
-     "thumb": "/product-images/6f8d2388473337db-thumb.webp",
-     "card": "/product-images/6f8d2388473337db-card.webp",
-     "full": "/product-images/6f8d2388473337db-full.webp",
+     "thumb": "/product-images/95d3bc2efa1e107f-thumb.webp",
+     "card": "/product-images/95d3bc2efa1e107f-card.webp",
+     "full": "/product-images/95d3bc2efa1e107f-full.webp",
      "alt": "1.5lb R-410A Refrigerant, Virgin",
      "width": null,
      "height": null
@@ -87,9 +87,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "410 1.5LB",
-   "unitPricingMeasure": "1.5 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-yf10",
@@ -108,9 +106,9 @@
    "excerpt": "A 10 lb cylinder of Honeywell R-1234yf, made in the USA — cylinder quantity for shops doing regular HFO work.",
    "images": [
     {
-     "thumb": "/product-images/3b74a94892bb3179-thumb.webp",
-     "card": "/product-images/3b74a94892bb3179-card.webp",
-     "full": "/product-images/3b74a94892bb3179-full.webp",
+     "thumb": "/product-images/f99ee641ae49e47b-thumb.webp",
+     "card": "/product-images/f99ee641ae49e47b-card.webp",
+     "full": "/product-images/f99ee641ae49e47b-full.webp",
      "alt": "10lb Honeywell R-1234yf Refrigerant – Made in USA",
      "width": null,
      "height": null
@@ -128,9 +126,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "yf10",
-   "unitPricingMeasure": "10 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-R1234F",
@@ -149,9 +145,9 @@
    "excerpt": "A single 11 lb cylinder of R-1234yf for the shop that sees vehicle AC work now and then and wants gas on the shelf for the car in the bay.",
    "images": [
     {
-     "thumb": "/product-images/6936e748e36495e0-thumb.webp",
-     "card": "/product-images/6936e748e36495e0-card.webp",
-     "full": "/product-images/6936e748e36495e0-full.webp",
+     "thumb": "/product-images/04c7e18ec5defdce-thumb.webp",
+     "card": "/product-images/04c7e18ec5defdce-card.webp",
+     "full": "/product-images/04c7e18ec5defdce-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas",
      "width": null,
      "height": null
@@ -169,9 +165,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-R1234F",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R1234",
@@ -190,9 +184,9 @@
    "excerpt": "Ten 11 lb cylinders of R-1234yf — 110 lb per order — for multi-bay shops and dealership service lanes running mobile air conditioning work daily.",
    "images": [
     {
-     "thumb": "/product-images/a97af6c9fff9034e-thumb.webp",
-     "card": "/product-images/a97af6c9fff9034e-card.webp",
-     "full": "/product-images/a97af6c9fff9034e-full.webp",
+     "thumb": "/product-images/d90627f999b70854-thumb.webp",
+     "card": "/product-images/d90627f999b70854-card.webp",
+     "full": "/product-images/d90627f999b70854-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -210,9 +204,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R1234",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R1234",
@@ -231,9 +223,9 @@
    "excerpt": "Twenty 11 lb cylinders of R-1234yf — 220 lb in total: a single-component HFO for mobile air conditioning systems built around it, handled as a mildly flammable A2L.",
    "images": [
     {
-     "thumb": "/product-images/b4406e1ea06f5c8f-thumb.webp",
-     "card": "/product-images/b4406e1ea06f5c8f-card.webp",
-     "full": "/product-images/b4406e1ea06f5c8f-full.webp",
+     "thumb": "/product-images/2f0a7e1465ae9d36-thumb.webp",
+     "card": "/product-images/2f0a7e1465ae9d36-card.webp",
+     "full": "/product-images/2f0a7e1465ae9d36-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -251,9 +243,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R1234",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R1234",
@@ -272,9 +262,9 @@
    "excerpt": "330 lb of R-1234yf across 30 cylinders at 11 lb each, a stocking quantity for branch shelves and service vans rather than a single repair.",
    "images": [
     {
-     "thumb": "/product-images/eef41ce68833f2c2-thumb.webp",
-     "card": "/product-images/eef41ce68833f2c2-card.webp",
-     "full": "/product-images/eef41ce68833f2c2-full.webp",
+     "thumb": "/product-images/9f0e8679748c3505-thumb.webp",
+     "card": "/product-images/9f0e8679748c3505-card.webp",
+     "full": "/product-images/9f0e8679748c3505-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -292,9 +282,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R1234",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R1234",
@@ -313,9 +301,9 @@
    "excerpt": "Forty 11 lb cylinders of R-1234yf — 440 lb of single-component HFO refrigerant for newer vehicle air-conditioning work, bought at season depth.",
    "images": [
     {
-     "thumb": "/product-images/a4ae2f7280d9d2d1-thumb.webp",
-     "card": "/product-images/a4ae2f7280d9d2d1-card.webp",
-     "full": "/product-images/a4ae2f7280d9d2d1-full.webp",
+     "thumb": "/product-images/fdc18ed45c293e0e-thumb.webp",
+     "card": "/product-images/fdc18ed45c293e0e-card.webp",
+     "full": "/product-images/fdc18ed45c293e0e-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -333,9 +321,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R1234",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R1234",
@@ -354,9 +340,9 @@
    "excerpt": "Five 11 lb cylinders of R-1234yf — 55 lb of working stock for a shop charging mobile A/C through the cooling season, with mildly flammable handling in mind.",
    "images": [
     {
-     "thumb": "/product-images/9cae21459ba7b99d-thumb.webp",
-     "card": "/product-images/9cae21459ba7b99d-card.webp",
-     "full": "/product-images/9cae21459ba7b99d-full.webp",
+     "thumb": "/product-images/72a710703bfde66b-thumb.webp",
+     "card": "/product-images/72a710703bfde66b-card.webp",
+     "full": "/product-images/72a710703bfde66b-full.webp",
      "alt": "11 LB R1234yf (R-1234yf) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -374,9 +360,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R1234",
-   "unitPricingMeasure": "11 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-11lb-r1234yf-refrigerant-freon",
@@ -414,10 +398,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-R1234F",
-   "unitPricingMeasure": "11 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "sg-1234yf-gauge-20",
@@ -436,9 +417,9 @@
    "excerpt": "A gauge for R-1234yf can work — reads charge pressure while topping up a motor-vehicle air-conditioning system.",
    "images": [
     {
-     "thumb": "/product-images/9b840f440b0dfb57-thumb.webp",
-     "card": "/product-images/9b840f440b0dfb57-card.webp",
-     "full": "/product-images/9b840f440b0dfb57-full.webp",
+     "thumb": "/product-images/449ed431c2f17253-thumb.webp",
+     "card": "/product-images/449ed431c2f17253-card.webp",
+     "full": "/product-images/449ed431c2f17253-full.webp",
      "alt": "1234yf Refrigerant Gauge",
      "width": null,
      "height": null
@@ -455,8 +436,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "1234yf-gauge-20"
+   "source": "sentai"
   },
   {
    "id": "sg-22 2.2lb",
@@ -475,9 +455,9 @@
    "excerpt": "A 2.2 lb cylinder of R-22 — a small charge for top-ups on equipment still running a refrigerant no longer in production.",
    "images": [
     {
-     "thumb": "/product-images/61f5f9896144126e-thumb.webp",
-     "card": "/product-images/61f5f9896144126e-card.webp",
-     "full": "/product-images/61f5f9896144126e-full.webp",
+     "thumb": "/product-images/b8676c7b8a8aa485-thumb.webp",
+     "card": "/product-images/b8676c7b8a8aa485-card.webp",
+     "full": "/product-images/b8676c7b8a8aa485-full.webp",
      "alt": "2.2lb R-22 Refrigerant",
      "width": null,
      "height": null
@@ -494,9 +474,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "22 2.2lb",
-   "unitPricingMeasure": "2.2 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-r32-freon-refrigerant",
@@ -534,10 +512,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-32",
-   "unitPricingMeasure": "20.9 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "sg-PZ-32",
@@ -556,9 +531,9 @@
    "excerpt": "1 cylinder of R-32 at 20.9 lb: a single-component HFC, mildly flammable, for mini-splits and other split-system equipment built and labelled for R-32.",
    "images": [
     {
-     "thumb": "/product-images/c4212e7ead45a490-thumb.webp",
-     "card": "/product-images/c4212e7ead45a490-card.webp",
-     "full": "/product-images/c4212e7ead45a490-full.webp",
+     "thumb": "/product-images/6d7fdf39d1f0a9c8-thumb.webp",
+     "card": "/product-images/6d7fdf39d1f0a9c8-card.webp",
+     "full": "/product-images/6d7fdf39d1f0a9c8-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas",
      "width": null,
      "height": null
@@ -576,9 +551,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R32",
@@ -597,9 +570,9 @@
    "excerpt": "Ten cylinders of R-32 at 20.9 lb each — 209 lb of refrigerant in total, for equipment built and labelled for R-32 rather than retrofitted to it.",
    "images": [
     {
-     "thumb": "/product-images/591f3753355e8e62-thumb.webp",
-     "card": "/product-images/591f3753355e8e62-card.webp",
-     "full": "/product-images/591f3753355e8e62-full.webp",
+     "thumb": "/product-images/029c88a5339b7ea5-thumb.webp",
+     "card": "/product-images/029c88a5339b7ea5-card.webp",
+     "full": "/product-images/029c88a5339b7ea5-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -617,9 +590,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R32",
@@ -638,9 +609,9 @@
    "excerpt": "Twenty 20.9 lb cylinders of R-32: 418 lb of single-component A2L HFC, bought to the limits of the store you actually have rather than the wish list.",
    "images": [
     {
-     "thumb": "/product-images/c81ce3d8d6e5605a-thumb.webp",
-     "card": "/product-images/c81ce3d8d6e5605a-card.webp",
-     "full": "/product-images/c81ce3d8d6e5605a-full.webp",
+     "thumb": "/product-images/82d5449b7be00b20-thumb.webp",
+     "card": "/product-images/82d5449b7be00b20-card.webp",
+     "full": "/product-images/82d5449b7be00b20-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -658,9 +629,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R32",
@@ -679,9 +648,9 @@
    "excerpt": "Thirty cylinders of R-32 at 20.9 lb each, 627 lb in total — a single order sized for a multi-unit fit-out rather than weekly top-ups.",
    "images": [
     {
-     "thumb": "/product-images/e3deb4285ccf8744-thumb.webp",
-     "card": "/product-images/e3deb4285ccf8744-card.webp",
-     "full": "/product-images/e3deb4285ccf8744-full.webp",
+     "thumb": "/product-images/c4c90a6c5f899846-thumb.webp",
+     "card": "/product-images/c4c90a6c5f899846-card.webp",
+     "full": "/product-images/c4c90a6c5f899846-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -699,9 +668,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R32",
@@ -720,9 +687,9 @@
    "excerpt": "Forty 20.9 lb cylinders of R-32, 836 lb of difluoromethane held as a block against the HFC phasedown rather than bought for a job already on the board.",
    "images": [
     {
-     "thumb": "/product-images/88df21a9eb7db8c0-thumb.webp",
-     "card": "/product-images/88df21a9eb7db8c0-card.webp",
-     "full": "/product-images/88df21a9eb7db8c0-full.webp",
+     "thumb": "/product-images/1945f55bf1074954-thumb.webp",
+     "card": "/product-images/1945f55bf1074954-card.webp",
+     "full": "/product-images/1945f55bf1074954-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -740,9 +707,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R32",
@@ -761,9 +726,9 @@
    "excerpt": "Five cylinders of R-32 at 20.9 lb each — 104.5 lb of difluoromethane for factory R-32 equipment, handled throughout as a mildly flammable refrigerant.",
    "images": [
     {
-     "thumb": "/product-images/cfe08c56f4878e38-thumb.webp",
-     "card": "/product-images/cfe08c56f4878e38-card.webp",
-     "full": "/product-images/cfe08c56f4878e38-full.webp",
+     "thumb": "/product-images/6fc001ddc75818b4-thumb.webp",
+     "card": "/product-images/6fc001ddc75818b4-card.webp",
+     "full": "/product-images/6fc001ddc75818b4-full.webp",
      "alt": "20.9LB R32 (R-32) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -781,9 +746,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R32",
-   "unitPricingMeasure": "20.9 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-22lb-r454b-refrigerant-freon",
@@ -821,10 +784,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "pz-R454",
-   "unitPricingMeasure": "22 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "sg-pz-R454",
@@ -843,9 +803,9 @@
    "excerpt": "One 22 lb cylinder of R-454B — the R-32 and R-1234yf blend that replaced R-410A in new equipment, charged as a liquid and mildly flammable.",
    "images": [
     {
-     "thumb": "/product-images/b05056c2778b15d2-thumb.webp",
-     "card": "/product-images/b05056c2778b15d2-card.webp",
-     "full": "/product-images/b05056c2778b15d2-full.webp",
+     "thumb": "/product-images/20ba6b7c260f1703-thumb.webp",
+     "card": "/product-images/20ba6b7c260f1703-card.webp",
+     "full": "/product-images/20ba6b7c260f1703-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas",
      "width": null,
      "height": null
@@ -863,9 +823,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "pz-R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R454",
@@ -884,9 +842,9 @@
    "excerpt": "Ten 22 lb cylinders of R-454B, 220 lb in total: the pack size where a mildly flammable refrigerant becomes shop stock rather than a per-job buy.",
    "images": [
     {
-     "thumb": "/product-images/5a38856217659b95-thumb.webp",
-     "card": "/product-images/5a38856217659b95-card.webp",
-     "full": "/product-images/5a38856217659b95-full.webp",
+     "thumb": "/product-images/4b0ea78faf7a9db9-thumb.webp",
+     "card": "/product-images/4b0ea78faf7a9db9-card.webp",
+     "full": "/product-images/4b0ea78faf7a9db9-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -904,9 +862,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R454",
@@ -925,9 +881,9 @@
    "excerpt": "Twenty 22 lb cylinders of R-454B — 440 lb of refrigerant in one order of the mildly flammable blend that replaced R-410A in new splits and heat pumps.",
    "images": [
     {
-     "thumb": "/product-images/b8f02dc9043a0295-thumb.webp",
-     "card": "/product-images/b8f02dc9043a0295-card.webp",
-     "full": "/product-images/b8f02dc9043a0295-full.webp",
+     "thumb": "/product-images/504f804320f0329b-thumb.webp",
+     "card": "/product-images/504f804320f0329b-card.webp",
+     "full": "/product-images/504f804320f0329b-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -945,9 +901,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R454",
@@ -966,9 +920,9 @@
    "excerpt": "Thirty 22 lb cylinders of R-454B, 660 lb of refrigerant in total, sized for programme work: new build phases, multi-unit rollouts and planned changeout campaigns.",
    "images": [
     {
-     "thumb": "/product-images/767c5357e4bb3297-thumb.webp",
-     "card": "/product-images/767c5357e4bb3297-card.webp",
-     "full": "/product-images/767c5357e4bb3297-full.webp",
+     "thumb": "/product-images/c44af2840bd40777-thumb.webp",
+     "card": "/product-images/c44af2840bd40777-card.webp",
+     "full": "/product-images/c44af2840bd40777-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -986,9 +940,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R454",
@@ -1007,9 +959,9 @@
    "excerpt": "Forty 22 lb cylinders, 880 lb of R-454B in one order — stock for a shop running A2L equipment, not a single-job purchase.",
    "images": [
     {
-     "thumb": "/product-images/cfce9cbc111fc275-thumb.webp",
-     "card": "/product-images/cfce9cbc111fc275-card.webp",
-     "full": "/product-images/cfce9cbc111fc275-full.webp",
+     "thumb": "/product-images/566aa40eaaf2b24b-thumb.webp",
+     "card": "/product-images/566aa40eaaf2b24b-card.webp",
+     "full": "/product-images/566aa40eaaf2b24b-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -1027,9 +979,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R454",
@@ -1048,9 +998,9 @@
    "excerpt": "Five 22 lb cylinders of R-454B — 110 lb of the R-32 and R-1234yf blend, for new splits, heat pumps and packaged units listed for a mildly flammable charge.",
    "images": [
     {
-     "thumb": "/product-images/6e4caeaead0a8e9c-thumb.webp",
-     "card": "/product-images/6e4caeaead0a8e9c-card.webp",
-     "full": "/product-images/6e4caeaead0a8e9c-full.webp",
+     "thumb": "/product-images/7152d5a216aeef21-thumb.webp",
+     "card": "/product-images/7152d5a216aeef21-card.webp",
+     "full": "/product-images/7152d5a216aeef21-full.webp",
      "alt": "22LB R454B (R-454B) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -1068,9 +1018,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R454",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-686114002029",
@@ -1089,9 +1037,9 @@
    "excerpt": "A 22 lb cylinder of Honeywell Solstice EZ-Flush, a non-ozone-depleting flushing solvent for HVAC and refrigeration line sets.",
    "images": [
     {
-     "thumb": "/product-images/03de0ccdb942b0fe-thumb.webp",
-     "card": "/product-images/03de0ccdb942b0fe-card.webp",
-     "full": "/product-images/03de0ccdb942b0fe-full.webp",
+     "thumb": "/product-images/056279b6041026b6-thumb.webp",
+     "card": "/product-images/056279b6041026b6-card.webp",
+     "full": "/product-images/056279b6041026b6-full.webp",
      "alt": "22lb Solstice EZ-Flush HVAC System Cleaner",
      "width": null,
      "height": null
@@ -1109,9 +1057,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "686114002029",
-   "unitPricingMeasure": "22 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-24lb-r404a-refrigerant-freon-tank-cylinders-for-refrigeration-equipment",
@@ -1149,10 +1095,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-404",
-   "unitPricingMeasure": "24 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "gas-4736",
@@ -1213,9 +1156,9 @@
    "excerpt": "A 24 lb cylinder of reclaimed R-404A for commercial refrigeration service.",
    "images": [
     {
-     "thumb": "/product-images/8c9a99f5d356cba6-thumb.webp",
-     "card": "/product-images/8c9a99f5d356cba6-card.webp",
-     "full": "/product-images/8c9a99f5d356cba6-full.webp",
+     "thumb": "/product-images/0cf353cfb5216cd3-thumb.webp",
+     "card": "/product-images/0cf353cfb5216cd3-card.webp",
+     "full": "/product-images/0cf353cfb5216cd3-full.webp",
      "alt": "24lb R-404A Refrigerant, Reclaimed",
      "width": null,
      "height": null
@@ -1232,9 +1175,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "24lb-r-404a-refrigerant-factory-sealed-4",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-404a RECOVERED",
@@ -1253,9 +1194,9 @@
    "excerpt": "A 24 lb cylinder of reclaimed R-404A, processed to specification and stated as California compliant.",
    "images": [
     {
-     "thumb": "/product-images/f0930c1f860e2066-thumb.webp",
-     "card": "/product-images/f0930c1f860e2066-card.webp",
-     "full": "/product-images/f0930c1f860e2066-full.webp",
+     "thumb": "/product-images/8ecd78488861500c-thumb.webp",
+     "card": "/product-images/8ecd78488861500c-card.webp",
+     "full": "/product-images/8ecd78488861500c-full.webp",
      "alt": "24lb R-404A Refrigerant, Reclaimed, California Compliant – Made in USA",
      "width": null,
      "height": null
@@ -1273,9 +1214,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "404a RECOVERED",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-404",
@@ -1294,9 +1233,9 @@
    "excerpt": "One 24 lb cylinder of R-404A for the job in front of you — a liquid-charged blend for walk-in freezers, display cases and rack systems still running it.",
    "images": [
     {
-     "thumb": "/product-images/bd716f4d45b8a7bf-thumb.webp",
-     "card": "/product-images/bd716f4d45b8a7bf-card.webp",
-     "full": "/product-images/bd716f4d45b8a7bf-full.webp",
+     "thumb": "/product-images/6ea4cb67041b019b-thumb.webp",
+     "card": "/product-images/6ea4cb67041b019b-card.webp",
+     "full": "/product-images/6ea4cb67041b019b-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -1314,9 +1253,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R404",
@@ -1335,9 +1272,9 @@
    "excerpt": "Ten 24 lb cylinders of R-404A, 240 lb total: count them in, store them upright and secured, charge liquid only, and log each cylinder out by job.",
    "images": [
     {
-     "thumb": "/product-images/483b406eec610e06-thumb.webp",
-     "card": "/product-images/483b406eec610e06-card.webp",
-     "full": "/product-images/483b406eec610e06-full.webp",
+     "thumb": "/product-images/f352c0e8c5246cd3-thumb.webp",
+     "card": "/product-images/f352c0e8c5246cd3-card.webp",
+     "full": "/product-images/f352c0e8c5246cd3-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -1355,9 +1292,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R404",
@@ -1376,9 +1311,9 @@
    "excerpt": "Twenty cylinders of R-404A at 24 lb each, 480 lb of low-temperature service gas, sized off an equipment list and drawn down over scheduled work.",
    "images": [
     {
-     "thumb": "/product-images/46ff8e1b8eb7f6ca-thumb.webp",
-     "card": "/product-images/46ff8e1b8eb7f6ca-card.webp",
-     "full": "/product-images/46ff8e1b8eb7f6ca-full.webp",
+     "thumb": "/product-images/9e254e8d8187093e-thumb.webp",
+     "card": "/product-images/9e254e8d8187093e-card.webp",
+     "full": "/product-images/9e254e8d8187093e-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -1396,9 +1331,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R404",
@@ -1417,9 +1350,9 @@
    "excerpt": "Thirty cylinders of R-404A at 24 lb each for 720 lb total: service stock for a legacy low-temp fleet you still hold under contract.",
    "images": [
     {
-     "thumb": "/product-images/630c90e6fcae8790-thumb.webp",
-     "card": "/product-images/630c90e6fcae8790-card.webp",
-     "full": "/product-images/630c90e6fcae8790-full.webp",
+     "thumb": "/product-images/5e0e4191522882b1-thumb.webp",
+     "card": "/product-images/5e0e4191522882b1-card.webp",
+     "full": "/product-images/5e0e4191522882b1-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -1437,9 +1370,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R404",
@@ -1458,9 +1389,9 @@
    "excerpt": "Branch-scale R-404A: 40 cylinders at 24 lb each, 960 lb total, enough low-temperature charge to cover a fleet of freezers and display cases.",
    "images": [
     {
-     "thumb": "/product-images/dd8f1be7eccd512d-thumb.webp",
-     "card": "/product-images/dd8f1be7eccd512d-card.webp",
-     "full": "/product-images/dd8f1be7eccd512d-full.webp",
+     "thumb": "/product-images/b7dffc3a7e956012-thumb.webp",
+     "card": "/product-images/b7dffc3a7e956012-card.webp",
+     "full": "/product-images/b7dffc3a7e956012-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -1478,9 +1409,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R404",
@@ -1499,9 +1428,9 @@
    "excerpt": "Five 24 lb cylinders of R-404A — 120 lb of service gas for shops keeping low-temp commercial refrigeration running through the week.",
    "images": [
     {
-     "thumb": "/product-images/8dfcbb6600bf1ec4-thumb.webp",
-     "card": "/product-images/8dfcbb6600bf1ec4-card.webp",
-     "full": "/product-images/8dfcbb6600bf1ec4-full.webp",
+     "thumb": "/product-images/69002db760d1dd14-thumb.webp",
+     "card": "/product-images/69002db760d1dd14-card.webp",
+     "full": "/product-images/69002db760d1dd14-full.webp",
      "alt": "24LB R404A (R-404A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -1519,9 +1448,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R404",
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-25lb-r-407a-refrigerant-gas-high-performance-for-hvac-cooling",
@@ -1559,10 +1486,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-407A",
-   "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "fw-25lbs-r407c-refrigerant-gas-high-performance-for-hvac-refrigeration-systems-packaging-tank",
@@ -1600,10 +1524,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-407C-YU",
-   "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "fw-25lb-r410a-refrigerant-freon-steel-cylinder-packaging-tank-cylinder-for-air-conditioners-us-warehouse-fast-delivery",
@@ -1641,10 +1562,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-D41",
-   "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "fw-25lb-r448a-refrigerant-freon",
@@ -1682,10 +1600,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-R448",
-   "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "fw-25lb-r449a-refrigerant-freon",
@@ -1723,10 +1638,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "pz-R449",
-   "unitPricingMeasure": "25 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "sg-410H-4",
@@ -1745,9 +1657,9 @@
    "excerpt": "A 25 lb cylinder of genuine Honeywell R-410A, virgin sealed and made in the USA, for residential and light commercial air conditioning.",
    "images": [
     {
-     "thumb": "/product-images/b73b8f726a9cc436-thumb.webp",
-     "card": "/product-images/b73b8f726a9cc436-card.webp",
-     "full": "/product-images/b73b8f726a9cc436-full.webp",
+     "thumb": "/product-images/732e51ff914f58e8-thumb.webp",
+     "card": "/product-images/732e51ff914f58e8-card.webp",
+     "full": "/product-images/732e51ff914f58e8-full.webp",
      "alt": "25lb Honeywell R-410A Refrigerant, Virgin Sealed – Made in USA",
      "width": null,
      "height": null
@@ -1765,9 +1677,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "410H-4",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-407A",
@@ -1786,9 +1696,9 @@
    "excerpt": "A factory-sealed 25 lb cylinder of R-407A, an HFC blend used in commercial refrigeration and as a service replacement in R-22 systems.",
    "images": [
     {
-     "thumb": "/product-images/f0856de78f553217-thumb.webp",
-     "card": "/product-images/f0856de78f553217-card.webp",
-     "full": "/product-images/f0856de78f553217-full.webp",
+     "thumb": "/product-images/c998121f0ddbe79f-thumb.webp",
+     "card": "/product-images/c998121f0ddbe79f-card.webp",
+     "full": "/product-images/c998121f0ddbe79f-full.webp",
      "alt": "25lb R-407A Refrigerant, Factory Sealed",
      "width": null,
      "height": null
@@ -1806,9 +1716,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-410A",
@@ -1827,9 +1735,9 @@
    "excerpt": "A 25 lb cylinder of virgin sealed R-410A, made in the USA — the unbranded everyday cylinder for split-system work.",
    "images": [
     {
-     "thumb": "/product-images/85ca200546647166-thumb.webp",
-     "card": "/product-images/85ca200546647166-card.webp",
-     "full": "/product-images/85ca200546647166-full.webp",
+     "thumb": "/product-images/aad0c9247f85c790-thumb.webp",
+     "card": "/product-images/aad0c9247f85c790-card.webp",
+     "full": "/product-images/aad0c9247f85c790-full.webp",
      "alt": "25lb R-410A Refrigerant, Virgin Sealed – Made in USA",
      "width": null,
      "height": null
@@ -1847,9 +1755,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-r421a-refrigerant-25lb-1-14",
@@ -1868,9 +1774,9 @@
    "excerpt": "A 25 lb cylinder of R-421A, an HFC alternative for equipment originally charged with R-22.",
    "images": [
     {
-     "thumb": "/product-images/6e2dc581cb6cda93-thumb.webp",
-     "card": "/product-images/6e2dc581cb6cda93-card.webp",
-     "full": "/product-images/6e2dc581cb6cda93-full.webp",
+     "thumb": "/product-images/9663395733602ce3-thumb.webp",
+     "card": "/product-images/9663395733602ce3-card.webp",
+     "full": "/product-images/9663395733602ce3-full.webp",
      "alt": "25lb R-421A Refrigerant, R-22 Alternative",
      "width": null,
      "height": null
@@ -1888,9 +1794,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r421a-refrigerant-25lb-1-14",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-424",
@@ -1909,9 +1813,9 @@
    "excerpt": "A 25 lb cylinder of R-422B, sold under the NU-22 name, as a service replacement for R-22 without an oil change.",
    "images": [
     {
-     "thumb": "/product-images/e0a9a702b2a5e084-thumb.webp",
-     "card": "/product-images/e0a9a702b2a5e084-card.webp",
-     "full": "/product-images/e0a9a702b2a5e084-full.webp",
+     "thumb": "/product-images/85c955ba4ece6b0b-thumb.webp",
+     "card": "/product-images/85c955ba4ece6b0b-card.webp",
+     "full": "/product-images/85c955ba4ece6b0b-full.webp",
      "alt": "25lb R-422B (NU-22) Refrigerant",
      "width": null,
      "height": null
@@ -1929,9 +1833,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "424",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40-422D",
@@ -1950,9 +1852,9 @@
    "excerpt": "A 25 lb cylinder of R-422D, an R-22 service replacement formulated to run on the system's existing mineral oil.",
    "images": [
     {
-     "thumb": "/product-images/13d2e25d0d759264-thumb.webp",
-     "card": "/product-images/13d2e25d0d759264-card.webp",
-     "full": "/product-images/13d2e25d0d759264-full.webp",
+     "thumb": "/product-images/609569aef59e0b98-thumb.webp",
+     "card": "/product-images/609569aef59e0b98-card.webp",
+     "full": "/product-images/609569aef59e0b98-full.webp",
      "alt": "25lb R-422D Refrigerant",
      "width": null,
      "height": null
@@ -1970,9 +1872,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40-422D",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-440",
@@ -1991,9 +1891,9 @@
    "excerpt": "A 25 lb cylinder of R-438A, sold as MO99, an R-22 replacement formulated to work with the oil already in the system.",
    "images": [
     {
-     "thumb": "/product-images/6fc041915c4d7a84-thumb.webp",
-     "card": "/product-images/6fc041915c4d7a84-card.webp",
-     "full": "/product-images/6fc041915c4d7a84-full.webp",
+     "thumb": "/product-images/6372f0552aa43def-thumb.webp",
+     "card": "/product-images/6372f0552aa43def-card.webp",
+     "full": "/product-images/6372f0552aa43def-full.webp",
      "alt": "25lb R-438A (Mo99) Refrigerant, R-22 Replacement",
      "width": null,
      "height": null
@@ -2011,9 +1911,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "440",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40 R448a",
@@ -2032,9 +1930,9 @@
    "excerpt": "A 25 lb cylinder of Honeywell R-448A, a lower-GWP replacement for R-404A and R-22 in commercial refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/13434fe9b4984e31-thumb.webp",
-     "card": "/product-images/13434fe9b4984e31-card.webp",
-     "full": "/product-images/13434fe9b4984e31-full.webp",
+     "thumb": "/product-images/7c9587791dc62f34-thumb.webp",
+     "card": "/product-images/7c9587791dc62f34-card.webp",
+     "full": "/product-images/7c9587791dc62f34-full.webp",
      "alt": "25lb R-448A Refrigerant, Honeywell, R404A & R22 Replacement – Made in USA",
      "width": null,
      "height": null
@@ -2052,9 +1950,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40 R448a",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40 R449",
@@ -2073,9 +1969,9 @@
    "excerpt": "A 25 lb cylinder of R-449A, a lower-GWP replacement for R-404A in commercial refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/7784309f55163138-thumb.webp",
-     "card": "/product-images/7784309f55163138-card.webp",
-     "full": "/product-images/7784309f55163138-full.webp",
+     "thumb": "/product-images/0bad0d5a536851a3-thumb.webp",
+     "card": "/product-images/0bad0d5a536851a3-card.webp",
+     "full": "/product-images/0bad0d5a536851a3-full.webp",
      "alt": "25lb R-449A Refrigerant",
      "width": null,
      "height": null
@@ -2093,9 +1989,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40 R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-507",
@@ -2114,9 +2008,9 @@
    "excerpt": "A 25 lb cylinder of R-507, the azeotropic HFC blend used in low-temperature commercial refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/37aaa94e24759ccd-thumb.webp",
-     "card": "/product-images/37aaa94e24759ccd-card.webp",
-     "full": "/product-images/37aaa94e24759ccd-full.webp",
+     "thumb": "/product-images/55ca6450445ec1af-thumb.webp",
+     "card": "/product-images/55ca6450445ec1af-card.webp",
+     "full": "/product-images/55ca6450445ec1af-full.webp",
      "alt": "25lb R-507 Refrigerant, Commercial Refrigeration",
      "width": null,
      "height": null
@@ -2133,9 +2027,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "507",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-407A",
@@ -2154,9 +2046,9 @@
    "excerpt": "R-407A in a 25 lb cylinder: the HFC service blend for commercial refrigeration plant built for R-22, charged as liquid and read off a glide chart.",
    "images": [
     {
-     "thumb": "/product-images/5b9d9dc9b4344a3a-thumb.webp",
-     "card": "/product-images/5b9d9dc9b4344a3a-card.webp",
-     "full": "/product-images/5b9d9dc9b4344a3a-full.webp",
+     "thumb": "/product-images/44e2bc0c9ead0765-thumb.webp",
+     "card": "/product-images/44e2bc0c9ead0765-card.webp",
+     "full": "/product-images/44e2bc0c9ead0765-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -2174,9 +2066,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R407A",
@@ -2195,9 +2085,9 @@
    "excerpt": "Ten 25 lb cylinders of R-407A — 250 lb of service gas in one consignment — for in-house crews keeping commercial low and medium temperature refrigeration running.",
    "images": [
     {
-     "thumb": "/product-images/596a1a3e240c0df9-thumb.webp",
-     "card": "/product-images/596a1a3e240c0df9-card.webp",
-     "full": "/product-images/596a1a3e240c0df9-full.webp",
+     "thumb": "/product-images/a6607c157908f453-thumb.webp",
+     "card": "/product-images/a6607c157908f453-card.webp",
+     "full": "/product-images/a6607c157908f453-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -2215,9 +2105,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R407A",
@@ -2236,9 +2124,9 @@
    "excerpt": "500 lb of R-407A across 20 cylinders — enough charge to take an R-22 changeover from recovery through commissioning without reordering mid-job.",
    "images": [
     {
-     "thumb": "/product-images/ce0d16e05670e6e3-thumb.webp",
-     "card": "/product-images/ce0d16e05670e6e3-card.webp",
-     "full": "/product-images/ce0d16e05670e6e3-full.webp",
+     "thumb": "/product-images/f7c4656a6324f9bb-thumb.webp",
+     "card": "/product-images/f7c4656a6324f9bb-card.webp",
+     "full": "/product-images/f7c4656a6324f9bb-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -2256,9 +2144,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R407A",
@@ -2277,9 +2163,9 @@
    "excerpt": "Thirty cylinders of 25 lb R-407A — 750 lb in all — sized for a shop running commercial refrigeration contracts through a cooling season.",
    "images": [
     {
-     "thumb": "/product-images/3bdb47e105c84503-thumb.webp",
-     "card": "/product-images/3bdb47e105c84503-card.webp",
-     "full": "/product-images/3bdb47e105c84503-full.webp",
+     "thumb": "/product-images/d29134a35fc9a795-thumb.webp",
+     "card": "/product-images/d29134a35fc9a795-card.webp",
+     "full": "/product-images/d29134a35fc9a795-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -2297,9 +2183,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R407A",
@@ -2318,9 +2202,9 @@
    "excerpt": "Forty 25 lb cylinders of R-407A — 1000 lb of zeotropic HFC service blend, the gas used on R-22-era commercial refrigeration still in the field.",
    "images": [
     {
-     "thumb": "/product-images/e72f0f3501e2421a-thumb.webp",
-     "card": "/product-images/e72f0f3501e2421a-card.webp",
-     "full": "/product-images/e72f0f3501e2421a-full.webp",
+     "thumb": "/product-images/36cbe20b410f919f-thumb.webp",
+     "card": "/product-images/36cbe20b410f919f-card.webp",
+     "full": "/product-images/36cbe20b410f919f-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -2338,9 +2222,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R407A",
@@ -2359,9 +2241,9 @@
    "excerpt": "Five 25 lb cylinders of R-407A, 125 lb of the blend in one line item, for low and medium temperature commercial refrigeration work.",
    "images": [
     {
-     "thumb": "/product-images/82bcdc218504dd30-thumb.webp",
-     "card": "/product-images/82bcdc218504dd30-card.webp",
-     "full": "/product-images/82bcdc218504dd30-full.webp",
+     "thumb": "/product-images/bca8bfeaa9707554-thumb.webp",
+     "card": "/product-images/bca8bfeaa9707554-card.webp",
+     "full": "/product-images/bca8bfeaa9707554-full.webp",
      "alt": "25LB R407A (R-407A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -2379,9 +2261,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R407A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-407C-YU",
@@ -2400,9 +2280,9 @@
    "excerpt": "A single 25 lb cylinder of R-407C — the zeotropic HFC blend brought in to replace R-22 in direct-expansion air conditioning and medium-temperature commercial refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/09a0c930884bf96c-thumb.webp",
-     "card": "/product-images/09a0c930884bf96c-card.webp",
-     "full": "/product-images/09a0c930884bf96c-full.webp",
+     "thumb": "/product-images/9bce9770c76fc1d4-thumb.webp",
+     "card": "/product-images/9bce9770c76fc1d4-card.webp",
+     "full": "/product-images/9bce9770c76fc1d4-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas",
      "width": null,
      "height": null
@@ -2420,9 +2300,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-407C-YU",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R407C",
@@ -2441,9 +2319,9 @@
    "excerpt": "R-407C in 25 lb cylinders, 10 of them for 250 lb in total: a chlorine-free zeotropic blend that has to go in as liquid and be weighed in, never topped up on pressure.",
    "images": [
     {
-     "thumb": "/product-images/4e822e00647fbfd3-thumb.webp",
-     "card": "/product-images/4e822e00647fbfd3-card.webp",
-     "full": "/product-images/4e822e00647fbfd3-full.webp",
+     "thumb": "/product-images/a347886f224a09f7-thumb.webp",
+     "card": "/product-images/a347886f224a09f7-card.webp",
+     "full": "/product-images/a347886f224a09f7-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -2461,9 +2339,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R407C",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R407C",
@@ -2482,9 +2358,9 @@
    "excerpt": "20 cylinders of R-407C at 25 lb each — 500 lb total, for R-22 retrofit work and medium-temperature commercial refrigeration plant.",
    "images": [
     {
-     "thumb": "/product-images/188ac313e8ab97f8-thumb.webp",
-     "card": "/product-images/188ac313e8ab97f8-card.webp",
-     "full": "/product-images/188ac313e8ab97f8-full.webp",
+     "thumb": "/product-images/4dc82f146a7f0b7c-thumb.webp",
+     "card": "/product-images/4dc82f146a7f0b7c-card.webp",
+     "full": "/product-images/4dc82f146a7f0b7c-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -2502,9 +2378,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R407C",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R407C",
@@ -2523,9 +2397,9 @@
    "excerpt": "Thirty 25 lb cylinders of R-407C — 750 lb of service gas for legacy DX air conditioning and medium-temperature commercial refrigeration work.",
    "images": [
     {
-     "thumb": "/product-images/5506736d2c8035bb-thumb.webp",
-     "card": "/product-images/5506736d2c8035bb-card.webp",
-     "full": "/product-images/5506736d2c8035bb-full.webp",
+     "thumb": "/product-images/3593aceb97faa1a7-thumb.webp",
+     "card": "/product-images/3593aceb97faa1a7-card.webp",
+     "full": "/product-images/3593aceb97faa1a7-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -2543,9 +2417,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R407C",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R407C",
@@ -2564,9 +2436,9 @@
    "excerpt": "Forty 25 lb cylinders of R-407C — 1000 lb in total — stocking-depth service gas for the R-22 era DX and medium-temperature plant still in service.",
    "images": [
     {
-     "thumb": "/product-images/ad653ccc38780e06-thumb.webp",
-     "card": "/product-images/ad653ccc38780e06-card.webp",
-     "full": "/product-images/ad653ccc38780e06-full.webp",
+     "thumb": "/product-images/2bce9d0e632c2561-thumb.webp",
+     "card": "/product-images/2bce9d0e632c2561-card.webp",
+     "full": "/product-images/2bce9d0e632c2561-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -2584,9 +2456,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R407C",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R407C",
@@ -2605,9 +2475,9 @@
    "excerpt": "Five 25 lb cylinders of R-407C, 125 lb of blend in total, the zeotropic service gas for R-22 direct-expansion air conditioning and medium-temperature commercial refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/331f486755478b31-thumb.webp",
-     "card": "/product-images/331f486755478b31-card.webp",
-     "full": "/product-images/331f486755478b31-full.webp",
+     "thumb": "/product-images/874b86d00102d5d2-thumb.webp",
+     "card": "/product-images/874b86d00102d5d2-card.webp",
+     "full": "/product-images/874b86d00102d5d2-full.webp",
      "alt": "25LB R407C (R-407C) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -2625,9 +2495,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R407C",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-D41",
@@ -2646,9 +2514,9 @@
    "excerpt": "A single 25 lb cylinder of R-410A, the HFC blend that replaced R-22 in residential and light commercial split systems and heat pumps.",
    "images": [
     {
-     "thumb": "/product-images/0aa64883b4f5b915-thumb.webp",
-     "card": "/product-images/0aa64883b4f5b915-card.webp",
-     "full": "/product-images/0aa64883b4f5b915-full.webp",
+     "thumb": "/product-images/64ed8de55ced2ffc-thumb.webp",
+     "card": "/product-images/64ed8de55ced2ffc-card.webp",
+     "full": "/product-images/64ed8de55ced2ffc-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -2666,9 +2534,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-D41",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R410A",
@@ -2687,9 +2553,9 @@
    "excerpt": "Ten 25 lb cylinders of R-410A — 250 lb of service gas for contractors running planned maintenance on split systems and packaged rooftop units.",
    "images": [
     {
-     "thumb": "/product-images/b46d25cfcfbc370b-thumb.webp",
-     "card": "/product-images/b46d25cfcfbc370b-card.webp",
-     "full": "/product-images/b46d25cfcfbc370b-full.webp",
+     "thumb": "/product-images/a9ca119f122097dc-thumb.webp",
+     "card": "/product-images/a9ca119f122097dc-card.webp",
+     "full": "/product-images/a9ca119f122097dc-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -2707,9 +2573,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R410A",
@@ -2728,9 +2592,9 @@
    "excerpt": "R-410A refrigerant in 25 lb cylinders, 20 of them: 500 lb of charge for the installed base of residential and light commercial split systems and heat pumps.",
    "images": [
     {
-     "thumb": "/product-images/ca8827341e540d83-thumb.webp",
-     "card": "/product-images/ca8827341e540d83-card.webp",
-     "full": "/product-images/ca8827341e540d83-full.webp",
+     "thumb": "/product-images/4e6efb3bd3655c34-thumb.webp",
+     "card": "/product-images/4e6efb3bd3655c34-card.webp",
+     "full": "/product-images/4e6efb3bd3655c34-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -2748,9 +2612,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R410A",
@@ -2769,9 +2631,9 @@
    "excerpt": "Thirty 25 lb cylinders of R-410A — 750 lb of stock for estates and contractors holding charge against tightening HFC supply and a leaking installed base.",
    "images": [
     {
-     "thumb": "/product-images/4c26881aae292bf5-thumb.webp",
-     "card": "/product-images/4c26881aae292bf5-card.webp",
-     "full": "/product-images/4c26881aae292bf5-full.webp",
+     "thumb": "/product-images/04c491a4250e3edc-thumb.webp",
+     "card": "/product-images/04c491a4250e3edc-card.webp",
+     "full": "/product-images/04c491a4250e3edc-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -2789,9 +2651,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R410A",
@@ -2810,9 +2670,9 @@
    "excerpt": "Forty 25 lb cylinders of R-410A, 1000 lb of charge in total: service gas for the installed base of split systems, heat pumps and light commercial kit.",
    "images": [
     {
-     "thumb": "/product-images/839f96c895ae5033-thumb.webp",
-     "card": "/product-images/839f96c895ae5033-card.webp",
-     "full": "/product-images/839f96c895ae5033-full.webp",
+     "thumb": "/product-images/bd1584b76ace1836-thumb.webp",
+     "card": "/product-images/bd1584b76ace1836-card.webp",
+     "full": "/product-images/bd1584b76ace1836-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -2830,9 +2690,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R410A",
@@ -2851,9 +2709,9 @@
    "excerpt": "Five 25 lb cylinders of R-410A — 125 lb of the refrigerant that residential and light commercial air conditioning runs on, held as stock rather than chased mid-job.",
    "images": [
     {
-     "thumb": "/product-images/055b29f7cd24443a-thumb.webp",
-     "card": "/product-images/055b29f7cd24443a-card.webp",
-     "full": "/product-images/055b29f7cd24443a-full.webp",
+     "thumb": "/product-images/f54365ac7e4e7949-thumb.webp",
+     "card": "/product-images/f54365ac7e4e7949-card.webp",
+     "full": "/product-images/f54365ac7e4e7949-full.webp",
      "alt": "25LB R410A (R-410A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -2871,9 +2729,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R410A",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-R448",
@@ -2892,9 +2748,9 @@
    "excerpt": "One 25 lb cylinder of R-448A: enough gas to weigh in a fresh charge on a medium- or low-temperature case or walk-in once the leak is repaired.",
    "images": [
     {
-     "thumb": "/product-images/030dfd2fd11cde0f-thumb.webp",
-     "card": "/product-images/030dfd2fd11cde0f-card.webp",
-     "full": "/product-images/030dfd2fd11cde0f-full.webp",
+     "thumb": "/product-images/169db4a84ae234aa-thumb.webp",
+     "card": "/product-images/169db4a84ae234aa-card.webp",
+     "full": "/product-images/169db4a84ae234aa-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -2912,9 +2768,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R448",
@@ -2933,9 +2787,9 @@
    "excerpt": "Ten 25 lb cylinders of R-448A, 250 lb in total: a lower-GWP replacement for R-404A and R-507 in commercial refrigeration, charged as liquid.",
    "images": [
     {
-     "thumb": "/product-images/15d6560eb8d12c3d-thumb.webp",
-     "card": "/product-images/15d6560eb8d12c3d-card.webp",
-     "full": "/product-images/15d6560eb8d12c3d-full.webp",
+     "thumb": "/product-images/9e1e70ebff7f876d-thumb.webp",
+     "card": "/product-images/9e1e70ebff7f876d-card.webp",
+     "full": "/product-images/9e1e70ebff7f876d-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -2953,9 +2807,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R448",
@@ -2974,9 +2826,9 @@
    "excerpt": "500 lb of R-448A in 25 lb cylinders — 20 of them, enough site stock for in-house crews servicing R-404A and R-507 equipment.",
    "images": [
     {
-     "thumb": "/product-images/a039634810105076-thumb.webp",
-     "card": "/product-images/a039634810105076-card.webp",
-     "full": "/product-images/a039634810105076-full.webp",
+     "thumb": "/product-images/48c68603f72992b7-thumb.webp",
+     "card": "/product-images/48c68603f72992b7-card.webp",
+     "full": "/product-images/48c68603f72992b7-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -2994,9 +2846,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R448",
@@ -3015,9 +2865,9 @@
    "excerpt": "Thirty 25 lb cylinders of R-448A, 750 lb in total, sized for a planned R-404A or R-507 retrofit programme across a store or a small group of sites.",
    "images": [
     {
-     "thumb": "/product-images/d20da3e02cb245df-thumb.webp",
-     "card": "/product-images/d20da3e02cb245df-card.webp",
-     "full": "/product-images/d20da3e02cb245df-full.webp",
+     "thumb": "/product-images/506b0c3913d478be-thumb.webp",
+     "card": "/product-images/506b0c3913d478be-card.webp",
+     "full": "/product-images/506b0c3913d478be-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -3035,9 +2885,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R448",
@@ -3056,9 +2904,9 @@
    "excerpt": "R-448A in 25 lb cylinders, 40 of them for 1000 lb on hand: service and retrofit depth for R-404A and R-507 refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/ef0ddd4f71501eec-thumb.webp",
-     "card": "/product-images/ef0ddd4f71501eec-card.webp",
-     "full": "/product-images/ef0ddd4f71501eec-full.webp",
+     "thumb": "/product-images/aa44d9715940383f-thumb.webp",
+     "card": "/product-images/aa44d9715940383f-card.webp",
+     "full": "/product-images/aa44d9715940383f-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -3076,9 +2924,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R448",
@@ -3097,9 +2943,9 @@
    "excerpt": "Five 25 lb cylinders of R-448A, 125 lb total — shelf stock for contractors covering scattered commercial refrigeration service calls.",
    "images": [
     {
-     "thumb": "/product-images/1d8c6df8fa0ae436-thumb.webp",
-     "card": "/product-images/1d8c6df8fa0ae436-card.webp",
-     "full": "/product-images/1d8c6df8fa0ae436-full.webp",
+     "thumb": "/product-images/c1186f6d1e99dcd4-thumb.webp",
+     "card": "/product-images/c1186f6d1e99dcd4-card.webp",
+     "full": "/product-images/c1186f6d1e99dcd4-full.webp",
      "alt": "25LB R448A (R-448A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -3117,9 +2963,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R448",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-R449",
@@ -3138,9 +2982,9 @@
    "excerpt": "A single 25 lb cylinder of R-449A — the job-sized charge for retrofitting R-404A walk-ins and display cases or servicing commercial kit already running the blend.",
    "images": [
     {
-     "thumb": "/product-images/aa15bf36cb9ae4bd-thumb.webp",
-     "card": "/product-images/aa15bf36cb9ae4bd-card.webp",
-     "full": "/product-images/aa15bf36cb9ae4bd-full.webp",
+     "thumb": "/product-images/16f9a9082f304cbe-thumb.webp",
+     "card": "/product-images/16f9a9082f304cbe-card.webp",
+     "full": "/product-images/16f9a9082f304cbe-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -3158,9 +3002,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R449",
@@ -3179,9 +3021,9 @@
    "excerpt": "Ten 25 lb cylinders of R-449A — 250 lb of service float for a multi-site refrigeration fleet still running R-404A-era racks and cases.",
    "images": [
     {
-     "thumb": "/product-images/beb204a79a429250-thumb.webp",
-     "card": "/product-images/beb204a79a429250-card.webp",
-     "full": "/product-images/beb204a79a429250-full.webp",
+     "thumb": "/product-images/c84d5ae303591729-thumb.webp",
+     "card": "/product-images/c84d5ae303591729-card.webp",
+     "full": "/product-images/c84d5ae303591729-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -3199,9 +3041,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R449",
@@ -3220,9 +3060,9 @@
    "excerpt": "Twenty 25 lb cylinders of R-449A — 500 lb of gas for crews working through a run of R-404A racks, display cases and cold stores on a schedule.",
    "images": [
     {
-     "thumb": "/product-images/f0be09b3c363852b-thumb.webp",
-     "card": "/product-images/f0be09b3c363852b-card.webp",
-     "full": "/product-images/f0be09b3c363852b-full.webp",
+     "thumb": "/product-images/70a2f77ca6f32855-thumb.webp",
+     "card": "/product-images/70a2f77ca6f32855-card.webp",
+     "full": "/product-images/70a2f77ca6f32855-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -3240,9 +3080,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R449",
@@ -3261,9 +3099,9 @@
    "excerpt": "Five 25 lb cylinders of R-449A — 125 lb in total — the lower-GWP HFC/HFO blend used in place of R-404A and R-507 on commercial refrigeration plant.",
    "images": [
     {
-     "thumb": "/product-images/f04e87c3ecf33296-thumb.webp",
-     "card": "/product-images/f04e87c3ecf33296-card.webp",
-     "full": "/product-images/f04e87c3ecf33296-full.webp",
+     "thumb": "/product-images/fcff33e013c8dc29-thumb.webp",
+     "card": "/product-images/fcff33e013c8dc29-card.webp",
+     "full": "/product-images/fcff33e013c8dc29-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -3281,9 +3119,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R449",
@@ -3302,9 +3138,9 @@
    "excerpt": "Thirty 25 lb cylinders of R-449A — 750 lb of retrofit charge for R-404A and R-507 low- and medium-temperature refrigeration systems.",
    "images": [
     {
-     "thumb": "/product-images/25248779531899ad-thumb.webp",
-     "card": "/product-images/25248779531899ad-card.webp",
-     "full": "/product-images/25248779531899ad-full.webp",
+     "thumb": "/product-images/f5355cc0ac04b206-thumb.webp",
+     "card": "/product-images/f5355cc0ac04b206-card.webp",
+     "full": "/product-images/f5355cc0ac04b206-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas |30 Cylinders",
      "width": null,
      "height": null
@@ -3322,9 +3158,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R449",
@@ -3343,9 +3177,9 @@
    "excerpt": "40 cylinders of R-449A at 25 lb each, 1000 lb of service charge held on site for an installed base that will outlast the blends it was built for.",
    "images": [
     {
-     "thumb": "/product-images/749b53b8fb37b522-thumb.webp",
-     "card": "/product-images/749b53b8fb37b522-card.webp",
-     "full": "/product-images/749b53b8fb37b522-full.webp",
+     "thumb": "/product-images/6aee49e529c54146-thumb.webp",
+     "card": "/product-images/6aee49e529c54146-card.webp",
+     "full": "/product-images/6aee49e529c54146-full.webp",
      "alt": "25LB R449A (R-449A) Refrigerant Gas |40 Cylinders",
      "width": null,
      "height": null
@@ -3363,9 +3197,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R449",
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-flush-it-26lb-with-gauge-15",
@@ -3384,9 +3216,9 @@
    "excerpt": "A 26 lb cylinder of Flush-It line-set cleaner supplied with a gauge, made in the USA.",
    "images": [
     {
-     "thumb": "/product-images/1c4bcb2bce105c2d-thumb.webp",
-     "card": "/product-images/1c4bcb2bce105c2d-card.webp",
-     "full": "/product-images/1c4bcb2bce105c2d-full.webp",
+     "thumb": "/product-images/1e62f87d5028aeb3-thumb.webp",
+     "card": "/product-images/1e62f87d5028aeb3-card.webp",
+     "full": "/product-images/1e62f87d5028aeb3-full.webp",
      "alt": "26lb Flush-It Refrigerant Cleaner with Gauge – Made in USA",
      "width": null,
      "height": null
@@ -3404,10 +3236,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "flush-it-26lb-with-gauge-15",
-   "isBundle": true,
-   "unitPricingMeasure": "26 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-134",
@@ -3426,9 +3255,9 @@
    "excerpt": "R-134a in a 30 lb cylinder — the single-component HFC that replaced R-12, stocked for servicing the equipment whose data plate still calls for it.",
    "images": [
     {
-     "thumb": "/product-images/8f38a468edac44aa-thumb.webp",
-     "card": "/product-images/8f38a468edac44aa-card.webp",
-     "full": "/product-images/8f38a468edac44aa-full.webp",
+     "thumb": "/product-images/4a0cf3e7e18f06bf-thumb.webp",
+     "card": "/product-images/4a0cf3e7e18f06bf-card.webp",
+     "full": "/product-images/4a0cf3e7e18f06bf-full.webp",
      "alt": "30 LB R134A (R-134A) Refrigerant Gas",
      "width": null,
      "height": null
@@ -3446,9 +3275,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "fw-freon-steel-cylinder-packaging-r134a-30lb-tank-cylinder-refrigerant-for-air-conditioners",
@@ -3486,10 +3313,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-134-YU",
-   "unitPricingMeasure": "30 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "fw-30lb-r22-refrigerant-freon-for-air-conditioners-steel-cylinder-packaging-tank",
@@ -3527,10 +3351,7 @@
    "requiresShipping": true,
    "weightGrams": 13608,
    "regulated": true,
-   "source": "freonwell",
-   "mpn": "PZ-22-ZU-us",
-   "unitPricingMeasure": "30 lb",
-   "shippingWeightLb": 30
+   "source": "freonwell"
   },
   {
    "id": "sg-134a",
@@ -3549,9 +3370,9 @@
    "excerpt": "A 30 lb cylinder of R-134a with a 1/2 ACME service fitting, sized for automotive air-conditioning work.",
    "images": [
     {
-     "thumb": "/product-images/607d772e1be71048-thumb.webp",
-     "card": "/product-images/607d772e1be71048-card.webp",
-     "full": "/product-images/607d772e1be71048-full.webp",
+     "thumb": "/product-images/0b9699fa42166d6a-thumb.webp",
+     "card": "/product-images/0b9699fa42166d6a-card.webp",
+     "full": "/product-images/0b9699fa42166d6a-full.webp",
      "alt": "30lb R-134a Refrigerant, Automotive, 1/2 ACME",
      "width": null,
      "height": null
@@ -3568,9 +3389,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "134a",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-34H-1",
@@ -3589,9 +3408,9 @@
    "excerpt": "A 30 lb cylinder of R-134a on a 1/4 ACME fitting, for stationary HVAC and refrigeration service.",
    "images": [
     {
-     "thumb": "/product-images/a38e76d099aeda11-thumb.webp",
-     "card": "/product-images/a38e76d099aeda11-card.webp",
-     "full": "/product-images/a38e76d099aeda11-full.webp",
+     "thumb": "/product-images/6fe56ea257c7f7fd-thumb.webp",
+     "card": "/product-images/6fe56ea257c7f7fd-card.webp",
+     "full": "/product-images/6fe56ea257c7f7fd-full.webp",
      "alt": "30lb R-134a Refrigerant, HVAC, 1/4 ACME",
      "width": null,
      "height": null
@@ -3608,9 +3427,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "34H-1",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-22Brown",
@@ -3629,9 +3446,9 @@
    "excerpt": "A 30 lb cylinder of R-22 for service work on equipment still charged with it.",
    "images": [
     {
-     "thumb": "/product-images/a62615c654ff801c-thumb.webp",
-     "card": "/product-images/a62615c654ff801c-card.webp",
-     "full": "/product-images/a62615c654ff801c-full.webp",
+     "thumb": "/product-images/e46bef91368800ff-thumb.webp",
+     "card": "/product-images/e46bef91368800ff-card.webp",
+     "full": "/product-images/e46bef91368800ff-full.webp",
      "alt": "30lb R-22 Refrigerant Center",
      "width": null,
      "height": null
@@ -3648,9 +3465,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "22Brown",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-22G",
@@ -3669,9 +3484,9 @@
    "excerpt": "A 30 lb cylinder of virgin R-22, made in the USA, for service work on equipment that still runs on it.",
    "images": [
     {
-     "thumb": "/product-images/289fff313e101d9d-thumb.webp",
-     "card": "/product-images/289fff313e101d9d-card.webp",
-     "full": "/product-images/289fff313e101d9d-full.webp",
+     "thumb": "/product-images/cba485ed2d918a29-thumb.webp",
+     "card": "/product-images/cba485ed2d918a29-card.webp",
+     "full": "/product-images/cba485ed2d918a29-full.webp",
      "alt": "30lb R-22 Refrigerant, Virgin – Made in USA",
      "width": null,
      "height": null
@@ -3689,9 +3504,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "22G",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40 R513",
@@ -3710,9 +3523,9 @@
    "excerpt": "A 30 lb cylinder of R-513A, the lower-GWP azeotropic replacement for R-134a.",
    "images": [
     {
-     "thumb": "/product-images/3e3b5cc11399f825-thumb.webp",
-     "card": "/product-images/3e3b5cc11399f825-card.webp",
-     "full": "/product-images/3e3b5cc11399f825-full.webp",
+     "thumb": "/product-images/f592aa0848dfeb59-thumb.webp",
+     "card": "/product-images/f592aa0848dfeb59-card.webp",
+     "full": "/product-images/f592aa0848dfeb59-full.webp",
      "alt": "30lb R-513A Refrigerant, Low-GWP R-134a Replacement",
      "width": null,
      "height": null
@@ -3729,9 +3542,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40 R513",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R134",
@@ -3750,9 +3561,9 @@
    "excerpt": "Ten 30 lb cylinders — 300 lb of R-134a — for shops issuing gas to several vans or a facilities crew servicing its own chillers and display cases.",
    "images": [
     {
-     "thumb": "/product-images/1f94e98a1b4179ef-thumb.webp",
-     "card": "/product-images/1f94e98a1b4179ef-card.webp",
-     "full": "/product-images/1f94e98a1b4179ef-full.webp",
+     "thumb": "/product-images/ce9ee18e3b10277e-thumb.webp",
+     "card": "/product-images/ce9ee18e3b10277e-card.webp",
+     "full": "/product-images/ce9ee18e3b10277e-full.webp",
      "alt": "30LB R134A (R-134A) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -3770,9 +3581,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R134",
@@ -3791,9 +3600,9 @@
    "excerpt": "Twenty 30 lb cylinders of R-134a, 600 lb in total — planning stock for the car air conditioning and medium-temperature refrigeration systems this HFC was built around.",
    "images": [
     {
-     "thumb": "/product-images/06214025c25192fe-thumb.webp",
-     "card": "/product-images/06214025c25192fe-card.webp",
-     "full": "/product-images/06214025c25192fe-full.webp",
+     "thumb": "/product-images/d6b464b6e09e0f65-thumb.webp",
+     "card": "/product-images/d6b464b6e09e0f65-card.webp",
+     "full": "/product-images/d6b464b6e09e0f65-full.webp",
      "alt": "30LB R134A (R-134A) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -3811,9 +3620,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R134",
@@ -3832,9 +3639,9 @@
    "excerpt": "Thirty 30 lb cylinders of R-134a — 900 lb total for the retrofit or fleet programme you want finished without pausing to chase the next delivery.",
    "images": [
     {
-     "thumb": "/product-images/1ce30d2a996d467a-thumb.webp",
-     "card": "/product-images/1ce30d2a996d467a-card.webp",
-     "full": "/product-images/1ce30d2a996d467a-full.webp",
+     "thumb": "/product-images/2937fdafecd23162-thumb.webp",
+     "card": "/product-images/2937fdafecd23162-card.webp",
+     "full": "/product-images/2937fdafecd23162-full.webp",
      "alt": "30LB R134A (R-134A) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -3852,9 +3659,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R134",
@@ -3873,9 +3678,9 @@
    "excerpt": "Forty 30 lb cylinders of R-134a — 1200 lb total of a single-compound HFC that still services medium-temperature refrigeration, chillers and older vehicle air conditioning.",
    "images": [
     {
-     "thumb": "/product-images/7b99db1ef14d8a15-thumb.webp",
-     "card": "/product-images/7b99db1ef14d8a15-card.webp",
-     "full": "/product-images/7b99db1ef14d8a15-full.webp",
+     "thumb": "/product-images/2428360f985f225e-thumb.webp",
+     "card": "/product-images/2428360f985f225e-card.webp",
+     "full": "/product-images/2428360f985f225e-full.webp",
      "alt": "30LB R134A (R-134A) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -3893,9 +3698,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R134",
@@ -3914,9 +3717,9 @@
    "excerpt": "Five 30 lb cylinders of R-134a: 150 lb of gas in the pack and the single-compound HFC that took over from R-12 in automotive and medium-temperature refrigeration.",
    "images": [
     {
-     "thumb": "/product-images/b5a15cec3c92170b-thumb.webp",
-     "card": "/product-images/b5a15cec3c92170b-card.webp",
-     "full": "/product-images/b5a15cec3c92170b-full.webp",
+     "thumb": "/product-images/59b62c4249bc7847-thumb.webp",
+     "card": "/product-images/59b62c4249bc7847-card.webp",
+     "full": "/product-images/59b62c4249bc7847-full.webp",
      "alt": "30LB R134A (R-134A) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -3934,9 +3737,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R134",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-PZ-22-ZU-US",
@@ -3955,9 +3756,9 @@
    "excerpt": "A single 30 lb cylinder of R-22 for the diagnosed service call: one compound with no glide, charged by weight against the nameplate on the machine.",
    "images": [
     {
-     "thumb": "/product-images/6ea19602436f2e06-thumb.webp",
-     "card": "/product-images/6ea19602436f2e06-card.webp",
-     "full": "/product-images/6ea19602436f2e06-full.webp",
+     "thumb": "/product-images/3d6b6131404de44a-thumb.webp",
+     "card": "/product-images/3d6b6131404de44a-card.webp",
+     "full": "/product-images/3d6b6131404de44a-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas",
      "width": null,
      "height": null
@@ -3975,9 +3776,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "PZ-22-ZU-US",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-10pcs R22",
@@ -3996,9 +3795,9 @@
    "excerpt": "Ten 30 lb cylinders of R-22 — 300 lb of single-component HCFC — sized for contractors holding planned maintenance on legacy R-22 plant.",
    "images": [
     {
-     "thumb": "/product-images/5a9a453f9a3fb1f8-thumb.webp",
-     "card": "/product-images/5a9a453f9a3fb1f8-card.webp",
-     "full": "/product-images/5a9a453f9a3fb1f8-full.webp",
+     "thumb": "/product-images/427638827fcf4d34-thumb.webp",
+     "card": "/product-images/427638827fcf4d34-card.webp",
+     "full": "/product-images/427638827fcf4d34-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas | 10 Cylinders",
      "width": null,
      "height": null
@@ -4016,9 +3815,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "10pcs R22",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20pcs R22",
@@ -4037,9 +3834,9 @@
    "excerpt": "Twenty 30 lb cylinders of R-22: 600 lb of charge on the shelf for shops still servicing legacy equipment on a refrigerant no longer produced or imported in the US.",
    "images": [
     {
-     "thumb": "/product-images/74dd9476165323a9-thumb.webp",
-     "card": "/product-images/74dd9476165323a9-card.webp",
-     "full": "/product-images/74dd9476165323a9-full.webp",
+     "thumb": "/product-images/0d52154d77167b50-thumb.webp",
+     "card": "/product-images/0d52154d77167b50-card.webp",
+     "full": "/product-images/0d52154d77167b50-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas | 20 Cylinders",
      "width": null,
      "height": null
@@ -4057,9 +3854,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20pcs R22",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-30pcs R22",
@@ -4078,9 +3873,9 @@
    "excerpt": "900 lb of R-22 across 30 cylinders — single-component HCFC to keep existing systems charged while you work through retrofit-or-replace decisions machine by machine.",
    "images": [
     {
-     "thumb": "/product-images/692f977f6e19d9cb-thumb.webp",
-     "card": "/product-images/692f977f6e19d9cb-card.webp",
-     "full": "/product-images/692f977f6e19d9cb-full.webp",
+     "thumb": "/product-images/d014990015693c8d-thumb.webp",
+     "card": "/product-images/d014990015693c8d-card.webp",
+     "full": "/product-images/d014990015693c8d-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas | 30 Cylinders",
      "width": null,
      "height": null
@@ -4098,9 +3893,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "30pcs R22",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40pcs R22",
@@ -4119,9 +3912,9 @@
    "excerpt": "Forty 30 lb cylinders — 1200 lb of R-22 held as service stock for equipment that still runs on HCFC long after US production ended.",
    "images": [
     {
-     "thumb": "/product-images/c9f51c333d1d1fb3-thumb.webp",
-     "card": "/product-images/c9f51c333d1d1fb3-card.webp",
-     "full": "/product-images/c9f51c333d1d1fb3-full.webp",
+     "thumb": "/product-images/a6ae7d20ae9a3aeb-thumb.webp",
+     "card": "/product-images/a6ae7d20ae9a3aeb-card.webp",
+     "full": "/product-images/a6ae7d20ae9a3aeb-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas | 40 Cylinders",
      "width": null,
      "height": null
@@ -4139,9 +3932,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40pcs R22",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-5pcs R22",
@@ -4160,9 +3951,9 @@
    "excerpt": "Five 30 lb cylinders of R-22, the single-compound HCFC that still keeps installed air conditioning and commercial refrigeration running.",
    "images": [
     {
-     "thumb": "/product-images/c72f66e8a738f17f-thumb.webp",
-     "card": "/product-images/c72f66e8a738f17f-card.webp",
-     "full": "/product-images/c72f66e8a738f17f-full.webp",
+     "thumb": "/product-images/5245cd7918dd967e-thumb.webp",
+     "card": "/product-images/5245cd7918dd967e-card.webp",
+     "full": "/product-images/5245cd7918dd967e-full.webp",
      "alt": "30LB R22 (R-22) Refrigerant Gas | 5 Cylinders",
      "width": null,
      "height": null
@@ -4180,9 +3971,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "5pcs R22",
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-r134a-automotive-refrigerant-10-x-30lb-cy-ed95a8a8",
@@ -4201,9 +3990,9 @@
    "excerpt": "Ten 30 lb cylinders of R-134a automotive refrigerant in one bulk pack, for shops going through cylinders weekly.",
    "images": [
     {
-     "thumb": "/product-images/1fd22647eef7e5f6-thumb.webp",
-     "card": "/product-images/1fd22647eef7e5f6-card.webp",
-     "full": "/product-images/1fd22647eef7e5f6-full.webp",
+     "thumb": "/product-images/484b35e7e9f38d8b-thumb.webp",
+     "card": "/product-images/484b35e7e9f38d8b-card.webp",
+     "full": "/product-images/484b35e7e9f38d8b-full.webp",
      "alt": "Bulk Pack – 10 × 30lb R-134a Automotive Refrigerant",
      "width": null,
      "height": null
@@ -4221,10 +4010,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r134a-automotive-refrigerant-10-x-30lb-cylinders-free-freight-47",
-   "multipack": 10,
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-r134a-refrigerant-30lb-11",
@@ -4243,9 +4029,9 @@
    "excerpt": "Twenty 30 lb cylinders of R-134a automotive refrigerant in one bulk pack.",
    "images": [
     {
-     "thumb": "/product-images/8e07cc83dfcdd1ca-thumb.webp",
-     "card": "/product-images/8e07cc83dfcdd1ca-card.webp",
-     "full": "/product-images/8e07cc83dfcdd1ca-full.webp",
+     "thumb": "/product-images/ccce021ff5876acb-thumb.webp",
+     "card": "/product-images/ccce021ff5876acb-card.webp",
+     "full": "/product-images/ccce021ff5876acb-full.webp",
      "alt": "Bulk Pack – 20 × 30lb R-134a Automotive Refrigerant",
      "width": null,
      "height": null
@@ -4263,10 +4049,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r134a-refrigerant-30lb-11",
-   "multipack": 20,
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-40 R404",
@@ -4285,9 +4068,9 @@
    "excerpt": "A full pallet of R-404A: forty 24 lb cylinders, freight included, for contractors and distributors buying a season's stock at once.",
    "images": [
     {
-     "thumb": "/product-images/306525c015eaf3c2-thumb.webp",
-     "card": "/product-images/306525c015eaf3c2-card.webp",
-     "full": "/product-images/306525c015eaf3c2-full.webp",
+     "thumb": "/product-images/7ada057a72e95c2f-thumb.webp",
+     "card": "/product-images/7ada057a72e95c2f-card.webp",
+     "full": "/product-images/7ada057a72e95c2f-full.webp",
      "alt": "Full Pallet – 40 × 24lb R-404A Refrigerant, Free Freight",
      "width": null,
      "height": null
@@ -4305,10 +4088,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "40 R404",
-   "multipack": 40,
-   "unitPricingMeasure": "24 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-pallet-of-r134a-automotive-refrigerant-40-66354e34",
@@ -4327,9 +4107,9 @@
    "excerpt": "A full pallet of R-134a automotive refrigerant: forty 30 lb cylinders, freight included.",
    "images": [
     {
-     "thumb": "/product-images/3122c6101118e798-thumb.webp",
-     "card": "/product-images/3122c6101118e798-card.webp",
-     "full": "/product-images/3122c6101118e798-full.webp",
+     "thumb": "/product-images/e9606c2f5088eaf6-thumb.webp",
+     "card": "/product-images/e9606c2f5088eaf6-card.webp",
+     "full": "/product-images/e9606c2f5088eaf6-full.webp",
      "alt": "Full Pallet – 40 × 30lb R-134a Automotive Refrigerant, Free Freight",
      "width": null,
      "height": null
@@ -4347,10 +4127,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "pallet-of-r134a-automotive-refrigerant-40-x-30lb-cylinders-free-freight-12",
-   "multipack": 40,
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-r22-full-pallet-40-cylinders-x-30lb-36",
@@ -4369,9 +4146,9 @@
    "excerpt": "A full pallet of R-22: forty 30 lb cylinders, for contractors holding service stock of a refrigerant no longer in production.",
    "images": [
     {
-     "thumb": "/product-images/cb8e5e738cc06031-thumb.webp",
-     "card": "/product-images/cb8e5e738cc06031-card.webp",
-     "full": "/product-images/cb8e5e738cc06031-full.webp",
+     "thumb": "/product-images/b128dd9fd1469d83-thumb.webp",
+     "card": "/product-images/b128dd9fd1469d83-card.webp",
+     "full": "/product-images/b128dd9fd1469d83-full.webp",
      "alt": "Full Pallet – 40 × 30lb R-22 Refrigerant",
      "width": null,
      "height": null
@@ -4389,10 +4166,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r22-full-pallet-40-cylinders-x-30lb-36",
-   "multipack": 40,
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-20 Cyl 410",
@@ -4411,9 +4185,9 @@
    "excerpt": "A half pallet of R-410A: twenty 25 lb cylinders for HVAC contractors holding installation and service stock.",
    "images": [
     {
-     "thumb": "/product-images/6cc0cddccc7122cc-thumb.webp",
-     "card": "/product-images/6cc0cddccc7122cc-card.webp",
-     "full": "/product-images/6cc0cddccc7122cc-full.webp",
+     "thumb": "/product-images/641da8a7d791f695-thumb.webp",
+     "card": "/product-images/641da8a7d791f695-card.webp",
+     "full": "/product-images/641da8a7d791f695-full.webp",
      "alt": "Half Pallet – 20 × 25lb R-410A Refrigerant",
      "width": null,
      "height": null
@@ -4431,10 +4205,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "20 Cyl 410",
-   "multipack": 20,
-   "unitPricingMeasure": "25 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-honey-well-r1234yf-refrigerant-4-cases-16-cans-29",
@@ -4453,9 +4224,9 @@
    "excerpt": "Sixteen 8 oz cans of genuine Honeywell R-1234yf — case quantity for shops working on HFO systems daily.",
    "images": [
     {
-     "thumb": "/product-images/680ad14d84be2290-thumb.webp",
-     "card": "/product-images/680ad14d84be2290-card.webp",
-     "full": "/product-images/680ad14d84be2290-full.webp",
+     "thumb": "/product-images/81e2e0b7de6e8e7a-thumb.webp",
+     "card": "/product-images/81e2e0b7de6e8e7a-card.webp",
+     "full": "/product-images/81e2e0b7de6e8e7a-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 16 Cans (8oz Each), Genuine – Made in USA",
      "width": null,
      "height": null
@@ -4473,9 +4244,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "honey-well-r1234yf-refrigerant-4-cases-16-cans-29",
-   "multipack": 16
+   "source": "sentai"
   },
   {
    "id": "sg-3-1234yf with gauage",
@@ -4494,9 +4263,9 @@
    "excerpt": "Three 8 oz cans of genuine Honeywell R-1234yf with a heavy-duty brass can tap included.",
    "images": [
     {
-     "thumb": "/product-images/9f6a65d5c27dbf31-thumb.webp",
-     "card": "/product-images/9f6a65d5c27dbf31-card.webp",
-     "full": "/product-images/9f6a65d5c27dbf31-full.webp",
+     "thumb": "/product-images/60cd3c849d3e0fff-thumb.webp",
+     "card": "/product-images/60cd3c849d3e0fff-card.webp",
+     "full": "/product-images/60cd3c849d3e0fff-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 3 Cans (8oz Each) with HD Brass Can Tap – Made in USA",
      "width": null,
      "height": null
@@ -4514,9 +4283,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "3-1234yf with gauage",
-   "isBundle": true
+   "source": "sentai"
   },
   {
    "id": "sg-1234yf 1 BOX",
@@ -4535,9 +4302,9 @@
    "excerpt": "Four 8 oz cans of genuine Honeywell R-1234yf supplied with a heavy-duty brass can tap.",
    "images": [
     {
-     "thumb": "/product-images/77e90394c574dd5c-thumb.webp",
-     "card": "/product-images/77e90394c574dd5c-card.webp",
-     "full": "/product-images/77e90394c574dd5c-full.webp",
+     "thumb": "/product-images/1d246dd626173bd9-thumb.webp",
+     "card": "/product-images/1d246dd626173bd9-card.webp",
+     "full": "/product-images/1d246dd626173bd9-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 4 Cans (8oz Each) with HD Brass Can Tap – Made in USA",
      "width": null,
      "height": null
@@ -4555,9 +4322,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "1234yf 1 BOX",
-   "isBundle": true
+   "source": "sentai"
   },
   {
    "id": "sg-4 yf w/ gauge",
@@ -4576,9 +4341,9 @@
    "excerpt": "A four-pack of 8 oz Honeywell R-1234yf cans with a heavy-duty brass can tap.",
    "images": [
     {
-     "thumb": "/product-images/46ea468bed1d676f-thumb.webp",
-     "card": "/product-images/46ea468bed1d676f-card.webp",
-     "full": "/product-images/46ea468bed1d676f-full.webp",
+     "thumb": "/product-images/0cdf6706dc5b1269-thumb.webp",
+     "card": "/product-images/0cdf6706dc5b1269-card.webp",
+     "full": "/product-images/0cdf6706dc5b1269-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 4-Pack (8oz Cans) with HD Brass Can Tap – Made in USA",
      "width": null,
      "height": null
@@ -4596,9 +4361,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "4 yf w/ gauge",
-   "isBundle": true
+   "source": "sentai"
   },
   {
    "id": "sg-yf 8 cans",
@@ -4617,9 +4380,9 @@
    "excerpt": "Eight 8 oz cans of genuine Honeywell R-1234yf, made in the USA.",
    "images": [
     {
-     "thumb": "/product-images/8708d1b18ef4ad5e-thumb.webp",
-     "card": "/product-images/8708d1b18ef4ad5e-card.webp",
-     "full": "/product-images/8708d1b18ef4ad5e-full.webp",
+     "thumb": "/product-images/2220eda7c198dcc5-thumb.webp",
+     "card": "/product-images/2220eda7c198dcc5-card.webp",
+     "full": "/product-images/2220eda7c198dcc5-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 8 Cans (8oz Each), Genuine – Made in USA",
      "width": null,
      "height": null
@@ -4637,9 +4400,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "yf 8 cans",
-   "multipack": 8
+   "source": "sentai"
   },
   {
    "id": "sg-1234yf-8oz-can-49",
@@ -4658,9 +4419,9 @@
    "excerpt": "A single 8 oz self-sealing can of genuine Honeywell R-1234yf for motor-vehicle air-conditioning top-ups.",
    "images": [
     {
-     "thumb": "/product-images/e181f867f4e80b05-thumb.webp",
-     "card": "/product-images/e181f867f4e80b05-card.webp",
-     "full": "/product-images/e181f867f4e80b05-full.webp",
+     "thumb": "/product-images/c614dfea4ca160e7-thumb.webp",
+     "card": "/product-images/c614dfea4ca160e7-card.webp",
+     "full": "/product-images/c614dfea4ca160e7-full.webp",
      "alt": "Honeywell R-1234yf Refrigerant – 8oz Self-Sealing Can, MVAC Use – Made in USA",
      "width": null,
      "height": null
@@ -4678,9 +4439,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "1234yf-8oz-can-49",
-   "unitPricingMeasure": "8 oz"
+   "source": "sentai"
   },
   {
    "id": "sg-r-22-30-lbs-refrigerant-quarter-pallet-10-a2d03463",
@@ -4699,9 +4458,9 @@
    "excerpt": "A quarter pallet of R-22: ten 30 lb cylinders, for shops that want stock without committing to a full pallet.",
    "images": [
     {
-     "thumb": "/product-images/55bad0b57f338ef2-thumb.webp",
-     "card": "/product-images/55bad0b57f338ef2-card.webp",
-     "full": "/product-images/55bad0b57f338ef2-full.webp",
+     "thumb": "/product-images/ebc6bd6e3a03dddd-thumb.webp",
+     "card": "/product-images/ebc6bd6e3a03dddd-card.webp",
+     "full": "/product-images/ebc6bd6e3a03dddd-full.webp",
      "alt": "Quarter Pallet – 10 × 30lb R-22 Refrigerant",
      "width": null,
      "height": null
@@ -4719,10 +4478,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r-22-30-lbs-refrigerant-quarter-pallet-10-cylinders-35",
-   "multipack": 10,
-   "unitPricingMeasure": "30 lb"
+   "source": "sentai"
   },
   {
    "id": "sg-3 cans 134a",
@@ -4741,9 +4497,9 @@
    "excerpt": "Three 12 oz self-sealing cans of R-134a supplied with a gauge, for motor-vehicle air-conditioning top-ups.",
    "images": [
     {
-     "thumb": "/product-images/bdac31a76c31febe-thumb.webp",
-     "card": "/product-images/bdac31a76c31febe-card.webp",
-     "full": "/product-images/bdac31a76c31febe-full.webp",
+     "thumb": "/product-images/a05937b6f456fc22-thumb.webp",
+     "card": "/product-images/a05937b6f456fc22-card.webp",
+     "full": "/product-images/a05937b6f456fc22-full.webp",
      "alt": "R-134a Refrigerant – 3-Pack (12oz Self-Sealing Cans) with Gauge, MVAC Use",
      "width": null,
      "height": null
@@ -4761,9 +4517,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "3 cans 134a",
-   "isBundle": true
+   "source": "sentai"
   },
   {
    "id": "sg-134-3 cans &#038; gauage",
@@ -4782,9 +4536,9 @@
    "excerpt": "Three 12 oz self-sealing cans of R-134a for motor-vehicle air-conditioning service.",
    "images": [
     {
-     "thumb": "/product-images/98bcc62a979fec11-thumb.webp",
-     "card": "/product-images/98bcc62a979fec11-card.webp",
-     "full": "/product-images/98bcc62a979fec11-full.webp",
+     "thumb": "/product-images/2df3c4bd1fa1e099-thumb.webp",
+     "card": "/product-images/2df3c4bd1fa1e099-card.webp",
+     "full": "/product-images/2df3c4bd1fa1e099-full.webp",
      "alt": "R-134a Refrigerant – 3-Pack (12oz Self-Sealing Cans), MVAC Use",
      "width": null,
      "height": null
@@ -4801,9 +4555,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "134-3 cans &#038; gauage",
-   "multipack": 3
+   "source": "sentai"
   },
   {
    "id": "sg-r32 22oz",
@@ -4822,9 +4574,9 @@
    "excerpt": "A 22 oz can of R-32, the single-component refrigerant used in newer air-conditioning equipment.",
    "images": [
     {
-     "thumb": "/product-images/16e79d78e2576313-thumb.webp",
-     "card": "/product-images/16e79d78e2576313-card.webp",
-     "full": "/product-images/16e79d78e2576313-full.webp",
+     "thumb": "/product-images/a386c16189d14b97-thumb.webp",
+     "card": "/product-images/a386c16189d14b97-card.webp",
+     "full": "/product-images/a386c16189d14b97-full.webp",
      "alt": "R-32 Refrigerant Can – 22oz (1.4lb)",
      "width": null,
      "height": null
@@ -4842,9 +4594,7 @@
    "requiresShipping": true,
    "weightGrams": 0,
    "regulated": true,
-   "source": "sentai",
-   "mpn": "r32 22oz",
-   "unitPricingMeasure": "22 oz"
+   "source": "sentai"
   },
   {
    "id": "gas-4628",

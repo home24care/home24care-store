@@ -42,7 +42,7 @@ export default async function SearchPage({
           type="search"
           name="q"
           defaultValue={query}
-          placeholder="Try “gazebo”, “R-410A” or “swing set”"
+          placeholder="Try “R-410A”, “1234yf” or “pallet”"
           aria-label="Search products"
           className="field"
         />

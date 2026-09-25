@@ -175,7 +175,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
                 name="q"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search gazebos, swing sets, R-410A…"
+                placeholder="Search R-410A, 1234yf, pallets…"
                 aria-label="Search products"
                 className="w-52 rounded-full border border-ink/15 bg-sand py-2 pl-9 pr-3 text-sm transition-[width] placeholder:text-ink-muted focus:w-72 focus:border-moss-500 focus:bg-white focus:outline-none focus:ring-1 focus:ring-moss-500 lg:w-60"
               />

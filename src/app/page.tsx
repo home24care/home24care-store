@@ -35,7 +35,7 @@ export const metadata: Metadata = {
  * URLs, so `npm run localize:images` swaps them to local WebP along with
  * everything else.
  */
-const HERO_PRODUCT = '1-5lb-r-410a-refrigerant-virgin';
+const HERO_PRODUCT = '30lb-r-134a-refrigerant-automotive-1-2-acme';
 const HERO_ALT =
   'A factory-sealed refrigerant cylinder ready for an HVAC service call';
 
@@ -167,40 +167,29 @@ export default function HomePage() {
       <JsonLd data={faqSchema(HOME_FAQS)} />
 
       {/* ---------------------------------------------------------- Hero */}
-      <section className="relative isolate overflow-hidden bg-moss-900">
-        <Image
-          src={heroImage}
-          alt={HERO_ALT}
-          fill
-          priority
-          fetchPriority="high"
-          sizes={SIZES.hero}
-          unoptimized={IMAGES_LOCALIZED}
-          quality={75}
-          className="object-cover object-center"
-        />
-        {/*
-          Contrast comes from the scrim alone, not from dimming the photograph
-          — fading the image itself against a near-black section just produced
-          a flat green block.
+      {/*
+        A split hero, not a full-bleed photograph.
 
-          The scrim also has to run in the direction the text actually sits:
-          below lg the copy spans the full width, so a left-to-right gradient
-          starts opaque across the whole hero and hides the image entirely.
-          Vertical there, horizontal only once the text occupies one column.
-        */}
+        The product shots are catalogue images: 1100px square at best, and
+        several are smaller. Stretching one across a 1920px band upscaled it
+        three to four times and the result was visibly soft — a pixelated
+        cylinder behind the headline. Held in a column it renders near its
+        native size and stays sharp, and the product reads as a product rather
+        than as wallpaper.
+      */}
+      <section className="relative isolate overflow-hidden bg-moss-900">
         <div
-          className="absolute inset-0 bg-gradient-to-t from-moss-900 via-moss-900/80 to-moss-900/40 lg:bg-gradient-to-r lg:from-moss-900/95 lg:via-moss-900/70 lg:to-moss-900/10"
+          className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] rounded-full bg-moss-700/40 blur-3xl"
           aria-hidden="true"
         />
-        <div className="container-page relative flex min-h-[clamp(460px,62vh,620px)] items-center py-16">
+        <div className="container-page relative grid items-center gap-10 py-14 lg:min-h-[clamp(460px,62vh,620px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-16">
           <div className="max-w-xl animate-rise">
             <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/12 px-3.5 py-1.5 text-[12.5px] font-semibold text-white backdrop-blur">
               <TruckIcon className="h-4 w-4" />
               Free shipping · Ships in 1 business day
             </p>
             <h1 className="text-balance font-display text-[40px] leading-[1.06] tracking-tight text-white sm:text-[54px] lg:text-[62px]">
-              Outdoor living, built to last
+              Sealed cylinders, shipped fast
             </h1>
             <p className="mt-5 max-w-lg text-[16.5px] leading-relaxed text-moss-100">
               Factory-sealed refrigerant cylinders for HVAC, automotive and commercial
@@ -213,19 +202,18 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/collections"
-                className="btn px-7 py-3.5 text-[15px] text-white ring-1 ring-inset ring-white/40 hover:bg-white/10"
+                className="rounded-full border border-white/30 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10"
               >
                 Browse all collections
               </Link>
             </div>
-
-            <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-moss-100">
+            <ul className="mt-9 flex flex-wrap gap-x-7 gap-y-2 text-[13.5px] text-moss-100">
               {[
                 `${site.returns.windowDays}-day returns`,
                 site.warranty.label,
-                'No restocking fees',
+                site.returns.restockingFee ? 'Restocking fee applies' : 'No restocking fees',
               ].map((item) => (
-                <li key={item} className="flex items-center gap-1.5">
+                <li key={item} className="flex items-center gap-2">
                   <CheckIcon className="h-4 w-4 text-clay-300" />
                   {item}
                 </li>
@@ -233,28 +221,19 @@ export default function HomePage() {
             </ul>
           </div>
 
-          {heroProduct && (
-            <Link
-              href={`/products/${heroProduct.slug}`}
-              className="ml-auto hidden w-64 rounded-2xl bg-white/95 p-4 shadow-lift backdrop-blur transition-transform hover:-translate-y-1 xl:block"
-            >
-              <p className="eyebrow">Featured</p>
-              <p className="mt-1 line-clamp-2 text-[15px] font-semibold leading-snug">
-                {heroProduct.title}
-              </p>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-lg font-bold">{formatPrice(heroProduct.price)}</span>
-                {heroProduct.compareAtPrice && (
-                  <span className="text-[13px] text-ink-muted line-through">
-                    {formatPrice(heroProduct.compareAtPrice)}
-                  </span>
-                )}
-              </div>
-              <span className="mt-3 block text-[13px] font-semibold text-moss-700">
-                View product →
-              </span>
-            </Link>
-          )}
+          <div className="relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-[28px] bg-white/5 lg:max-w-[460px]">
+            <Image
+              src={heroImage}
+              alt={HERO_ALT}
+              fill
+              priority
+              fetchPriority="high"
+              sizes="(min-width: 1024px) 460px, 92vw"
+              unoptimized={IMAGES_LOCALIZED}
+              quality={80}
+              className="object-contain p-6"
+            />
+          </div>
         </div>
       </section>
 
@@ -285,8 +264,8 @@ export default function HomePage() {
       <section className="container-page py-16">
         <SectionHeading
           eyebrow="Shop by category"
-          title="Everything for the yard"
-          subtitle="Structures that arrive as complete kits — every board, bracket and bolt in the box."
+          title="Every refrigerant, one supplier"
+          subtitle="HVAC, automotive, commercial and legacy gases — single cylinders through to full pallets."
           href="/collections"
           linkLabel="All collections"
         />
@@ -348,23 +327,23 @@ export default function HomePage() {
         <div className="container-page grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-20">
           <div className="max-w-lg">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-clay-300">
-              Built for real weather
+              Factory sealed, never decanted
             </p>
             <h2 className="mt-3 font-display text-[32px] leading-[1.12] tracking-tight sm:text-[42px]">
-              Kits that go up in a weekend and stand for a decade
+              Cylinders that arrive exactly as the plant filled them
             </h2>
             <p className="mt-4 text-[15.5px] leading-relaxed text-moss-100">
-              Every structure ships as a complete, pre-cut kit with labelled hardware and
-              step-by-step instructions. Kiln-dried cedar, powder-coated steel and
-              UV-stable glazing mean no staining, no sealing and no splinters — just a
-              yard that looks the same in year five as it did on day one.
+              Every cylinder ships factory sealed, with its DOT markings, batch number and
+              safety data intact. Nothing is decanted, blended or repacked in transit, so the
+              refrigerant that reaches the job is the refrigerant on the label — which is what
+              a charge weight and a warranty claim both depend on.
             </p>
             <ul className="mt-7 space-y-3">
               {[
-                'Pre-drilled lumber and numbered hardware bags',
-                'Rated for snow load and sustained wind',
-                'Freight delivery included on oversized items',
-                'Replacement parts stocked for the life of the warranty',
+                'Factory-sealed cylinders with intact DOT markings',
+                'Single cylinders through to full 40-cylinder pallets',
+                'Freight included on pallet orders',
+                'Sold for professional use — EPA 608 certification required',
               ].map((item) => (
                 <li key={item} className="flex gap-3 text-[15px] text-moss-50">
                   <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-clay-300" />
@@ -567,9 +546,7 @@ export default function HomePage() {
             {products.length} products, one place
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-ink-soft">
-            From a two-seat playhouse to a full pallet of refrigerant, everything on this
-            site ships free and is backed by the same returns window and warranty.
-          </p>
+            From a single 8oz can to a full pallet of 40 cylinders, everything on this site ships free and is backed by the same returns window and warranty.</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link href="/collections" className="btn-primary px-7 py-3.5">
               Start browsing

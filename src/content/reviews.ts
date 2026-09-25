@@ -45,78 +45,18 @@ export type Review = {
 };
 
 export const reviews: Review[] = [
-  {
-    id: 'r1',
-    rating: 5,
-    title: 'Arrived early and packed properly',
-    body: 'Ordered on a Thursday and it was on a pallet outside my garage Monday morning. Every board was numbered and the hardware came in labelled bags, so we did not have to guess at anything. Two of us had it standing by Sunday afternoon.',
-    author: 'Marcus T.',
-    location: 'Round Rock, TX',
-    date: '2026-08-19',
-    product: '12x10 Norwood Gazebo',
-    verified: true,
-    sample: true,
-  },
-  {
-    id: 'r2',
-    rating: 5,
-    title: 'Lumber quality is genuinely good',
-    body: 'I have built two of these from other brands and returned one for warped boards. Not a single warped piece in this kit. The kids have been on it every day since we finished it.',
-    author: 'Dana R.',
-    location: 'Columbus, OH',
-    date: '2026-08-02',
-    product: 'Adventurer Swing Set',
-    verified: true,
-    sample: true,
-  },
-  {
-    id: 'r3',
-    rating: 5,
-    title: 'Correct weight, factory sealed, clean invoice',
-    body: 'Ordered Thursday, on the truck Friday. Cylinder was sealed and the weight was exactly right. The invoice had everything my bookkeeper needed, which is more than I can say for the supplier I was using before.',
-    author: 'Victor A.',
-    location: 'Hialeah, FL',
-    date: '2026-07-28',
-    product: '25lb R-410A Refrigerant',
-    verified: true,
-    sample: true,
-  },
-  {
-    id: 'r4',
-    rating: 4,
-    title: 'Great pergola, plan for two people',
-    body: 'No complaints about the product at all — powder coat is thick and it has not moved in two storms. Docking a star only because the instructions imply one person can do it and that is optimistic. Support answered the phone when I called about a bracket.',
-    author: 'Priya N.',
-    location: 'Boise, ID',
-    date: '2026-07-15',
-    product: '14x10 Ashland Pergola',
-    verified: true,
-    sample: true,
-  },
-  {
-    id: 'r5',
-    rating: 5,
-    title: 'Return was actually painless',
-    body: 'Ordered the wrong size greenhouse, entirely my fault. Emailed them, got return instructions the same day, and the refund landed before the end of the week. No restocking fee, exactly like the policy says.',
-    author: 'Ellen K.',
-    location: 'Asheville, NC',
-    date: '2026-06-30',
-    product: 'Bellerose Greenhouse',
-    verified: true,
-    sample: true,
-  },
-  {
-    id: 'r6',
-    rating: 5,
-    title: 'Second order, same experience',
-    body: 'Bought a grill gazebo last spring and came back for the outdoor kitchen cabinets. Same fast shipping, same solid packaging. It is rare to find a supplier that stays consistent.',
-    author: 'Tom B.',
-    location: 'Lincoln, NE',
-    date: '2026-06-11',
-    product: 'Saxony XL Grill Gazebo',
-    verified: true,
-    sample: true,
-  },
+  /*
+    Emptied when the catalogue narrowed to refrigerants. The eight sample
+    entries here reviewed gazebos, swing sets, pergolas and greenhouses --
+    products the store no longer sells -- so they had become visibly wrong on
+    a live site as well as invented.
+
+    Writing refrigerant-flavoured replacements would only be fabricating
+    different fake reviews, which is the thing the header above warns against.
+    The section renders nothing while this is empty, which is the honest state
+    until real reviews exist. See the options at the top of this file.
+  */
+
 ];
 
 /** True while any rendered review is still placeholder content. */

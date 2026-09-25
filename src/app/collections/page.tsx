@@ -10,7 +10,7 @@ import { IMAGES_LOCALIZED } from '@/lib/image';
 
 export const metadata: Metadata = {
   title: 'All Collections',
-  description: `Browse every department at ${site.name} — swing sets, playhouses, gazebos, pergolas, outdoor kitchens, saunas, greenhouses, carports and HVAC refrigerants. Free standard shipping on every order.`,
+  description: `Browse every refrigerant range at ${site.name} — HVAC, commercial, specialty and legacy gases, bulk pallets and service supplies. Free standard shipping on every order.`,
   alternates: { canonical: '/collections' },
 };
 

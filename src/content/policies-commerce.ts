@@ -97,7 +97,7 @@ export const shippingPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: 'Larger structures — gazebos, pergolas, saunas, outdoor kitchens, carports and pallet quantities of refrigerant — ship on a pallet by freight carrier at no extra cost to you.',
+          text: 'Pallet quantities of refrigerant ship by freight carrier at no extra cost to you, delivered by appointment.',
         },
         {
           type: 'ul',

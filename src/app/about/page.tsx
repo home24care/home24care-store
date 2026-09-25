@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   // Alt text is derived from whichever product supplies the image, so a
   // fallback can never describe a pergola while showing something else.
-  const heroProduct = getProduct('10-x-10-pergola') ?? products[0];
+  const heroProduct = getProduct('30lb-r-134a-refrigerant-automotive-1-2-acme') ?? products[0];
   const heroBase = heroProduct.images[0].full;
   const heroImage = heroVariant(heroBase) ?? heroBase;
   const heroAlt =
-    heroProduct.slug === '10-x-10-pergola'
-      ? 'A timber pergola installed over a backyard seating area'
+    heroProduct.slug === '30lb-r-134a-refrigerant-automotive-1-2-acme'
+      ? 'A factory-sealed 30 lb R-134a refrigerant cylinder'
       : heroProduct.images[0].alt || heroProduct.title;
 
   return (
@@ -70,7 +70,7 @@ export default function AboutPage() {
             {site.name} was created with a vision to make online shopping easier, more
             affordable and more dependable. What began as a simple idea has grown into a
             catalog of {products.length} products across {collections.length} categories —
-            from a two-seat playhouse to a full pallet of refrigerant.
+            from a single 8oz can to a full pallet of forty cylinders.
           </p>
           <p>
             We ship from {site.address.city}, {site.address.regionName}, to all fifty states.
@@ -80,19 +80,13 @@ export default function AboutPage() {
 
           <h2>What we sell</h2>
           <p>
-            Our catalog splits into two departments that share one checkout and one set of
-            policies:
+            We sell refrigerants and the supplies that go with them, and nothing else:
           </p>
           <ul>
             <li>
-              <strong>Outdoor living</strong> — swing sets, playhouses, gazebos, pergolas,
-              outdoor kitchens, saunas, greenhouses and carports. Complete kits with pre-cut
-              lumber, labelled hardware and instructions in the box.
-            </li>
-            <li>
               <strong>Refrigerants and HVAC gases</strong> — factory-sealed R-410A, R-134a,
-              R-1234yf, R-404A and legacy blends in cans, cylinders and pallet quantities,
-              for licensed technicians.
+              R-1234yf, R-32, R-454B, R-404A and legacy blends in cans, cylinders and pallet
+              quantities, for licensed technicians.
             </li>
           </ul>
 
