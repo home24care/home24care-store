@@ -24,9 +24,9 @@ import { TrustpilotReviews } from '@/components/TrustpilotSection';
 import ReviewsSection from '@/components/ReviewsSection';
 
 export const metadata: Metadata = {
-  title: 'Outdoor Living, Grills, Power & Workshop Equipment — Home24Care',
+  title: 'Refrigerant Cylinders & HVAC Gases — Home24Care',
   description:
-    'Shop swing sets, saunas and greenhouses, gas and pellet grills, mowers and generators, car lifts and shop machinery, plus certified R-410A, R-134a and R-1234yf refrigerants. Free standard shipping on every order.',
+    'Factory-sealed refrigerant cylinders for HVAC, automotive and commercial refrigeration — R-410A, R-134a, R-1234yf, R-32, R-454B and legacy R-22, plus bulk pallets and service supplies. Free standard shipping on every order.',
   alternates: { canonical: '/' },
 };
 
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
  * URLs, so `npm run localize:images` swaps them to local WebP along with
  * everything else.
  */
-const HERO_PRODUCT = 'bristol-point-wooden-swing-set';
+const HERO_PRODUCT = '1-5lb-r-410a-refrigerant-virgin';
 const HERO_ALT =
-  'A cedar swing set with slide and climbing wall set up on a green backyard lawn';
+  'A factory-sealed refrigerant cylinder ready for an HVAC service call';
 
 /*
   Tiles must name collections that still exist. `gazebos`, `pergolas` and
@@ -45,12 +45,12 @@ const HERO_ALT =
   a removed collection renders a dead link to a 404.
 */
 const TILE_SLUGS = [
-  'swing-sets',
-  'saunas',
-  'greenhouses',
-  'gas-grills',
-  'riding-mowers',
-  'car-lifts',
+  'hvac-refrigerants',
+  'commercial-refrigerants',
+  'specialty-refrigerants',
+  'legacy-refrigerants',
+  'bulk-pallets',
+  'maintenance-supplies',
 ];
 
 /**
@@ -66,9 +66,9 @@ const EQUIPMENT_TILE_SLUGS = [
   'tankless-water-heaters',
 ];
 
-const EDITORIAL_PRODUCT = 'lennon-2-4-person-outdoor-cube-sauna';
+const EDITORIAL_PRODUCT = 'r-32-refrigerant-can-22oz-1-4lb';
 const EDITORIAL_ALT =
-  'A cedar outdoor cube sauna with a glass door, installed on a stone patio';
+  'A sealed refrigerant cylinder with its handling and compliance labelling visible';
 
 const HOME_FAQS = [
   {
@@ -203,13 +203,13 @@ export default function HomePage() {
               Outdoor living, built to last
             </h1>
             <p className="mt-5 max-w-lg text-[16.5px] leading-relaxed text-moss-100">
-              Swing sets, saunas and greenhouses for the yard — plus the grills, mowers,
-              generators and workshop gear that keep it running. Delivered free, anywhere
-              in the {site.address.countryName}.
+              Factory-sealed refrigerant cylinders for HVAC, automotive and commercial
+              refrigeration work — single cylinders through to full pallets. Delivered free,
+              anywhere in the {site.address.countryName}.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/collections/swing-sets" className="btn-accent px-7 py-3.5 text-[15px]">
-                Shop swing sets
+              <Link href="/collections/hvac-refrigerants" className="btn-accent px-7 py-3.5 text-[15px]">
+                Shop refrigerants
               </Link>
               <Link
                 href="/collections"
@@ -372,8 +372,8 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/collections/saunas" className="btn-accent mt-8 px-7 py-3.5 text-[15px]">
-              Shop saunas &amp; greenhouses
+            <Link href="/collections/bulk-pallets" className="btn-accent mt-8 px-7 py-3.5 text-[15px]">
+              Shop bulk pallets
             </Link>
           </div>
 

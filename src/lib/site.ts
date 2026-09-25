@@ -22,7 +22,7 @@ export const site = {
   })(),
   tagline: 'Outdoor living, built to last',
   description:
-    'Home24Care sells backyard structures and HVAC refrigerants direct to homeowners and trade customers across the United States — swing sets, gazebos, pergolas, outdoor kitchens, saunas and certified refrigerant cylinders, with free standard shipping.',
+    'Home24Care supplies factory-sealed refrigerant cylinders and HVAC service gases to trade and professional customers across the United States — R-410A, R-134a, R-1234yf, R-32, R-454B and legacy R-22, in single cylinders through to full pallets, with free standard shipping.',
 
   contact: {
     email: 'contact@home24care.com',

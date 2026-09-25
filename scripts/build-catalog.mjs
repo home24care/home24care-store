@@ -9,21 +9,23 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
 
-const shopify = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'source/shopify-products.json'), 'utf8')
-).products;
-const gas = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'source/gas-products.json'), 'utf8')
-);
+/*
+  Three sources, all refrigerants. The outdoor (Shopify), original gas and
+  equipment exports were dropped when the store narrowed to gas only; their
+  files are left on disk but are no longer read.
 
-/**
- * Equipment: grills, outdoor power, garage lifts, shop machinery and home
- * systems. Same WooCommerce Store API shape as the gas export, so it reuses
- * that reader's conventions. Each record carries a `_collection` assigned at
- * extraction time.
- */
-const equipment = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'source/equipment-products.json'), 'utf8')
+    sentai    — primary catalogue, prices as published
+    gasKeep   — the few products we stock that Sentai Gas does not
+    freonwell — additional cylinders, prices as published, images borrowed
+*/
+const sentai = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'source/sentaigas-products.json'), 'utf8')
+);
+const gasKeep = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'source/gas-keep-products.json'), 'utf8')
+);
+const freonwell = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'source/freonwell-products.json'), 'utf8')
 );
 
 /* ------------------------------------------------------------------ utils */
@@ -270,6 +272,13 @@ export const COLLECTIONS = [
     googleCategory: 'Hardware > Heating, Ventilation & Air Conditioning',
   },
   {
+    slug: 'maintenance-supplies',
+    title: 'Maintenance Supplies',
+    group: 'Refrigerants & Gases',
+    tagline: 'Flush, leak detection and service consumables for HVAC work.',
+    googleCategory: 'Hardware > Building Consumables > Chemicals',
+  },
+  {
     slug: 'bulk-pallets',
     title: 'Bulk & Pallet Orders',
     group: 'Refrigerants & Gases',
@@ -371,271 +380,129 @@ const uniqueSlug = (base) => {
   return slug;
 };
 
-// ---- Outdoor living products (Shopify export) ----------------------------
-for (const p of shopify) {
-  const collectionSlug = OUTDOOR_COLLECTIONS[p.product_type];
-  if (!collectionSlug) continue;
+// ---- Sentai Gas (RSS product feed) ---------------------------------------
 
-  const variant = p.variants?.[0];
-  if (!variant) continue;
+/**
+ * The storefront is refrigerants only. The outdoor, equipment and original
+ * gas sources were removed with that change; their loaders and price
+ * overrides went with them.
+ *
+ * Sentai Gas is the primary source and its prices are used as published.
+ * Brand is rewritten to the house name for its own-label stock, because a
+ * shopper buying here is buying from this store; genuine manufacturer brands
+ * (Honeywell, Chemours, ICOR, RGAS) are kept, since those identify who made
+ * the refrigerant and Merchant matches on them.
+ */
+const SENTAI_COLLECTIONS = {
+  'Bulk Pallets & Packs': 'bulk-pallets',
+  'Legacy Refrigerants': 'legacy-refrigerants',
+  'Specialty Refrigerants': 'specialty-refrigerants',
+  'HVAC Refrigerants': 'hvac-refrigerants',
+  'Commercial Refrigerants': 'commercial-refrigerants',
+  'Maintenance Supplies': 'maintenance-supplies',
+};
 
-  const price = Math.round(parseFloat(variant.price) * 100);
-  if (!Number.isFinite(price) || price <= 0) continue;
+const priceCents = (raw) => {
+  const n = parseFloat(String(raw ?? '').replace(/[^\d.]/g, ''));
+  return Number.isFinite(n) ? Math.round(n * 100) : 0;
+};
 
-  const compareAt = variant.compare_at_price
-    ? Math.round(parseFloat(variant.compare_at_price) * 100)
-    : null;
+for (const p of sentai) {
+  const tier = (p.product_type || '').split('>').map((s) => s.trim())[1];
+  const collectionSlug = SENTAI_COLLECTIONS[tier] || 'specialty-refrigerants';
 
-  const images = (p.images || [])
-    .slice(0, 8)
-    .map((img) => ({
-      thumb: shopifyImage(img.src, 600),
-      card: shopifyImage(img.src, 900),
-      full: shopifyImage(img.src, 1600),
-      alt: decode(img.alt || p.title),
-      width: img.width,
-      height: img.height,
-    }));
-  if (!images.length) continue;
+  const price = priceCents(p.sale_price || p.price);
+  if (!price) continue;
+  const regular = priceCents(p.price);
 
-  const body = stripTags(p.body_html);
-  const tags = (p.tags || []).map((t) => t.toLowerCase());
+  const srcs = [p.image, ...(p.additional_images || [])].filter(Boolean);
+  if (!srcs.length) continue;
+  const images = srcs.slice(0, 8).map((src) => ({
+    thumb: src, card: src, full: src, alt: decode(p.title), width: null, height: null,
+  }));
+
+  const brand = p.brand && p.brand !== 'Sentai Gas' ? decode(p.brand) : 'Home24Care';
+  const body = stripTags(p.description);
 
   products.push({
-    id: `bd-${p.id}`,
-    slug: uniqueSlug(p.handle || slugify(p.title)),
+    id: `sg-${p.id}`,
+    slug: uniqueSlug(sourceSlug(null, p.title)),
     title: decode(p.title),
-    brand: decode(p.vendor) || 'Backyard Discovery',
+    brand,
     collection: collectionSlug,
-    productType: p.product_type,
-    sku: variant.sku || `H24-${p.id}`,
+    productType: tier || 'Refrigerants',
+    sku: p.mpn || `H24-SG-${p.id}`,
     price,
-    compareAtPrice: compareAt && compareAt > price ? compareAt : null,
+    compareAtPrice: regular > price ? regular : null,
     currency: 'USD',
-    available: Boolean(variant.available),
-    preorder: tags.includes('pre-order'),
+    available: (p.availability || 'in_stock') !== 'out_of_stock',
+    preorder: false,
     description: body,
     excerpt: body.split('\n')[0]?.slice(0, 220) || '',
     images,
-    highlights: [],
-    badges: [
-      tags.includes('best seller') ? 'Best Seller' : null,
-      tags.includes('new arrival') || tags.some((t) => t.includes('label-new arrival'))
-        ? 'New Arrival'
-        : null,
-      tags.some((t) => t.includes('top seller')) ? 'Top Seller' : null,
-    ].filter(Boolean),
-    shippingIncluded: /shipping included/i.test(variant.title || ''),
-    requiresShipping: variant.requires_shipping !== false,
-    weightGrams: variant.grams || 0,
-    source: 'outdoor',
+    highlights: (p.highlights || []).slice(0, 8),
+    badges: [],
+    shippingIncluded: true,
+    requiresShipping: true,
+    weightGrams: 0,
+    regulated: true,
+    source: 'sentai',
   });
 }
 
-/**
- * Merchant Center matches offers on brand, so prefer the real manufacturer
- * named in the title over a generic store brand. Falls back to the retailer
- * name only when no manufacturer is identifiable.
- */
-const GAS_BRANDS = ['Honeywell', 'Chemours', 'Arkema', 'DuPont', 'Solstice', 'National Refrigerants'];
+// ---- Refrigerants we stock that Sentai Gas does not ----------------------
 
-const gasBrand = (p) => {
-  const declared = decode(p.brands?.[0]?.name || '');
-  if (declared) return declared;
-  const haystack = decode(`${p.name} ${p.short_description || ''}`);
-  const found = GAS_BRANDS.find((b) => new RegExp(`\\b${b}\\b`, 'i').test(haystack));
-  // Solstice is a Honeywell product line, not a standalone brand.
-  if (found === 'Solstice') return 'Honeywell';
-  return found || 'Home24Care';
-};
+/*
+  Carried over verbatim from the previous catalogue, images and copy included,
+  because these are products the store already sells and already has rewritten
+  copy for. They are the only survivors of the old catalogue.
+*/
+for (const p of gasKeep) {
+  products.push({ ...p, slug: uniqueSlug(p.slug), source: 'legacy-gas' });
+}
 
-// ---- Refrigerant / gas products (WooCommerce Store API export) -----------
-for (const p of gas) {
-  const catName = p.categories?.[0]?.name;
-  const collectionSlug = GAS_COLLECTIONS[catName] || 'specialty-refrigerants';
+// ---- Freonwell (Shopify export, prices as published) ---------------------
 
-  const price = parseInt(p.prices?.price ?? '0', 10);
-  if (!Number.isFinite(price) || price <= 0) continue;
-
-  const regular = parseInt(p.prices?.regular_price ?? '0', 10);
-
-  const images = (p.images || []).slice(0, 8).map((img) => {
-    const src = typeof img === 'string' ? img : img.src;
-    return {
-      thumb: src,
-      card: src,
-      full: src,
-      alt: decode((typeof img === 'object' && img.alt) || p.name),
-      width: null,
-      height: null,
-    };
-  });
-  if (!images.length) continue;
-
-  const body = stripTags(p.description || p.short_description);
+/*
+  Freonwell's own photographs carry their watermark, so none are used. Each
+  product here borrows an image from a cylinder of the SAME refrigerant AND
+  the same size, matched at extraction time -- an approximate match would put
+  a 30 lb cylinder on a 5 lb listing, which misleads the buyer and is a
+  mismatch under Merchant's image rules. Products with no exact match were
+  left out rather than shown with the wrong picture.
+*/
+for (const p of freonwell) {
+  const price = Math.round((p.price_usd || 0) * 100);
+  if (!price || !p.borrowed_image) continue;
+  const body = String(p.body || '').trim();
 
   products.push({
-    id: `gas-${p.id}`,
-    slug: uniqueSlug(sourceSlug(p.slug, p.name)),
-    title: decode(p.name),
-    brand: gasBrand(p),
-    collection: collectionSlug,
-    productType: catName || 'Refrigerants',
-    sku: p.sku || `H24-GAS-${p.id}`,
+    id: `fw-${p.handle}`,
+    slug: uniqueSlug(sourceSlug(p.handle, p.title)),
+    title: decode(p.title),
+    brand: 'Home24Care',
+    collection: 'commercial-refrigerants',
+    productType: 'Refrigerants',
+    sku: p.sku || `H24-FW-${p.handle}`.slice(0, 40),
     price,
-    compareAtPrice: regular > price ? regular : null,
+    compareAtPrice: null,
     currency: 'USD',
-    available: p.is_in_stock !== false,
+    available: true,
     preorder: false,
     description: body,
-    excerpt: stripTags(p.short_description).split('\n')[0]?.slice(0, 220) || body.slice(0, 220),
-    images,
-    highlights: (p.attributes || [])
-      .flatMap((a) => (a.terms || []).map((t) => `${a.name}: ${decode(t.name)}`))
-      .slice(0, 6),
-    badges: [],
-    shippingIncluded: true,
-    requiresShipping: true,
-    weightGrams: p.weight ? Math.round(parseFloat(p.weight) * 453.592) : 0,
-    // Refrigerants are regulated: flag them so the storefront and the
-    // Merchant feed can attach the right compliance copy.
-    regulated: true,
-    source: 'gas',
-  });
-}
-
-// ---- Equipment (WooCommerce Store API export) ----------------------------
-
-/**
- * Brands, longest-first so "Weber Genesis" is not shadowed by "Weber" and
- * "Champion Power Equipment" is not truncated to "Champion".
- *
- * The source sets a brand on only 44 of 381 records, and Merchant treats a
- * missing brand on a branded manufactured good as a data-quality problem, so
- * the rest are recovered from the title. Anything unmatched stays with the
- * house brand rather than being guessed at.
- */
-const EQUIPMENT_BRANDS = [
-  'Champion Power Equipment', 'Mesa Safe Company', 'Atlas Automotive',
-  'Global Industrial', 'Yard Force', 'Greenworks', 'Cub Cadet', 'Broil King',
-  'Detail K2', 'John Deere', 'DR Power', 'Troy-Bilt', 'Grandhall',
-  'Westinghouse', 'HALO LIFTS', 'EGO Power+', 'GE Profile', 'Sunstone',
-  'BendPak', 'EcoFlow', 'GENMAX', 'Bad Boy', 'APlusLift', 'Katool', 'VEVOR',
-  'Mophorn', 'Generac', 'DuroMax', 'Predator', 'Craftsman', 'Husqvarna',
-  'Jackery', 'Polywood', 'Yoshino', 'Bluetti', 'Traeger', 'Navien', 'Typhon',
-  'Enosign', 'RYOBI', 'Kohler', 'Stihl', 'ZLINE', 'Weber', 'Toro', 'Ooni',
-  'Anker',
-].sort((a, b) => b.length - a.length);
-
-/** Spelling variants seen in the source, mapped to the canonical brand. */
-const BRAND_ALIASES = [
-  [/\bTroy[\s-]?bilt\b/i, 'Troy-Bilt'],
-  [/\bY?PHON\s+(TERROR|STOMP|VIGOR)\b/i, 'Typhon'],   // "YPHON" is a source typo
-  [/\bANKER\s+SOLIX\b/i, 'Anker'],
-  [/\bECOFLOW\b/i, 'EcoFlow'],
-];
-
-const brandPattern = (b) => new RegExp(`\\b${b.replace(/[+]/g, '\\+')}`, 'i');
-
-/**
- * Brand, in descending order of how much the source actually tells us:
- * the declared brand, then the title, then the product tags.
- *
- * Anything still unmatched keeps the house brand rather than being inferred
- * from a model name. Many of these really are unbranded goods -- "10,000 LB
- * Heavy Duty 2-Post Lift" names no manufacturer anywhere in the record -- and
- * guessing one would put a claim in the Merchant feed that nothing supports.
- */
-const equipmentBrand = (p) => {
-  const declared = p.brands?.[0]?.name;
-  if (declared) return decode(declared);
-
-  const title = decode(p.name);
-  for (const [re, canonical] of BRAND_ALIASES) if (re.test(title)) return canonical;
-  const byTitle = EQUIPMENT_BRANDS.find((b) => brandPattern(b).test(title));
-  if (byTitle) return byTitle;
-
-  // Tags are weaker evidence than the title but stronger than a guess.
-  const tags = (p.tags || []).map((t) => decode(t.name)).join(' ');
-  const byTag = EQUIPMENT_BRANDS.find((b) => brandPattern(b).test(tags));
-  return byTag || 'Home24Care';
-};
-
-for (const p of equipment) {
-  const collectionSlug = p._collection;
-  if (!COLLECTION_BY_SLUG.has(collectionSlug)) continue;
-
-  const price = parseInt(p.prices?.price ?? '0', 10);
-  if (!Number.isFinite(price) || price <= 0) continue;
-  const regular = parseInt(p.prices?.regular_price ?? '0', 10);
-
-  const images = (p.images || []).slice(0, 8).map((img) => {
-    const src = typeof img === 'string' ? img : img.src;
-    return {
-      thumb: src,
-      card: src,
-      full: src,
-      alt: decode((typeof img === 'object' && img.alt) || p.name),
-      width: null,
-      height: null,
-    };
-  });
-  if (!images.length) continue;
-
-  const collection = COLLECTION_BY_SLUG.get(collectionSlug);
-  const brand = equipmentBrand(p);
-
-  /*
-    Three source titles open with a non-breaking space. Stripping leading and
-    trailing whitespace is not a retitle -- the wording is untouched -- but it
-    keeps a stray \u00a0 out of the Merchant feed, where the title is what the
-    offer is matched on.
-  */
-  const title = decode(p.name).replace(/^[\s\u00a0]+|[\s\u00a0]+$/g, '');
-
-  /*
-    Copy is NOT carried over from the source export. The inherited text is
-    someone else's writing, so it is kept only in
-    data/rewrites/original-copy-equipment.json as the baseline for the
-    "is this actually new?" check in apply-rewrites, and never written here.
-
-    What lands in the catalog until the rewrite pass runs is assembled from
-    facts we hold anyway -- title, brand, collection -- and is deliberately
-    plain. `rewritten: false` marks it as provisional so an un-rewritten
-    product is easy to find before it can reach the feed.
-  */
-  const provisional =
-    `${title}.\n` +
-    `${brand === 'Home24Care' ? 'Stocked' : `Made by ${brand} and stocked`} by Home24Care in the ` +
-    `${collection.title.toLowerCase()} range, shipped free anywhere in the United States.`;
-
-  products.push({
-    id: `eq-${p.id}`,
-    slug: uniqueSlug(sourceSlug(p.slug, p.name)),
-    title,
-    brand,
-    collection: collectionSlug,
-    productType: collection.title,
-    sku: p.sku || `H24-EQ-${p.id}`,
-    price,
-    compareAtPrice: regular > price ? regular : null,
-    currency: 'USD',
-    available: p.is_in_stock !== false,
-    preorder: false,
-    description: provisional,
-    excerpt: provisional.split('\n')[0].slice(0, 220),
-    images,
+    excerpt: body.split('\n')[0]?.slice(0, 220) || '',
+    images: [{ thumb: p.borrowed_image, card: p.borrowed_image, full: p.borrowed_image,
+               alt: decode(p.title), width: null, height: null }],
     highlights: [],
     badges: [],
     shippingIncluded: true,
     requiresShipping: true,
-    // The source export carries no weight or dimensions for any of these.
-    weightGrams: 0,
-    regulated: false,
-    source: 'equipment',
-    rewritten: false,
+    weightGrams: p.grams || 0,
+    regulated: true,
+    source: 'freonwell',
   });
 }
+
 
 /* ------------------------------------------------- outdoor range trim */
 
@@ -747,7 +614,13 @@ for (const [sku, entry] of Object.entries(overrides)) {
  * compareAtPrice here — but the "was" price then has to be one that was really
  * charged for long enough to count.
  */
-const PRICE_MULTIPLIER = 0.40;
+/*
+  1 = charge what the source charges. The 0.40 markdown belonged to the
+  outdoor range, which no longer exists; leaving it in place would have
+  discounted the maintenance supplies by 60% purely because they sit outside
+  the exempt list.
+*/
+const PRICE_MULTIPLIER = 1;
 const DISCOUNT_EXEMPT_GROUPS = new Set([
   'Refrigerants & Gases',
   // Equipment is listed at its source price, not marked down.
