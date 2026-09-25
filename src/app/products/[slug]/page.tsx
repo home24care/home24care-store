@@ -192,18 +192,6 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             })}
           </dl>
 
-          {product.regulated && (
-            <div className="mt-5 rounded-xl border border-clay-200 bg-clay-50 p-4 text-[13px] leading-relaxed text-clay-900">
-              <p className="font-semibold">Certification required</p>
-              <p className="mt-1">
-                This refrigerant may be sold only to buyers certified under Section 608 or
-                609 of the U.S. Clean Air Act. By ordering you confirm you hold the
-                certification your purchase requires and will handle, charge and recover the
-                product in line with EPA regulations. Ships ground only — no air freight.
-              </p>
-            </div>
-          )}
-
           <p className="mt-5 flex items-center gap-2 text-[13.5px] text-ink-soft">
             <PhoneIcon className="h-4 w-4 text-moss-600" />
             Questions before you order? Call{' '}
