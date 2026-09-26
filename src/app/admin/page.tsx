@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getDashboardData } from '@/lib/analytics/query';
 import { MetricCard, TimeSeries, Funnel, RankedList } from '@/components/admin/Charts';
-import ChatConsole from '@/components/admin/ChatConsole';
 import { formatPrice } from '@/lib/format';
 import { site } from '@/lib/site';
 
@@ -207,9 +206,6 @@ export default async function AdminDashboard({
         <RankedList title="Landing pages" rows={data.landingPages} unit="views" />
         <RankedList title="Devices" rows={data.devices} unit="events" />
       </div>
-
-      {/* ----------------------------------------------------- live chat */}
-      <ChatConsole />
 
       {/* --------------------------------------------------------- recent */}
       <section className="mt-6 rounded-xl border border-ink/10 bg-white p-5">

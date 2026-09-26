@@ -3,8 +3,8 @@
 import { usePathname } from 'next/navigation';
 import AnalyticsTracker from './AnalyticsTracker';
 import CartDrawer from './CartDrawer';
-import ChatWidget from './ChatWidget';
 import SalesNotifications from './SalesNotifications';
+import TawkChat from './TawkChat';
 
 /**
  * Renders the storefront header, footer and cart everywhere except /admin.
@@ -70,11 +70,10 @@ export default function StorefrontChrome({
       <CartDrawer />
       <AnalyticsTracker />
       {/*
-        Rendered here rather than in the root layout so it never appears on
-        /admin — the agent answering chat has the console, and a launcher over
-        their own dashboard would only get in the way.
+        Tawk.to live chat. Rendered here rather than in the root layout so the
+        launcher never sits over the /admin dashboard or the checkout form.
       */}
-      <ChatWidget />
+      <TawkChat />
       <SalesNotifications />
     </>
   );
