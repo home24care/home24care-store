@@ -31,8 +31,10 @@ const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 /**
  * Stripe renders its Elements in an iframe, so site CSS cannot reach them.
- * The appearance API is the only way to make the card fields look like the
- * rest of the page; these values mirror the storefront's inputs.
+ * They are deliberately left in Stripe's own look — the stock "stripe" theme
+ * with its blue accents, floating labels inside the fields and the card-brand
+ * marks — so shoppers recognise the form as Stripe's and trust it with a card.
+ * Only the font is ours, so the fields do not clash with the page around them.
  */
 const elementsOptions = (amount: number): StripeElementsOptions => ({
   mode: 'payment',
@@ -41,19 +43,9 @@ const elementsOptions = (amount: number): StripeElementsOptions => ({
   fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap' }],
   appearance: {
     theme: 'stripe',
+    labels: 'floating',
     variables: {
-      colorPrimary: '#4a8159',
-      colorText: '#1b1f1c',
-      colorTextSecondary: '#454b47',
-      colorDanger: '#a1421f',
       fontFamily: 'Karla, ui-sans-serif, system-ui, sans-serif',
-      borderRadius: '6px',
-      spacingUnit: '4px',
-    },
-    rules: {
-      '.Input': { borderColor: 'rgba(27,31,28,0.16)', boxShadow: 'none', padding: '12px' },
-      '.Input:focus': { borderColor: '#79b38a', boxShadow: '0 0 0 3px rgba(121,179,138,0.25)' },
-      '.Label': { fontWeight: '500' },
     },
   },
 });
