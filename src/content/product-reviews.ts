@@ -55,3 +55,14 @@ export const productReviews: Record<string, ProductReview[]> = {
 };
 
 export const reviewsFor = (slug: string): ProductReview[] => productReviews[slug] ?? [];
+
+/**
+ * Every other product's reviews, each tagged with the product it is about, for
+ * the "Recent reviews from our customers" block on pages that have none of
+ * their own. They are always shown with that product named and linked, never
+ * as reviews of the page they appear on.
+ */
+export const reviewsOfOtherProducts = (slug: string): { productSlug: string; review: ProductReview }[] =>
+  Object.entries(productReviews)
+    .filter(([productSlug]) => productSlug !== slug)
+    .flatMap(([productSlug, list]) => list.map((review) => ({ productSlug, review })));
