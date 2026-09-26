@@ -1,6 +1,7 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { site } from '@/lib/site';
-import { TruckIcon, ShieldIcon, SupportIcon, LockIcon, ReturnIcon, BoxIcon, SparkIcon } from './icons';
+import { TruckIcon, ShieldIcon, SupportIcon, LockIcon, ReturnIcon, BoxIcon } from './icons';
 
 /** Centred section heading in the hobby-shop style: green eyebrow, serif caps. */
 export function CenteredHeading({
@@ -109,20 +110,36 @@ export function ElevateBand() {
   );
 }
 
-const BRANDS = ['Topps', 'Bowman', 'Panini', 'Pokémon', 'Magic: The Gathering'];
+/**
+ * Manufacturer logos, rendered from `public/brands/*.webp` (96px tall, trimmed
+ * to the artwork). Heights differ on purpose: Panini's filled box reads much
+ * heavier than an open wordmark at the same size, so each is tuned by eye.
+ */
+const BRANDS = [
+  { name: 'Topps', src: '/brands/topps.webp', width: 201, height: 96, className: 'h-9' },
+  { name: 'Bowman', src: '/brands/bowman.webp', width: 332, height: 96, className: 'h-8' },
+  { name: 'Panini', src: '/brands/panini.webp', width: 382, height: 96, className: 'h-7' },
+  { name: 'Pokémon', src: '/brands/pokemon.webp', width: 188, height: 96, className: 'h-11' },
+  { name: 'Magic: The Gathering', src: '/brands/magic.webp', width: 285, height: 96, className: 'h-10' },
+];
 
-/** Text wordmarks of the manufacturers we stock. */
+/** Logos of the manufacturers we stock, greyscale until hovered. */
 export function BrandStrip() {
   return (
     <section className="container-page pb-14">
-      <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 border-y border-ink/10 py-7">
+      <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 border-y border-ink/10 py-7" aria-label="Brands we stock">
         {BRANDS.map((b) => (
-          <span key={b} className="flex items-center gap-2 font-display text-[19px] font-semibold uppercase tracking-[0.08em] text-ink/55">
-            <SparkIcon className="h-3.5 w-3.5 text-moss-400" />
-            {b}
-          </span>
+          <li key={b.name}>
+            <Image
+              src={b.src}
+              alt={b.name}
+              width={b.width}
+              height={b.height}
+              className={`${b.className} w-auto opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0`}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
