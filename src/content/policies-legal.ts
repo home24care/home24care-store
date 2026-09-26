@@ -1,5 +1,5 @@
 import type { Policy } from '@/lib/policy-types';
-import { site } from '@/lib/site';
+import { site, legalEntity } from '@/lib/site';
 
 const UPDATED = 'September 25, 2026';
 const A = site.address.formatted;
@@ -14,7 +14,7 @@ const contactSection = (intro: string) => ({
     {
       type: 'ul' as const,
       items: [
-        `Company: ${site.legalName}, trading as ${site.name}`,
+        `Company: ${legalEntity}`,
         `Email: ${E}`,
         `Phone: ${P}`,
         `Address: ${A}`,
@@ -38,7 +38,7 @@ export const privacyPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: `This Privacy Policy describes how ${site.legalName}, trading as ${site.name} ("we", "our" or "us"), collects, uses, shares and protects your personal information when you visit our website, make a purchase, or interact with our services. It applies to all visitors to this website and all customers of our products.`,
+          text: `This Privacy Policy describes how ${legalEntity} ("we", "our" or "us"), collects, uses, shares and protects your personal information when you visit our website, make a purchase, or interact with our services. It applies to all visitors to this website and all customers of our products.`,
         },
         {
           type: 'p',
@@ -296,7 +296,7 @@ export const termsPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: `This website is operated by ${site.legalName}. Throughout the site, the terms "we", "us" and "our" refer to ${site.legalName}, trading as ${site.name}.`,
+          text: `This website is operated by ${site.legalName}. Throughout the site, the terms "we", "us" and "our" refer to ${legalEntity}.`,
         },
         {
           type: 'p',

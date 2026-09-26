@@ -7,7 +7,7 @@
  */
 export const site = {
   name: 'TOPPSUEFA',
-  legalName: 'home24care GROUP LLC',
+  legalName: 'TOPPSUEFA',
   domain: 'toppsuefa.com',
   /**
    * Normalized once here so a stray trailing slash or missing scheme in the
@@ -26,8 +26,8 @@ export const site = {
 
   contact: {
     email: 'contact@toppsuefa.com',
-    phone: '+1 575 271 0768',
-    phoneHref: '+15752710768',
+    phone: '+1 646 838 0288',
+    phoneHref: '+16468380288',
     hours: 'Seven days a week, 9:00 AM – 6:00 PM MT',
     responseTime: 'We reply to every email within one day.',
     /** Shown in the footer, in the hobby-shop "Business Hours" table. */
@@ -78,6 +78,10 @@ export const site = {
     youtube: '',
   },
 } as const;
+
+/** "Acme LLC, trading as Brand" — or just the brand when the two names match. */
+export const legalEntity: string =
+  (site.legalName as string) === site.name ? site.name : `${site.legalName}, trading as ${site.name}`;
 
 export const currency = 'USD';
 

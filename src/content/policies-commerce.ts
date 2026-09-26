@@ -1,5 +1,5 @@
 import type { Policy } from '@/lib/policy-types';
-import { site, paymentMethodNames } from '@/lib/site';
+import { site, paymentMethodNames, legalEntity } from '@/lib/site';
 
 const UPDATED = 'September 25, 2026';
 const A = site.address.formatted;
@@ -16,7 +16,7 @@ const contactSection = (intro: string) => ({
     {
       type: 'ul' as const,
       items: [
-        `Company: ${site.legalName}, trading as ${site.name}`,
+        `Company: ${legalEntity}`,
         `Email: ${E}`,
         `Phone: ${P}`,
         `Address: ${A}`,
