@@ -79,24 +79,36 @@ const HOBBY_GUIDE = [
   },
 ];
 
-type Spot = { slug: string; eyebrow: string; title: string; body: string; href: string; cta: string };
+/**
+ * A spotlight card shows either a product's box shot (`slug`) or a full-bleed
+ * lifestyle photo from /public (`photo`), which takes precedence.
+ */
+type Spot = {
+  slug?: string;
+  photo?: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  href: string;
+  cta: string;
+};
 
 const SPOTLIGHTS_A: Spot[] = [
   {
-    slug: '2026-panini-prizm-fifa-world-cup-soccer-hobby-box',
-    eyebrow: 'On the pitch',
-    title: 'Soccer',
-    body: 'Panini Prizm FIFA World Cup 2026 — all 48 nations, one autograph per box.',
-    href: '/collections/soccer',
-    cta: 'Shop soccer',
+    photo: '/spotlights/basketball.webp',
+    eyebrow: 'Rookie watch',
+    title: 'Basketball',
+    body: 'Topps Chrome Update Basketball — chase the new rookie class in Chrome refractors.',
+    href: '/collections/basketball',
+    cta: 'Shop basketball',
   },
   {
-    slug: '2026-bowman-baseball-sapphire-edition-box',
-    eyebrow: 'On the diamond',
-    title: 'Baseball',
-    body: 'Bowman prospects, Chrome Sapphire and Logofractor — the 2026 class starts here.',
-    href: '/collections/baseball',
-    cta: 'Shop baseball',
+    photo: '/spotlights/football.webp',
+    eyebrow: 'Sunday hits',
+    title: 'Football',
+    body: 'Topps Chrome and Cosmic Chrome football hobby boxes — rookies, refractors and more.',
+    href: '/collections/football',
+    cta: 'Shop football',
   },
 ];
 
@@ -154,14 +166,23 @@ function SpotlightPair({ spots }: { spots: Spot[] }) {
   return (
     <section className="container-page grid gap-5 py-6 md:grid-cols-2">
       {spots.map((s) => {
-        const p = getProduct(s.slug);
+        const p = s.slug ? getProduct(s.slug) : undefined;
         return (
           <Link
-            key={s.slug}
+            key={s.href}
             href={s.href}
             className="group relative isolate flex min-h-[380px] flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-b from-[#3a403c] to-[#151816] p-7 sm:min-h-[440px]"
           >
-            {p && (
+            {s.photo ? (
+              <Image
+                src={s.photo}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 45vw, 90vw"
+                loading="lazy"
+                className="-z-10 object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+            ) : p && (
               <div className="absolute inset-x-6 top-6 bottom-36 -z-10">
                 <Image
                   src={img(p)!}
@@ -174,7 +195,12 @@ function SpotlightPair({ spots }: { spots: Spot[] }) {
                 />
               </div>
             )}
-            <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-black/85 to-transparent" aria-hidden="true" />
+            <div
+              className={`absolute inset-x-0 bottom-0 -z-10 bg-gradient-to-t to-transparent ${
+                s.photo ? 'h-full from-black/90 via-black/55' : 'h-2/3 from-black/85'
+              }`}
+              aria-hidden="true"
+            />
             <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-clay-400">
               <span className="h-px w-5 bg-clay-400" aria-hidden="true" />
               {s.eyebrow}
