@@ -69,6 +69,10 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
+  // Google Merchant Center / Search Console site ownership check.
+  verification: {
+    google: 'aUbb5TVCNr-V2TNe8QU2jD71TgPAUmRun6BdF9ESbr4',
+  },
 };
 
 export const viewport: Viewport = {
