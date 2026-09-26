@@ -7,6 +7,7 @@ import ProductCard from '@/components/ProductCard';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import ProductTabs from '@/components/ProductTabs';
+import { reviewsFor } from '@/content/product-reviews';
 import { CenteredHeading } from '@/components/StoreBands';
 import { TrustpilotProductReviews, TrustpilotStars } from '@/components/TrustpilotSection';
 import ProductViewTracker from '@/components/ProductViewTracker';
@@ -229,6 +230,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
 
       <ProductTabs
         blocks={blocks}
+        reviews={reviewsFor(product.slug)}
         shipping={[
           'Free standard shipping to all 50 U.S. states.',
           `Ships within ${site.shipping.handlingTime}; order before ${site.shipping.cutOff} to ship the next business day.`,

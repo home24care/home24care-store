@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { DescriptionBlock } from '@/lib/catalog';
+import type { ProductReview } from '@/content/product-reviews';
+import ReviewStars from './ReviewStars';
 
 type Tab = { key: string; label: string };
 
@@ -27,15 +29,17 @@ export default function ProductTabs({
   blocks,
   shipping,
   returnsSummary,
+  reviews,
 }: {
   blocks: DescriptionBlock[];
   shipping: string[];
   returnsSummary: string;
+  reviews: ProductReview[];
 }) {
   const tabs: Tab[] = [
     { key: 'description', label: 'Description' },
     { key: 'shipping', label: 'Shipping & Returns' },
-    { key: 'reviews', label: 'Reviews (0)' },
+    { key: 'reviews', label: `Reviews (${reviews.length})` },
   ];
   const [active, setActive] = useState('description');
 
@@ -95,10 +99,47 @@ export default function ProductTabs({
         {active === 'reviews' && (
           <>
             <h2 className="!text-[20px] uppercase tracking-[0.02em]">Reviews</h2>
-            <p>There are no reviews yet. Bought this box from us? We would love to hear how your break went — email us and we will add your review.</p>
+            {reviews.length === 0 ? (
+              <p>There are no reviews yet. Bought this box from us? We would love to hear how your break went — email us and we will add your review.</p>
+            ) : (
+              <ProductReviewList reviews={reviews} />
+            )}
           </>
         )}
       </div>
     </section>
+  );
+}
+
+/** Score summary plus one card per review, in the order they were received. */
+function ProductReviewList({ reviews }: { reviews: ProductReview[] }) {
+  const average = Math.round((reviews.reduce((n, r) => n + r.rating, 0) / reviews.length) * 10) / 10;
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-ink/10 pb-5">
+        <ReviewStars rating={average} size={24} label={`${average} out of 5 stars`} />
+        <span className="text-[15px] text-ink-soft">
+          <strong className="font-bold text-ink">{average.toFixed(1)}</strong> out of 5 · based on{' '}
+          {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
+        </span>
+      </div>
+      <ul className="!mb-0 mt-6 grid !list-none gap-4 !space-y-0 !pl-0 sm:grid-cols-2">
+        {reviews.map((r) => (
+          <li key={r.author + r.body.slice(0, 24)} className="flex flex-col rounded-md border border-ink/10 bg-white p-5">
+            <div className="flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sand font-semibold text-ink"
+              >
+                {r.author.charAt(0)}
+              </span>
+              <span className="font-semibold text-ink">{r.author}</span>
+            </div>
+            <ReviewStars rating={r.rating} size={18} label={`${r.rating} out of 5 stars`} className="mt-3" />
+            <p className="!mb-0 mt-2.5 flex-1 text-[14.5px] leading-relaxed text-ink-soft">{r.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

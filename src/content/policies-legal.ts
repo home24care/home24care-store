@@ -233,8 +233,26 @@ export const privacyPolicy: Policy = {
       ],
     },
     {
+      id: 'reviews',
+      heading: '10. Customer reviews',
+      blocks: [
+        {
+          type: 'p',
+          text: 'Some of the product reviews on this website were sent to us by email by customers who bought from us directly, including purchases made in person rather than through this website. We publish them as the customer wrote them.',
+        },
+        {
+          type: 'p',
+          text: 'With a review we show only the reviewer\u2019s first name and last initial. We never publish their email address, phone number, address or order details.',
+        },
+        {
+          type: 'p',
+          text: `If you sent us a review and would like it corrected or removed, email ${site.contact.email} and we will update or take it down promptly.`,
+        },
+      ],
+    },
+    {
       id: 'children',
-      heading: "10. Children's privacy",
+      heading: "11. Children's privacy",
       blocks: [
         {
           type: 'p',
@@ -244,7 +262,7 @@ export const privacyPolicy: Policy = {
     },
     {
       id: 'transfers',
-      heading: '11. International data transfers',
+      heading: '12. International data transfers',
       blocks: [
         {
           type: 'p',
@@ -254,7 +272,7 @@ export const privacyPolicy: Policy = {
     },
     {
       id: 'ccpa',
-      heading: '12. California privacy rights (CCPA/CPRA)',
+      heading: '13. California privacy rights (CCPA/CPRA)',
       blocks: [
         {
           type: 'p',
@@ -268,7 +286,7 @@ export const privacyPolicy: Policy = {
     },
     {
       id: 'updates',
-      heading: '13. Updates to this Privacy Policy',
+      heading: '14. Updates to this Privacy Policy',
       blocks: [
         {
           type: 'p',
