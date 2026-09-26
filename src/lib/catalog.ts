@@ -7,6 +7,11 @@ export type ProductImage = {
   alt: string;
   width: number | null;
   height: number | null;
+  /**
+   * A transparent packshot for the homepage tiles, when this image is a photo
+   * whose background build:cutouts cannot remove. Defaults to `<id>-cut.webp`.
+   */
+  cutout?: string;
 };
 
 export type Product = {

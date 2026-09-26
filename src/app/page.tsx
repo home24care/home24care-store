@@ -143,7 +143,8 @@ const TILE_BG: Record<string, string> = {
 };
 
 /** Transparent packshot, so product art sits cleanly on any panel colour. */
-const img = (p: Product | undefined) => (p?.images[0] ? cutoutImage(p.images[0].full) : undefined);
+const img = (p: Product | undefined) =>
+  p?.images[0] ? (p.images[0].cutout ?? cutoutImage(p.images[0].full)) : undefined;
 
 function HeroImage({ product, className, sizes }: { product?: Product; className?: string; sizes: string }) {
   if (!product) return null;

@@ -544,12 +544,45 @@
    "excerpt": "Factory-sealed Pokémon TCG: 30th Celebration Elite Trainer Box — 9 booster packs from the anniversary set, with a Pikachu rare in every pack and 30 variations to collect.",
    "images": [
     {
-     "thumb": "/product-images/d3c9949d2fce094f-thumb.webp",
-     "card": "/product-images/d3c9949d2fce094f-card.webp",
-     "full": "/product-images/d3c9949d2fce094f-full.webp",
-     "alt": "Pokémon 30th Celebration Elite Trainer Box",
-     "width": null,
-     "height": null
+     "thumb": "/product-images/b60b09b8fbfa1f50-thumb.webp",
+     "card": "/product-images/b60b09b8fbfa1f50-card.webp",
+     "full": "/product-images/b60b09b8fbfa1f50-full.webp",
+     "alt": "Pokémon 30th Celebration Elite Trainer Box — front of the factory-sealed box",
+     "width": 1080,
+     "height": 1080,
+     "cutout": "/product-images/d3c9949d2fce094f-cut.webp"
+    },
+    {
+     "thumb": "/product-images/1b2803b456cf9168-thumb.webp",
+     "card": "/product-images/1b2803b456cf9168-card.webp",
+     "full": "/product-images/1b2803b456cf9168-full.webp",
+     "alt": "Pokémon 30th Celebration Elite Trainer Box — side panel with Poké Ball, shrink wrap intact",
+     "width": 1080,
+     "height": 1440
+    },
+    {
+     "thumb": "/product-images/17b1d14b799eee60-thumb.webp",
+     "card": "/product-images/17b1d14b799eee60-card.webp",
+     "full": "/product-images/17b1d14b799eee60-full.webp",
+     "alt": "Pokémon 30th Celebration Elite Trainer Box — box shown from the front and bottom edge",
+     "width": 1080,
+     "height": 1440
+    },
+    {
+     "thumb": "/product-images/3f4860487971d68c-thumb.webp",
+     "card": "/product-images/3f4860487971d68c-card.webp",
+     "full": "/product-images/3f4860487971d68c-full.webp",
+     "alt": "Pokémon 30th Celebration Elite Trainer Box — back of the box with contents list",
+     "width": 1080,
+     "height": 1440
+    },
+    {
+     "thumb": "/product-images/fad9a1e9ecef11ff-thumb.webp",
+     "card": "/product-images/fad9a1e9ecef11ff-card.webp",
+     "full": "/product-images/fad9a1e9ecef11ff-full.webp",
+     "alt": "Pokémon 30th Celebration Elite Trainer Box — side panel with Pokémon TCG logo",
+     "width": 1080,
+     "height": 1440
     }
    ],
    "highlights": [
