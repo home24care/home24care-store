@@ -249,7 +249,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
               <div className="rounded-lg bg-moss-900 p-6 text-white">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-clay-400">Shop the drops</p>
                 <ul className="mt-3 space-y-2 font-display text-[16px]">
-                  <li><Link href="/collections/best-sellers" className="hover:text-moss-300">Featured</Link></li>
+                  <li><Link href="/collections/best-sellers" className="hover:text-moss-300">High demand</Link></li>
                   <li><Link href="/collections/limited-releases" className="hover:text-moss-300">Limited releases</Link></li>
                   <li><Link href="/collections/new-arrivals" className="hover:text-moss-300">New releases</Link></li>
                   <li><Link href="/collections" className="hover:text-moss-300">All categories →</Link></li>
@@ -326,7 +326,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
                 ))}
                 <div className="mt-3 border-t border-ink/10 pt-3">
                   {[
-                    ['/collections/best-sellers', 'Featured'],
+                    ['/collections/best-sellers', 'High demand'],
                     ['/collections/limited-releases', 'Limited releases'],
                     ...PAGE_LINKS,
                   ].map(([href, label]) => (

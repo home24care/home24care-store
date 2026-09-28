@@ -138,9 +138,9 @@ export const featured = (n: number, seed = 'home') =>
     .sort((a, b) => hash(seed + a.id) - hash(seed + b.id))
     .slice(0, n);
 
-/** Products the team has picked to feature on the homepage and in menus. */
+/** Products flagged as in high demand on the U.S. secondary market. */
 export const bestSellers = (n: number) =>
-  products.filter((p) => p.badges.includes('Featured')).slice(0, n);
+  products.filter((p) => p.badges.includes('High Demand')).slice(0, n);
 
 /** Short-print formats: Sapphire, Delight, Logofractor and similar. */
 export const limitedReleases = (n: number) =>

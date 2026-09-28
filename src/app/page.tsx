@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
 import CollectorHub from '@/components/CollectorHub';
-import { AdvantageGrid, CenteredHeading } from '@/components/StoreBands';
+import { AdvantageGrid, BrandStrip, CenteredHeading } from '@/components/StoreBands';
 import { TrustpilotReviews } from '@/components/TrustpilotSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import { ArrowIcon, CheckIcon } from '@/components/icons';
@@ -224,7 +224,7 @@ export default function HomePage() {
   const [smallA, smallB] = HERO.small.map(getProduct);
 
   const tabs = [
-    { key: 'demand', label: 'Featured', products: bestSellers(8) },
+    { key: 'demand', label: 'High Demand', products: bestSellers(8) },
     { key: 'limited', label: 'Limited Releases', products: limitedReleases(8) },
     { key: 'tcg', label: 'Pokémon & Magic', products: productsInGroup('Trading Card Games') },
     { key: 'all', label: 'All Boxes', products: products.slice(0, 12) },
@@ -444,6 +444,10 @@ export default function HomePage() {
           </dl>
         </div>
       </section>
+
+      <div className="pt-14">
+        <BrandStrip />
+      </div>
 
     </>
   );

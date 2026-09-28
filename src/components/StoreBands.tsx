@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { TruckIcon, ShieldIcon, SupportIcon, LockIcon, ReturnIcon, BoxIcon } from './icons';
@@ -71,7 +72,7 @@ export function AdvantageGrid() {
   return (
     <section className="container-page py-16">
       <CenteredHeading
-        eyebrow="Our standards"
+        eyebrow="Certified authenticity"
         title={`The ${site.name} advantage`}
         subtitle={`At ${site.name} we put the authenticity and security of every box first — the professional standard serious collectors deserve, from rare hits to factory-sealed hobby cases.`}
       />
@@ -105,6 +106,40 @@ export function ElevateBand() {
           Expertly curated NFL, NBA, MLB, soccer and UFC hobby boxes, plus Pokémon and Magic: The Gathering. 100% authenticity guaranteed.
         </p>
       </div>
+    </section>
+  );
+}
+
+/**
+ * Manufacturer logos, rendered from `public/brands/*.webp` (96px tall, trimmed
+ * to the artwork). Heights differ on purpose: Panini's filled box reads much
+ * heavier than an open wordmark at the same size, so each is tuned by eye.
+ */
+const BRANDS = [
+  { name: 'Topps', src: '/brands/topps.webp', width: 201, height: 96, className: 'h-9' },
+  { name: 'Bowman', src: '/brands/bowman.webp', width: 332, height: 96, className: 'h-8' },
+  { name: 'Panini', src: '/brands/panini.webp', width: 382, height: 96, className: 'h-7' },
+  { name: 'Pokémon', src: '/brands/pokemon.webp', width: 188, height: 96, className: 'h-11' },
+  { name: 'Magic: The Gathering', src: '/brands/magic.webp', width: 285, height: 96, className: 'h-10' },
+];
+
+/** Logos of the manufacturers we stock, greyscale until hovered. */
+export function BrandStrip() {
+  return (
+    <section className="container-page pb-14">
+      <ul className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 border-y border-ink/10 py-7" aria-label="Brands we stock">
+        {BRANDS.map((b) => (
+          <li key={b.name}>
+            <Image
+              src={b.src}
+              alt={b.name}
+              width={b.width}
+              height={b.height}
+              className={`${b.className} w-auto opacity-60 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0`}
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

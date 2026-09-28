@@ -7,6 +7,7 @@ import ProductCard from '@/components/ProductCard';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import ProductTabs from '@/components/ProductTabs';
+import { reviewsFor, reviewsOfOtherProducts } from '@/content/product-reviews';
 import { CenteredHeading } from '@/components/StoreBands';
 import { TrustpilotProductReviews, TrustpilotStars } from '@/components/TrustpilotSection';
 import ProductViewTracker from '@/components/ProductViewTracker';
@@ -62,7 +63,7 @@ export async function generateMetadata({
 const TRUST_BOXES = [
   [ShieldIcon, '100% Authentic', 'Every box genuine and exactly as described'],
   [BoxIcon, 'Factory Sealed', 'Original manufacturer shrink-wrap, never resealed'],
-  [LockIcon, 'Secure Payment', 'SSL-encrypted checkout, processed by Stripe'],
+  [LockIcon, 'Secure Payment', 'Verified U.S. business · SSL-encrypted checkout'],
   [ReturnIcon, 'Easy Returns', `${site.returns.windowDays} days on unopened product —`],
 ] as const;
 
@@ -229,6 +230,11 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
 
       <ProductTabs
         blocks={blocks}
+        reviews={reviewsFor(product.slug)}
+        otherReviews={reviewsOfOtherProducts(product.slug).flatMap(({ productSlug, review }) => {
+          const reviewed = getProduct(productSlug);
+          return reviewed ? [{ review, productTitle: reviewed.title, productHref: `/products/${reviewed.slug}` }] : [];
+        })}
         shipping={[
           'Free standard shipping to all 50 U.S. states.',
           `Ships within ${site.shipping.handlingTime}; order before ${site.shipping.cutOff} to ship the next business day.`,
