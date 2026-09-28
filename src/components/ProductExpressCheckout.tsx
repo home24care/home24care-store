@@ -103,8 +103,7 @@ function ExpressButtons({ product, quantity }: { product: Product; quantity: num
       <ExpressCheckoutElement
         options={{
           buttonHeight: 48,
-          layout: { maxColumns: 2, maxRows: 2, overflow: 'never' },
-          buttonType: { applePay: 'buy', googlePay: 'buy' },
+          layout: { maxColumns: 2, maxRows: 2 },
         }}
         onReady={({ availablePaymentMethods }) => setAvailable(Boolean(availablePaymentMethods))}
         onClick={onClick}
