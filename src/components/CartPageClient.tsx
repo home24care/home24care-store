@@ -64,7 +64,7 @@ export default function CartPageClient() {
             Shop hobby boxes
           </Link>
           <Link href="/collections/best-sellers" className="btn-outline">
-            High demand
+            Featured boxes
           </Link>
         </div>
       </div>

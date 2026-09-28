@@ -32,13 +32,13 @@ export const virtualCollections: VirtualCollection[] = [
   },
   {
     slug: 'best-sellers',
-    title: 'High Demand',
-    tagline: 'The boxes collectors are chasing right now.',
+    title: 'Featured',
+    tagline: 'Current releases picked out by our team.',
     description:
-      'Releases trading at or above their original price on the U.S. secondary market — the boxes that sell out first. Every one ships factory sealed with free shipping.',
+      'A hand-picked selection of current releases from across the shop. Every one ships factory sealed with free shipping.',
     googleCategory: 'Arts & Entertainment > Hobbies & Creative Arts > Collectibles > Collectible Trading Cards',
     select: () =>
-      products.filter((p) => p.badges.includes('High Demand')),
+      products.filter((p) => p.badges.includes('Featured')),
   },
   {
     slug: 'new-arrivals',

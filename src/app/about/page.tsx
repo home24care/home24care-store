@@ -110,14 +110,23 @@ export default function AboutPage() {
           <div className="rounded-md border border-ink/10 bg-sand p-6">
             <h2 className="font-display text-[18px] uppercase tracking-[0.04em]">Business details</h2>
             <dl className="mt-4 space-y-3 text-[14px]">
-              <div>
-                <dt className="text-ink-muted">Legal entity</dt>
-                <dd className="font-medium">{site.legalName}</dd>
-              </div>
-              <div>
-                <dt className="text-ink-muted">Trading as</dt>
-                <dd className="font-medium">{site.name}</dd>
-              </div>
+              {(site.legalName as string) === site.name ? (
+                <div>
+                  <dt className="text-ink-muted">Business name</dt>
+                  <dd className="font-medium">{site.name}</dd>
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <dt className="text-ink-muted">Legal entity</dt>
+                    <dd className="font-medium">{site.legalName}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-ink-muted">Trading as</dt>
+                    <dd className="font-medium">{site.name}</dd>
+                  </div>
+                </>
+              )}
               <div>
                 <dt className="text-ink-muted">Ships to</dt>
                 <dd className="font-medium">All 50 U.S. states</dd>

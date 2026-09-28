@@ -8,7 +8,7 @@ import CardImages from './CardImages';
 /** Badge colours: gold for scarcity, green for demand, dark for new. */
 const BADGE_STYLE: Record<string, string> = {
   'Limited Release': 'bg-clay-400 text-white',
-  'High Demand': 'bg-moss-400 text-white',
+  Featured: 'bg-moss-400 text-white',
   'New Release': 'bg-ink text-white',
 };
 
