@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { Product } from '@/lib/catalog';
 import { useCart } from '@/lib/cart';
 import { CheckIcon, MinusIcon, PlusIcon } from './icons';
+import ProductExpressCheckout from './ProductExpressCheckout';
 
 export default function AddToCartButton({
   product,
@@ -99,6 +100,13 @@ export default function AddToCartButton({
         >
           Buy now
         </button>
+      )}
+
+      {/* Apple Pay, Google Pay, Link and friends for this box, at this quantity. */}
+      {buyNow && (
+        <div className="basis-full">
+          <ProductExpressCheckout product={product} quantity={quantity} />
+        </div>
       )}
     </div>
   );
