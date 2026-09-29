@@ -28,6 +28,8 @@ export type Store = {
   zincr(key: string, member: string, by?: number): Promise<void>;
   zTop(key: string, limit: number): Promise<{ member: string; score: number }[]>;
   getHash(key: string): Promise<Record<string, string>>;
+  /** Writes a string value into a hash field (used by the live-visitors window). */
+  setField(key: string, field: string, value: string): Promise<void>;
   pushCapped(key: string, value: string, cap: number): Promise<void>;
   listRange(key: string, start: number, stop: number): Promise<string[]>;
   expire(key: string, seconds: number): Promise<void>;
@@ -109,6 +111,9 @@ const redisStore: Store = {
     const h = await redis().hgetall<Record<string, string>>(key);
     return h ?? {};
   },
+  async setField(key, field, value) {
+    await redis().hset(key, { [field]: value });
+  },
   async pushCapped(key, value, cap) {
     const client = redis();
     await client.lpush(key, value);
@@ -126,7 +131,7 @@ const redisStore: Store = {
 
 type MemoryState = {
   counters: Map<string, number>;
-  hashes: Map<string, Map<string, number>>;
+  hashes: Map<string, Map<string, number | string>>;
   sets: Map<string, Set<string>>;
   zsets: Map<string, Map<string, number>>;
   lists: Map<string, string[]>;
@@ -152,8 +157,8 @@ const memoryStore: Store = {
     mem.counters.set(key, (mem.counters.get(key) ?? 0) + by);
   },
   async incrField(key, field, by = 1) {
-    const h = mem.hashes.get(key) ?? new Map<string, number>();
-    h.set(field, (h.get(field) ?? 0) + by);
+    const h = mem.hashes.get(key) ?? new Map<string, number | string>();
+    h.set(field, (Number(h.get(field)) || 0) + by);
     mem.hashes.set(key, h);
   },
   async addToSet(key, member) {
@@ -181,6 +186,11 @@ const memoryStore: Store = {
     const h = mem.hashes.get(key);
     if (!h) return {};
     return Object.fromEntries([...h.entries()].map(([k, v]) => [k, String(v)]));
+  },
+  async setField(key, field, value) {
+    const h = mem.hashes.get(key) ?? new Map<string, number | string>();
+    h.set(field, value);
+    mem.hashes.set(key, h);
   },
   async pushCapped(key, value, cap) {
     const l = mem.lists.get(key) ?? [];

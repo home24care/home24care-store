@@ -194,6 +194,7 @@ export async function getDashboardData(days: number): Promise<DashboardData> {
     devices,
     landing,
     recentRaw,
+    excludedEvents,
   ] = await Promise.all([
     totalsFor(current),
     totalsFor(previous),
@@ -206,6 +207,9 @@ export async function getDashboardData(days: number): Promise<DashboardData> {
     mergedTop(k.devices, current, 5),
     mergedTop(k.landing, current, 10),
     s.listRange(k.recent(), 0, 49),
+    Promise.all(current.map((d) => s.getHash(k.totals(d)).then((h) => num(h.excluded)))).then((v) =>
+      v.reduce((a, b) => a + b, 0)
+    ),
   ]);
 
   const toProductRow = (r: { key: string; count: number }): RankedRow => {
@@ -254,5 +258,6 @@ export async function getDashboardData(days: number): Promise<DashboardData> {
     landingPages: landing.map((r) => ({ key: r.key, label: r.key, count: r.count })),
     recent,
     storage: s.kind,
+    excludedEvents,
   };
 }

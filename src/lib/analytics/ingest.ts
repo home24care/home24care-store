@@ -1,4 +1,6 @@
 import { store } from './store';
+import { touchLive } from './live';
+import { isExcludedCountry } from './types';
 import type { AnalyticsEvent, Channel, EventName, IncomingEvent } from './types';
 
 /**
@@ -185,7 +187,29 @@ export async function recordEvent(event: AnalyticsEvent): Promise<void> {
   const s = store();
   const day = dayKey(event.ts);
 
-  const writes: Promise<unknown>[] = [];
+  /*
+    The owner's own traffic (EXCLUDED_COUNTRIES) is only counted as "excluded"
+    and written nowhere else, so every figure on the dashboard is customers only
+    while it can still say how much it set aside. Heartbeats from those browsers
+    are not even counted.
+  */
+  if (isExcludedCountry(event.country)) {
+    if (event.name !== 'heartbeat') {
+      await s.incrField(k.totals(day), 'excluded');
+      await s.expire(k.totals(day), AGGREGATE_TTL).catch(() => {});
+    }
+    return;
+  }
+
+  // A heartbeat only keeps an open tab in the live-visitors window.
+  if (event.name === 'heartbeat') {
+    // A heartbeat carries no referrer, so its channel would read "direct";
+    // leave the channel to the visitor's real events.
+    await touchLive({ ...event, channel: null });
+    return;
+  }
+
+  const writes: Promise<unknown>[] = [touchLive(event)];
 
   const field = TOTAL_FIELD[event.name];
   if (field) writes.push(s.incrField(k.totals(day), field));
@@ -256,6 +280,7 @@ const VALID_NAMES = new Set<EventName>([
   'remove_from_cart',
   'checkout_started',
   'purchase',
+  'heartbeat',
 ]);
 
 /**

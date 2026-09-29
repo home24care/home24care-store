@@ -14,7 +14,9 @@ export type EventName =
   | 'add_to_cart'
   | 'remove_from_cart'
   | 'checkout_started'
-  | 'purchase';
+  | 'purchase'
+  /** Once a minute from an open tab. Refreshes the live-visitors window only; never counted. */
+  | 'heartbeat';
 
 /**
  * How the visit arrived.
@@ -115,4 +117,19 @@ export type DashboardData = {
   landingPages: RankedRow[];
   recent: AnalyticsEvent[];
   storage: 'redis' | 'memory';
+  /** Events from EXCLUDED_COUNTRIES in the range, set aside from every figure. */
+  excludedEvents: number;
 };
+
+/* ── EXCLUDED COUNTRIES ─────────────────────────────────────────────────────
+   The owner browses from Vietnam and the store only sells in the U.S., so every
+   visit from these countries is the owner checking the site or placing a test
+   order. Their events are left out of every figure on the dashboard — visitors,
+   sessions, the funnel, countries, channels, pages, products, the recent feed
+   and live visitors — and only counted as "excluded", so the dashboard can say
+   how many it set aside. Edit this list, not the queries. */
+export const EXCLUDED_COUNTRIES: readonly string[] = ['VN'];
+export const isExcludedCountry = (cc?: string | null): boolean => !!cc && EXCLUDED_COUNTRIES.includes(cc);
+
+/** One browser seen in the last few minutes. Country and channel come from the server. */
+export type LiveVisitor = { country: string | null; path: string; channel: string | null; lastSeen: number };

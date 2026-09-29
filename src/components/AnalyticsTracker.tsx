@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics/client';
 
 /**
- * Fires a page_view on first load and on every client-side navigation.
+ * Fires a page_view on first load and on every client-side navigation, and a
+ * once-a-minute heartbeat for the admin's live-visitors panel.
  *
  * Mounted once in the root layout. Product views are fired separately from the
  * product page itself, because only that page knows which slug it is showing.
@@ -21,6 +22,16 @@ export default function AnalyticsTracker() {
     lastPath.current = pathname;
     track('page_view');
   }, [pathname]);
+
+  // Keeps an open tab in the admin's live-visitors window. Skipped while the
+  // tab is hidden, so a forgotten background tab does not count as "live".
+  useEffect(() => {
+    const beat = () => {
+      if (document.visibilityState === 'visible') track('heartbeat');
+    };
+    const id = window.setInterval(beat, 60_000);
+    return () => window.clearInterval(id);
+  }, []);
 
   return null;
 }

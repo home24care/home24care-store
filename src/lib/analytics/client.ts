@@ -117,7 +117,7 @@ export function track(
 
   // Attribution travels with the first event of the session only. Repeating it
   // on every event would count one visit many times over in the channel report.
-  if (!referrerSent) {
+  if (!referrerSent && name !== 'heartbeat') {
     if (document.referrer) payload.referrer = document.referrer;
     if (landingCampaign) {
       if (landingCampaign.utmSource) payload.utmSource = landingCampaign.utmSource;
