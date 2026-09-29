@@ -104,13 +104,13 @@ const flatten = (d) =>
 const descriptionOf = (p) =>
   // The template's cell says "up to 200 characters", but that is advice: the
   // product data specification puts the limit at 5000. The longest here is 977.
-  flatten(p.description).slice(0, 4900) ||
+  flatten(p.description).slice(0, 4900).trimEnd() ||
   `${p.title} from ${p.brand}, sold by TOPPSUEFA with free shipping.`;
 
 const extraImages = (p) =>
   p.images.slice(1, 1 + FEED_EXTRA).map((img) => feedImageUrl(img.full));
 
-const highlightsOf = (p) => p.highlights.slice(0, HIGHLIGHTS).map((h) => h.slice(0, 150));
+const highlightsOf = (p) => p.highlights.slice(0, HIGHLIGHTS).map((h) => h.slice(0, 150).trimEnd());
 
 /* ---------------------------------------------------------------- columns */
 
@@ -134,9 +134,21 @@ const nth = (fn, i) => (p) => fn(p)[i] ?? '';
  */
 const mpnOf = (p) => p.mpn ?? null;
 
+/**
+ * A multi-box case or display carries no retail barcode of its own, so for one
+ * without a GTIN "identifier_exists: no" is the accurate statement. A single
+ * retail box does have a UPC even when we do not know it, and telling Google it
+ * has none risks a disapproval, so for those the attribute is left out and
+ * Merchant only notes the missing GTIN.
+ */
+const isCaseOrDisplay = (p) =>
+  /\b\d+\s*-?\s*(?:box|pack|tin)?\s*case\b|\bcase\s*\(\d+\s*ct\.?\)|\bsealed case\b|\bdisplay\b/i.test(p.title);
+
 const COLUMNS = [
   ['id', (p) => offerId(p.sku)],
-  ['title', (p) => p.title.slice(0, 150)],
+  // Trimmed after cutting: a cut can end on a space, and Sheets strips it, which
+  // would make every sheet-vs-CSV check report a false difference.
+  ['title', (p) => p.title.slice(0, 150).trimEnd()],
   ['description', descriptionOf],
   ['availability', availabilityOf],
   ['availability_date', () => ''],
@@ -147,7 +159,7 @@ const COLUMNS = [
   ['price', (p) => money(p.compareAtPrice ?? p.price, p.currency)],
   ['sale_price', (p) => (p.compareAtPrice ? money(p.price, p.currency) : '')],
   ['sale_price_effective_date', () => ''],
-  ['identifier_exists', (p) => (!p.gtin && !mpnOf(p) ? 'no' : '')],
+  ['identifier_exists', (p) => (!p.gtin && !mpnOf(p) && isCaseOrDisplay(p) ? 'no' : '')],
   ['gtin', (p) => p.gtin ?? ''],
   ['mpn', (p) => mpnOf(p) ?? ''],
   ['brand', (p) => p.brand],
@@ -208,7 +220,9 @@ const cell = (value) => {
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 };
 
-const products = catalog.products.filter((p) => p.images.length > 0 && p.price > 0);
+// Merchant requires an availability_date for a pre-order and none is known,
+// so pre-orders stay off the sheet until they are released.
+const products = catalog.products.filter((p) => p.images.length > 0 && p.price > 0 && !p.preorder);
 const header = COLUMNS.map(([name]) => name);
 const rows = products.map((p) => COLUMNS.map(([, get]) => get(p)));
 
