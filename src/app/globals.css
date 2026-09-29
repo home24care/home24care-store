@@ -113,6 +113,22 @@
   .prose-policy th {
     @apply bg-moss-50 font-semibold text-ink;
   }
+
+  /* Checkout's split screen: white under the form, sand under the order
+     summary, a hairline between. Painted on the full-width wrapper at exactly
+     50%, so the sand reaches the right edge of the window at any width while
+     the two columns stay centred. Phones stack the columns on white. */
+  @media (min-width: 1024px) {
+    .checkout-split {
+      background: linear-gradient(
+        to right,
+        #ffffff 50%,
+        #e4e5e3 50%,
+        #e4e5e3 calc(50% + 1px),
+        #f6f6f4 calc(50% + 1px)
+      );
+    }
+  }
 }
 
 @layer utilities {

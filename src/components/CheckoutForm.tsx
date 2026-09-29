@@ -1,262 +1,219 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import type { StripeCheckoutExpressCheckoutElementOptions } from '@stripe/stripe-js';
 import {
-  AddressElement,
   ExpressCheckoutElement,
-  LinkAuthenticationElement,
   PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
+  ShippingAddressElement,
+  useCheckoutElements,
+} from '@stripe/react-stripe-js/checkout';
 import { formatPrice } from '@/lib/format';
-import { site } from '@/lib/site';
+import {
+  FIELD,
+  FormError,
+  HELPER,
+  LABEL,
+  OrDivider,
+  PlaceOrder,
+  PolicyLinks,
+  Section,
+  ShippingMethod,
+  TermsCheckbox,
+} from './CheckoutParts';
 
-/**
- * The form body: our fields and our submit button, with Stripe's Elements
- * mounted inside it.
- *
- * This is the "integrated" shape rather than Stripe's embedded Checkout. The
- * embedded version renders contact, address, shipping and payment as one
- * iframe, which cannot have our own shipping selector or terms checkbox placed
- * between its sections. Here Stripe owns only the two parts that must be
- * PCI-scoped -- the address fields and the payment methods -- and everything
- * around them is ours.
- */
+/*
+  THE FORM BODY — our sections, Stripe's fields inside them.
+
+  Runs on a Checkout Session in "elements" mode, rendered inside
+  CheckoutElementsProvider (see CheckoutClient). Stripe draws the wallet
+  buttons, the shipping address and the payment methods — card, Link and
+  whatever else the account has on — and keeps the session's total. Contact
+  email and phone are our own inputs: they go to Stripe in confirm(), never to
+  our server.
+
+  If Stripe cannot load the session or its fields, `onFailure` hands the page
+  over to the PaymentIntent form, so a shopper is never left without a way to
+  pay. (A session that cannot be created never reaches this component.)
+*/
+
+// Stripe's type marks every key required; these are the ones we set.
+const EXPRESS_OPTIONS = {
+  buttonHeight: 48,
+  layout: { maxColumns: 2, maxRows: 2 },
+} as StripeCheckoutExpressCheckoutElementOptions;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function CheckoutForm({
   amount,
-  lines,
-  onProcessing,
+  onFailure,
 }: {
+  /** The cart total, shown on the button until the session's own arrives. */
   amount: number;
-  lines: { slug: string; quantity: number }[];
-  onProcessing: (busy: boolean) => void;
+  onFailure: (reason: string) => void;
 }) {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
+  const result = useCheckoutElements();
+  const checkout = result.type === 'success' ? result.checkout : null;
+
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [accepted, setAccepted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [hasExpress, setHasExpress] = useState(false);
   const termsRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
-  /*
-    The wallet buttons sit above the terms checkbox, so a shopper who taps
-    Apple Pay first would otherwise get an error about a control they cannot
-    see. Bring it into view and focus it instead of only complaining.
-  */
-  const demandTerms = () => {
-    setError('Please accept the terms before placing your order.');
-    termsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    termsRef.current?.focus();
-  };
-
-  /**
-   * Create the intent and confirm. Shared by the card form and the wallet
-   * buttons, so a change to how orders are priced or confirmed cannot apply
-   * to one path and not the other.
-   */
-  const confirm = async (): Promise<string | null> => {
-    if (!stripe || !elements) return 'Payment is still loading. Please try again.';
-
-    const { error: submitError } = await elements.submit();
-    if (submitError) return submitError.message ?? 'Please check the highlighted fields.';
-
-    let clientSecret: string;
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lines }),
-      });
-      const data = (await res.json()) as { clientSecret?: string; error?: string };
-      if (!res.ok || !data.clientSecret) {
-        return data.error || 'We could not start the payment. Please try again.';
-      }
-      clientSecret = data.clientSecret;
-    } catch {
-      return 'We could not reach the payment service. Please try again.';
-    }
-
-    const { error: confirmError } = await stripe.confirmPayment({
-      elements,
-      clientSecret,
-      confirmParams: { return_url: `${window.location.origin}/checkout/success` },
-    });
-
-    // confirmPayment only returns when it could NOT redirect, so reaching
-    // here always means a failure.
-    return (
-      confirmError?.message ??
-      'We could not complete the payment. Your card has not been charged.'
-    );
-  };
+  const failed = result.type === 'error' ? result.error.message : null;
+  useEffect(() => {
+    if (failed) onFailure(failed);
+  }, [failed, onFailure]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!stripe || !elements || busy) return;
+    if (!checkout || busy) return;
+    setError(null);
 
+    if (!EMAIL_RE.test(email.trim())) {
+      setError('Enter a valid email address for your order confirmation.');
+      emailRef.current?.focus();
+      return;
+    }
+    if (phone.replace(/\D/g, '').length < 10) {
+      setError('Enter a phone number the carrier can reach you on.');
+      phoneRef.current?.focus();
+      return;
+    }
     if (!accepted) {
-      demandTerms();
+      setError('Please accept the terms before placing your order.');
+      termsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      termsRef.current?.focus();
       return;
     }
 
     setBusy(true);
-    onProcessing(true);
-    setError(null);
-
-    setError(await confirm());
+    /*
+      confirm() validates the address and payment fields itself, highlights
+      whatever is missing, and on success redirects to the thank-you page —
+      so returning here means something needs the shopper.
+    */
+    const outcome = await checkout.confirm({ email: email.trim(), phoneNumber: phone.trim() });
+    if (outcome.type === 'error') setError(outcome.error.message);
     setBusy(false);
-    onProcessing(false);
   };
 
-  return (
-    <form onSubmit={submit} noValidate>
-      {/*
-        Wallet buttons first. Apple Pay and Google Pay already hold the card,
-        name and shipping address, so a shopper who has one never types any of
-        it -- which is most of the abandonment on a phone.
+  // Stripe asks that the total shown be the session's own, so it tracks any
+  // change Stripe makes; the cart's figure stands in while it loads.
+  const total = checkout ? checkout.total.total.amount : formatPrice(amount);
 
-        `hasExpress` is set from onReady: the element reports which wallets the
-        device can actually offer, and on a browser with none it renders
-        nothing. Without that flag the "or pay by card" divider would sit above
-        an empty space on most desktops.
+  return (
+    <form onSubmit={submit} noValidate className="min-w-0">
+      {/*
+        Wallets above everything. Apple Pay and Google Pay already hold the
+        card, email, phone and address, so a shopper with one types nothing.
+        onReady says whether this device has a wallet at all; without it the
+        "or" rule would sit under an empty space on most desktops.
       */}
-      <div className={hasExpress ? 'mb-7' : ''}>
+      <section aria-label="Express checkout" className={hasExpress ? 'mb-8' : ''}>
+        {hasExpress ? (
+          <p className="mb-3 text-center text-[13.5px] text-ink-muted">Express checkout</p>
+        ) : null}
         <ExpressCheckoutElement
-          options={{
-            buttonHeight: 48,
-            layout: { maxColumns: 2, maxRows: 2 },
-          }}
-          onReady={({ availablePaymentMethods }) =>
-            setHasExpress(Boolean(availablePaymentMethods))
-          }
-          onConfirm={async () => {
-            if (!accepted) {
-              demandTerms();
+          options={EXPRESS_OPTIONS}
+          onReady={({ availablePaymentMethods }) => setHasExpress(Boolean(availablePaymentMethods))}
+          onConfirm={async (event) => {
+            if (!checkout) {
+              event.paymentFailed({ reason: 'fail' });
               return;
             }
-            setBusy(true);
-            onProcessing(true);
-            setError(await confirm());
-            setBusy(false);
-            onProcessing(false);
+            setError(null);
+            const outcome = await checkout.confirm({ expressCheckoutConfirmEvent: event });
+            if (outcome.type === 'error') setError(outcome.error.message);
           }}
         />
         {hasExpress ? (
-          <div className="mt-6 flex items-center gap-4">
-            <span className="h-px flex-1 bg-ink/10" />
-            <span className="text-[12.5px] font-medium uppercase tracking-wide text-ink-muted">
-              or pay by card
-            </span>
-            <span className="h-px flex-1 bg-ink/10" />
-          </div>
+          <>
+            {/* The wallet sheet opens straight from its button — there is no
+                step in between for the checkbox below — so the terms are
+                stated where the wallets are. */}
+            <p className="mt-2.5 text-center text-[12px] leading-relaxed text-ink-muted">
+              Paying with a wallet means you accept the <PolicyLinks />.
+            </p>
+            <OrDivider />
+          </>
         ) : null}
-      </div>
-
-      <section>
-        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Contact</h2>
-        <div className="mt-3">
-          <LinkAuthenticationElement />
-        </div>
       </section>
 
-      <section className="mt-8">
-        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Shipping address</h2>
-        <div className="mt-3">
-          <AddressElement
-            options={{
-              mode: 'shipping',
-              // The storefront ships within the United States only, and the
-              // shipping policy says so; offering other countries here would
-              // take payment for an order that cannot be fulfilled.
-              allowedCountries: ['US'],
-              fields: { phone: 'always' },
-              validation: { phone: { required: 'never' } },
-            }}
-          />
-        </div>
-        <p className="mt-2 text-[12.5px] text-ink-muted">
-          We currently deliver within the {site.address.countryName} only.
-        </p>
-      </section>
-
-      <section className="mt-8">
-        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Shipping method</h2>
-        {/* One option, priced at zero. It is shown rather than hidden because a
-            checkout that never mentions shipping reads as though a cost is
-            about to appear. */}
-        <div className="mt-3 flex items-center justify-between rounded-md border-2 border-moss-400 bg-moss-50 px-4 py-3.5">
-          <span>
-            <span className="block text-[14.5px] font-semibold text-ink">
-              Free shipping — packed seal-safe
-            </span>
-            <span className="block text-[13px] text-ink-soft">
-              Ships in {site.shipping.handlingTime.replace(' (Mon–Fri)', '')}, delivered in{' '}
-              {site.shipping.transitTime}
-            </span>
-          </span>
-          <span className="text-[14.5px] font-semibold text-moss-500">Free</span>
-        </div>
-      </section>
-
-      <section className="mt-8">
-        <h2 className="font-display text-[17px] uppercase tracking-[0.03em] text-ink">Payment</h2>
-        <p className="mt-1 text-[13px] text-ink-soft">
-          All transactions are secure and encrypted.
-        </p>
-        <div className="mt-3">
-          <PaymentElement options={{ layout: 'tabs' }} />
-        </div>
-      </section>
-
-      <label className="mt-7 flex cursor-pointer items-start gap-3 text-[13.5px] leading-relaxed text-ink-soft">
+      <Section id="co-contact" title="Contact" className="">
+        <label htmlFor="co-email" className={LABEL}>
+          Email
+        </label>
         <input
-          ref={termsRef}
-          type="checkbox"
-          checked={accepted}
-          onChange={(e) => setAccepted(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/30 text-moss-500 focus:ring-moss-400"
+          ref={emailRef}
+          id="co-email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={FIELD}
         />
-        <span>
-          I have read and accept the{' '}
-          <Link href="/policies/terms" className="font-medium text-moss-500 underline">
-            Terms
-          </Link>
-          , the{' '}
-          <Link href="/policies/privacy" className="font-medium text-moss-500 underline">
-            Privacy Policy
-          </Link>{' '}
-          and the{' '}
-          <Link href="/policies/returns" className="font-medium text-moss-500 underline">
-            Return Policy
-          </Link>
-          .
-        </span>
-      </label>
+        <p className={HELPER}>Your order confirmation and tracking go here.</p>
+      </Section>
 
-      {error ? (
-        <p
-          role="alert"
-          className="mt-5 rounded-md border border-clay-300 bg-clay-50 px-4 py-3 text-[14px] text-ink"
-        >
-          {error}
-        </p>
-      ) : null}
+      <Section id="co-delivery" title="Delivery">
+        {/* The session only allows US addresses, matching the shipping policy.
+            Name split, and nothing more: Stripe.js rejects `fields` here at
+            runtime although its types list it, and the phone is our own
+            input below. */}
+        <ShippingAddressElement
+          options={{ display: { name: 'split' } }}
+          onLoadError={({ error: e }) => onFailure(e.message ?? 'The address form could not load.')}
+        />
+        <div className="mt-3">
+          <label htmlFor="co-phone" className={LABEL}>
+            Phone
+          </label>
+          <input
+            ref={phoneRef}
+            id="co-phone"
+            type="tel"
+            autoComplete="tel"
+            inputMode="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className={FIELD}
+          />
+          <p className={HELPER}>For the carrier, in case they need to reach you about the delivery.</p>
+        </div>
+      </Section>
 
-      <button
-        type="submit"
-        disabled={!stripe || busy}
-        className="btn-primary mt-6 w-full py-4 text-[14px]"
-      >
-        {busy ? 'Processing…' : `Place order · ${formatPrice(amount)}`}
-      </button>
+      <Section id="co-shipping" title="Shipping method">
+        <ShippingMethod />
+      </Section>
 
-      <p className="mt-3 text-center text-[12.5px] leading-relaxed text-ink-muted">
-        No hidden costs. The amount above is what you pay, shipping is free, and every box
-        ships sealed as described.
-      </p>
+      <Section id="co-payment" title="Payment" note="All transactions are secure and encrypted.">
+        <PaymentElement
+          options={{ layout: 'tabs' }}
+          onLoadError={({ error: e }) => onFailure(e.message ?? 'The payment form could not load.')}
+        />
+      </Section>
+
+      <TermsCheckbox
+        ref={termsRef}
+        checked={accepted}
+        onChange={(v) => {
+          setAccepted(v);
+          if (v) setError(null);
+        }}
+      />
+
+      <FormError message={error} />
+      <PlaceOrder busy={busy} disabled={!checkout} total={total} />
     </form>
   );
 }

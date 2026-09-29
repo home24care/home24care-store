@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { stripe, stripeConfigured, webhookSecretConfigured } from '@/lib/stripe';
 import { recordOrder, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
-import { recordPaidIntent, claimOrder } from '@/lib/record-payment';
-import { recordPurchase } from '@/lib/analytics/ingest';
+import { recordPaidIntent, recordPaidSession, isOurs } from '@/lib/record-payment';
 
 export const runtime = 'nodejs';
 // The signature is computed over the exact bytes Stripe sent, so this route
@@ -38,58 +37,48 @@ export async function POST(request: Request) {
   try {
     switch (event.type) {
       /*
-        The integrated checkout confirms a PaymentIntent directly, so this --
-        not checkout.session.completed -- is the event that means a sale now.
-        The session cases below are kept: they still fire for any Checkout
-        Session created before the switch, and dropping them would strand
-        those orders.
+        A sale arrives here two ways, and each is counted once between the
+        events below and the thank-you page (see record-payment.ts):
+        - /checkout runs on a Checkout Session, which fires both
+          checkout.session.completed and payment_intent.succeeded;
+        - the product-page wallet buttons confirm a bare PaymentIntent, which
+          fires payment_intent.succeeded alone.
+        The Stripe account is shared with another storefront, so anything
+        without this shop's `store` metadata is acknowledged and left alone.
       */
       case 'payment_intent.succeeded': {
         const intent = event.data.object as Stripe.PaymentIntent;
-        // Counted once per payment, shared with the thank-you page, which
-        // usually records it first.
+        if (!isOurs(intent.metadata)) break;
         await recordPaidIntent(intent, 'webhook');
         await markOrderPaid(intent.id, event.id);
         break;
       }
 
-      case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session;
-        // Card payments can complete asynchronously; only treat the order as
-        // paid once payment_status says so.
-        await recordOrder(session);
-        if (session.payment_status === 'paid' && (await claimOrder(session.id))) {
-          await markOrderPaid(session.id, event.id);
-          // Revenue is recorded here rather than from a beacon on the
-          // thank-you page: a beacon misses anyone who closes the tab on
-          // redirect, and can be replayed by anyone who can POST.
-          await recordPurchase({
-            value: session.amount_total ?? 0,
-            country: session.customer_details?.address?.country ?? null,
-          }).catch(() => {});
-        }
-        break;
-      }
-
+      case 'checkout.session.completed':
       case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object as Stripe.Checkout.Session;
-        await markOrderPaid(session.id, event.id);
-        if (!(await claimOrder(session.id))) break;
-        await recordPurchase({
-          value: session.amount_total ?? 0,
-          country: session.customer_details?.address?.country ?? null,
-        }).catch(() => {});
+        if (!isOurs(session.metadata)) break;
+        // A delayed payment method completes the session unpaid; it is counted
+        // when async_payment_succeeded sees it paid.
+        if (session.payment_status === 'paid') {
+          await recordPaidSession(session, 'webhook');
+          await markOrderPaid(session.id, event.id);
+        } else {
+          await recordOrder(session);
+        }
         break;
       }
 
       case 'checkout.session.async_payment_failed': {
         const session = event.data.object as Stripe.Checkout.Session;
+        if (!isOurs(session.metadata)) break;
         await markOrderFailed(session.id, event.id);
         break;
       }
 
       case 'checkout.session.expired': {
         const session = event.data.object as Stripe.Checkout.Session;
+        if (!isOurs(session.metadata)) break;
         await markOrderFailed(session.id, event.id, 'expired');
         break;
       }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { stripe, stripeConfigured } from '@/lib/stripe';
-import { recordPaidIntent } from '@/lib/record-payment';
+import { recordPaidIntent, recordPaidSession, isOurs } from '@/lib/record-payment';
 import { formatPrice } from '@/lib/format';
 import { getProductBySku } from '@/lib/catalog';
 import { site } from '@/lib/site';
@@ -29,14 +29,14 @@ type Summary = {
 };
 
 /**
- * The integrated checkout returns with `payment_intent`; the older redirect
- * flow returned with `session_id`. Both are handled so an order placed either
- * way still gets a confirmation.
+ * /checkout returns with `session_id` (a Checkout Session); the product-page
+ * wallet buttons, and /checkout's fallback form, return with `payment_intent`.
+ * Both are handled so an order placed either way gets its confirmation.
  */
 async function loadFromIntent(intentId: string): Promise<Summary | null> {
   try {
     const intent = await stripe().paymentIntents.retrieve(intentId);
-    if (intent.status !== 'succeeded') return null;
+    if (intent.status !== 'succeeded' || !isOurs(intent.metadata)) return null;
     /*
       Count the order here as well as from the webhook, so it reaches the
       dashboard even when the webhook is not set up, failing, or late. The
@@ -82,6 +82,17 @@ async function loadSummary(sessionId?: string): Promise<Summary | null> {
     const session = await stripe().checkout.sessions.retrieve(sessionId, {
       expand: ['line_items'],
     });
+    // An open or expired session is not an order, and another storefront's
+    // session (the Stripe account is shared) is not ours to confirm.
+    if (session.status !== 'complete' || !isOurs(session.metadata)) return null;
+    /*
+      Counted here as well as from the webhook, exactly as loadFromIntent does:
+      the session was just fetched with the secret key, so its payment status
+      and amount are Stripe's. Counted once, under its PaymentIntent.
+    */
+    await recordPaidSession(session, 'thank-you').catch((err) =>
+      console.error('[checkout/success] recording the order failed:', err instanceof Error ? err.message : err)
+    );
     return {
       email: session.customer_details?.email ?? null,
       total: session.amount_total,

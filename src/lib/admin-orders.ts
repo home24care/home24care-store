@@ -1,6 +1,7 @@
 import type Stripe from 'stripe';
 import { stripe, stripeConfigured } from '@/lib/stripe';
 import { isExcludedCountry } from '@/lib/analytics/types';
+import { isOurs } from '@/lib/record-payment';
 
 export type AdminOrder = {
   id: string;
@@ -30,7 +31,9 @@ export async function listRecentOrders(limit = 25): Promise<AdminOrder[] | null>
   try {
     const page = await stripe().paymentIntents.list({ limit: 100, expand: ['data.latest_charge'] });
     return page.data
-      .filter((pi) => pi.status === 'succeeded')
+      // The Stripe account is shared with another storefront; only this
+      // shop's payments carry its `store` metadata.
+      .filter((pi) => pi.status === 'succeeded' && isOurs(pi.metadata))
       .slice(0, limit)
       .map((pi) => {
         const charge = typeof pi.latest_charge === 'object' ? (pi.latest_charge as Stripe.Charge | null) : null;

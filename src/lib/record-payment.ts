@@ -2,10 +2,34 @@ import type Stripe from 'stripe';
 import { store } from '@/lib/analytics/store';
 import { recordPurchase } from '@/lib/analytics/ingest';
 import { isExcludedCountry } from '@/lib/analytics/types';
-import { recordOrderFromIntent } from '@/lib/orders';
+import { recordOrder, recordOrderFromIntent } from '@/lib/orders';
+import { site } from '@/lib/site';
 
 /** Long enough to outlive every Stripe retry and any reload of an old thank-you page. */
 const CLAIM_TTL = 60 * 60 * 24 * 400;
+
+/**
+ * True for a payment this shop created. The Stripe account is shared with
+ * another storefront, whose payments reach the same webhook; /api/checkout
+ * stamps `store` on every PaymentIntent and Checkout Session it creates.
+ */
+export const isOurs = (metadata: Stripe.Metadata | null | undefined): boolean =>
+  metadata?.store === site.name;
+
+/**
+ * Count a payment once, whichever caller sees it first. The key is the
+ * PaymentIntent id: a Checkout Session's payment fires payment_intent.succeeded
+ * as well as checkout.session.completed, and the thank-you page sees it too.
+ */
+function claim(id: string): Promise<boolean> {
+  return store()
+    .claim(`o:claimed:${id}`, CLAIM_TTL)
+    .catch((err) => {
+      // Storage down: better to risk a double count than to lose the sale.
+      console.error('[orders] claim failed, recording anyway:', err instanceof Error ? err.message : err);
+      return true;
+    });
+}
 
 /**
  * Record a paid order — the one way a sale reaches the dashboard.
@@ -30,16 +54,8 @@ export async function recordPaidIntent(
   intent: Stripe.PaymentIntent,
   via: 'webhook' | 'thank-you'
 ): Promise<boolean> {
-  if (intent.status !== 'succeeded') return false;
-
-  const claimed = await store()
-    .claim(`o:claimed:${intent.id}`, CLAIM_TTL)
-    .catch((err) => {
-      // Storage down: better to risk a double count than to lose the sale.
-      console.error('[orders] claim failed, recording anyway:', err instanceof Error ? err.message : err);
-      return true;
-    });
-  if (!claimed) return false;
+  if (intent.status !== 'succeeded' || !isOurs(intent.metadata)) return false;
+  if (!(await claim(intent.id))) return false;
 
   // The country Stripe verified on the shipping address — not an edge header,
   // which on a webhook would be Stripe's own datacentre.
@@ -54,11 +70,26 @@ export async function recordPaidIntent(
 }
 
 /**
- * The same once-only guard for the older Checkout Session flow, so a retried
- * checkout.session.* webhook cannot count its sale twice either.
+ * The same for a Checkout Session — /checkout's form, or the hosted page it
+ * falls back to. Claimed under the session's PaymentIntent, so however many of
+ * the webhook's events and the thank-you page see this payment, it counts once.
  */
-export async function claimOrder(id: string): Promise<boolean> {
-  return store()
-    .claim(`o:claimed:${id}`, CLAIM_TTL)
-    .catch(() => true);
+export async function recordPaidSession(
+  session: Stripe.Checkout.Session,
+  via: 'webhook' | 'thank-you'
+): Promise<boolean> {
+  if (session.payment_status !== 'paid' || !isOurs(session.metadata)) return false;
+  const intentId =
+    typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id;
+  if (!(await claim(intentId ?? session.id))) return false;
+
+  const country =
+    session.collected_information?.shipping_details?.address?.country ??
+    session.customer_details?.address?.country ??
+    null;
+  console.info('[orders] %s counted via %s', session.id, via);
+
+  if (!isExcludedCountry(country)) await recordOrder(session).catch(() => {});
+  await recordPurchase({ value: session.amount_total ?? 0, country }).catch(() => {});
+  return true;
 }

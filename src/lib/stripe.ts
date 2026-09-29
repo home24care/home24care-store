@@ -30,6 +30,20 @@ export function stripe(): Stripe {
 }
 
 /**
+ * The API version Checkout Sessions are created with — newer than the
+ * client's pinned basil version, on purpose.
+ *
+ * The checkout page mounts those sessions with Stripe.js "dahlia"
+ * (@stripe/stripe-js 9), and Stripe requires the session to be created on an
+ * API version at least as new as the Stripe.js release reading it. Dahlia also
+ * renamed ui_mode "custom" to "elements" (and hosted to hosted_page), so the
+ * route sends the dahlia names under this version only. Everything else —
+ * PaymentIntents, the webhook, the thank-you page's retrieve — stays on the
+ * pinned version: Stripe renders an object in whichever version reads it.
+ */
+export const CHECKOUT_SESSION_API_VERSION = '2026-08-26.dahlia';
+
+/**
  * A key is "configured" only if it looks like a real one.
  *
  * Presence alone is not enough: Vercel auto-detects `.env.example` on import
