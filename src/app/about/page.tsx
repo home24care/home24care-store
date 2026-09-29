@@ -79,8 +79,10 @@ export default function AboutPage() {
           <h2>Why collectors shop with {site.name}</h2>
           <ul>
             <li>
-              <strong>100% authentic, never resealed.</strong> Every box is brand new in its
-              original manufacturer seal. We never sell searched, weighed or re-wrapped product.
+              <strong>100% authentic, never searched.</strong> Every box is brand new, and
+              manufacturer boxes arrive in their original factory seal. The few repacks we carry
+              are labelled &ldquo;Repack&rdquo; and sealed by their producer. We never sell searched
+              or weighed product.
             </li>
             <li>
               <strong>Packed like a collectible.</strong> Bubble wrap, a rigid carton and void

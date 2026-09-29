@@ -374,7 +374,7 @@ export const authenticityPolicy: Policy = {
       blocks: [
         {
           type: 'p',
-          text: `${site.legalName} guarantees that every product sold through ${site.name} is authentic, brand new and factory sealed exactly as released by the manufacturer — Topps, Bowman, Panini, The Pokémon Company International or Wizards of the Coast. We do not sell resealed, re-wrapped, searched or weighed product.`,
+          text: `${site.legalName} guarantees that every product sold through ${site.name} is authentic and brand new. Manufacturer products are factory sealed exactly as released by the manufacturer — Topps, Bowman, Panini, Upper Deck, Leaf, Bandai, The Pokémon Company International or Wizards of the Coast. The one exception is products labelled "Repack" in their title and on their product page: these are assembled and sealed by the repack producer named in the listing, not by the card manufacturer. Apart from those clearly labelled repacks, we do not sell resealed, re-wrapped, searched or weighed product.`,
         },
         {
           type: 'ul',

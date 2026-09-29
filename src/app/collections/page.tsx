@@ -26,7 +26,7 @@ export default function CollectionsPage() {
           Shop all categories
         </h1>
         <p className="mt-3 text-[15.5px] leading-relaxed text-ink-soft">
-          Sealed sports-card hobby boxes and trading card games, all factory sealed, 100%
+          Sealed sports-card hobby boxes and trading card games, sealed as described, 100%
           authentic and shipped free — with {site.returns.windowDays}-day returns on unopened
           product.
         </p>

@@ -258,7 +258,7 @@ export default function CheckoutClient() {
                 <ShieldIcon className="mt-0.5 h-[18px] w-[18px] shrink-0 text-moss-500" />
                 <span>
                   <strong className="font-semibold text-ink">{site.warranty.label}</strong> — every
-                  box genuine and factory sealed.
+                  box genuine and sealed as described.
                 </span>
               </li>
               <li className="flex gap-3">

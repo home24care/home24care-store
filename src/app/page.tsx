@@ -39,7 +39,7 @@ const HERO = {
 const HOME_FAQS = [
   {
     q: `Are the boxes sold by ${site.name} authentic and factory sealed?`,
-    a: `Yes. Every box is brand new and ships in its original manufacturer seal, exactly as released by Topps, Bowman, Panini, The Pokémon Company International or Wizards of the Coast. Our ${site.warranty.label} refunds you in full if a box is ever not as described.`,
+    a: `Yes. Every box is brand new, and manufacturer boxes ship in their original factory seal exactly as released by the manufacturer. The only exceptions are products labelled "Repack", which are sealed by the repack producer named in the listing. Our ${site.warranty.label} refunds you in full if a box is ever not as described.`,
   },
   {
     q: 'How much does shipping cost?',
@@ -419,7 +419,7 @@ export default function HomePage() {
             </p>
             <ul className="mt-6 space-y-2.5">
               {[
-                'Brand new and factory sealed — never resealed or searched',
+                'Brand new and sealed — never searched, repacks always labelled',
                 'Free U.S. shipping, packed in rigid cartons',
                 `${site.returns.windowDays}-day returns on unopened product`,
               ].map((t) => (

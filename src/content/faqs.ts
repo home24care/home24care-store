@@ -113,7 +113,7 @@ export const faqGroups: FaqGroup[] = [
     faqs: [
       {
         q: 'Are your products authentic?',
-        a: `Yes. Everything we sell is brand new and factory sealed exactly as released by Topps, Bowman, Panini, The Pokémon Company International or Wizards of the Coast. We never sell resealed, re-wrapped or searched product, and our ${site.warranty.label} gives you a full refund if a box is ever not as described.`,
+        a: `Yes. Everything we sell is authentic and brand new, and manufacturer products are factory sealed exactly as released by Topps, Bowman, Panini, Upper Deck, Leaf, Bandai, The Pokémon Company International or Wizards of the Coast. A few products are repacks: they say "Repack" in the title and on the product page, and are sealed by the repack producer rather than the manufacturer. Apart from those, we never sell resealed, re-wrapped or searched product, and our ${site.warranty.label} gives you a full refund if a box is ever not as described.`,
       },
       {
         q: 'What is a hobby box?',

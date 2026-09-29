@@ -12,6 +12,12 @@ import { CartIcon, SearchIcon, MenuIcon, CloseIcon, ChevronIcon, PhoneIcon, Mail
 
 type NavGroup = { group: string; collections: { slug: string; title: string; tagline: string; count: number }[] };
 
+/**
+ * Collections given their own link in the centred nav row. The rest are one
+ * click away in the Shop menu: fourteen links in one row would overflow it.
+ */
+const TOP_NAV = new Set(['football', 'basketball', 'baseball', 'soccer', 'ufc', 'pokemon', 'magic']);
+
 /** Secondary links, shown after the categories in the centred nav row. */
 const PAGE_LINKS = [
   ['/order-status', 'Order Status'],
@@ -32,7 +38,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  const categories = groups.flatMap((g) => g.collections);
+  const categories = groups.flatMap((g) => g.collections).filter((c) => TOP_NAV.has(c.slug));
 
   useEffect(() => setMounted(true), []);
 
@@ -229,7 +235,7 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
             onMouseEnter={hoverOpen}
             onMouseLeave={hoverClose}
           >
-            <div className="container-page grid grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.1fr)] gap-8 py-8">
+            <div className="container-page grid grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.1fr)] gap-8 py-8">
               {groups.map((g) => (
                 <div key={g.group} className={g.collections.length > 4 ? 'col-span-2' : ''}>
                   <p className="eyebrow mb-3">{g.group}</p>

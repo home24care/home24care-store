@@ -77,7 +77,7 @@ export default function CartPageClient() {
         <p className="eyebrow">Almost yours</p>
         <h1 className="mt-1 font-display text-[30px] uppercase tracking-[0.02em] sm:text-[38px]">Shopping cart</h1>
         <p className="mt-2 text-[14.5px] text-ink-soft">
-          {lines.length} {lines.length === 1 ? 'item' : 'items'} · Free shipping applied · Every box factory sealed
+          {lines.length} {lines.length === 1 ? 'item' : 'items'} · Free shipping applied · 100% authentic
         </p>
 
         {error && (
@@ -114,7 +114,9 @@ export default function CartPageClient() {
                   {line.title}
                 </Link>
                 <p className="mt-1 text-[13px] text-ink-muted">SKU {line.sku}</p>
-                <p className="mt-1 text-[13px] font-medium text-moss-500">Factory sealed · Free shipping</p>
+                <p className="mt-1 text-[13px] font-medium text-moss-500">
+                  {/\brepack\b/i.test(line.title) ? 'Repack' : 'Factory sealed'} · Free shipping
+                </p>
 
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-3">
                   <div className="flex items-center rounded border border-ink/20">

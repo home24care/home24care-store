@@ -10,6 +10,8 @@ const BADGE_STYLE: Record<string, string> = {
   'Limited Release': 'bg-clay-400 text-white',
   'High Demand': 'bg-moss-400 text-white',
   'New Release': 'bg-ink text-white',
+  'Pre-order': 'bg-moss-700 text-white',
+  Repack: 'bg-clay-700 text-white',
 };
 
 export default function ProductCard({

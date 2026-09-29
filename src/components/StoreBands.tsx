@@ -62,7 +62,7 @@ export function TrustTicker() {
 
 const ADVANTAGES = [
   [TruckIcon, 'Premium Shipping', 'Bubble-wrapped and double-boxed in rigid cartons to protect every seal.'],
-  [ShieldIcon, '100% Authenticity', 'Every box is genuine, brand new and factory sealed — guaranteed.'],
+  [ShieldIcon, '100% Authenticity', 'Every box is genuine, brand new and sealed exactly as described — guaranteed.'],
   [SupportIcon, 'Expert Support', 'We are collectors too. Real answers, seven days a week.'],
   [LockIcon, 'Secure Payments', 'Encrypted checkout through a PCI DSS Level 1 processor.'],
 ] as const;

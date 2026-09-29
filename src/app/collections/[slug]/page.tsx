@@ -152,7 +152,7 @@ export default async function CollectionPage({ params }: { params: Promise<Param
           </p>
           <p>
             <strong className="font-semibold text-ink">{site.warranty.label}.</strong> Every box
-            is genuine and factory sealed, or your money back.
+            is genuine and sealed as described, or your money back.
           </p>
         </div>
       </div>

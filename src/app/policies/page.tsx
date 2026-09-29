@@ -49,7 +49,7 @@ export default function PoliciesIndexPage() {
           {[
             ['Shipping', 'Free standard shipping on every order, no minimum. Ships in 1 business day.'],
             ['Returns', `${site.returns.windowDays} days from delivery on unopened, factory-sealed product. No restocking fees.`],
-            ['Authenticity', `${site.warranty.label} — every box genuine and factory sealed.`],
+            ['Authenticity', `${site.warranty.label} — every box genuine and sealed as described.`],
             ['Payments', 'Visa, Mastercard, Amex and Discover, processed on an encrypted PCI DSS checkout.'],
           ].map(([term, desc]) => (
             <div key={term}>

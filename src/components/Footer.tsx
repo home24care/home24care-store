@@ -54,8 +54,9 @@ export default function Footer() {
             </Link>
             <p className="mt-5 max-w-sm text-[13.5px] leading-relaxed text-ink-soft">
               {site.name} is a U.S.-based hobby shop dedicated to sealed trading cards. We stock
-              Topps, Bowman and Panini sports-card hobby boxes alongside Pokémon TCG and Magic:
-              The Gathering, and ship every box factory sealed and packed to protect the seal.
+              Topps, Bowman, Panini, Upper Deck and Leaf sports-card boxes alongside Pokémon,
+              Magic: The Gathering and One Piece, and ship every box sealed as described and packed
+              to protect the seal.
             </p>
 
             <address className="mt-6 space-y-2.5 text-[13.5px] not-italic text-ink-soft">

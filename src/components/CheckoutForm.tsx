@@ -255,7 +255,7 @@ export default function CheckoutForm({
 
       <p className="mt-3 text-center text-[12.5px] leading-relaxed text-ink-muted">
         No hidden costs. The amount above is what you pay, shipping is free, and every box
-        ships factory sealed.
+        ships sealed as described.
       </p>
     </form>
   );

@@ -72,6 +72,8 @@ export type Product = {
   warrantyLabel?: string;
   /** Manufacturer parts-shipping commitment, where one is offered. */
   partsShipping?: string;
+  /** Assembled and sealed by a repack producer rather than the card manufacturer. */
+  repack?: boolean;
 };
 
 export type Collection = {

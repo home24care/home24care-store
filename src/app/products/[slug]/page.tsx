@@ -60,12 +60,19 @@ export async function generateMetadata({
   };
 }
 
-const TRUST_BOXES = [
+type TrustBox = readonly [typeof ShieldIcon, string, string];
+
+const TRUST_BOXES: readonly TrustBox[] = [
   [ShieldIcon, '100% Authentic', 'Every box genuine and exactly as described'],
   [BoxIcon, 'Factory Sealed', 'Original manufacturer shrink-wrap, never resealed'],
   [LockIcon, 'Secure Payment', 'Verified U.S. business · SSL-encrypted checkout'],
   [ReturnIcon, 'Easy Returns', `${site.returns.windowDays} days on unopened product —`],
-] as const;
+];
+
+/** A repack was sealed by its repack producer, not the manufacturer, so it never claims Factory Sealed. */
+const REPACK_BOX: TrustBox = [BoxIcon, 'Repack', 'Assembled and sealed by the repack producer, not the manufacturer'];
+const trustBoxesFor = (repack: boolean | undefined): readonly TrustBox[] =>
+  repack ? TRUST_BOXES.map((box) => (box[1] === 'Factory Sealed' ? REPACK_BOX : box)) : TRUST_BOXES;
 
 export default async function ProductPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
@@ -121,7 +128,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             <span className="rounded-full border border-[#b5dcd6] bg-[#edf8f6] px-3 py-1 text-[12px] font-semibold text-[#2f7468]">
               Free Shipping
             </span>
-            {product.badges.map((b) => (
+            {/* Pre-order is already said by the stock badge above. */}
+            {product.badges.filter((b) => b !== 'Pre-order').map((b) => (
               <span key={b} className="rounded-full border border-clay-200 bg-clay-50 px-3 py-1 text-[12px] font-semibold text-clay-700">
                 {b}
               </span>
@@ -129,7 +137,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3">
-            {TRUST_BOXES.map(([Icon, title, body]) => (
+            {trustBoxesFor(product.repack).map(([Icon, title, body]) => (
               <div key={title} className="rounded-lg border border-ink/10 p-3.5">
                 <p className="flex items-center gap-2 text-[13.5px] font-bold text-ink">
                   <Icon className="h-4 w-4 text-moss-400" />
