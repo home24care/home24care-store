@@ -224,7 +224,13 @@ async function createSession(
     if (!session.client_secret) {
       return NextResponse.json({ error: 'Stripe did not return a client secret.' }, { status: 502 });
     }
-    return NextResponse.json({ clientSecret: session.client_secret, id: session.id });
+    return NextResponse.json({
+      clientSecret: session.client_secret,
+      id: session.id,
+      // What the session charges, line by line, so the page can correct a
+      // cart that still holds an older price or a quantity over the limit.
+      lines: resolved.map(({ product, quantity }) => ({ slug: product.slug, price: product.price, quantity })),
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown Stripe error';
     console.error('[checkout] Stripe session (%s) failed: %s', mode, message);

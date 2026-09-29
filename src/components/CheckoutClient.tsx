@@ -10,7 +10,7 @@ import CheckoutForm from './CheckoutForm';
 import CheckoutIntentForm from './CheckoutIntentForm';
 import { STRIPE_APPEARANCE, STRIPE_FONTS } from './CheckoutParts';
 import PaymentMarks from './PaymentMarks';
-import { useCart } from '@/lib/cart';
+import { useCart, type RepricedLine } from '@/lib/cart';
 import { formatPrice } from '@/lib/format';
 import { IMAGES_LOCALIZED } from '@/lib/image';
 import { site } from '@/lib/site';
@@ -52,21 +52,23 @@ const stripePromise = publishableKey ? loadStripe(publishableKey).catch(() => nu
 
 type Line = { slug: string; quantity: number };
 
-/** The session's client secret, created from the server-side catalogue. */
-function requestSession(lines: Line[]): Promise<string> {
+type Session = { clientSecret: string; lines: RepricedLine[] };
+
+/** The session's client secret and its lines, priced from the server-side catalogue. */
+function requestSession(lines: Line[]): Promise<Session> {
   return fetch('/api/checkout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ mode: 'elements', lines }),
   }).then(async (res) => {
-    const data = (await res.json().catch(() => ({}))) as { clientSecret?: string; error?: string; detail?: string };
+    const data = (await res.json().catch(() => ({}))) as Partial<Session> & { error?: string; detail?: string };
     if (!res.ok || !data.clientSecret) throw new Error(data.detail || data.error || `HTTP ${res.status}`);
-    return data.clientSecret;
+    return { clientSecret: data.clientSecret, lines: Array.isArray(data.lines) ? data.lines : [] };
   });
 }
 
 export default function CheckoutClient() {
-  const { lines, subtotal, hydrated } = useCart();
+  const { lines, subtotal, hydrated, reprice } = useCart();
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [flow, setFlow] = useState<'session' | 'intent'>('session');
   const [secret, setSecret] = useState<string | null>(null);
@@ -86,13 +88,21 @@ export default function CheckoutClient() {
     freeze the cart into its session. The ref keeps both to once per visit.
     The session is awaited here rather than handed to Stripe as a promise, so
     a failure switches forms directly instead of surfacing inside Stripe.js.
+    Its lines then overwrite the cart's, so the summary shows what Stripe
+    will charge even for a cart saved before a price change.
   */
   useEffect(() => {
     if (!hydrated || cartLines.length === 0 || started.current) return;
     started.current = true;
     track('checkout_started', { value: subtotal, quantity: itemCount });
-    requestSession(cartLines).then(setSecret, (err: Error) => fallBack(err.message));
-  }, [hydrated, cartLines, subtotal, itemCount, fallBack]);
+    requestSession(cartLines).then(
+      (session) => {
+        reprice(session.lines);
+        setSecret(session.clientSecret);
+      },
+      (err: Error) => fallBack(err.message)
+    );
+  }, [hydrated, cartLines, subtotal, itemCount, fallBack, reprice]);
 
   useEffect(() => {
     stripePromise?.then((stripe) => {

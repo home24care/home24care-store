@@ -30,7 +30,11 @@ type Action =
   | { type: 'add'; line: CartLine }
   | { type: 'setQuantity'; slug: string; quantity: number }
   | { type: 'remove'; slug: string }
+  | { type: 'reprice'; lines: RepricedLine[] }
   | { type: 'clear' };
+
+/** A line as the server priced it from the catalogue. */
+export type RepricedLine = { slug: string; price: number; quantity: number };
 
 const STORAGE_KEY = 'tuf.cart.v1';
 const MAX_PER_LINE = 10;
@@ -70,6 +74,19 @@ function reducer(state: State, action: Action): State {
     case 'remove':
       return { ...state, lines: state.lines.filter((l) => l.slug !== action.slug) };
 
+    case 'reprice': {
+      // Unchanged lines keep their identity, so an already-correct cart does
+      // not re-render or re-save.
+      let changed = false;
+      const lines = state.lines.map((l) => {
+        const fresh = action.lines.find((f) => f.slug === l.slug);
+        if (!fresh || (fresh.price === l.price && fresh.quantity === l.quantity)) return l;
+        changed = true;
+        return { ...l, price: fresh.price, quantity: fresh.quantity };
+      });
+      return changed ? { ...state, lines } : state;
+    }
+
     case 'clear':
       return { ...state, lines: [] };
   }
@@ -86,6 +103,12 @@ type CartContextValue = {
   add: (product: Product, quantity?: number) => void;
   setQuantity: (slug: string, quantity: number) => void;
   remove: (slug: string) => void;
+  /**
+   * Replace stored prices and quantities with the server's. A line keeps the
+   * price it had when it was added, so a cart saved before a price change
+   * shows the old figure until checkout re-prices it from the catalogue.
+   */
+  reprice: (lines: RepricedLine[]) => void;
   clear: () => void;
 };
 
@@ -199,6 +222,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         track('remove_from_cart', { slug });
         dispatch({ type: 'remove', slug });
       },
+      reprice: (lines) => dispatch({ type: 'reprice', lines }),
       clear: () => dispatch({ type: 'clear' }),
     };
   }, [state.lines, state.hydrated, isOpen, add]);
