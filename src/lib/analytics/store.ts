@@ -30,6 +30,12 @@ export type Store = {
   getHash(key: string): Promise<Record<string, string>>;
   /** Writes a string value into a hash field (used by the live-visitors window). */
   setField(key: string, field: string, value: string): Promise<void>;
+  /**
+   * Atomically claims a key: true for the first caller only, false for every
+   * later one until it expires. Used so an order is counted once however many
+   * times the webhook and the thank-you page report it.
+   */
+  claim(key: string, ttlSeconds: number): Promise<boolean>;
   pushCapped(key: string, value: string, cap: number): Promise<void>;
   listRange(key: string, start: number, stop: number): Promise<string[]>;
   expire(key: string, seconds: number): Promise<void>;
@@ -114,6 +120,9 @@ const redisStore: Store = {
   async setField(key, field, value) {
     await redis().hset(key, { [field]: value });
   },
+  async claim(key, ttlSeconds) {
+    return (await redis().set(key, '1', { nx: true, ex: ttlSeconds })) === 'OK';
+  },
   async pushCapped(key, value, cap) {
     const client = redis();
     await client.lpush(key, value);
@@ -191,6 +200,11 @@ const memoryStore: Store = {
     const h = mem.hashes.get(key) ?? new Map<string, number | string>();
     h.set(field, value);
     mem.hashes.set(key, h);
+  },
+  async claim(key) {
+    if (mem.counters.has(key)) return false;
+    mem.counters.set(key, 1);
+    return true;
   },
   async pushCapped(key, value, cap) {
     const l = mem.lists.get(key) ?? [];

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { stripe, stripeConfigured } from '@/lib/stripe';
+import { recordPaidIntent } from '@/lib/record-payment';
 import { formatPrice } from '@/lib/format';
 import { getProductBySku } from '@/lib/catalog';
 import { site } from '@/lib/site';
@@ -36,6 +37,16 @@ async function loadFromIntent(intentId: string): Promise<Summary | null> {
   try {
     const intent = await stripe().paymentIntents.retrieve(intentId);
     if (intent.status !== 'succeeded') return null;
+    /*
+      Count the order here as well as from the webhook, so it reaches the
+      dashboard even when the webhook is not set up, failing, or late. The
+      intent was just fetched from Stripe with the secret key, so its status
+      and amount are Stripe's, not the browser's. recordPaidIntent counts each
+      payment once, so the webhook arriving later, or a reload, adds nothing.
+    */
+    await recordPaidIntent(intent, 'thank-you').catch((err) =>
+      console.error('[checkout/success] recording the order failed:', err instanceof Error ? err.message : err)
+    );
     return {
       email: intent.receipt_email ?? null,
       total: intent.amount_received || intent.amount,

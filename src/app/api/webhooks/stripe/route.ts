@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { stripe, stripeConfigured, webhookSecretConfigured } from '@/lib/stripe';
-import { recordOrder, recordOrderFromIntent, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
+import { recordOrder, markOrderPaid, markOrderFailed, markOrderRefunded } from '@/lib/orders';
+import { recordPaidIntent, claimOrder } from '@/lib/record-payment';
 import { recordPurchase } from '@/lib/analytics/ingest';
 
 export const runtime = 'nodejs';
@@ -45,12 +46,10 @@ export async function POST(request: Request) {
       */
       case 'payment_intent.succeeded': {
         const intent = event.data.object as Stripe.PaymentIntent;
-        await recordOrderFromIntent(intent);
+        // Counted once per payment, shared with the thank-you page, which
+        // usually records it first.
+        await recordPaidIntent(intent, 'webhook');
         await markOrderPaid(intent.id, event.id);
-        await recordPurchase({
-          value: intent.amount_received || intent.amount,
-          country: intent.shipping?.address?.country ?? null,
-        }).catch(() => {});
         break;
       }
 
@@ -59,7 +58,7 @@ export async function POST(request: Request) {
         // Card payments can complete asynchronously; only treat the order as
         // paid once payment_status says so.
         await recordOrder(session);
-        if (session.payment_status === 'paid') {
+        if (session.payment_status === 'paid' && (await claimOrder(session.id))) {
           await markOrderPaid(session.id, event.id);
           // Revenue is recorded here rather than from a beacon on the
           // thank-you page: a beacon misses anyone who closes the tab on
@@ -75,6 +74,7 @@ export async function POST(request: Request) {
       case 'checkout.session.async_payment_succeeded': {
         const session = event.data.object as Stripe.Checkout.Session;
         await markOrderPaid(session.id, event.id);
+        if (!(await claimOrder(session.id))) break;
         await recordPurchase({
           value: session.amount_total ?? 0,
           country: session.customer_details?.address?.country ?? null,
